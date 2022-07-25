@@ -1,0 +1,1 @@
+Any number of <a href="/en-US/SVG/Element#descriptive">descriptive elements</a> » and at most one <a href="/en-US/docs/Web/SVG/Element/font-face" title="The font-face element corresponds to the CSS @font-face declaration. It defines a font's outer properties."><code>&lt;font-face&gt;</code></a> element, in any order.

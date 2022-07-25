@@ -1,0 +1,1 @@
+Exactly one <a href="/en-US/SVG/Element#lightsource">light source element</a> first and any number of <a href="/en-US/SVG/Element#descriptive">descriptive elements</a> in any order.

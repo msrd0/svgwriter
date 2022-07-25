@@ -1,0 +1,1 @@
+Any number of <a href="/en-US/SVG/Element#descriptive">descriptive elements</a> and exactly one <a href="/en-US/SVG/Element#lightsource">light source element</a>, in any order.

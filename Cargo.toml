@@ -1,0 +1,14 @@
+# -*- eval: (cargo-minor-mode 1) -*-
+
+[workspace]
+members = [".", "codegen"]
+
+[package]
+name = "svgwriter"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[dependencies]
+indexmap = "1.9"
+xmlwriter = { git = "https://github.com/msrd0/xmlwriter", branch = "write-cdata-text" }

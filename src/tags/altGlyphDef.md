@@ -1,0 +1,3 @@
+Either:<br>
+    one or more <a href="/en-US/docs/Web/SVG/Element/glyphRef" title="The glyphRef element provides a single possible glyph to the referencing &lt;altGlyph> substitution."><code>&lt;glyphRef&gt;</code></a> elements, or<br>
+    one or more <a href="/en-US/docs/Web/SVG/Element/altGlyphItem" title="The altGlyphItem element provides a set of candidates for glyph substitution by the &lt;altglyph> element."><code>&lt;altGlyphItem&gt;</code></a> elements

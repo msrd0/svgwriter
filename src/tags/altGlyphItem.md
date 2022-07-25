@@ -1,0 +1,1 @@
+One or more <a href="/en-US/docs/Web/SVG/Element/glyphRef" title="The glyphRef element provides a single possible glyph to the referencing &lt;altGlyph> substitution."><code>&lt;glyphRef&gt;</code></a> elements
