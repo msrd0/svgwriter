@@ -1,3 +1,4 @@
+{%- import "_macros.rs.j2" as macros -%}
 // @generated
 
 use crate::Tag;
@@ -5,38 +6,14 @@ use indexmap::IndexMap;
 use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
 
+mod common_attrs;
+pub use common_attrs::*;
+
 {%- for (name, elem) in elements %}
 
 {%- if !elem.attributes.is_empty() %}
 
-#[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum {{name|camel_case}}Attrs {
-	{%- for attr in elem.attributes %}
-	{{attr|camel_case}},
-	{%- endfor %}
-}
-
-impl {{name|camel_case}}Attrs {
-	fn as_str(&self) -> &'static str {
-		match self {
-			{%- for attr in elem.attributes %}
-			Self::{{attr|camel_case}} => "{{attr}}",
-			{%- endfor %}
-		}
-	}
-}
-
-impl Display for {{name|camel_case}}Attrs {
-	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-		f.write_str(self.as_str())
-	}
-}
-
-impl Debug for {{name|camel_case}}Attrs {
-	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-		f.write_str(self.as_str())
-	}
-}
+{% call macros::attr_enum("", "{}Attrs"|format(name), elem.attributes) %}
 
 {%- endif %}
 

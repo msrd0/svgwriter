@@ -1,0 +1,31 @@
+{% macro attr_enum(vis, name, attrs) -%}
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+{% if !vis.is_empty() %}{{vis}} {% endif -%}
+enum {{name|camel_case}} {
+	{%- for attr in attrs.iter() %}
+	{{attr|camel_case}},
+	{%- endfor %}
+}
+
+impl {{name|camel_case}} {
+	fn as_str(&self) -> &'static str {
+		match self {
+			{%- for attr in attrs.iter() %}
+			Self::{{attr|camel_case}} => "{{attr}}",
+			{%- endfor %}
+		}
+	}
+}
+
+impl Display for {{name|camel_case}} {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for {{name|camel_case}} {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+{%- endmacro %}

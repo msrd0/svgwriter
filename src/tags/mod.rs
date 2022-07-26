@@ -5,6 +5,9 @@ use indexmap::IndexMap;
 use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
 
+mod common_attrs;
+pub use common_attrs::*;
+
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AAttrs {
 	Class,

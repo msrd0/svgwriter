@@ -3,9 +3,213 @@ use serde::Deserialize;
 use std::{
 	collections::{BTreeMap, BTreeSet, HashMap},
 	fs::{self, File},
-	io::Write,
+	io::{self, Write},
 	path::Path
 };
+
+// from https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute#svg_attributes_by_category
+fn attributes_by_category() -> BTreeMap<&'static str, BTreeSet<&'static str>> {
+	let map: &[(&'static str, &'static [&'static str])] = &[
+		("coreAttributes", &[
+			"id",
+			"lang",
+			"tabindex",
+			"xml:base",
+			"xml:lang",
+			"xml:space"
+		]),
+		("styleAttributes", &["class", "style"]),
+		("conditionalProccessingAttributes", &[
+			"requiredExtensions",
+			"requiredFeatures",
+			"systemLanguage"
+		]),
+		("xLinkAttributes", &[
+			"xlink:href",
+			"xlink:type",
+			"xlink:role",
+			"xlink:arcrole",
+			"xlink:title",
+			"xlink:show",
+			"xlink:actuate"
+		]),
+		("presentationAttributes", &[
+			"alignment-baseline",
+			"baseline-shift",
+			"clip",
+			"clip-path",
+			"clip-rule",
+			"color",
+			"color-interpolation",
+			"color-interpolation-filters",
+			"color-profile",
+			"color-rendering",
+			"cursor",
+			"direction",
+			"display",
+			"dominant-baseline",
+			"enable-background",
+			"fill",
+			"fill-opacity",
+			"fill-rule",
+			"filter",
+			"flood-color",
+			"flood-opacity",
+			"font-family",
+			"font-size",
+			"font-size-adjust",
+			"font-stretch",
+			"font-style",
+			"font-variant",
+			"font-weight",
+			"glyph-orientation-horizontal",
+			"glyph-orientation-vertical",
+			"image-rendering",
+			"kerning",
+			"letter-spacing",
+			"lighting-color",
+			"marker-end",
+			"marker-mid",
+			"marker-start",
+			"mask",
+			"opacity",
+			"overflow",
+			"pointer-events",
+			"shape-rendering",
+			"stop-color",
+			"stop-opacity",
+			"stroke",
+			"stroke-dasharray",
+			"stroke-dashoffset",
+			"stroke-linecap",
+			"stroke-linejoin",
+			"stroke-miterlimit",
+			"stroke-opacity",
+			"stroke-width",
+			"text-anchor",
+			"text-decoration",
+			"text-rendering",
+			"transform",
+			"transform-origin",
+			"unicode-bidi",
+			"vector-effect",
+			"visibility",
+			"word-spacing",
+			"writing-mode"
+		]),
+		("filterAttributes", &["height", "result", "width", "x", "y"]),
+		("transferFunctionAttributes", &[
+			"type",
+			"tableValues",
+			"slope",
+			"intercept",
+			"amplitude",
+			"exponent",
+			"offset"
+		]),
+		// Animation target element attributes: &["href"]
+		("animationAttributeTargetAttributes", &[
+			"attributeType",
+			"attributeName"
+		]),
+		("animationTimingAttributes", &[
+			"begin",
+			"dur",
+			"end",
+			"min",
+			"max",
+			"restart",
+			"repeatCount",
+			"repeatDur",
+			"fill"
+		]),
+		("animationValueAttributes", &[
+			"calcMode",
+			"values",
+			"keyTimes",
+			"keySplines",
+			"from",
+			"to",
+			"by",
+			"autoReverse",
+			"accelerate",
+			"decelerate"
+		]),
+		("animationAdditionAttributes", &["additive", "accumulate"]),
+		("animationEventAttributes", &[
+			"onbegin", "onend", "onrepeat"
+		]),
+		("documentEventAttributes", &[
+			"onabort", "onerror", "onresize", "onscroll", "onunload"
+		]),
+		("globalEventAttributes", &[
+			"oncancel",
+			"oncanplay",
+			"oncanplaythrough",
+			"onchange",
+			"onclick",
+			"onclose",
+			"oncuechange",
+			"ondblclick",
+			"ondrag",
+			"ondragend",
+			"ondragenter",
+			"ondragleave",
+			"ondragover",
+			"ondragstart",
+			"ondrop",
+			"ondurationchange",
+			"onemptied",
+			"onended",
+			"onerror",
+			"onfocus",
+			"oninput",
+			"oninvalid",
+			"onkeydown",
+			"onkeypress",
+			"onkeyup",
+			"onload",
+			"onloadeddata",
+			"onloadedmetadata",
+			"onloadstart",
+			"onmousedown",
+			"onmouseenter",
+			"onmouseleave",
+			"onmousemove",
+			"onmouseout",
+			"onmouseover",
+			"onmouseup",
+			"onmousewheel",
+			"onpause",
+			"onplay",
+			"onplaying",
+			"onprogress",
+			"onratechange",
+			"onreset",
+			"onresize",
+			"onscroll",
+			"onseeked",
+			"onseeking",
+			"onselect",
+			"onshow",
+			"onstalled",
+			"onsubmit",
+			"onsuspend",
+			"ontimeupdate",
+			"ontoggle",
+			"onvolumechange",
+			"onwaiting"
+		]),
+		("graphicalEventAttributes", &[
+			"onactivate",
+			"onfocusin",
+			"onfocusout"
+		])
+	];
+	map.iter()
+		.map(|(key, value)| (*key, value.iter().copied().collect()))
+		.collect()
+}
 
 #[derive(Deserialize)]
 struct Data {
@@ -16,7 +220,9 @@ struct Data {
 struct Element {
 	categories: BTreeSet<String>,
 	content: Content,
-	attributes: BTreeSet<String>
+	attributes: BTreeSet<String>,
+	#[serde(skip_deserializing, default)]
+	attribute_categories: BTreeSet<String>
 }
 
 #[derive(Deserialize)]
@@ -43,7 +249,7 @@ impl Description {
 mod tpl {
 	use super::Element;
 	use askama::Template;
-	use std::collections::BTreeMap;
+	use std::collections::{BTreeMap, BTreeSet, HashMap};
 
 	mod filters {
 		use askama::Result;
@@ -72,15 +278,33 @@ mod tpl {
 	}
 
 	#[derive(Template)]
+	#[template(path = "common_attrs.rs.j2", escape = "none")]
+	pub(super) struct CommonAttrs<'a> {
+		pub(super) categories: &'a BTreeMap<&'static str, BTreeSet<&'static str>>
+	}
+
+	#[derive(Template)]
 	#[template(path = "tags.rs.j2", escape = "none")]
 	pub(super) struct Tags<'a> {
 		pub(super) elements: &'a BTreeMap<String, Element>
 	}
 }
 
+fn write_tpl<T, P>(tpl: T, path: P) -> io::Result<()>
+where
+	T: Template,
+	P: AsRef<Path>
+{
+	let tpl = tpl.render().unwrap();
+	let mut file = File::create(path)?;
+	writeln!(file, "{tpl}")?;
+	Ok(())
+}
+
 fn main() {
 	let file = File::open("SVGData.json").expect("Cannot find SVGData.json");
 	let mut data: Data = serde_json::from_reader(file).expect("Cannot read SVGData.json");
+	let attr_categories = attributes_by_category();
 
 	for elem in data.elements.values_mut() {
 		elem.attributes = elem
@@ -93,15 +317,20 @@ fn main() {
 
 	let dir: &Path = "../src/tags".as_ref();
 	fs::create_dir_all(dir).ok();
-	let tags = tpl::Tags {
-		elements: &data.elements
-	}
-	.render()
-	.unwrap();
-	File::create(dir.join("mod.rs"))
-		.expect("Failed to create tags/mod.rs")
-		.write_all(tags.as_bytes())
-		.expect("Failed to write tags/mod.rs");
+	write_tpl(
+		tpl::Tags {
+			elements: &data.elements
+		},
+		dir.join("mod.rs")
+	)
+	.expect("Failed to write tags/mod.rs");
+	write_tpl(
+		tpl::CommonAttrs {
+			categories: &attr_categories
+		},
+		dir.join("common_attrs.rs")
+	)
+	.expect("Failed to write tags/common_attrs.rs");
 	for (name, elem) in &data.elements {
 		File::create(dir.join(format!("{}.md", name)))
 			.expect("Cannot create tag doc file")

@@ -1,0 +1,10 @@
+{%- import "_macros.rs.j2" as macros -%}
+// @generated
+
+use std::fmt::{self, Debug, Display, Formatter};
+
+{%- for (cat, attrs) in categories %}
+
+{% call macros::attr_enum("pub(super)", cat, attrs) %}
+
+{%- endfor %}

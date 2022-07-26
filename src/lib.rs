@@ -3,7 +3,7 @@ use xmlwriter::XmlWriter;
 pub mod tags;
 
 pub trait Tag {
-    fn write_to(&self, w: &mut XmlWriter, pretty: bool);
+	fn write_to(&self, w: &mut XmlWriter, pretty: bool);
 }
 
 impl<T> Tag for Box<T>
