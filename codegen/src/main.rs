@@ -322,7 +322,7 @@ fn main() {
 		let mut elements = BTreeSet::new();
 		for elem in &elem.content.elements {
 			if elem.starts_with("&lt;") && elem.ends_with("&gt;") {
-				elements.insert(elem[4.. elem.len()-4].to_owned());
+				elements.insert(elem[4 .. elem.len() - 4].to_owned());
 			}
 			// TODO else ...
 		}
