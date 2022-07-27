@@ -178,7 +178,7 @@
         "conditionalProcessingAttributes",
         "coreAttributes",
         "animationEventAttributes",
-        "xlinkAttributes",
+        "xLinkAttributes",
         "animationAttributeTargetAttributes",
         "animationTimingAttributes",
         "animationValueAttributes",
@@ -517,7 +517,7 @@
       "attributes": [
         "coreAttributes",
         "presentationAttributes",
-        "filterPrimitiveAttributes",
+        "filterAttributes",
         "'class'",
         "'style'",
         "'in'",
