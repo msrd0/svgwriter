@@ -87,12 +87,38 @@ impl Debug for AAttrs {
 	}
 }
 
+mod a_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<a>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("a.md")]
 #[doc = "\n\n [`<a>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct A {
 	attrs: IndexMap<AAttrs, String>,
+	content: Vec<Box<dyn a_private::Content>>,
 }
 
 impl Default for A {
@@ -106,7 +132,23 @@ impl A {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: a_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: a_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: AAttrs, value: String) {
@@ -356,10 +398,13 @@ impl common_attrs::XLinkAttributesSetter for A {
 impl TagWithXLinkAttributes for A {}
 
 impl Tag for A {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("a");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -453,7 +498,7 @@ impl Debug for AltGlyphAttrs {
 #[doc = "The [`<altGlyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyph.md")]
 #[doc = "\n\n [`<altGlyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyph"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AltGlyph {
 	attrs: IndexMap<AltGlyphAttrs, String>,
 }
@@ -785,7 +830,7 @@ impl common_attrs::XLinkAttributesSetter for AltGlyph {
 impl TagWithXLinkAttributes for AltGlyph {}
 
 impl Tag for AltGlyph {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("altGlyph");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -828,7 +873,7 @@ impl Debug for AltGlyphDefAttrs {
 #[doc = "The [`<altGlyphDef>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphDef.md")]
 #[doc = "\n\n [`<altGlyphDef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphDef"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AltGlyphDef {
 	attrs: IndexMap<AltGlyphDefAttrs, String>,
 }
@@ -870,8 +915,9 @@ impl common_attrs::CoreAttributesSetter for AltGlyphDef {
 impl TagWithCoreAttributes for AltGlyphDef {}
 
 impl Tag for AltGlyphDef {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("altGlyphDef");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+		w.start_element("altGlyphDef");
+		w.end_element();
 	}
 }
 
@@ -909,7 +955,7 @@ impl Debug for AltGlyphItemAttrs {
 #[doc = "The [`<altGlyphItem>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphItem.md")]
 #[doc = "\n\n [`<altGlyphItem>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphItem"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AltGlyphItem {
 	attrs: IndexMap<AltGlyphItemAttrs, String>,
 }
@@ -951,8 +997,9 @@ impl common_attrs::CoreAttributesSetter for AltGlyphItem {
 impl TagWithCoreAttributes for AltGlyphItem {}
 
 impl Tag for AltGlyphItem {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("altGlyphItem");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+		w.start_element("altGlyphItem");
+		w.end_element();
 	}
 }
 
@@ -1060,7 +1107,7 @@ impl Debug for AnimateAttrs {
 #[doc = "The [`<animate>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animate.md")]
 #[doc = "\n\n [`<animate>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Animate {
 	attrs: IndexMap<AnimateAttrs, String>,
 }
@@ -1340,7 +1387,7 @@ impl common_attrs::XLinkAttributesSetter for Animate {
 impl TagWithXLinkAttributes for Animate {}
 
 impl Tag for Animate {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("animate");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -1447,7 +1494,7 @@ impl Debug for AnimateColorAttrs {
 #[doc = "The [`<animateColor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateColor.md")]
 #[doc = "\n\n [`<animateColor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateColor"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AnimateColor {
 	attrs: IndexMap<AnimateColorAttrs, String>,
 }
@@ -1661,7 +1708,7 @@ impl common_attrs::XLinkAttributesSetter for AnimateColor {
 impl TagWithXLinkAttributes for AnimateColor {}
 
 impl Tag for AnimateColor {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("animateColor");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -1761,12 +1808,21 @@ impl Debug for AnimateMotionAttrs {
 	}
 }
 
+mod animate_motion_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Mpath {}
+}
+
 #[doc = "The [`<animateMotion>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateMotion.md")]
 #[doc = "\n\n [`<animateMotion>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AnimateMotion {
 	attrs: IndexMap<AnimateMotionAttrs, String>,
+	content: Vec<Box<dyn animate_motion_private::Content>>,
 }
 
 impl Default for AnimateMotion {
@@ -1780,7 +1836,23 @@ impl AnimateMotion {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: animate_motion_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: animate_motion_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: AnimateMotionAttrs, value: String) {
@@ -2010,10 +2082,13 @@ impl common_attrs::XLinkAttributesSetter for AnimateMotion {
 impl TagWithXLinkAttributes for AnimateMotion {}
 
 impl Tag for AnimateMotion {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("animateMotion");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -2119,7 +2194,7 @@ impl Debug for AnimateTransformAttrs {
 #[doc = "The [`<animateTransform>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateTransform.md")]
 #[doc = "\n\n [`<animateTransform>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct AnimateTransform {
 	attrs: IndexMap<AnimateTransformAttrs, String>,
 }
@@ -2355,7 +2430,7 @@ impl common_attrs::XLinkAttributesSetter for AnimateTransform {
 impl TagWithXLinkAttributes for AnimateTransform {}
 
 impl Tag for AnimateTransform {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("animateTransform");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -2436,7 +2511,7 @@ impl Debug for CircleAttrs {
 #[doc = "The [`<circle>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("circle.md")]
 #[doc = "\n\n [`<circle>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Circle {
 	attrs: IndexMap<CircleAttrs, String>,
 }
@@ -2668,7 +2743,7 @@ impl common_attrs::PresentationAttributesSetter for Circle {
 impl TagWithPresentationAttributes for Circle {}
 
 impl Tag for Circle {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("circle");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -2734,12 +2809,22 @@ impl Debug for ClipPathAttrs {
 	}
 }
 
+mod clip_path_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Text {}
+	impl Content for super::Use {}
+}
+
 #[doc = "The [`<clipPath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("clipPath.md")]
 #[doc = "\n\n [`<clipPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ClipPath {
 	attrs: IndexMap<ClipPathAttrs, String>,
+	content: Vec<Box<dyn clip_path_private::Content>>,
 }
 
 impl Default for ClipPath {
@@ -2753,7 +2838,23 @@ impl ClipPath {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: clip_path_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: clip_path_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: ClipPathAttrs, value: String) {
@@ -2913,10 +3014,13 @@ impl common_attrs::PresentationAttributesSetter for ClipPath {
 impl TagWithPresentationAttributes for ClipPath {}
 
 impl Tag for ClipPath {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("clipPath");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -2972,7 +3076,7 @@ impl Debug for ColorProfileAttrs {
 #[doc = "The [`<color-profile>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("color-profile.md")]
 #[doc = "\n\n [`<color-profile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/color-profile"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ColorProfile {
 	attrs: IndexMap<ColorProfileAttrs, String>,
 }
@@ -3114,7 +3218,7 @@ impl common_attrs::XLinkAttributesSetter for ColorProfile {
 impl TagWithXLinkAttributes for ColorProfile {}
 
 impl Tag for ColorProfile {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("color-profile");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -3181,7 +3285,7 @@ impl Debug for CursorAttrs {
 #[doc = "The [`<cursor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("cursor.md")]
 #[doc = "\n\n [`<cursor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/cursor"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Cursor {
 	attrs: IndexMap<CursorAttrs, String>,
 }
@@ -3335,7 +3439,7 @@ impl common_attrs::XLinkAttributesSetter for Cursor {
 impl TagWithXLinkAttributes for Cursor {}
 
 impl Tag for Cursor {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("cursor");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -3407,12 +3511,38 @@ impl Debug for DefsAttrs {
 	}
 }
 
+mod defs_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<defs>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("defs.md")]
 #[doc = "\n\n [`<defs>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Defs {
 	attrs: IndexMap<DefsAttrs, String>,
+	content: Vec<Box<dyn defs_private::Content>>,
 }
 
 impl Default for Defs {
@@ -3426,7 +3556,23 @@ impl Defs {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: defs_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: defs_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: DefsAttrs, value: String) {
@@ -3576,10 +3722,13 @@ impl common_attrs::PresentationAttributesSetter for Defs {
 impl TagWithPresentationAttributes for Defs {}
 
 impl Tag for Defs {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("defs");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -3623,7 +3772,7 @@ impl Debug for DescAttrs {
 #[doc = "The [`<desc>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("desc.md")]
 #[doc = "\n\n [`<desc>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/desc"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Desc {
 	attrs: IndexMap<DescAttrs, String>,
 }
@@ -3709,7 +3858,7 @@ impl common_attrs::CoreAttributesSetter for Desc {
 impl TagWithCoreAttributes for Desc {}
 
 impl Tag for Desc {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("desc");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -3761,12 +3910,21 @@ impl Debug for DiscardAttrs {
 	}
 }
 
+mod discard_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Script {}
+}
+
 #[doc = "The [`<discard>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("discard.md")]
 #[doc = "\n\n [`<discard>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/discard"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Discard {
 	attrs: IndexMap<DiscardAttrs, String>,
+	content: Vec<Box<dyn discard_private::Content>>,
 }
 
 impl Default for Discard {
@@ -3780,7 +3938,23 @@ impl Discard {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: discard_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: discard_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: DiscardAttrs, value: String) {
@@ -3862,10 +4036,13 @@ impl common_attrs::CoreAttributesSetter for Discard {
 impl TagWithCoreAttributes for Discard {}
 
 impl Tag for Discard {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("discard");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -3945,7 +4122,7 @@ impl Debug for EllipseAttrs {
 #[doc = "The [`<ellipse>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("ellipse.md")]
 #[doc = "\n\n [`<ellipse>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Ellipse {
 	attrs: IndexMap<EllipseAttrs, String>,
 }
@@ -4199,7 +4376,7 @@ impl common_attrs::PresentationAttributesSetter for Ellipse {
 impl TagWithPresentationAttributes for Ellipse {}
 
 impl Tag for Ellipse {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("ellipse");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -4265,12 +4442,22 @@ impl Debug for FeBlendAttrs {
 	}
 }
 
+mod fe_blend_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feBlend>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feBlend.md")]
 #[doc = "\n\n [`<feBlend>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeBlend {
 	attrs: IndexMap<FeBlendAttrs, String>,
+	content: Vec<Box<dyn fe_blend_private::Content>>,
 }
 
 impl Default for FeBlend {
@@ -4284,7 +4471,23 @@ impl FeBlend {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_blend_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_blend_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeBlendAttrs, value: String) {
@@ -4444,10 +4647,13 @@ impl common_attrs::PresentationAttributesSetter for FeBlend {
 impl TagWithPresentationAttributes for FeBlend {}
 
 impl Tag for FeBlend {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feBlend");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -4510,12 +4716,22 @@ impl Debug for FeColorMatrixAttrs {
 	}
 }
 
+mod fe_color_matrix_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feColorMatrix>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feColorMatrix.md")]
 #[doc = "\n\n [`<feColorMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeColorMatrix {
 	attrs: IndexMap<FeColorMatrixAttrs, String>,
+	content: Vec<Box<dyn fe_color_matrix_private::Content>>,
 }
 
 impl Default for FeColorMatrix {
@@ -4529,7 +4745,23 @@ impl FeColorMatrix {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_color_matrix_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_color_matrix_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeColorMatrixAttrs, value: String) {
@@ -4689,10 +4921,13 @@ impl common_attrs::PresentationAttributesSetter for FeColorMatrix {
 impl TagWithPresentationAttributes for FeColorMatrix {}
 
 impl Tag for FeColorMatrix {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feColorMatrix");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -4751,12 +4986,24 @@ impl Debug for FeComponentTransferAttrs {
 	}
 }
 
+mod fe_component_transfer_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::FeFuncA {}
+	impl Content for super::FeFuncB {}
+	impl Content for super::FeFuncG {}
+	impl Content for super::FeFuncR {}
+}
+
 #[doc = "The [`<feComponentTransfer>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feComponentTransfer.md")]
 #[doc = "\n\n [`<feComponentTransfer>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeComponentTransfer {
 	attrs: IndexMap<FeComponentTransferAttrs, String>,
+	content: Vec<Box<dyn fe_component_transfer_private::Content>>,
 }
 
 impl Default for FeComponentTransfer {
@@ -4770,7 +5017,23 @@ impl FeComponentTransfer {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_component_transfer_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_component_transfer_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeComponentTransferAttrs, value: String) {
@@ -4886,10 +5149,13 @@ impl common_attrs::PresentationAttributesSetter for FeComponentTransfer {
 impl TagWithPresentationAttributes for FeComponentTransfer {}
 
 impl Tag for FeComponentTransfer {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feComponentTransfer");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -4960,12 +5226,22 @@ impl Debug for FeCompositeAttrs {
 	}
 }
 
+mod fe_composite_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feComposite>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feComposite.md")]
 #[doc = "\n\n [`<feComposite>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeComposite {
 	attrs: IndexMap<FeCompositeAttrs, String>,
+	content: Vec<Box<dyn fe_composite_private::Content>>,
 }
 
 impl Default for FeComposite {
@@ -4979,7 +5255,23 @@ impl FeComposite {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_composite_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_composite_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeCompositeAttrs, value: String) {
@@ -5227,10 +5519,13 @@ impl common_attrs::PresentationAttributesSetter for FeComposite {
 impl TagWithPresentationAttributes for FeComposite {}
 
 impl Tag for FeComposite {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feComposite");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -5307,12 +5602,22 @@ impl Debug for FeConvolveMatrixAttrs {
 	}
 }
 
+mod fe_convolve_matrix_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feConvolveMatrix>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feConvolveMatrix.md")]
 #[doc = "\n\n [`<feConvolveMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeConvolveMatrix {
 	attrs: IndexMap<FeConvolveMatrixAttrs, String>,
+	content: Vec<Box<dyn fe_convolve_matrix_private::Content>>,
 }
 
 impl Default for FeConvolveMatrix {
@@ -5326,7 +5631,23 @@ impl FeConvolveMatrix {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_convolve_matrix_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_convolve_matrix_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeConvolveMatrixAttrs, value: String) {
@@ -5640,10 +5961,13 @@ impl common_attrs::PresentationAttributesSetter for FeConvolveMatrix {
 impl TagWithPresentationAttributes for FeConvolveMatrix {}
 
 impl Tag for FeConvolveMatrix {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feConvolveMatrix");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -5711,7 +6035,7 @@ impl Debug for FeDiffuseLightingAttrs {
 #[doc = "The [`<feDiffuseLighting>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDiffuseLighting.md")]
 #[doc = "\n\n [`<feDiffuseLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeDiffuseLighting {
 	attrs: IndexMap<FeDiffuseLightingAttrs, String>,
 }
@@ -5909,7 +6233,7 @@ impl common_attrs::PresentationAttributesSetter for FeDiffuseLighting {
 impl TagWithPresentationAttributes for FeDiffuseLighting {}
 
 impl Tag for FeDiffuseLighting {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("feDiffuseLighting");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -5979,12 +6303,22 @@ impl Debug for FeDisplacementMapAttrs {
 	}
 }
 
+mod fe_displacement_map_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feDisplacementMap>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDisplacementMap.md")]
 #[doc = "\n\n [`<feDisplacementMap>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDisplacementMap"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeDisplacementMap {
 	attrs: IndexMap<FeDisplacementMapAttrs, String>,
+	content: Vec<Box<dyn fe_displacement_map_private::Content>>,
 }
 
 impl Default for FeDisplacementMap {
@@ -5998,7 +6332,23 @@ impl FeDisplacementMap {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_displacement_map_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_displacement_map_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeDisplacementMapAttrs, value: String) {
@@ -6202,10 +6552,13 @@ impl common_attrs::PresentationAttributesSetter for FeDisplacementMap {
 impl TagWithPresentationAttributes for FeDisplacementMap {}
 
 impl Tag for FeDisplacementMap {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feDisplacementMap");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -6246,12 +6599,22 @@ impl Debug for FeDistantLightAttrs {
 	}
 }
 
+mod fe_distant_light_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feDistantLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDistantLight.md")]
 #[doc = "\n\n [`<feDistantLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDistantLight"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeDistantLight {
 	attrs: IndexMap<FeDistantLightAttrs, String>,
+	content: Vec<Box<dyn fe_distant_light_private::Content>>,
 }
 
 impl Default for FeDistantLight {
@@ -6265,7 +6628,23 @@ impl FeDistantLight {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_distant_light_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_distant_light_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeDistantLightAttrs, value: String) {
@@ -6335,10 +6714,13 @@ impl common_attrs::CoreAttributesSetter for FeDistantLight {
 impl TagWithCoreAttributes for FeDistantLight {}
 
 impl Tag for FeDistantLight {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feDistantLight");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -6403,12 +6785,23 @@ impl Debug for FeDropShadowAttrs {
 	}
 }
 
+mod fe_drop_shadow_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Script {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feDropShadow>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDropShadow.md")]
 #[doc = "\n\n [`<feDropShadow>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDropShadow"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeDropShadow {
 	attrs: IndexMap<FeDropShadowAttrs, String>,
+	content: Vec<Box<dyn fe_drop_shadow_private::Content>>,
 }
 
 impl Default for FeDropShadow {
@@ -6422,7 +6815,23 @@ impl FeDropShadow {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_drop_shadow_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_drop_shadow_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeDropShadowAttrs, value: String) {
@@ -6604,10 +7013,13 @@ impl common_attrs::PresentationAttributesSetter for FeDropShadow {
 impl TagWithPresentationAttributes for FeDropShadow {}
 
 impl Tag for FeDropShadow {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feDropShadow");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -6668,12 +7080,23 @@ impl Debug for FeFloodAttrs {
 	}
 }
 
+mod fe_flood_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feFlood>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFlood.md")]
 #[doc = "\n\n [`<feFlood>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFlood"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeFlood {
 	attrs: IndexMap<FeFloodAttrs, String>,
+	content: Vec<Box<dyn fe_flood_private::Content>>,
 }
 
 impl Default for FeFlood {
@@ -6687,7 +7110,23 @@ impl FeFlood {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_flood_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_flood_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeFloodAttrs, value: String) {
@@ -6825,10 +7264,13 @@ impl common_attrs::PresentationAttributesSetter for FeFlood {
 impl TagWithPresentationAttributes for FeFlood {}
 
 impl Tag for FeFlood {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feFlood");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -6873,12 +7315,22 @@ impl Debug for FeFuncAAttrs {
 	}
 }
 
+mod fe_func_a_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feFuncA>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncA.md")]
 #[doc = "\n\n [`<feFuncA>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncA"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeFuncA {
 	attrs: IndexMap<FeFuncAAttrs, String>,
+	content: Vec<Box<dyn fe_func_a_private::Content>>,
 }
 
 impl Default for FeFuncA {
@@ -6892,7 +7344,23 @@ impl FeFuncA {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_func_a_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_func_a_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeFuncAAttrs, value: String) {
@@ -6930,8 +7398,12 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncA {
 impl TagWithTransferFunctionAttributes for FeFuncA {}
 
 impl Tag for FeFuncA {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("feFuncA");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+		w.start_element("feFuncA");
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		w.end_element();
 	}
 }
 
@@ -6974,12 +7446,22 @@ impl Debug for FeFuncBAttrs {
 	}
 }
 
+mod fe_func_b_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feFuncB>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncB.md")]
 #[doc = "\n\n [`<feFuncB>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncB"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeFuncB {
 	attrs: IndexMap<FeFuncBAttrs, String>,
+	content: Vec<Box<dyn fe_func_b_private::Content>>,
 }
 
 impl Default for FeFuncB {
@@ -6993,7 +7475,23 @@ impl FeFuncB {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_func_b_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_func_b_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeFuncBAttrs, value: String) {
@@ -7031,8 +7529,12 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncB {
 impl TagWithTransferFunctionAttributes for FeFuncB {}
 
 impl Tag for FeFuncB {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("feFuncB");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+		w.start_element("feFuncB");
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		w.end_element();
 	}
 }
 
@@ -7075,12 +7577,22 @@ impl Debug for FeFuncGAttrs {
 	}
 }
 
+mod fe_func_g_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feFuncG>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncG.md")]
 #[doc = "\n\n [`<feFuncG>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncG"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeFuncG {
 	attrs: IndexMap<FeFuncGAttrs, String>,
+	content: Vec<Box<dyn fe_func_g_private::Content>>,
 }
 
 impl Default for FeFuncG {
@@ -7094,7 +7606,23 @@ impl FeFuncG {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_func_g_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_func_g_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeFuncGAttrs, value: String) {
@@ -7132,8 +7660,12 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncG {
 impl TagWithTransferFunctionAttributes for FeFuncG {}
 
 impl Tag for FeFuncG {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("feFuncG");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+		w.start_element("feFuncG");
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		w.end_element();
 	}
 }
 
@@ -7176,12 +7708,22 @@ impl Debug for FeFuncRAttrs {
 	}
 }
 
+mod fe_func_r_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feFuncR>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncR.md")]
 #[doc = "\n\n [`<feFuncR>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncR"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeFuncR {
 	attrs: IndexMap<FeFuncRAttrs, String>,
+	content: Vec<Box<dyn fe_func_r_private::Content>>,
 }
 
 impl Default for FeFuncR {
@@ -7195,7 +7737,23 @@ impl FeFuncR {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_func_r_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_func_r_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeFuncRAttrs, value: String) {
@@ -7233,8 +7791,12 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncR {
 impl TagWithTransferFunctionAttributes for FeFuncR {}
 
 impl Tag for FeFuncR {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("feFuncR");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+		w.start_element("feFuncR");
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		w.end_element();
 	}
 }
 
@@ -7293,12 +7855,22 @@ impl Debug for FeGaussianBlurAttrs {
 	}
 }
 
+mod fe_gaussian_blur_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feGaussianBlur>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feGaussianBlur.md")]
 #[doc = "\n\n [`<feGaussianBlur>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feGaussianBlur"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeGaussianBlur {
 	attrs: IndexMap<FeGaussianBlurAttrs, String>,
+	content: Vec<Box<dyn fe_gaussian_blur_private::Content>>,
 }
 
 impl Default for FeGaussianBlur {
@@ -7312,7 +7884,23 @@ impl FeGaussianBlur {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_gaussian_blur_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_gaussian_blur_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeGaussianBlurAttrs, value: String) {
@@ -7450,10 +8038,13 @@ impl common_attrs::PresentationAttributesSetter for FeGaussianBlur {
 impl TagWithPresentationAttributes for FeGaussianBlur {}
 
 impl Tag for FeGaussianBlur {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feGaussianBlur");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -7524,12 +8115,23 @@ impl Debug for FeImageAttrs {
 	}
 }
 
+mod fe_image_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feImage>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feImage.md")]
 #[doc = "\n\n [`<feImage>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feImage"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeImage {
 	attrs: IndexMap<FeImageAttrs, String>,
+	content: Vec<Box<dyn fe_image_private::Content>>,
 }
 
 impl Default for FeImage {
@@ -7543,7 +8145,23 @@ impl FeImage {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_image_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_image_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeImageAttrs, value: String) {
@@ -7715,10 +8333,13 @@ impl common_attrs::XLinkAttributesSetter for FeImage {
 impl TagWithXLinkAttributes for FeImage {}
 
 impl Tag for FeImage {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feImage");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -7775,12 +8396,21 @@ impl Debug for FeMergeAttrs {
 	}
 }
 
+mod fe_merge_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::FeMergeNode {}
+}
+
 #[doc = "The [`<feMerge>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMerge.md")]
 #[doc = "\n\n [`<feMerge>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeMerge {
 	attrs: IndexMap<FeMergeAttrs, String>,
+	content: Vec<Box<dyn fe_merge_private::Content>>,
 }
 
 impl Default for FeMerge {
@@ -7794,7 +8424,23 @@ impl FeMerge {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_merge_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_merge_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeMergeAttrs, value: String) {
@@ -7888,10 +8534,13 @@ impl common_attrs::PresentationAttributesSetter for FeMerge {
 impl TagWithPresentationAttributes for FeMerge {}
 
 impl Tag for FeMerge {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feMerge");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -7930,12 +8579,22 @@ impl Debug for FeMergeNodeAttrs {
 	}
 }
 
+mod fe_merge_node_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feMergeNode>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMergeNode.md")]
 #[doc = "\n\n [`<feMergeNode>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMergeNode"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeMergeNode {
 	attrs: IndexMap<FeMergeNodeAttrs, String>,
+	content: Vec<Box<dyn fe_merge_node_private::Content>>,
 }
 
 impl Default for FeMergeNode {
@@ -7949,7 +8608,23 @@ impl FeMergeNode {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_merge_node_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_merge_node_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeMergeNodeAttrs, value: String) {
@@ -7997,10 +8672,13 @@ impl common_attrs::CoreAttributesSetter for FeMergeNode {
 impl TagWithCoreAttributes for FeMergeNode {}
 
 impl Tag for FeMergeNode {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feMergeNode");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -8063,12 +8741,22 @@ impl Debug for FeMorphologyAttrs {
 	}
 }
 
+mod fe_morphology_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feMorphology>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMorphology.md")]
 #[doc = "\n\n [`<feMorphology>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeMorphology {
 	attrs: IndexMap<FeMorphologyAttrs, String>,
+	content: Vec<Box<dyn fe_morphology_private::Content>>,
 }
 
 impl Default for FeMorphology {
@@ -8082,7 +8770,23 @@ impl FeMorphology {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_morphology_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_morphology_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeMorphologyAttrs, value: String) {
@@ -8242,10 +8946,13 @@ impl common_attrs::PresentationAttributesSetter for FeMorphology {
 impl TagWithPresentationAttributes for FeMorphology {}
 
 impl Tag for FeMorphology {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feMorphology");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -8308,12 +9015,22 @@ impl Debug for FeOffsetAttrs {
 	}
 }
 
+mod fe_offset_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feOffset>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feOffset.md")]
 #[doc = "\n\n [`<feOffset>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feOffset"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeOffset {
 	attrs: IndexMap<FeOffsetAttrs, String>,
+	content: Vec<Box<dyn fe_offset_private::Content>>,
 }
 
 impl Default for FeOffset {
@@ -8327,7 +9044,23 @@ impl FeOffset {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_offset_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_offset_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeOffsetAttrs, value: String) {
@@ -8487,10 +9220,13 @@ impl common_attrs::PresentationAttributesSetter for FeOffset {
 impl TagWithPresentationAttributes for FeOffset {}
 
 impl Tag for FeOffset {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feOffset");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -8533,12 +9269,22 @@ impl Debug for FePointLightAttrs {
 	}
 }
 
+mod fe_point_light_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<fePointLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("fePointLight.md")]
 #[doc = "\n\n [`<fePointLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/fePointLight"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FePointLight {
 	attrs: IndexMap<FePointLightAttrs, String>,
+	content: Vec<Box<dyn fe_point_light_private::Content>>,
 }
 
 impl Default for FePointLight {
@@ -8552,7 +9298,23 @@ impl FePointLight {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_point_light_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_point_light_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FePointLightAttrs, value: String) {
@@ -8644,10 +9406,13 @@ impl common_attrs::CoreAttributesSetter for FePointLight {
 impl TagWithCoreAttributes for FePointLight {}
 
 impl Tag for FePointLight {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("fePointLight");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -8717,7 +9482,7 @@ impl Debug for FeSpecularLightingAttrs {
 #[doc = "The [`<feSpecularLighting>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feSpecularLighting.md")]
 #[doc = "\n\n [`<feSpecularLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeSpecularLighting {
 	attrs: IndexMap<FeSpecularLightingAttrs, String>,
 }
@@ -8937,7 +9702,7 @@ impl common_attrs::PresentationAttributesSetter for FeSpecularLighting {
 impl TagWithPresentationAttributes for FeSpecularLighting {}
 
 impl Tag for FeSpecularLighting {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("feSpecularLighting");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -8993,12 +9758,22 @@ impl Debug for FeSpotLightAttrs {
 	}
 }
 
+mod fe_spot_light_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feSpotLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feSpotLight.md")]
 #[doc = "\n\n [`<feSpotLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpotLight"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeSpotLight {
 	attrs: IndexMap<FeSpotLightAttrs, String>,
+	content: Vec<Box<dyn fe_spot_light_private::Content>>,
 }
 
 impl Default for FeSpotLight {
@@ -9012,7 +9787,23 @@ impl FeSpotLight {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_spot_light_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_spot_light_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeSpotLightAttrs, value: String) {
@@ -9214,10 +10005,13 @@ impl common_attrs::CoreAttributesSetter for FeSpotLight {
 impl TagWithCoreAttributes for FeSpotLight {}
 
 impl Tag for FeSpotLight {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feSpotLight");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -9276,12 +10070,22 @@ impl Debug for FeTileAttrs {
 	}
 }
 
+mod fe_tile_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feTile>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feTile.md")]
 #[doc = "\n\n [`<feTile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTile"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeTile {
 	attrs: IndexMap<FeTileAttrs, String>,
+	content: Vec<Box<dyn fe_tile_private::Content>>,
 }
 
 impl Default for FeTile {
@@ -9295,7 +10099,23 @@ impl FeTile {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_tile_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_tile_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeTileAttrs, value: String) {
@@ -9411,10 +10231,13 @@ impl common_attrs::PresentationAttributesSetter for FeTile {
 impl TagWithPresentationAttributes for FeTile {}
 
 impl Tag for FeTile {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feTile");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -9481,12 +10304,22 @@ impl Debug for FeTurbulenceAttrs {
 	}
 }
 
+mod fe_turbulence_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<feTurbulence>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feTurbulence.md")]
 #[doc = "\n\n [`<feTurbulence>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FeTurbulence {
 	attrs: IndexMap<FeTurbulenceAttrs, String>,
+	content: Vec<Box<dyn fe_turbulence_private::Content>>,
 }
 
 impl Default for FeTurbulence {
@@ -9500,7 +10333,23 @@ impl FeTurbulence {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: fe_turbulence_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: fe_turbulence_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FeTurbulenceAttrs, value: String) {
@@ -9704,10 +10553,13 @@ impl common_attrs::PresentationAttributesSetter for FeTurbulence {
 impl TagWithPresentationAttributes for FeTurbulence {}
 
 impl Tag for FeTurbulence {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("feTurbulence");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -9782,12 +10634,22 @@ impl Debug for FilterAttrs {
 	}
 }
 
+mod filter_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<filter>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("filter.md")]
 #[doc = "\n\n [`<filter>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Filter {
 	attrs: IndexMap<FilterAttrs, String>,
+	content: Vec<Box<dyn filter_private::Content>>,
 }
 
 impl Default for Filter {
@@ -9801,7 +10663,23 @@ impl Filter {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: filter_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: filter_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FilterAttrs, value: String) {
@@ -10093,10 +10971,13 @@ impl common_attrs::XLinkAttributesSetter for Filter {
 impl TagWithXLinkAttributes for Filter {}
 
 impl Tag for Filter {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("filter");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -10159,12 +11040,25 @@ impl Debug for FontAttrs {
 	}
 }
 
+mod font_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::FontFace {}
+	impl Content for super::Glyph {}
+	impl Content for super::Hkern {}
+	impl Content for super::MissingGlyph {}
+	impl Content for super::Vkern {}
+}
+
 #[doc = "The [`<font>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font.md")]
 #[doc = "\n\n [`<font>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Font {
 	attrs: IndexMap<FontAttrs, String>,
+	content: Vec<Box<dyn font_private::Content>>,
 }
 
 impl Default for Font {
@@ -10178,7 +11072,23 @@ impl Font {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: font_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: font_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FontAttrs, value: String) {
@@ -10414,10 +11324,13 @@ impl common_attrs::PresentationAttributesSetter for Font {
 impl TagWithPresentationAttributes for Font {}
 
 impl Tag for Font {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("font");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -10523,7 +11436,7 @@ impl Debug for FontFaceAttrs {
 #[doc = "The [`<font-face>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face.md")]
 #[doc = "\n\n [`<font-face>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FontFace {
 	attrs: IndexMap<FontFaceAttrs, String>,
 }
@@ -11291,7 +12204,7 @@ impl common_attrs::CoreAttributesSetter for FontFace {
 impl TagWithCoreAttributes for FontFace {}
 
 impl Tag for FontFace {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("font-face");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -11336,7 +12249,7 @@ impl Debug for FontFaceFormatAttrs {
 #[doc = "The [`<font-face-format>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-format.md")]
 #[doc = "\n\n [`<font-face-format>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-format"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FontFaceFormat {
 	attrs: IndexMap<FontFaceFormatAttrs, String>,
 }
@@ -11400,7 +12313,7 @@ impl common_attrs::CoreAttributesSetter for FontFaceFormat {
 impl TagWithCoreAttributes for FontFaceFormat {}
 
 impl Tag for FontFaceFormat {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("font-face-format");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -11445,7 +12358,7 @@ impl Debug for FontFaceNameAttrs {
 #[doc = "The [`<font-face-name>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-name.md")]
 #[doc = "\n\n [`<font-face-name>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-name"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FontFaceName {
 	attrs: IndexMap<FontFaceNameAttrs, String>,
 }
@@ -11509,7 +12422,7 @@ impl common_attrs::CoreAttributesSetter for FontFaceName {
 impl TagWithCoreAttributes for FontFaceName {}
 
 impl Tag for FontFaceName {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("font-face-name");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -11549,12 +12462,22 @@ impl Debug for FontFaceSrcAttrs {
 	}
 }
 
+mod font_face_src_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::FontFaceName {}
+	impl Content for super::FontFaceUri {}
+}
+
 #[doc = "The [`<font-face-src>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-src.md")]
 #[doc = "\n\n [`<font-face-src>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-src"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FontFaceSrc {
 	attrs: IndexMap<FontFaceSrcAttrs, String>,
+	content: Vec<Box<dyn font_face_src_private::Content>>,
 }
 
 impl Default for FontFaceSrc {
@@ -11568,7 +12491,23 @@ impl FontFaceSrc {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: font_face_src_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: font_face_src_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FontFaceSrcAttrs, value: String) {
@@ -11594,8 +12533,12 @@ impl common_attrs::CoreAttributesSetter for FontFaceSrc {
 impl TagWithCoreAttributes for FontFaceSrc {}
 
 impl Tag for FontFaceSrc {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("font-face-src");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+		w.start_element("font-face-src");
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		w.end_element();
 	}
 }
 
@@ -11640,12 +12583,21 @@ impl Debug for FontFaceUriAttrs {
 	}
 }
 
+mod font_face_uri_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::FontFaceFormat {}
+}
+
 #[doc = "The [`<font-face-uri>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-uri.md")]
 #[doc = "\n\n [`<font-face-uri>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-uri"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct FontFaceUri {
 	attrs: IndexMap<FontFaceUriAttrs, String>,
+	content: Vec<Box<dyn font_face_uri_private::Content>>,
 }
 
 impl Default for FontFaceUri {
@@ -11659,7 +12611,23 @@ impl FontFaceUri {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: font_face_uri_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: font_face_uri_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: FontFaceUriAttrs, value: String) {
@@ -11719,10 +12687,13 @@ impl common_attrs::XLinkAttributesSetter for FontFaceUri {
 impl TagWithXLinkAttributes for FontFaceUri {}
 
 impl Tag for FontFaceUri {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("font-face-uri");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -11802,7 +12773,7 @@ impl Debug for ForeignObjectAttrs {
 #[doc = "The [`<foreignObject>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("foreignObject.md")]
 #[doc = "\n\n [`<foreignObject>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct ForeignObject {
 	attrs: IndexMap<ForeignObjectAttrs, String>,
 }
@@ -12056,7 +13027,7 @@ impl common_attrs::PresentationAttributesSetter for ForeignObject {
 impl TagWithPresentationAttributes for ForeignObject {}
 
 impl Tag for ForeignObject {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("foreignObject");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -12128,12 +13099,38 @@ impl Debug for GAttrs {
 	}
 }
 
+mod g_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<g>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("g.md")]
 #[doc = "\n\n [`<g>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct G {
 	attrs: IndexMap<GAttrs, String>,
+	content: Vec<Box<dyn g_private::Content>>,
 }
 
 impl Default for G {
@@ -12147,7 +13144,23 @@ impl G {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: g_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: g_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: GAttrs, value: String) {
@@ -12297,10 +13310,13 @@ impl common_attrs::PresentationAttributesSetter for G {
 impl TagWithPresentationAttributes for G {}
 
 impl Tag for G {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("g");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -12369,12 +13385,38 @@ impl Debug for GlyphAttrs {
 	}
 }
 
+mod glyph_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<glyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("glyph.md")]
 #[doc = "\n\n [`<glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyph"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Glyph {
 	attrs: IndexMap<GlyphAttrs, String>,
+	content: Vec<Box<dyn glyph_private::Content>>,
 }
 
 impl Default for Glyph {
@@ -12388,7 +13430,23 @@ impl Glyph {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: glyph_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: glyph_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: GlyphAttrs, value: String) {
@@ -12690,10 +13748,13 @@ impl common_attrs::PresentationAttributesSetter for Glyph {
 impl TagWithPresentationAttributes for Glyph {}
 
 impl Tag for Glyph {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("glyph");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -12767,7 +13828,7 @@ impl Debug for GlyphRefAttrs {
 #[doc = "The [`<glyphRef>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("glyphRef.md")]
 #[doc = "\n\n [`<glyphRef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyphRef"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct GlyphRef {
 	attrs: IndexMap<GlyphRefAttrs, String>,
 }
@@ -13031,7 +14092,7 @@ impl common_attrs::XLinkAttributesSetter for GlyphRef {
 impl TagWithXLinkAttributes for GlyphRef {}
 
 impl Tag for GlyphRef {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("glyphRef");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -13111,12 +14172,23 @@ impl Debug for HatchAttrs {
 	}
 }
 
+mod hatch_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Hatchpath {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+}
+
 #[doc = "The [`<hatch>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatch.md")]
 #[doc = "\n\n [`<hatch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatch"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Hatch {
 	attrs: IndexMap<HatchAttrs, String>,
+	content: Vec<Box<dyn hatch_private::Content>>,
 }
 
 impl Default for Hatch {
@@ -13130,7 +14202,23 @@ impl Hatch {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: hatch_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: hatch_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: HatchAttrs, value: String) {
@@ -13368,10 +14456,13 @@ impl common_attrs::StyleAttributesSetter for Hatch {
 impl TagWithStyleAttributes for Hatch {}
 
 impl Tag for Hatch {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("hatch");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -13436,12 +14527,22 @@ impl Debug for HatchpathAttrs {
 	}
 }
 
+mod hatchpath_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+}
+
 #[doc = "The [`<hatchpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatchpath.md")]
 #[doc = "\n\n [`<hatchpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatchpath"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Hatchpath {
 	attrs: IndexMap<HatchpathAttrs, String>,
+	content: Vec<Box<dyn hatchpath_private::Content>>,
 }
 
 impl Default for Hatchpath {
@@ -13455,7 +14556,23 @@ impl Hatchpath {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: hatchpath_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: hatchpath_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: HatchpathAttrs, value: String) {
@@ -13561,10 +14678,13 @@ impl common_attrs::StyleAttributesSetter for Hatchpath {
 impl TagWithStyleAttributes for Hatchpath {}
 
 impl Tag for Hatchpath {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("hatchpath");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -13614,7 +14734,7 @@ impl Debug for HkernAttrs {
 #[doc = "The [`<hkern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hkern.md")]
 #[doc = "\n\n [`<hkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hkern"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Hkern {
 	attrs: IndexMap<HkernAttrs, String>,
 }
@@ -13766,7 +14886,7 @@ impl common_attrs::CoreAttributesSetter for Hkern {
 impl TagWithCoreAttributes for Hkern {}
 
 impl Tag for Hkern {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("hkern");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -13861,7 +14981,7 @@ impl Debug for ImageAttrs {
 #[doc = "The [`<image>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("image.md")]
 #[doc = "\n\n [`<image>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Image {
 	attrs: IndexMap<ImageAttrs, String>,
 }
@@ -14171,7 +15291,7 @@ impl common_attrs::XLinkAttributesSetter for Image {
 impl TagWithXLinkAttributes for Image {}
 
 impl Tag for Image {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("image");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -14254,7 +15374,7 @@ impl Debug for LineAttrs {
 #[doc = "The [`<line>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("line.md")]
 #[doc = "\n\n [`<line>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Line {
 	attrs: IndexMap<LineAttrs, String>,
 }
@@ -14508,7 +15628,7 @@ impl common_attrs::PresentationAttributesSetter for Line {
 impl TagWithPresentationAttributes for Line {}
 
 impl Tag for Line {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("line");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -14586,12 +15706,24 @@ impl Debug for LinearGradientAttrs {
 	}
 }
 
+mod linear_gradient_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
+}
+
 #[doc = "The [`<linearGradient>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("linearGradient.md")]
 #[doc = "\n\n [`<linearGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct LinearGradient {
 	attrs: IndexMap<LinearGradientAttrs, String>,
+	content: Vec<Box<dyn linear_gradient_private::Content>>,
 }
 
 impl Default for LinearGradient {
@@ -14605,7 +15737,23 @@ impl LinearGradient {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: linear_gradient_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: linear_gradient_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: LinearGradientAttrs, value: String) {
@@ -14897,10 +16045,13 @@ impl common_attrs::XLinkAttributesSetter for LinearGradient {
 impl TagWithXLinkAttributes for LinearGradient {}
 
 impl Tag for LinearGradient {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("linearGradient");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -14969,12 +16120,38 @@ impl Debug for MarkerAttrs {
 	}
 }
 
+mod marker_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<marker>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("marker.md")]
 #[doc = "\n\n [`<marker>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Marker {
 	attrs: IndexMap<MarkerAttrs, String>,
+	content: Vec<Box<dyn marker_private::Content>>,
 }
 
 impl Default for Marker {
@@ -14988,7 +16165,23 @@ impl Marker {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: marker_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: marker_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: MarkerAttrs, value: String) {
@@ -15290,10 +16483,13 @@ impl common_attrs::PresentationAttributesSetter for Marker {
 impl TagWithPresentationAttributes for Marker {}
 
 impl Tag for Marker {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("marker");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -15364,12 +16560,38 @@ impl Debug for MaskAttrs {
 	}
 }
 
+mod mask_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<mask>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("mask.md")]
 #[doc = "\n\n [`<mask>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Mask {
 	attrs: IndexMap<MaskAttrs, String>,
+	content: Vec<Box<dyn mask_private::Content>>,
 }
 
 impl Default for Mask {
@@ -15383,7 +16605,23 @@ impl Mask {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: mask_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: mask_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: MaskAttrs, value: String) {
@@ -15631,10 +16869,13 @@ impl common_attrs::PresentationAttributesSetter for Mask {
 impl TagWithPresentationAttributes for Mask {}
 
 impl Tag for Mask {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("mask");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -15674,7 +16915,7 @@ impl Debug for MetadataAttrs {
 #[doc = "The [`<metadata>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("metadata.md")]
 #[doc = "\n\n [`<metadata>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Metadata {
 	attrs: IndexMap<MetadataAttrs, String>,
 }
@@ -15716,8 +16957,9 @@ impl common_attrs::CoreAttributesSetter for Metadata {
 impl TagWithCoreAttributes for Metadata {}
 
 impl Tag for Metadata {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		w.start_element("metadata");w.end_element();
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+		w.start_element("metadata");
+		w.end_element();
 	}
 }
 
@@ -15774,12 +17016,38 @@ impl Debug for MissingGlyphAttrs {
 	}
 }
 
+mod missing_glyph_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<missing-glyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("missing-glyph.md")]
 #[doc = "\n\n [`<missing-glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/missing-glyph"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct MissingGlyph {
 	attrs: IndexMap<MissingGlyphAttrs, String>,
+	content: Vec<Box<dyn missing_glyph_private::Content>>,
 }
 
 impl Default for MissingGlyph {
@@ -15793,7 +17061,23 @@ impl MissingGlyph {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: missing_glyph_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: missing_glyph_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: MissingGlyphAttrs, value: String) {
@@ -15985,10 +17269,13 @@ impl common_attrs::PresentationAttributesSetter for MissingGlyph {
 impl TagWithPresentationAttributes for MissingGlyph {}
 
 impl Tag for MissingGlyph {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("missing-glyph");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -16040,7 +17327,7 @@ impl Debug for MpathAttrs {
 #[doc = "The [`<mpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("mpath.md")]
 #[doc = "\n\n [`<mpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Mpath {
 	attrs: IndexMap<MpathAttrs, String>,
 }
@@ -16138,7 +17425,7 @@ impl common_attrs::XLinkAttributesSetter for Mpath {
 impl TagWithXLinkAttributes for Mpath {}
 
 impl Tag for Mpath {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("mpath");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -16217,7 +17504,7 @@ impl Debug for PathAttrs {
 #[doc = "The [`<path>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("path.md")]
 #[doc = "\n\n [`<path>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Path {
 	attrs: IndexMap<PathAttrs, String>,
 }
@@ -16427,7 +17714,7 @@ impl common_attrs::PresentationAttributesSetter for Path {
 impl TagWithPresentationAttributes for Path {}
 
 impl Tag for Path {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("path");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -16517,12 +17804,38 @@ impl Debug for PatternAttrs {
 	}
 }
 
+mod pattern_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<pattern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("pattern.md")]
 #[doc = "\n\n [`<pattern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/pattern"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Pattern {
 	attrs: IndexMap<PatternAttrs, String>,
+	content: Vec<Box<dyn pattern_private::Content>>,
 }
 
 impl Default for Pattern {
@@ -16536,7 +17849,23 @@ impl Pattern {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: pattern_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: pattern_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: PatternAttrs, value: String) {
@@ -16884,10 +18213,13 @@ impl common_attrs::XLinkAttributesSetter for Pattern {
 impl TagWithXLinkAttributes for Pattern {}
 
 impl Tag for Pattern {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("pattern");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -16961,7 +18293,7 @@ impl Debug for PolygonAttrs {
 #[doc = "The [`<polygon>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polygon.md")]
 #[doc = "\n\n [`<polygon>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Polygon {
 	attrs: IndexMap<PolygonAttrs, String>,
 }
@@ -17149,7 +18481,7 @@ impl common_attrs::PresentationAttributesSetter for Polygon {
 impl TagWithPresentationAttributes for Polygon {}
 
 impl Tag for Polygon {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("polygon");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -17226,7 +18558,7 @@ impl Debug for PolylineAttrs {
 #[doc = "The [`<polyline>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polyline.md")]
 #[doc = "\n\n [`<polyline>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Polyline {
 	attrs: IndexMap<PolylineAttrs, String>,
 }
@@ -17414,7 +18746,7 @@ impl common_attrs::PresentationAttributesSetter for Polyline {
 impl TagWithPresentationAttributes for Polyline {}
 
 impl Tag for Polyline {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("polyline");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -17494,12 +18826,24 @@ impl Debug for RadialGradientAttrs {
 	}
 }
 
+mod radial_gradient_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
+}
+
 #[doc = "The [`<radialGradient>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("radialGradient.md")]
 #[doc = "\n\n [`<radialGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/radialGradient"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct RadialGradient {
 	attrs: IndexMap<RadialGradientAttrs, String>,
+	content: Vec<Box<dyn radial_gradient_private::Content>>,
 }
 
 impl Default for RadialGradient {
@@ -17513,7 +18857,23 @@ impl RadialGradient {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: radial_gradient_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: radial_gradient_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: RadialGradientAttrs, value: String) {
@@ -17827,10 +19187,13 @@ impl common_attrs::XLinkAttributesSetter for RadialGradient {
 impl TagWithXLinkAttributes for RadialGradient {}
 
 impl Tag for RadialGradient {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("radialGradient");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -17914,7 +19277,7 @@ impl Debug for RectAttrs {
 #[doc = "The [`<rect>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("rect.md")]
 #[doc = "\n\n [`<rect>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Rect {
 	attrs: IndexMap<RectAttrs, String>,
 }
@@ -18212,7 +19575,7 @@ impl common_attrs::PresentationAttributesSetter for Rect {
 impl TagWithPresentationAttributes for Rect {}
 
 impl Tag for Rect {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("rect");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -18269,7 +19632,7 @@ impl Debug for ScriptAttrs {
 #[doc = "The [`<script>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("script.md")]
 #[doc = "\n\n [`<script>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Script {
 	attrs: IndexMap<ScriptAttrs, String>,
 }
@@ -18389,7 +19752,7 @@ impl common_attrs::XLinkAttributesSetter for Script {
 impl TagWithXLinkAttributes for Script {}
 
 impl Tag for Script {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("script");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -18476,7 +19839,7 @@ impl Debug for SetAttrs {
 #[doc = "The [`<set>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("set.md")]
 #[doc = "\n\n [`<set>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Set {
 	attrs: IndexMap<SetAttrs, String>,
 }
@@ -18622,7 +19985,7 @@ impl common_attrs::XLinkAttributesSetter for Set {
 impl TagWithXLinkAttributes for Set {}
 
 impl Tag for Set {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("set");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -18680,12 +20043,23 @@ impl Debug for StopAttrs {
 	}
 }
 
+mod stop_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<stop>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("stop.md")]
 #[doc = "\n\n [`<stop>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/stop"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Stop {
 	attrs: IndexMap<StopAttrs, String>,
+	content: Vec<Box<dyn stop_private::Content>>,
 }
 
 impl Default for Stop {
@@ -18699,7 +20073,23 @@ impl Stop {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: stop_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: stop_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: StopAttrs, value: String) {
@@ -18847,10 +20237,13 @@ impl common_attrs::PresentationAttributesSetter for Stop {
 impl TagWithPresentationAttributes for Stop {}
 
 impl Tag for Stop {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("stop");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -18896,7 +20289,7 @@ impl Debug for StyleAttrs {
 #[doc = "The [`<style>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("style.md")]
 #[doc = "\n\n [`<style>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Style {
 	attrs: IndexMap<StyleAttrs, String>,
 }
@@ -19004,7 +20397,7 @@ impl common_attrs::CoreAttributesSetter for Style {
 impl TagWithCoreAttributes for Style {}
 
 impl Tag for Style {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("style");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -19102,12 +20495,38 @@ impl Debug for SvgAttrs {
 	}
 }
 
+mod svg_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<svg>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("svg.md")]
 #[doc = "\n\n [`<svg>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Svg {
 	attrs: IndexMap<SvgAttrs, String>,
+	content: Vec<Box<dyn svg_private::Content>>,
 }
 
 impl Default for Svg {
@@ -19121,7 +20540,23 @@ impl Svg {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: svg_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: svg_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: SvgAttrs, value: String) {
@@ -19481,10 +20916,13 @@ impl common_attrs::PresentationAttributesSetter for Svg {
 impl TagWithPresentationAttributes for Svg {}
 
 impl Tag for Svg {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("svg");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -19555,12 +20993,28 @@ impl Debug for SwitchAttrs {
 	}
 }
 
+mod switch_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::G {}
+	impl Content for super::Image {}
+	impl Content for super::Svg {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::Use {}
+}
+
 #[doc = "The [`<switch>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("switch.md")]
 #[doc = "\n\n [`<switch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/switch"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Switch {
 	attrs: IndexMap<SwitchAttrs, String>,
+	content: Vec<Box<dyn switch_private::Content>>,
 }
 
 impl Default for Switch {
@@ -19574,7 +21028,23 @@ impl Switch {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: switch_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: switch_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: SwitchAttrs, value: String) {
@@ -19746,10 +21216,13 @@ impl common_attrs::PresentationAttributesSetter for Switch {
 impl TagWithPresentationAttributes for Switch {}
 
 impl Tag for Switch {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("switch");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -19812,12 +21285,38 @@ impl Debug for SymbolAttrs {
 	}
 }
 
+mod symbol_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyphDef {}
+	impl Content for super::ClipPath {}
+	impl Content for super::ColorProfile {}
+	impl Content for super::Cursor {}
+	impl Content for super::Filter {}
+	impl Content for super::Font {}
+	impl Content for super::FontFace {}
+	impl Content for super::ForeignObject {}
+	impl Content for super::Image {}
+	impl Content for super::Marker {}
+	impl Content for super::Mask {}
+	impl Content for super::Pattern {}
+	impl Content for super::Script {}
+	impl Content for super::Style {}
+	impl Content for super::Switch {}
+	impl Content for super::Text {}
+	impl Content for super::View {}
+}
+
 #[doc = "The [`<symbol>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("symbol.md")]
 #[doc = "\n\n [`<symbol>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Symbol {
 	attrs: IndexMap<SymbolAttrs, String>,
+	content: Vec<Box<dyn symbol_private::Content>>,
 }
 
 impl Default for Symbol {
@@ -19831,7 +21330,23 @@ impl Symbol {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: symbol_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: symbol_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: SymbolAttrs, value: String) {
@@ -19991,10 +21506,13 @@ impl common_attrs::PresentationAttributesSetter for Symbol {
 impl TagWithPresentationAttributes for Symbol {}
 
 impl Tag for Symbol {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("symbol");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -20079,12 +21597,21 @@ impl Debug for TextAttrs {
 	}
 }
 
+mod text_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+}
+
 #[doc = "The [`<text>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("text.md")]
 #[doc = "\n\n [`<text>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Text {
 	attrs: IndexMap<TextAttrs, String>,
+	content: Vec<Box<dyn text_private::Content>>,
 }
 
 impl Default for Text {
@@ -20098,7 +21625,23 @@ impl Text {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: text_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: text_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: TextAttrs, value: String) {
@@ -20424,11 +21967,14 @@ impl common_attrs::PresentationAttributesSetter for Text {
 impl TagWithPresentationAttributes for Text {}
 
 impl Tag for Text {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("text");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 		w.set_preserve_whitespaces(false);
@@ -20512,12 +22058,27 @@ impl Debug for TextPathAttrs {
 	}
 }
 
+mod text_path_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyph {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::Set {}
+	impl Content for super::Tref {}
+	impl Content for super::Tspan {}
+}
+
 #[doc = "The [`<textPath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("textPath.md")]
 #[doc = "\n\n [`<textPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct TextPath {
 	attrs: IndexMap<TextPathAttrs, String>,
+	content: Vec<Box<dyn text_path_private::Content>>,
 }
 
 impl Default for TextPath {
@@ -20531,7 +22092,23 @@ impl TextPath {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: text_path_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: text_path_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: TextPathAttrs, value: String) {
@@ -20759,10 +22336,13 @@ impl common_attrs::XLinkAttributesSetter for TextPath {
 impl TagWithXLinkAttributes for TextPath {}
 
 impl Tag for TextPath {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("textPath");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -20806,7 +22386,7 @@ impl Debug for TitleAttrs {
 #[doc = "The [`<title>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("title.md")]
 #[doc = "\n\n [`<title>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Title {
 	attrs: IndexMap<TitleAttrs, String>,
 }
@@ -20892,7 +22472,7 @@ impl common_attrs::CoreAttributesSetter for Title {
 impl TagWithCoreAttributes for Title {}
 
 impl Tag for Title {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("title");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -20972,12 +22552,23 @@ impl Debug for TrefAttrs {
 	}
 }
 
+mod tref_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::Set {}
+}
+
 #[doc = "The [`<tref>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("tref.md")]
 #[doc = "\n\n [`<tref>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tref"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Tref {
 	attrs: IndexMap<TrefAttrs, String>,
+	content: Vec<Box<dyn tref_private::Content>>,
 }
 
 impl Default for Tref {
@@ -20991,7 +22582,23 @@ impl Tref {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: tref_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: tref_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: TrefAttrs, value: String) {
@@ -21153,10 +22760,13 @@ impl common_attrs::XLinkAttributesSetter for Tref {
 impl TagWithXLinkAttributes for Tref {}
 
 impl Tag for Tref {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("tref");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -21237,12 +22847,27 @@ impl Debug for TspanAttrs {
 	}
 }
 
+mod tspan_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::A {}
+	impl Content for super::AltGlyph {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::Set {}
+	impl Content for super::Tref {}
+	impl Content for super::Tspan {}
+}
+
 #[doc = "The [`<tspan>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("tspan.md")]
 #[doc = "\n\n [`<tspan>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Tspan {
 	attrs: IndexMap<TspanAttrs, String>,
+	content: Vec<Box<dyn tspan_private::Content>>,
 }
 
 impl Default for Tspan {
@@ -21256,7 +22881,23 @@ impl Tspan {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: tspan_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: tspan_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr(&mut self, attr: TspanAttrs, value: String) {
@@ -21538,11 +23179,14 @@ impl common_attrs::PresentationAttributesSetter for Tspan {
 impl TagWithPresentationAttributes for Tspan {}
 
 impl Tag for Tspan {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("tspan");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -21632,7 +23276,7 @@ impl Debug for UseAttrs {
 #[doc = "The [`<use>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("use.md")]
 #[doc = "\n\n [`<use>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Use {
 	attrs: IndexMap<UseAttrs, String>,
 }
@@ -21920,7 +23564,7 @@ impl common_attrs::XLinkAttributesSetter for Use {
 impl TagWithXLinkAttributes for Use {}
 
 impl Tag for Use {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("use");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -21973,7 +23617,7 @@ impl Debug for ViewAttrs {
 #[doc = "The [`<view>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("view.md")]
 #[doc = "\n\n [`<view>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/view"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct View {
 	attrs: IndexMap<ViewAttrs, String>,
 }
@@ -22125,7 +23769,7 @@ impl common_attrs::CoreAttributesSetter for View {
 impl TagWithCoreAttributes for View {}
 
 impl Tag for View {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("view");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
@@ -22178,7 +23822,7 @@ impl Debug for VkernAttrs {
 #[doc = "The [`<vkern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("vkern.md")]
 #[doc = "\n\n [`<vkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/vkern"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Vkern {
 	attrs: IndexMap<VkernAttrs, String>,
 }
@@ -22330,7 +23974,7 @@ impl common_attrs::CoreAttributesSetter for Vkern {
 impl TagWithCoreAttributes for Vkern {}
 
 impl Tag for Vkern {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
 		w.start_element("vkern");
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);

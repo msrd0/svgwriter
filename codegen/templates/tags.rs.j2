@@ -17,13 +17,30 @@ pub use common_attrs::prelude::*;
 
 {%- endif %}
 
+{%- if !elem.content.elements.is_empty() %}
+
+mod {{name|snake_case}}_private {
+	use crate::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	{%- for content in elem.content.elements %}
+	impl Content for super::{{content|camel_case}} {}
+	{%- endfor %}
+}
+
+{%- endif %}
+
 #[doc = "The [`<{{name}}>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("{{name}}.md")]
 #[doc = "\n\n [`<{{name}}>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/{{name}}"]
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct {{name|camel_case}} {
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 	attrs: IndexMap<{{name|camel_case}}Attrs, String>,
+	{%- endif %}
+	{%- if !elem.content.elements.is_empty() %}
+	content: Vec<Box<dyn {{name|snake_case}}_private::Content>>,
 	{%- endif %}
 }
 
@@ -40,9 +57,30 @@ impl {{name|camel_case}} {
 			{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 			attrs: IndexMap::new(),
 			{%- endif %}
+			{%- if !elem.content.elements.is_empty() %}
+			content: Vec::new(),
+			{%- endif %}
 		}
 	}
 
+	{%- if !elem.content.elements.is_empty() %}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: {{name|snake_case}}_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: {{name|snake_case}}_private::Content + 'static
+	{
+		self.push(content);
+		self
+	}
+
+	{%- endif %}
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
 	fn set_attr(&mut self, attr: {{name|camel_case}}Attrs, value: String) {
@@ -76,18 +114,25 @@ impl TagWith{{cat|camel_case}} for {{name|camel_case}} {}
 {%- endfor %}
 
 impl Tag for {{name|camel_case}} {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter,
+			{%- if elem.content.elements.is_empty() %}_{% endif %}pretty: bool) {
 		w.start_element("{{name}}");
-		{%- if name == "text" || name == "tspan" %}
+		{% if name == "text" || name == "tspan" -%}
 		w.set_preserve_whitespaces(true);
-		{%- endif %}
+		{% endif -%}
 		
-		{%- if !elem.attributes.is_empty() %}
+		{% if !elem.attributes.is_empty() -%}
 		for (attr, value) in &self.attrs {
 			w.write_attribute(attr.as_str(), &value);
 		}
 		{% endif -%}
 		
+		{% if !elem.content.elements.is_empty() -%}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
+		{% endif -%}
+
 		w.end_element();
 		{%- if name == "text" %}
 		w.set_preserve_whitespaces(false);

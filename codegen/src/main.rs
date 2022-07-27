@@ -228,7 +228,9 @@ struct Element {
 
 #[derive(Deserialize)]
 struct Content {
-	description: Description
+	description: Description,
+	#[serde(default)]
+	elements: BTreeSet<String>
 }
 
 #[derive(Deserialize)]
@@ -303,7 +305,8 @@ fn main() {
 	let mut data: Data = serde_json::from_reader(file).expect("Cannot read SVGData.json");
 	let attr_categories = attributes_by_category();
 
-	for elem in data.elements.values_mut() {
+	for (name, elem) in data.elements.iter_mut() {
+		println!("<{name}>: {:?}", elem.content.elements);
 		let mut attributes = BTreeSet::new();
 		let mut attribute_categories = BTreeSet::new();
 		for attr in mem::take(&mut elem.attributes) {
@@ -315,6 +318,15 @@ fn main() {
 		}
 		elem.attributes = attributes;
 		elem.attribute_categories = attribute_categories;
+
+		let mut elements = BTreeSet::new();
+		for elem in &elem.content.elements {
+			if elem.starts_with("&lt;") && elem.ends_with("&gt;") {
+				elements.insert(elem[4.. elem.len()-4].to_owned());
+			}
+			// TODO else ...
+		}
+		elem.content.elements = elements;
 	}
 
 	let dir: &Path = "../src/tags".as_ref();
