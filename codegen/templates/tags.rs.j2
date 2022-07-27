@@ -11,9 +11,9 @@ pub use common_attrs::prelude::*;
 
 {%- for (name, elem) in elements %}
 
-{%- if !elem.attributes.is_empty() %}
+{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
-{% call macros::attr_enum("", "{}Attrs"|format(name), elem.attributes) %}
+{% call macros::attr_enum("", "{}Attrs"|format(name), elem.attributes, elem.attribute_categories) %}
 
 {%- endif %}
 
@@ -22,7 +22,7 @@ pub use common_attrs::prelude::*;
 #[doc = "\n\n [`<{{name}}>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/{{name}}"]
 #[derive(Clone, Debug)]
 pub struct {{name|camel_case}} {
-	{%- if !elem.attributes.is_empty() %}
+	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 	attrs: IndexMap<{{name|camel_case}}Attrs, String>,
 	{%- endif %}
 }
@@ -37,13 +37,13 @@ impl {{name|camel_case}} {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
-			{%- if !elem.attributes.is_empty() %}
+			{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 			attrs: IndexMap::new(),
 			{%- endif %}
 		}
 	}
 
-	{%- if !elem.attributes.is_empty() %}
+	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
 	fn set_attr(&mut self, attr: {{name|camel_case}}Attrs, value: String) {
 		self.attrs.shift_remove(&attr);
@@ -63,11 +63,11 @@ impl {{name|camel_case}} {
 
 impl common_attrs::{{cat|camel_case}}Setter for {{name|camel_case}} {
 	fn set_attr(&mut self, attr: common_attrs::{{cat|camel_case}}, value: String) {
-		unimplemented!()
+		self.set_attr({{name|camel_case}}Attrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::{{cat|camel_case}}) -> Option<&str> {
-		unimplemented!()
+		self.get_attr({{name|camel_case}}Attrs::from(attr))
 	}
 }
 

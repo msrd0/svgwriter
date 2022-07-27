@@ -276,7 +276,8 @@ mod tpl {
 	#[derive(Template)]
 	#[template(path = "common_attrs.rs.j2", escape = "none")]
 	pub(super) struct CommonAttrs<'a> {
-		pub(super) categories: &'a BTreeMap<&'static str, BTreeSet<&'static str>>
+		pub(super) categories: &'a BTreeMap<&'static str, BTreeSet<&'static str>>,
+		pub(super) empty_array: [String; 0]
 	}
 
 	#[derive(Template)]
@@ -327,7 +328,8 @@ fn main() {
 	.expect("Failed to write tags/mod.rs");
 	write_tpl(
 		tpl::CommonAttrs {
-			categories: &attr_categories
+			categories: &attr_categories,
+			empty_array: []
 		},
 		dir.join("common_attrs.rs")
 	)

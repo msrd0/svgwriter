@@ -18,6 +18,41 @@ enum AAttrs {
 	XlinkActuate,
 	XlinkHref,
 	XlinkShow,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for AAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for AAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AAttrs {
@@ -31,6 +66,11 @@ impl AAttrs {
 			Self::XlinkActuate => "xlink:actuate",
 			Self::XlinkHref => "xlink:href",
 			Self::XlinkShow => "xlink:show",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -257,11 +297,11 @@ impl A {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for A {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AAttrs::from(attr))
 	}
 }
 
@@ -269,11 +309,11 @@ impl TagWithConditionalProcessingAttributes for A {}
 
 impl common_attrs::CoreAttributesSetter for A {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AAttrs::from(attr))
 	}
 }
 
@@ -281,11 +321,11 @@ impl TagWithCoreAttributes for A {}
 
 impl common_attrs::GraphicalEventAttributesSetter for A {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AAttrs::from(attr))
 	}
 }
 
@@ -293,11 +333,11 @@ impl TagWithGraphicalEventAttributes for A {}
 
 impl common_attrs::PresentationAttributesSetter for A {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AAttrs::from(attr))
 	}
 }
 
@@ -305,11 +345,11 @@ impl TagWithPresentationAttributes for A {}
 
 impl common_attrs::XLinkAttributesSetter for A {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AAttrs::from(attr))
 	}
 }
 
@@ -338,6 +378,41 @@ enum AltGlyphAttrs {
 	X,
 	XlinkHref,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AltGlyphAttrs {
@@ -354,6 +429,11 @@ impl AltGlyphAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -646,11 +726,11 @@ impl AltGlyph {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AltGlyph {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
 
@@ -658,11 +738,11 @@ impl TagWithConditionalProcessingAttributes for AltGlyph {}
 
 impl common_attrs::CoreAttributesSetter for AltGlyph {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
 
@@ -670,11 +750,11 @@ impl TagWithCoreAttributes for AltGlyph {}
 
 impl common_attrs::GraphicalEventAttributesSetter for AltGlyph {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
 
@@ -682,11 +762,11 @@ impl TagWithGraphicalEventAttributes for AltGlyph {}
 
 impl common_attrs::PresentationAttributesSetter for AltGlyph {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
 
@@ -694,11 +774,11 @@ impl TagWithPresentationAttributes for AltGlyph {}
 
 impl common_attrs::XLinkAttributesSetter for AltGlyph {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
 
@@ -714,11 +794,43 @@ impl Tag for AltGlyph {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum AltGlyphDefAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for AltGlyphDefAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl AltGlyphDefAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for AltGlyphDefAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for AltGlyphDefAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<altGlyphDef>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphDef.md")]
 #[doc = "\n\n [`<altGlyphDef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphDef"]
 #[derive(Clone, Debug)]
 pub struct AltGlyphDef {
+	attrs: IndexMap<AltGlyphDefAttrs, String>,
 }
 
 impl Default for AltGlyphDef {
@@ -731,17 +843,27 @@ impl AltGlyphDef {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: AltGlyphDefAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: AltGlyphDefAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for AltGlyphDef {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphDefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphDefAttrs::from(attr))
 	}
 }
 
@@ -753,11 +875,43 @@ impl Tag for AltGlyphDef {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum AltGlyphItemAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for AltGlyphItemAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl AltGlyphItemAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for AltGlyphItemAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for AltGlyphItemAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<altGlyphItem>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphItem.md")]
 #[doc = "\n\n [`<altGlyphItem>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphItem"]
 #[derive(Clone, Debug)]
 pub struct AltGlyphItem {
+	attrs: IndexMap<AltGlyphItemAttrs, String>,
 }
 
 impl Default for AltGlyphItem {
@@ -770,17 +924,27 @@ impl AltGlyphItem {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: AltGlyphItemAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: AltGlyphItemAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for AltGlyphItem {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AltGlyphItemAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AltGlyphItemAttrs::from(attr))
 	}
 }
 
@@ -801,6 +965,62 @@ enum AnimateAttrs {
 	From,
 	RepeatCount,
 	To,
+	AnimationAdditionAttributes(common_attrs::AnimationAdditionAttributes),
+	AnimationAttributeTargetAttributes(common_attrs::AnimationAttributeTargetAttributes),
+	AnimationEventAttributes(common_attrs::AnimationEventAttributes),
+	AnimationTimingAttributes(common_attrs::AnimationTimingAttributes),
+	AnimationValueAttributes(common_attrs::AnimationValueAttributes),
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::AnimationAdditionAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::AnimationAdditionAttributes) -> Self {
+		Self::AnimationAdditionAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationAttributeTargetAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::AnimationAttributeTargetAttributes) -> Self {
+		Self::AnimationAttributeTargetAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationEventAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::AnimationEventAttributes) -> Self {
+		Self::AnimationEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationTimingAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::AnimationTimingAttributes) -> Self {
+		Self::AnimationTimingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationValueAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::AnimationValueAttributes) -> Self {
+		Self::AnimationValueAttributes(attr)
+	}
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AnimateAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AnimateAttrs {
@@ -813,6 +1033,14 @@ impl AnimateAttrs {
 			Self::From => "from",
 			Self::RepeatCount => "repeatCount",
 			Self::To => "to",
+			Self::AnimationAdditionAttributes(attr) => attr.as_str(),
+			Self::AnimationAttributeTargetAttributes(attr) => attr.as_str(),
+			Self::AnimationEventAttributes(attr) => attr.as_str(),
+			Self::AnimationTimingAttributes(attr) => attr.as_str(),
+			Self::AnimationValueAttributes(attr) => attr.as_str(),
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -1017,11 +1245,11 @@ impl Animate {
 
 impl common_attrs::AnimationAdditionAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1029,11 +1257,11 @@ impl TagWithAnimationAdditionAttributes for Animate {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1041,11 +1269,11 @@ impl TagWithAnimationAttributeTargetAttributes for Animate {}
 
 impl common_attrs::AnimationEventAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1053,11 +1281,11 @@ impl TagWithAnimationEventAttributes for Animate {}
 
 impl common_attrs::AnimationTimingAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1065,11 +1293,11 @@ impl TagWithAnimationTimingAttributes for Animate {}
 
 impl common_attrs::AnimationValueAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1077,11 +1305,11 @@ impl TagWithAnimationValueAttributes for Animate {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1089,11 +1317,11 @@ impl TagWithConditionalProcessingAttributes for Animate {}
 
 impl common_attrs::CoreAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1101,11 +1329,11 @@ impl TagWithCoreAttributes for Animate {}
 
 impl common_attrs::XLinkAttributesSetter for Animate {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
 
@@ -1127,6 +1355,62 @@ enum AnimateColorAttrs {
 	ExternalResourcesRequired,
 	From,
 	To,
+	AnimationAdditionAttributes(common_attrs::AnimationAdditionAttributes),
+	AnimationAttributeTargetAttributes(common_attrs::AnimationAttributeTargetAttributes),
+	AnimationEventAttributes(common_attrs::AnimationEventAttributes),
+	AnimationTimingAttributes(common_attrs::AnimationTimingAttributes),
+	AnimationValueAttributes(common_attrs::AnimationValueAttributes),
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::AnimationAdditionAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::AnimationAdditionAttributes) -> Self {
+		Self::AnimationAdditionAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationAttributeTargetAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::AnimationAttributeTargetAttributes) -> Self {
+		Self::AnimationAttributeTargetAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationEventAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::AnimationEventAttributes) -> Self {
+		Self::AnimationEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationTimingAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::AnimationTimingAttributes) -> Self {
+		Self::AnimationTimingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationValueAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::AnimationValueAttributes) -> Self {
+		Self::AnimationValueAttributes(attr)
+	}
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AnimateColorAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AnimateColorAttrs {
@@ -1136,6 +1420,14 @@ impl AnimateColorAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::From => "from",
 			Self::To => "to",
+			Self::AnimationAdditionAttributes(attr) => attr.as_str(),
+			Self::AnimationAttributeTargetAttributes(attr) => attr.as_str(),
+			Self::AnimationEventAttributes(attr) => attr.as_str(),
+			Self::AnimationTimingAttributes(attr) => attr.as_str(),
+			Self::AnimationValueAttributes(attr) => attr.as_str(),
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -1274,11 +1566,11 @@ impl AnimateColor {
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1286,11 +1578,11 @@ impl TagWithAnimationAdditionAttributes for AnimateColor {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1298,11 +1590,11 @@ impl TagWithAnimationAttributeTargetAttributes for AnimateColor {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1310,11 +1602,11 @@ impl TagWithAnimationEventAttributes for AnimateColor {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1322,11 +1614,11 @@ impl TagWithAnimationTimingAttributes for AnimateColor {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1334,11 +1626,11 @@ impl TagWithAnimationValueAttributes for AnimateColor {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1346,11 +1638,11 @@ impl TagWithConditionalProcessingAttributes for AnimateColor {}
 
 impl common_attrs::CoreAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1358,11 +1650,11 @@ impl TagWithCoreAttributes for AnimateColor {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateColor {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
 
@@ -1386,6 +1678,55 @@ enum AnimateMotionAttrs {
 	Origin,
 	Path,
 	Rotate,
+	AnimationAdditionAttributes(common_attrs::AnimationAdditionAttributes),
+	AnimationEventAttributes(common_attrs::AnimationEventAttributes),
+	AnimationTimingAttributes(common_attrs::AnimationTimingAttributes),
+	AnimationValueAttributes(common_attrs::AnimationValueAttributes),
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::AnimationAdditionAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::AnimationAdditionAttributes) -> Self {
+		Self::AnimationAdditionAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationEventAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::AnimationEventAttributes) -> Self {
+		Self::AnimationEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationTimingAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::AnimationTimingAttributes) -> Self {
+		Self::AnimationTimingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationValueAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::AnimationValueAttributes) -> Self {
+		Self::AnimationValueAttributes(attr)
+	}
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AnimateMotionAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AnimateMotionAttrs {
@@ -1397,6 +1738,13 @@ impl AnimateMotionAttrs {
 			Self::Origin => "origin",
 			Self::Path => "path",
 			Self::Rotate => "rotate",
+			Self::AnimationAdditionAttributes(attr) => attr.as_str(),
+			Self::AnimationEventAttributes(attr) => attr.as_str(),
+			Self::AnimationTimingAttributes(attr) => attr.as_str(),
+			Self::AnimationValueAttributes(attr) => attr.as_str(),
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -1579,11 +1927,11 @@ impl AnimateMotion {
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1591,11 +1939,11 @@ impl TagWithAnimationAdditionAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1603,11 +1951,11 @@ impl TagWithAnimationEventAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1615,11 +1963,11 @@ impl TagWithAnimationTimingAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1627,11 +1975,11 @@ impl TagWithAnimationValueAttributes for AnimateMotion {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1639,11 +1987,11 @@ impl TagWithConditionalProcessingAttributes for AnimateMotion {}
 
 impl common_attrs::CoreAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1651,11 +1999,11 @@ impl TagWithCoreAttributes for AnimateMotion {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateMotion {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
 
@@ -1678,6 +2026,62 @@ enum AnimateTransformAttrs {
 	From,
 	To,
 	Type,
+	AnimationAdditionAttributes(common_attrs::AnimationAdditionAttributes),
+	AnimationAttributeTargetAttributes(common_attrs::AnimationAttributeTargetAttributes),
+	AnimationEventAttributes(common_attrs::AnimationEventAttributes),
+	AnimationTimingAttributes(common_attrs::AnimationTimingAttributes),
+	AnimationValueAttributes(common_attrs::AnimationValueAttributes),
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::AnimationAdditionAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::AnimationAdditionAttributes) -> Self {
+		Self::AnimationAdditionAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationAttributeTargetAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::AnimationAttributeTargetAttributes) -> Self {
+		Self::AnimationAttributeTargetAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationEventAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::AnimationEventAttributes) -> Self {
+		Self::AnimationEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationTimingAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::AnimationTimingAttributes) -> Self {
+		Self::AnimationTimingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationValueAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::AnimationValueAttributes) -> Self {
+		Self::AnimationValueAttributes(attr)
+	}
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for AnimateTransformAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl AnimateTransformAttrs {
@@ -1688,6 +2092,14 @@ impl AnimateTransformAttrs {
 			Self::From => "from",
 			Self::To => "to",
 			Self::Type => "type",
+			Self::AnimationAdditionAttributes(attr) => attr.as_str(),
+			Self::AnimationAttributeTargetAttributes(attr) => attr.as_str(),
+			Self::AnimationEventAttributes(attr) => attr.as_str(),
+			Self::AnimationTimingAttributes(attr) => attr.as_str(),
+			Self::AnimationValueAttributes(attr) => attr.as_str(),
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -1848,11 +2260,11 @@ impl AnimateTransform {
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1860,11 +2272,11 @@ impl TagWithAnimationAdditionAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1872,11 +2284,11 @@ impl TagWithAnimationAttributeTargetAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1884,11 +2296,11 @@ impl TagWithAnimationEventAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1896,11 +2308,11 @@ impl TagWithAnimationTimingAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1908,11 +2320,11 @@ impl TagWithAnimationValueAttributes for AnimateTransform {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1920,11 +2332,11 @@ impl TagWithConditionalProcessingAttributes for AnimateTransform {}
 
 impl common_attrs::CoreAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1932,11 +2344,11 @@ impl TagWithCoreAttributes for AnimateTransform {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateTransform {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
 
@@ -1961,6 +2373,34 @@ enum CircleAttrs {
 	R,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for CircleAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for CircleAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for CircleAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for CircleAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl CircleAttrs {
@@ -1973,6 +2413,10 @@ impl CircleAttrs {
 			Self::R => "r",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -2177,11 +2621,11 @@ impl Circle {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Circle {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CircleAttrs::from(attr))
 	}
 }
 
@@ -2189,11 +2633,11 @@ impl TagWithConditionalProcessingAttributes for Circle {}
 
 impl common_attrs::CoreAttributesSetter for Circle {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CircleAttrs::from(attr))
 	}
 }
 
@@ -2201,11 +2645,11 @@ impl TagWithCoreAttributes for Circle {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Circle {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CircleAttrs::from(attr))
 	}
 }
 
@@ -2213,11 +2657,11 @@ impl TagWithGraphicalEventAttributes for Circle {}
 
 impl common_attrs::PresentationAttributesSetter for Circle {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CircleAttrs::from(attr))
 	}
 }
 
@@ -2240,6 +2684,27 @@ enum ClipPathAttrs {
 	ExternalResourcesRequired,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for ClipPathAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for ClipPathAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for ClipPathAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl ClipPathAttrs {
@@ -2250,6 +2715,9 @@ impl ClipPathAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -2410,11 +2878,11 @@ impl ClipPath {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for ClipPath {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
 
@@ -2422,11 +2890,11 @@ impl TagWithConditionalProcessingAttributes for ClipPath {}
 
 impl common_attrs::CoreAttributesSetter for ClipPath {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
 
@@ -2434,11 +2902,11 @@ impl TagWithCoreAttributes for ClipPath {}
 
 impl common_attrs::PresentationAttributesSetter for ClipPath {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
 
@@ -2460,6 +2928,20 @@ enum ColorProfileAttrs {
 	Name,
 	RenderingIntent,
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for ColorProfileAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for ColorProfileAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl ColorProfileAttrs {
@@ -2469,6 +2951,8 @@ impl ColorProfileAttrs {
 			Self::Name => "name",
 			Self::RenderingIntent => "rendering-intent",
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -2607,11 +3091,11 @@ impl ColorProfile {
 
 impl common_attrs::CoreAttributesSetter for ColorProfile {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ColorProfileAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ColorProfileAttrs::from(attr))
 	}
 }
 
@@ -2619,11 +3103,11 @@ impl TagWithCoreAttributes for ColorProfile {}
 
 impl common_attrs::XLinkAttributesSetter for ColorProfile {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ColorProfileAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ColorProfileAttrs::from(attr))
 	}
 }
 
@@ -2645,6 +3129,27 @@ enum CursorAttrs {
 	X,
 	XlinkHref,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for CursorAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for CursorAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for CursorAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl CursorAttrs {
@@ -2654,6 +3159,9 @@ impl CursorAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -2792,11 +3300,11 @@ impl Cursor {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Cursor {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CursorAttrs::from(attr))
 	}
 }
 
@@ -2804,11 +3312,11 @@ impl TagWithConditionalProcessingAttributes for Cursor {}
 
 impl common_attrs::CoreAttributesSetter for Cursor {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CursorAttrs::from(attr))
 	}
 }
 
@@ -2816,11 +3324,11 @@ impl TagWithCoreAttributes for Cursor {}
 
 impl common_attrs::XLinkAttributesSetter for Cursor {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(CursorAttrs::from(attr))
 	}
 }
 
@@ -2842,6 +3350,34 @@ enum DefsAttrs {
 	ExternalResourcesRequired,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for DefsAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for DefsAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for DefsAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for DefsAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl DefsAttrs {
@@ -2851,6 +3387,10 @@ impl DefsAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -2989,11 +3529,11 @@ impl Defs {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Defs {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DefsAttrs::from(attr))
 	}
 }
 
@@ -3001,11 +3541,11 @@ impl TagWithConditionalProcessingAttributes for Defs {}
 
 impl common_attrs::CoreAttributesSetter for Defs {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DefsAttrs::from(attr))
 	}
 }
 
@@ -3013,11 +3553,11 @@ impl TagWithCoreAttributes for Defs {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Defs {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DefsAttrs::from(attr))
 	}
 }
 
@@ -3025,11 +3565,11 @@ impl TagWithGraphicalEventAttributes for Defs {}
 
 impl common_attrs::PresentationAttributesSetter for Defs {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DefsAttrs::from(attr))
 	}
 }
 
@@ -3049,6 +3589,13 @@ impl Tag for Defs {
 enum DescAttrs {
 	Class,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for DescAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl DescAttrs {
@@ -3056,6 +3603,7 @@ impl DescAttrs {
 		match self {
 			Self::Class => "class",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -3150,11 +3698,11 @@ impl Desc {
 
 impl common_attrs::CoreAttributesSetter for Desc {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DescAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DescAttrs::from(attr))
 	}
 }
 
@@ -3174,6 +3722,20 @@ impl Tag for Desc {
 enum DiscardAttrs {
 	Begin,
 	Href,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for DiscardAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for DiscardAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl DiscardAttrs {
@@ -3181,6 +3743,8 @@ impl DiscardAttrs {
 		match self {
 			Self::Begin => "begin",
 			Self::Href => "href",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -3275,11 +3839,11 @@ impl Discard {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Discard {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DiscardAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DiscardAttrs::from(attr))
 	}
 }
 
@@ -3287,11 +3851,11 @@ impl TagWithConditionalProcessingAttributes for Discard {}
 
 impl common_attrs::CoreAttributesSetter for Discard {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(DiscardAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(DiscardAttrs::from(attr))
 	}
 }
 
@@ -3317,6 +3881,34 @@ enum EllipseAttrs {
 	Ry,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for EllipseAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for EllipseAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for EllipseAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for EllipseAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl EllipseAttrs {
@@ -3330,6 +3922,10 @@ impl EllipseAttrs {
 			Self::Ry => "ry",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -3556,11 +4152,11 @@ impl Ellipse {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Ellipse {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
 
@@ -3568,11 +4164,11 @@ impl TagWithConditionalProcessingAttributes for Ellipse {}
 
 impl common_attrs::CoreAttributesSetter for Ellipse {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
 
@@ -3580,11 +4176,11 @@ impl TagWithCoreAttributes for Ellipse {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Ellipse {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
 
@@ -3592,11 +4188,11 @@ impl TagWithGraphicalEventAttributes for Ellipse {}
 
 impl common_attrs::PresentationAttributesSetter for Ellipse {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
 
@@ -3619,6 +4215,27 @@ enum FeBlendAttrs {
 	In2,
 	Mode,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeBlendAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeBlendAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeBlendAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeBlendAttrs {
@@ -3629,6 +4246,9 @@ impl FeBlendAttrs {
 			Self::In2 => "in2",
 			Self::Mode => "mode",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -3789,11 +4409,11 @@ impl FeBlend {
 
 impl common_attrs::CoreAttributesSetter for FeBlend {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
 
@@ -3801,11 +4421,11 @@ impl TagWithCoreAttributes for FeBlend {}
 
 impl common_attrs::FilterAttributesSetter for FeBlend {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
 
@@ -3813,11 +4433,11 @@ impl TagWithFilterAttributes for FeBlend {}
 
 impl common_attrs::PresentationAttributesSetter for FeBlend {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
 
@@ -3840,6 +4460,27 @@ enum FeColorMatrixAttrs {
 	Style,
 	Type,
 	Values,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeColorMatrixAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeColorMatrixAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeColorMatrixAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeColorMatrixAttrs {
@@ -3850,6 +4491,9 @@ impl FeColorMatrixAttrs {
 			Self::Style => "style",
 			Self::Type => "type",
 			Self::Values => "values",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -4010,11 +4654,11 @@ impl FeColorMatrix {
 
 impl common_attrs::CoreAttributesSetter for FeColorMatrix {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
 
@@ -4022,11 +4666,11 @@ impl TagWithCoreAttributes for FeColorMatrix {}
 
 impl common_attrs::FilterAttributesSetter for FeColorMatrix {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
 
@@ -4034,11 +4678,11 @@ impl TagWithFilterAttributes for FeColorMatrix {}
 
 impl common_attrs::PresentationAttributesSetter for FeColorMatrix {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
 
@@ -4059,6 +4703,27 @@ enum FeComponentTransferAttrs {
 	Class,
 	In,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeComponentTransferAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeComponentTransferAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeComponentTransferAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeComponentTransferAttrs {
@@ -4067,6 +4732,9 @@ impl FeComponentTransferAttrs {
 			Self::Class => "class",
 			Self::In => "in",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -4183,11 +4851,11 @@ impl FeComponentTransfer {
 
 impl common_attrs::CoreAttributesSetter for FeComponentTransfer {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
 
@@ -4195,11 +4863,11 @@ impl TagWithCoreAttributes for FeComponentTransfer {}
 
 impl common_attrs::FilterAttributesSetter for FeComponentTransfer {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
 
@@ -4207,11 +4875,11 @@ impl TagWithFilterAttributes for FeComponentTransfer {}
 
 impl common_attrs::PresentationAttributesSetter for FeComponentTransfer {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
 
@@ -4238,6 +4906,27 @@ enum FeCompositeAttrs {
 	K4,
 	Operator,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeCompositeAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeCompositeAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeCompositeAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeCompositeAttrs {
@@ -4252,6 +4941,9 @@ impl FeCompositeAttrs {
 			Self::K4 => "k4",
 			Self::Operator => "operator",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -4500,11 +5192,11 @@ impl FeComposite {
 
 impl common_attrs::CoreAttributesSetter for FeComposite {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
 
@@ -4512,11 +5204,11 @@ impl TagWithCoreAttributes for FeComposite {}
 
 impl common_attrs::FilterAttributesSetter for FeComposite {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
 
@@ -4524,11 +5216,11 @@ impl TagWithFilterAttributes for FeComposite {}
 
 impl common_attrs::PresentationAttributesSetter for FeComposite {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
 
@@ -4558,6 +5250,27 @@ enum FeConvolveMatrixAttrs {
 	Style,
 	TargetX,
 	TargetY,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeConvolveMatrixAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeConvolveMatrixAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeConvolveMatrixAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeConvolveMatrixAttrs {
@@ -4575,6 +5288,9 @@ impl FeConvolveMatrixAttrs {
 			Self::Style => "style",
 			Self::TargetX => "targetX",
 			Self::TargetY => "targetY",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -4889,11 +5605,11 @@ impl FeConvolveMatrix {
 
 impl common_attrs::CoreAttributesSetter for FeConvolveMatrix {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
 
@@ -4901,11 +5617,11 @@ impl TagWithCoreAttributes for FeConvolveMatrix {}
 
 impl common_attrs::FilterAttributesSetter for FeConvolveMatrix {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
 
@@ -4913,11 +5629,11 @@ impl TagWithFilterAttributes for FeConvolveMatrix {}
 
 impl common_attrs::PresentationAttributesSetter for FeConvolveMatrix {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
 
@@ -4941,6 +5657,27 @@ enum FeDiffuseLightingAttrs {
 	KernelUnitLength,
 	Style,
 	SurfaceScale,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeDiffuseLightingAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeDiffuseLightingAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeDiffuseLightingAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeDiffuseLightingAttrs {
@@ -4952,6 +5689,9 @@ impl FeDiffuseLightingAttrs {
 			Self::KernelUnitLength => "kernelUnitLength",
 			Self::Style => "style",
 			Self::SurfaceScale => "surfaceScale",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -5134,11 +5874,11 @@ impl FeDiffuseLighting {
 
 impl common_attrs::CoreAttributesSetter for FeDiffuseLighting {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
 
@@ -5146,11 +5886,11 @@ impl TagWithCoreAttributes for FeDiffuseLighting {}
 
 impl common_attrs::FilterAttributesSetter for FeDiffuseLighting {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
 
@@ -5158,11 +5898,11 @@ impl TagWithFilterAttributes for FeDiffuseLighting {}
 
 impl common_attrs::PresentationAttributesSetter for FeDiffuseLighting {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
 
@@ -5187,6 +5927,27 @@ enum FeDisplacementMapAttrs {
 	Style,
 	XChannelSelector,
 	YChannelSelector,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeDisplacementMapAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeDisplacementMapAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeDisplacementMapAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeDisplacementMapAttrs {
@@ -5199,6 +5960,9 @@ impl FeDisplacementMapAttrs {
 			Self::Style => "style",
 			Self::XChannelSelector => "xChannelSelector",
 			Self::YChannelSelector => "yChannelSelector",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -5403,11 +6167,11 @@ impl FeDisplacementMap {
 
 impl common_attrs::CoreAttributesSetter for FeDisplacementMap {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
 
@@ -5415,11 +6179,11 @@ impl TagWithCoreAttributes for FeDisplacementMap {}
 
 impl common_attrs::FilterAttributesSetter for FeDisplacementMap {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
 
@@ -5427,11 +6191,11 @@ impl TagWithFilterAttributes for FeDisplacementMap {}
 
 impl common_attrs::PresentationAttributesSetter for FeDisplacementMap {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
 
@@ -5451,6 +6215,13 @@ impl Tag for FeDisplacementMap {
 enum FeDistantLightAttrs {
 	Azimuth,
 	Elevation,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeDistantLightAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FeDistantLightAttrs {
@@ -5458,6 +6229,7 @@ impl FeDistantLightAttrs {
 		match self {
 			Self::Azimuth => "azimuth",
 			Self::Elevation => "elevation",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -5552,11 +6324,11 @@ impl FeDistantLight {
 
 impl common_attrs::CoreAttributesSetter for FeDistantLight {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDistantLightAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDistantLightAttrs::from(attr))
 	}
 }
 
@@ -5580,6 +6352,27 @@ enum FeDropShadowAttrs {
 	In,
 	StdDeviation,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeDropShadowAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeDropShadowAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeDropShadowAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeDropShadowAttrs {
@@ -5591,6 +6384,9 @@ impl FeDropShadowAttrs {
 			Self::In => "in",
 			Self::StdDeviation => "stdDeviation",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -5773,11 +6569,11 @@ impl FeDropShadow {
 
 impl common_attrs::CoreAttributesSetter for FeDropShadow {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
 
@@ -5785,11 +6581,11 @@ impl TagWithCoreAttributes for FeDropShadow {}
 
 impl common_attrs::FilterAttributesSetter for FeDropShadow {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
 
@@ -5797,11 +6593,11 @@ impl TagWithFilterAttributes for FeDropShadow {}
 
 impl common_attrs::PresentationAttributesSetter for FeDropShadow {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
 
@@ -5823,6 +6619,27 @@ enum FeFloodAttrs {
 	FloodColor,
 	FloodOpacity,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeFloodAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeFloodAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeFloodAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeFloodAttrs {
@@ -5832,6 +6649,9 @@ impl FeFloodAttrs {
 			Self::FloodColor => "flood-color",
 			Self::FloodOpacity => "flood-opacity",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -5970,11 +6790,11 @@ impl FeFlood {
 
 impl common_attrs::CoreAttributesSetter for FeFlood {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
 
@@ -5982,11 +6802,11 @@ impl TagWithCoreAttributes for FeFlood {}
 
 impl common_attrs::FilterAttributesSetter for FeFlood {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
 
@@ -5994,11 +6814,11 @@ impl TagWithFilterAttributes for FeFlood {}
 
 impl common_attrs::PresentationAttributesSetter for FeFlood {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
 
@@ -6014,11 +6834,51 @@ impl Tag for FeFlood {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum FeFuncAAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+	TransferFunctionAttributes(common_attrs::TransferFunctionAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeFuncAAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::TransferFunctionAttributes> for FeFuncAAttrs {
+	fn from(attr: common_attrs::TransferFunctionAttributes) -> Self {
+		Self::TransferFunctionAttributes(attr)
+	}
+}
+
+impl FeFuncAAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::TransferFunctionAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for FeFuncAAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for FeFuncAAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<feFuncA>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncA.md")]
 #[doc = "\n\n [`<feFuncA>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncA"]
 #[derive(Clone, Debug)]
 pub struct FeFuncA {
+	attrs: IndexMap<FeFuncAAttrs, String>,
 }
 
 impl Default for FeFuncA {
@@ -6031,17 +6891,27 @@ impl FeFuncA {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: FeFuncAAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: FeFuncAAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncA {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncAAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncAAttrs::from(attr))
 	}
 }
 
@@ -6049,11 +6919,11 @@ impl TagWithCoreAttributes for FeFuncA {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncA {
 	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncAAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncAAttrs::from(attr))
 	}
 }
 
@@ -6065,11 +6935,51 @@ impl Tag for FeFuncA {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum FeFuncBAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+	TransferFunctionAttributes(common_attrs::TransferFunctionAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeFuncBAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::TransferFunctionAttributes> for FeFuncBAttrs {
+	fn from(attr: common_attrs::TransferFunctionAttributes) -> Self {
+		Self::TransferFunctionAttributes(attr)
+	}
+}
+
+impl FeFuncBAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::TransferFunctionAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for FeFuncBAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for FeFuncBAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<feFuncB>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncB.md")]
 #[doc = "\n\n [`<feFuncB>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncB"]
 #[derive(Clone, Debug)]
 pub struct FeFuncB {
+	attrs: IndexMap<FeFuncBAttrs, String>,
 }
 
 impl Default for FeFuncB {
@@ -6082,17 +6992,27 @@ impl FeFuncB {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: FeFuncBAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: FeFuncBAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncB {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncBAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncBAttrs::from(attr))
 	}
 }
 
@@ -6100,11 +7020,11 @@ impl TagWithCoreAttributes for FeFuncB {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncB {
 	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncBAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncBAttrs::from(attr))
 	}
 }
 
@@ -6116,11 +7036,51 @@ impl Tag for FeFuncB {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum FeFuncGAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+	TransferFunctionAttributes(common_attrs::TransferFunctionAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeFuncGAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::TransferFunctionAttributes> for FeFuncGAttrs {
+	fn from(attr: common_attrs::TransferFunctionAttributes) -> Self {
+		Self::TransferFunctionAttributes(attr)
+	}
+}
+
+impl FeFuncGAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::TransferFunctionAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for FeFuncGAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for FeFuncGAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<feFuncG>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncG.md")]
 #[doc = "\n\n [`<feFuncG>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncG"]
 #[derive(Clone, Debug)]
 pub struct FeFuncG {
+	attrs: IndexMap<FeFuncGAttrs, String>,
 }
 
 impl Default for FeFuncG {
@@ -6133,17 +7093,27 @@ impl FeFuncG {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: FeFuncGAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: FeFuncGAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncG {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncGAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncGAttrs::from(attr))
 	}
 }
 
@@ -6151,11 +7121,11 @@ impl TagWithCoreAttributes for FeFuncG {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncG {
 	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncGAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncGAttrs::from(attr))
 	}
 }
 
@@ -6167,11 +7137,51 @@ impl Tag for FeFuncG {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum FeFuncRAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+	TransferFunctionAttributes(common_attrs::TransferFunctionAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeFuncRAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::TransferFunctionAttributes> for FeFuncRAttrs {
+	fn from(attr: common_attrs::TransferFunctionAttributes) -> Self {
+		Self::TransferFunctionAttributes(attr)
+	}
+}
+
+impl FeFuncRAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::TransferFunctionAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for FeFuncRAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for FeFuncRAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<feFuncR>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncR.md")]
 #[doc = "\n\n [`<feFuncR>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncR"]
 #[derive(Clone, Debug)]
 pub struct FeFuncR {
+	attrs: IndexMap<FeFuncRAttrs, String>,
 }
 
 impl Default for FeFuncR {
@@ -6184,17 +7194,27 @@ impl FeFuncR {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: FeFuncRAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: FeFuncRAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncR {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncRAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncRAttrs::from(attr))
 	}
 }
 
@@ -6202,11 +7222,11 @@ impl TagWithCoreAttributes for FeFuncR {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncR {
 	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeFuncRAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeFuncRAttrs::from(attr))
 	}
 }
 
@@ -6224,6 +7244,27 @@ enum FeGaussianBlurAttrs {
 	In,
 	StdDeviation,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeGaussianBlurAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeGaussianBlurAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeGaussianBlurAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeGaussianBlurAttrs {
@@ -6233,6 +7274,9 @@ impl FeGaussianBlurAttrs {
 			Self::In => "in",
 			Self::StdDeviation => "stdDeviation",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -6371,11 +7415,11 @@ impl FeGaussianBlur {
 
 impl common_attrs::CoreAttributesSetter for FeGaussianBlur {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
 
@@ -6383,11 +7427,11 @@ impl TagWithCoreAttributes for FeGaussianBlur {}
 
 impl common_attrs::FilterAttributesSetter for FeGaussianBlur {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
 
@@ -6395,11 +7439,11 @@ impl TagWithFilterAttributes for FeGaussianBlur {}
 
 impl common_attrs::PresentationAttributesSetter for FeGaussianBlur {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
 
@@ -6422,6 +7466,34 @@ enum FeImageAttrs {
 	PreserveAspectRatio,
 	Style,
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeImageAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeImageAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeImageAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for FeImageAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl FeImageAttrs {
@@ -6432,6 +7504,10 @@ impl FeImageAttrs {
 			Self::PreserveAspectRatio => "preserveAspectRatio",
 			Self::Style => "style",
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -6592,11 +7668,11 @@ impl FeImage {
 
 impl common_attrs::CoreAttributesSetter for FeImage {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
 
@@ -6604,11 +7680,11 @@ impl TagWithCoreAttributes for FeImage {}
 
 impl common_attrs::FilterAttributesSetter for FeImage {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
 
@@ -6616,11 +7692,11 @@ impl TagWithFilterAttributes for FeImage {}
 
 impl common_attrs::PresentationAttributesSetter for FeImage {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
 
@@ -6628,11 +7704,11 @@ impl TagWithPresentationAttributes for FeImage {}
 
 impl common_attrs::XLinkAttributesSetter for FeImage {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
 
@@ -6652,6 +7728,27 @@ impl Tag for FeImage {
 enum FeMergeAttrs {
 	Class,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeMergeAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeMergeAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeMergeAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeMergeAttrs {
@@ -6659,6 +7756,9 @@ impl FeMergeAttrs {
 		match self {
 			Self::Class => "class",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -6753,11 +7853,11 @@ impl FeMerge {
 
 impl common_attrs::CoreAttributesSetter for FeMerge {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
 
@@ -6765,11 +7865,11 @@ impl TagWithCoreAttributes for FeMerge {}
 
 impl common_attrs::FilterAttributesSetter for FeMerge {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
 
@@ -6777,11 +7877,11 @@ impl TagWithFilterAttributes for FeMerge {}
 
 impl common_attrs::PresentationAttributesSetter for FeMerge {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
 
@@ -6800,12 +7900,20 @@ impl Tag for FeMerge {
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeMergeNodeAttrs {
 	In,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeMergeNodeAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FeMergeNodeAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::In => "in",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -6878,11 +7986,11 @@ impl FeMergeNode {
 
 impl common_attrs::CoreAttributesSetter for FeMergeNode {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMergeNodeAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMergeNodeAttrs::from(attr))
 	}
 }
 
@@ -6905,6 +8013,27 @@ enum FeMorphologyAttrs {
 	Operator,
 	Radius,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeMorphologyAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeMorphologyAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeMorphologyAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeMorphologyAttrs {
@@ -6915,6 +8044,9 @@ impl FeMorphologyAttrs {
 			Self::Operator => "operator",
 			Self::Radius => "radius",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -7075,11 +8207,11 @@ impl FeMorphology {
 
 impl common_attrs::CoreAttributesSetter for FeMorphology {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
 
@@ -7087,11 +8219,11 @@ impl TagWithCoreAttributes for FeMorphology {}
 
 impl common_attrs::FilterAttributesSetter for FeMorphology {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
 
@@ -7099,11 +8231,11 @@ impl TagWithFilterAttributes for FeMorphology {}
 
 impl common_attrs::PresentationAttributesSetter for FeMorphology {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
 
@@ -7126,6 +8258,27 @@ enum FeOffsetAttrs {
 	Dy,
 	In,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeOffsetAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeOffsetAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeOffsetAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeOffsetAttrs {
@@ -7136,6 +8289,9 @@ impl FeOffsetAttrs {
 			Self::Dy => "dy",
 			Self::In => "in",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -7296,11 +8452,11 @@ impl FeOffset {
 
 impl common_attrs::CoreAttributesSetter for FeOffset {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
 
@@ -7308,11 +8464,11 @@ impl TagWithCoreAttributes for FeOffset {}
 
 impl common_attrs::FilterAttributesSetter for FeOffset {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
 
@@ -7320,11 +8476,11 @@ impl TagWithFilterAttributes for FeOffset {}
 
 impl common_attrs::PresentationAttributesSetter for FeOffset {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
 
@@ -7345,6 +8501,13 @@ enum FePointLightAttrs {
 	X,
 	Y,
 	Z,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FePointLightAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FePointLightAttrs {
@@ -7353,6 +8516,7 @@ impl FePointLightAttrs {
 			Self::X => "x",
 			Self::Y => "y",
 			Self::Z => "z",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -7469,11 +8633,11 @@ impl FePointLight {
 
 impl common_attrs::CoreAttributesSetter for FePointLight {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FePointLightAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FePointLightAttrs::from(attr))
 	}
 }
 
@@ -7498,6 +8662,27 @@ enum FeSpecularLightingAttrs {
 	SpecularExponent,
 	Style,
 	SurfaceScale,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeSpecularLightingAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeSpecularLightingAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeSpecularLightingAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeSpecularLightingAttrs {
@@ -7510,6 +8695,9 @@ impl FeSpecularLightingAttrs {
 			Self::SpecularExponent => "specularExponent",
 			Self::Style => "style",
 			Self::SurfaceScale => "surfaceScale",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -7714,11 +8902,11 @@ impl FeSpecularLighting {
 
 impl common_attrs::CoreAttributesSetter for FeSpecularLighting {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
 
@@ -7726,11 +8914,11 @@ impl TagWithCoreAttributes for FeSpecularLighting {}
 
 impl common_attrs::FilterAttributesSetter for FeSpecularLighting {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
 
@@ -7738,11 +8926,11 @@ impl TagWithFilterAttributes for FeSpecularLighting {}
 
 impl common_attrs::PresentationAttributesSetter for FeSpecularLighting {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
 
@@ -7768,6 +8956,13 @@ enum FeSpotLightAttrs {
 	X,
 	Y,
 	Z,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeSpotLightAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FeSpotLightAttrs {
@@ -7781,6 +8976,7 @@ impl FeSpotLightAttrs {
 			Self::X => "x",
 			Self::Y => "y",
 			Self::Z => "z",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -8007,11 +9203,11 @@ impl FeSpotLight {
 
 impl common_attrs::CoreAttributesSetter for FeSpotLight {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeSpotLightAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeSpotLightAttrs::from(attr))
 	}
 }
 
@@ -8032,6 +9228,27 @@ enum FeTileAttrs {
 	Class,
 	In,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeTileAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeTileAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeTileAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeTileAttrs {
@@ -8040,6 +9257,9 @@ impl FeTileAttrs {
 			Self::Class => "class",
 			Self::In => "in",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -8156,11 +9376,11 @@ impl FeTile {
 
 impl common_attrs::CoreAttributesSetter for FeTile {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
 
@@ -8168,11 +9388,11 @@ impl TagWithCoreAttributes for FeTile {}
 
 impl common_attrs::FilterAttributesSetter for FeTile {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
 
@@ -8180,11 +9400,11 @@ impl TagWithFilterAttributes for FeTile {}
 
 impl common_attrs::PresentationAttributesSetter for FeTile {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
 
@@ -8209,6 +9429,27 @@ enum FeTurbulenceAttrs {
 	StitchTiles,
 	Style,
 	Type,
+	CoreAttributes(common_attrs::CoreAttributes),
+	FilterAttributes(common_attrs::FilterAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FeTurbulenceAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::FilterAttributes> for FeTurbulenceAttrs {
+	fn from(attr: common_attrs::FilterAttributes) -> Self {
+		Self::FilterAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FeTurbulenceAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FeTurbulenceAttrs {
@@ -8221,6 +9462,9 @@ impl FeTurbulenceAttrs {
 			Self::StitchTiles => "stitchTiles",
 			Self::Style => "style",
 			Self::Type => "type",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::FilterAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -8425,11 +9669,11 @@ impl FeTurbulence {
 
 impl common_attrs::CoreAttributesSetter for FeTurbulence {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
 
@@ -8437,11 +9681,11 @@ impl TagWithCoreAttributes for FeTurbulence {}
 
 impl common_attrs::FilterAttributesSetter for FeTurbulence {
 	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
 
@@ -8449,11 +9693,11 @@ impl TagWithFilterAttributes for FeTurbulence {}
 
 impl common_attrs::PresentationAttributesSetter for FeTurbulence {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
 
@@ -8482,6 +9726,27 @@ enum FilterAttrs {
 	X,
 	XlinkHref,
 	Y,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FilterAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FilterAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for FilterAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl FilterAttrs {
@@ -8498,6 +9763,9 @@ impl FilterAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -8790,11 +10058,11 @@ impl Filter {
 
 impl common_attrs::CoreAttributesSetter for Filter {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FilterAttrs::from(attr))
 	}
 }
 
@@ -8802,11 +10070,11 @@ impl TagWithCoreAttributes for Filter {}
 
 impl common_attrs::PresentationAttributesSetter for Filter {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FilterAttrs::from(attr))
 	}
 }
 
@@ -8814,11 +10082,11 @@ impl TagWithPresentationAttributes for Filter {}
 
 impl common_attrs::XLinkAttributesSetter for Filter {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FilterAttrs::from(attr))
 	}
 }
 
@@ -8845,6 +10113,20 @@ enum FontAttrs {
 	VertAdvY,
 	VertOriginX,
 	VertOriginY,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for FontAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl FontAttrs {
@@ -8859,6 +10141,8 @@ impl FontAttrs {
 			Self::VertAdvY => "vert-adv-y",
 			Self::VertOriginX => "vert-origin-x",
 			Self::VertOriginY => "vert-origin-y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -9107,11 +10391,11 @@ impl Font {
 
 impl common_attrs::CoreAttributesSetter for Font {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontAttrs::from(attr))
 	}
 }
 
@@ -9119,11 +10403,11 @@ impl TagWithCoreAttributes for Font {}
 
 impl common_attrs::PresentationAttributesSetter for Font {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontAttrs::from(attr))
 	}
 }
 
@@ -9174,6 +10458,13 @@ enum FontFaceAttrs {
 	VMathematical,
 	Widths,
 	XHeight,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontFaceAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FontFaceAttrs {
@@ -9212,6 +10503,7 @@ impl FontFaceAttrs {
 			Self::VMathematical => "v-mathematical",
 			Self::Widths => "widths",
 			Self::XHeight => "x-height",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -9988,11 +11280,11 @@ impl FontFace {
 
 impl common_attrs::CoreAttributesSetter for FontFace {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceAttrs::from(attr))
 	}
 }
 
@@ -10011,12 +11303,20 @@ impl Tag for FontFace {
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceFormatAttrs {
 	String,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontFaceFormatAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FontFaceFormatAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::String => "string",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -10089,11 +11389,11 @@ impl FontFaceFormat {
 
 impl common_attrs::CoreAttributesSetter for FontFaceFormat {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceFormatAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceFormatAttrs::from(attr))
 	}
 }
 
@@ -10112,12 +11412,20 @@ impl Tag for FontFaceFormat {
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceNameAttrs {
 	Name,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontFaceNameAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl FontFaceNameAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Name => "name",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -10190,11 +11498,11 @@ impl FontFaceName {
 
 impl common_attrs::CoreAttributesSetter for FontFaceName {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceNameAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceNameAttrs::from(attr))
 	}
 }
 
@@ -10210,11 +11518,43 @@ impl Tag for FontFaceName {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum FontFaceSrcAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontFaceSrcAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl FontFaceSrcAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for FontFaceSrcAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for FontFaceSrcAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<font-face-src>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-src.md")]
 #[doc = "\n\n [`<font-face-src>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-src"]
 #[derive(Clone, Debug)]
 pub struct FontFaceSrc {
+	attrs: IndexMap<FontFaceSrcAttrs, String>,
 }
 
 impl Default for FontFaceSrc {
@@ -10227,17 +11567,27 @@ impl FontFaceSrc {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: FontFaceSrcAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: FontFaceSrcAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFaceSrc {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceSrcAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceSrcAttrs::from(attr))
 	}
 }
 
@@ -10252,12 +11602,28 @@ impl Tag for FontFaceSrc {
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceUriAttrs {
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for FontFaceUriAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for FontFaceUriAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl FontFaceUriAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -10330,11 +11696,11 @@ impl FontFaceUri {
 
 impl common_attrs::CoreAttributesSetter for FontFaceUri {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceUriAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceUriAttrs::from(attr))
 	}
 }
 
@@ -10342,11 +11708,11 @@ impl TagWithCoreAttributes for FontFaceUri {}
 
 impl common_attrs::XLinkAttributesSetter for FontFaceUri {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(FontFaceUriAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(FontFaceUriAttrs::from(attr))
 	}
 }
 
@@ -10372,6 +11738,34 @@ enum ForeignObjectAttrs {
 	Width,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for ForeignObjectAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for ForeignObjectAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for ForeignObjectAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for ForeignObjectAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl ForeignObjectAttrs {
@@ -10385,6 +11779,10 @@ impl ForeignObjectAttrs {
 			Self::Width => "width",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -10611,11 +12009,11 @@ impl ForeignObject {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for ForeignObject {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
 
@@ -10623,11 +12021,11 @@ impl TagWithConditionalProcessingAttributes for ForeignObject {}
 
 impl common_attrs::CoreAttributesSetter for ForeignObject {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
 
@@ -10635,11 +12033,11 @@ impl TagWithCoreAttributes for ForeignObject {}
 
 impl common_attrs::GraphicalEventAttributesSetter for ForeignObject {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
 
@@ -10647,11 +12045,11 @@ impl TagWithGraphicalEventAttributes for ForeignObject {}
 
 impl common_attrs::PresentationAttributesSetter for ForeignObject {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
 
@@ -10673,6 +12071,34 @@ enum GAttrs {
 	ExternalResourcesRequired,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for GAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for GAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for GAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for GAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl GAttrs {
@@ -10682,6 +12108,10 @@ impl GAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -10820,11 +12250,11 @@ impl G {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for G {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GAttrs::from(attr))
 	}
 }
 
@@ -10832,11 +12262,11 @@ impl TagWithConditionalProcessingAttributes for G {}
 
 impl common_attrs::CoreAttributesSetter for G {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GAttrs::from(attr))
 	}
 }
 
@@ -10844,11 +12274,11 @@ impl TagWithCoreAttributes for G {}
 
 impl common_attrs::GraphicalEventAttributesSetter for G {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GAttrs::from(attr))
 	}
 }
 
@@ -10856,11 +12286,11 @@ impl TagWithGraphicalEventAttributes for G {}
 
 impl common_attrs::PresentationAttributesSetter for G {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GAttrs::from(attr))
 	}
 }
 
@@ -10890,6 +12320,20 @@ enum GlyphAttrs {
 	VertAdvY,
 	VertOriginX,
 	VertOriginY,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for GlyphAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for GlyphAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl GlyphAttrs {
@@ -10907,6 +12351,8 @@ impl GlyphAttrs {
 			Self::VertAdvY => "vert-adv-y",
 			Self::VertOriginX => "vert-origin-x",
 			Self::VertOriginY => "vert-origin-y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -11221,11 +12667,11 @@ impl Glyph {
 
 impl common_attrs::CoreAttributesSetter for Glyph {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GlyphAttrs::from(attr))
 	}
 }
 
@@ -11233,11 +12679,11 @@ impl TagWithCoreAttributes for Glyph {}
 
 impl common_attrs::PresentationAttributesSetter for Glyph {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GlyphAttrs::from(attr))
 	}
 }
 
@@ -11264,6 +12710,27 @@ enum GlyphRefAttrs {
 	X,
 	XlinkHref,
 	Y,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for GlyphRefAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for GlyphRefAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for GlyphRefAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl GlyphRefAttrs {
@@ -11278,6 +12745,9 @@ impl GlyphRefAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -11526,11 +12996,11 @@ impl GlyphRef {
 
 impl common_attrs::CoreAttributesSetter for GlyphRef {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
 
@@ -11538,11 +13008,11 @@ impl TagWithCoreAttributes for GlyphRef {}
 
 impl common_attrs::PresentationAttributesSetter for GlyphRef {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
 
@@ -11550,11 +13020,11 @@ impl TagWithPresentationAttributes for GlyphRef {}
 
 impl common_attrs::XLinkAttributesSetter for GlyphRef {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
 
@@ -11580,6 +13050,34 @@ enum HatchAttrs {
 	Transform,
 	X,
 	Y,
+	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	StyleAttributes(common_attrs::StyleAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for HatchAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for HatchAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for HatchAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::StyleAttributes> for HatchAttrs {
+	fn from(attr: common_attrs::StyleAttributes) -> Self {
+		Self::StyleAttributes(attr)
+	}
 }
 
 impl HatchAttrs {
@@ -11593,6 +13091,10 @@ impl HatchAttrs {
 			Self::Transform => "transform",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::StyleAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -11819,11 +13321,11 @@ impl Hatch {
 
 impl common_attrs::CoreAttributesSetter for Hatch {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchAttrs::from(attr))
 	}
 }
 
@@ -11831,11 +13333,11 @@ impl TagWithCoreAttributes for Hatch {}
 
 impl common_attrs::GlobalEventAttributesSetter for Hatch {
 	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchAttrs::from(attr))
 	}
 }
 
@@ -11843,11 +13345,11 @@ impl TagWithGlobalEventAttributes for Hatch {}
 
 impl common_attrs::PresentationAttributesSetter for Hatch {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchAttrs::from(attr))
 	}
 }
 
@@ -11855,11 +13357,11 @@ impl TagWithPresentationAttributes for Hatch {}
 
 impl common_attrs::StyleAttributesSetter for Hatch {
 	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchAttrs::from(attr))
 	}
 }
 
@@ -11879,6 +13381,34 @@ impl Tag for Hatch {
 enum HatchpathAttrs {
 	D,
 	Offset,
+	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	StyleAttributes(common_attrs::StyleAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for HatchpathAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for HatchpathAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for HatchpathAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::StyleAttributes> for HatchpathAttrs {
+	fn from(attr: common_attrs::StyleAttributes) -> Self {
+		Self::StyleAttributes(attr)
+	}
 }
 
 impl HatchpathAttrs {
@@ -11886,6 +13416,10 @@ impl HatchpathAttrs {
 		match self {
 			Self::D => "d",
 			Self::Offset => "offset",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::StyleAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -11980,11 +13514,11 @@ impl Hatchpath {
 
 impl common_attrs::CoreAttributesSetter for Hatchpath {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
 
@@ -11992,11 +13526,11 @@ impl TagWithCoreAttributes for Hatchpath {}
 
 impl common_attrs::GlobalEventAttributesSetter for Hatchpath {
 	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
 
@@ -12004,11 +13538,11 @@ impl TagWithGlobalEventAttributes for Hatchpath {}
 
 impl common_attrs::PresentationAttributesSetter for Hatchpath {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
 
@@ -12016,11 +13550,11 @@ impl TagWithPresentationAttributes for Hatchpath {}
 
 impl common_attrs::StyleAttributesSetter for Hatchpath {
 	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
 
@@ -12043,6 +13577,13 @@ enum HkernAttrs {
 	K,
 	U1,
 	U2,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for HkernAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl HkernAttrs {
@@ -12053,6 +13594,7 @@ impl HkernAttrs {
 			Self::K => "k",
 			Self::U1 => "u1",
 			Self::U2 => "u2",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -12213,11 +13755,11 @@ impl Hkern {
 
 impl common_attrs::CoreAttributesSetter for Hkern {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(HkernAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(HkernAttrs::from(attr))
 	}
 }
 
@@ -12245,6 +13787,41 @@ enum ImageAttrs {
 	X,
 	XlinkHref,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl ImageAttrs {
@@ -12260,6 +13837,11 @@ impl ImageAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -12530,11 +14112,11 @@ impl Image {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Image {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ImageAttrs::from(attr))
 	}
 }
 
@@ -12542,11 +14124,11 @@ impl TagWithConditionalProcessingAttributes for Image {}
 
 impl common_attrs::CoreAttributesSetter for Image {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ImageAttrs::from(attr))
 	}
 }
 
@@ -12554,11 +14136,11 @@ impl TagWithCoreAttributes for Image {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Image {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ImageAttrs::from(attr))
 	}
 }
 
@@ -12566,11 +14148,11 @@ impl TagWithGraphicalEventAttributes for Image {}
 
 impl common_attrs::PresentationAttributesSetter for Image {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ImageAttrs::from(attr))
 	}
 }
 
@@ -12578,11 +14160,11 @@ impl TagWithPresentationAttributes for Image {}
 
 impl common_attrs::XLinkAttributesSetter for Image {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ImageAttrs::from(attr))
 	}
 }
 
@@ -12608,6 +14190,34 @@ enum LineAttrs {
 	X2,
 	Y1,
 	Y2,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for LineAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for LineAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for LineAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for LineAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl LineAttrs {
@@ -12621,6 +14231,10 @@ impl LineAttrs {
 			Self::X2 => "x2",
 			Self::Y1 => "y1",
 			Self::Y2 => "y2",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -12847,11 +14461,11 @@ impl Line {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Line {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LineAttrs::from(attr))
 	}
 }
 
@@ -12859,11 +14473,11 @@ impl TagWithConditionalProcessingAttributes for Line {}
 
 impl common_attrs::CoreAttributesSetter for Line {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LineAttrs::from(attr))
 	}
 }
 
@@ -12871,11 +14485,11 @@ impl TagWithCoreAttributes for Line {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Line {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LineAttrs::from(attr))
 	}
 }
 
@@ -12883,11 +14497,11 @@ impl TagWithGraphicalEventAttributes for Line {}
 
 impl common_attrs::PresentationAttributesSetter for Line {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LineAttrs::from(attr))
 	}
 }
 
@@ -12916,6 +14530,27 @@ enum LinearGradientAttrs {
 	XlinkHref,
 	Y1,
 	Y2,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for LinearGradientAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for LinearGradientAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for LinearGradientAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl LinearGradientAttrs {
@@ -12932,6 +14567,9 @@ impl LinearGradientAttrs {
 			Self::XlinkHref => "xlink:href",
 			Self::Y1 => "y1",
 			Self::Y2 => "y2",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -13224,11 +14862,11 @@ impl LinearGradient {
 
 impl common_attrs::CoreAttributesSetter for LinearGradient {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
 
@@ -13236,11 +14874,11 @@ impl TagWithCoreAttributes for LinearGradient {}
 
 impl common_attrs::PresentationAttributesSetter for LinearGradient {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
 
@@ -13248,11 +14886,11 @@ impl TagWithPresentationAttributes for LinearGradient {}
 
 impl common_attrs::XLinkAttributesSetter for LinearGradient {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
 
@@ -13282,6 +14920,20 @@ enum MarkerAttrs {
 	Style,
 	Transform,
 	ViewBox,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for MarkerAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for MarkerAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl MarkerAttrs {
@@ -13299,6 +14951,8 @@ impl MarkerAttrs {
 			Self::Style => "style",
 			Self::Transform => "transform",
 			Self::ViewBox => "viewBox",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -13613,11 +15267,11 @@ impl Marker {
 
 impl common_attrs::CoreAttributesSetter for Marker {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MarkerAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MarkerAttrs::from(attr))
 	}
 }
 
@@ -13625,11 +15279,11 @@ impl TagWithCoreAttributes for Marker {}
 
 impl common_attrs::PresentationAttributesSetter for Marker {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MarkerAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MarkerAttrs::from(attr))
 	}
 }
 
@@ -13656,6 +15310,27 @@ enum MaskAttrs {
 	Width,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for MaskAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for MaskAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for MaskAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl MaskAttrs {
@@ -13670,6 +15345,9 @@ impl MaskAttrs {
 			Self::Width => "width",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -13918,11 +15596,11 @@ impl Mask {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Mask {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MaskAttrs::from(attr))
 	}
 }
 
@@ -13930,11 +15608,11 @@ impl TagWithConditionalProcessingAttributes for Mask {}
 
 impl common_attrs::CoreAttributesSetter for Mask {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MaskAttrs::from(attr))
 	}
 }
 
@@ -13942,11 +15620,11 @@ impl TagWithCoreAttributes for Mask {}
 
 impl common_attrs::PresentationAttributesSetter for Mask {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MaskAttrs::from(attr))
 	}
 }
 
@@ -13962,11 +15640,43 @@ impl Tag for Mask {
 	}
 }
 
+#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+enum MetadataAttrs {
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for MetadataAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl MetadataAttrs {
+	fn as_str(&self) -> &'static str {
+		match self {
+			Self::CoreAttributes(attr) => attr.as_str(),
+		}
+	}
+}
+
+impl Display for MetadataAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
+impl Debug for MetadataAttrs {
+	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+		f.write_str(self.as_str())
+	}
+}
+
 #[doc = "The [`<metadata>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("metadata.md")]
 #[doc = "\n\n [`<metadata>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata"]
 #[derive(Clone, Debug)]
 pub struct Metadata {
+	attrs: IndexMap<MetadataAttrs, String>,
 }
 
 impl Default for Metadata {
@@ -13979,17 +15689,27 @@ impl Metadata {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
+			attrs: IndexMap::new(),
 		}
+	}
+
+	fn set_attr(&mut self, attr: MetadataAttrs, value: String) {
+		self.attrs.shift_remove(&attr);
+		self.attrs.insert(attr, value);
+	}
+
+	fn get_attr(&self, attr: MetadataAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Metadata {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MetadataAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MetadataAttrs::from(attr))
 	}
 }
 
@@ -14010,6 +15730,20 @@ enum MissingGlyphAttrs {
 	VertAdvY,
 	VertOriginX,
 	VertOriginY,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for MissingGlyphAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for MissingGlyphAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl MissingGlyphAttrs {
@@ -14022,6 +15756,8 @@ impl MissingGlyphAttrs {
 			Self::VertAdvY => "vert-adv-y",
 			Self::VertOriginX => "vert-origin-x",
 			Self::VertOriginY => "vert-origin-y",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -14226,11 +15962,11 @@ impl MissingGlyph {
 
 impl common_attrs::CoreAttributesSetter for MissingGlyph {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MissingGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MissingGlyphAttrs::from(attr))
 	}
 }
 
@@ -14238,11 +15974,11 @@ impl TagWithCoreAttributes for MissingGlyph {}
 
 impl common_attrs::PresentationAttributesSetter for MissingGlyph {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MissingGlyphAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MissingGlyphAttrs::from(attr))
 	}
 }
 
@@ -14262,6 +15998,20 @@ impl Tag for MissingGlyph {
 enum MpathAttrs {
 	ExternalResourcesRequired,
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for MpathAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for MpathAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl MpathAttrs {
@@ -14269,6 +16019,8 @@ impl MpathAttrs {
 		match self {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -14363,11 +16115,11 @@ impl Mpath {
 
 impl common_attrs::CoreAttributesSetter for Mpath {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MpathAttrs::from(attr))
 	}
 }
 
@@ -14375,11 +16127,11 @@ impl TagWithCoreAttributes for Mpath {}
 
 impl common_attrs::XLinkAttributesSetter for Mpath {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(MpathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(MpathAttrs::from(attr))
 	}
 }
 
@@ -14403,6 +16155,34 @@ enum PathAttrs {
 	PathLength,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for PathAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for PathAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for PathAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for PathAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl PathAttrs {
@@ -14414,6 +16194,10 @@ impl PathAttrs {
 			Self::PathLength => "pathLength",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -14596,11 +16380,11 @@ impl Path {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Path {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PathAttrs::from(attr))
 	}
 }
 
@@ -14608,11 +16392,11 @@ impl TagWithConditionalProcessingAttributes for Path {}
 
 impl common_attrs::CoreAttributesSetter for Path {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PathAttrs::from(attr))
 	}
 }
 
@@ -14620,11 +16404,11 @@ impl TagWithCoreAttributes for Path {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Path {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PathAttrs::from(attr))
 	}
 }
 
@@ -14632,11 +16416,11 @@ impl TagWithGraphicalEventAttributes for Path {}
 
 impl common_attrs::PresentationAttributesSetter for Path {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PathAttrs::from(attr))
 	}
 }
 
@@ -14667,6 +16451,34 @@ enum PatternAttrs {
 	X,
 	XlinkHref,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for PatternAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for PatternAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for PatternAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for PatternAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl PatternAttrs {
@@ -14685,6 +16497,10 @@ impl PatternAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -15021,11 +16837,11 @@ impl Pattern {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Pattern {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PatternAttrs::from(attr))
 	}
 }
 
@@ -15033,11 +16849,11 @@ impl TagWithConditionalProcessingAttributes for Pattern {}
 
 impl common_attrs::CoreAttributesSetter for Pattern {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PatternAttrs::from(attr))
 	}
 }
 
@@ -15045,11 +16861,11 @@ impl TagWithCoreAttributes for Pattern {}
 
 impl common_attrs::PresentationAttributesSetter for Pattern {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PatternAttrs::from(attr))
 	}
 }
 
@@ -15057,11 +16873,11 @@ impl TagWithPresentationAttributes for Pattern {}
 
 impl common_attrs::XLinkAttributesSetter for Pattern {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PatternAttrs::from(attr))
 	}
 }
 
@@ -15084,6 +16900,34 @@ enum PolygonAttrs {
 	Points,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for PolygonAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for PolygonAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for PolygonAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for PolygonAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl PolygonAttrs {
@@ -15094,6 +16938,10 @@ impl PolygonAttrs {
 			Self::Points => "points",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -15254,11 +17102,11 @@ impl Polygon {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Polygon {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
 
@@ -15266,11 +17114,11 @@ impl TagWithConditionalProcessingAttributes for Polygon {}
 
 impl common_attrs::CoreAttributesSetter for Polygon {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
 
@@ -15278,11 +17126,11 @@ impl TagWithCoreAttributes for Polygon {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Polygon {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
 
@@ -15290,11 +17138,11 @@ impl TagWithGraphicalEventAttributes for Polygon {}
 
 impl common_attrs::PresentationAttributesSetter for Polygon {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
 
@@ -15317,6 +17165,34 @@ enum PolylineAttrs {
 	Points,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for PolylineAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for PolylineAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for PolylineAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for PolylineAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl PolylineAttrs {
@@ -15327,6 +17203,10 @@ impl PolylineAttrs {
 			Self::Points => "points",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -15487,11 +17367,11 @@ impl Polyline {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Polyline {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
 
@@ -15499,11 +17379,11 @@ impl TagWithConditionalProcessingAttributes for Polyline {}
 
 impl common_attrs::CoreAttributesSetter for Polyline {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
 
@@ -15511,11 +17391,11 @@ impl TagWithCoreAttributes for Polyline {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Polyline {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
 
@@ -15523,11 +17403,11 @@ impl TagWithGraphicalEventAttributes for Polyline {}
 
 impl common_attrs::PresentationAttributesSetter for Polyline {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
 
@@ -15557,6 +17437,27 @@ enum RadialGradientAttrs {
 	SpreadMethod,
 	Style,
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for RadialGradientAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for RadialGradientAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for RadialGradientAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl RadialGradientAttrs {
@@ -15574,6 +17475,9 @@ impl RadialGradientAttrs {
 			Self::SpreadMethod => "spreadMethod",
 			Self::Style => "style",
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -15888,11 +17792,11 @@ impl RadialGradient {
 
 impl common_attrs::CoreAttributesSetter for RadialGradient {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
 
@@ -15900,11 +17804,11 @@ impl TagWithCoreAttributes for RadialGradient {}
 
 impl common_attrs::PresentationAttributesSetter for RadialGradient {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
 
@@ -15912,11 +17816,11 @@ impl TagWithPresentationAttributes for RadialGradient {}
 
 impl common_attrs::XLinkAttributesSetter for RadialGradient {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
 
@@ -15944,6 +17848,34 @@ enum RectAttrs {
 	Width,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for RectAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for RectAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for RectAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for RectAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl RectAttrs {
@@ -15959,6 +17891,10 @@ impl RectAttrs {
 			Self::Width => "width",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -16229,11 +18165,11 @@ impl Rect {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Rect {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RectAttrs::from(attr))
 	}
 }
 
@@ -16241,11 +18177,11 @@ impl TagWithConditionalProcessingAttributes for Rect {}
 
 impl common_attrs::CoreAttributesSetter for Rect {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RectAttrs::from(attr))
 	}
 }
 
@@ -16253,11 +18189,11 @@ impl TagWithCoreAttributes for Rect {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Rect {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RectAttrs::from(attr))
 	}
 }
 
@@ -16265,11 +18201,11 @@ impl TagWithGraphicalEventAttributes for Rect {}
 
 impl common_attrs::PresentationAttributesSetter for Rect {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(RectAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(RectAttrs::from(attr))
 	}
 }
 
@@ -16290,6 +18226,20 @@ enum ScriptAttrs {
 	ExternalResourcesRequired,
 	Type,
 	XlinkHref,
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for ScriptAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for ScriptAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl ScriptAttrs {
@@ -16298,6 +18248,8 @@ impl ScriptAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Type => "type",
 			Self::XlinkHref => "xlink:href",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -16414,11 +18366,11 @@ impl Script {
 
 impl common_attrs::CoreAttributesSetter for Script {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ScriptAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ScriptAttrs::from(attr))
 	}
 }
 
@@ -16426,11 +18378,11 @@ impl TagWithCoreAttributes for Script {}
 
 impl common_attrs::XLinkAttributesSetter for Script {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ScriptAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ScriptAttrs::from(attr))
 	}
 }
 
@@ -16450,6 +18402,48 @@ impl Tag for Script {
 enum SetAttrs {
 	ExternalResourcesRequired,
 	To,
+	AnimationAttributeTargetAttributes(common_attrs::AnimationAttributeTargetAttributes),
+	AnimationEventAttributes(common_attrs::AnimationEventAttributes),
+	AnimationTimingAttributes(common_attrs::AnimationTimingAttributes),
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::AnimationAttributeTargetAttributes> for SetAttrs {
+	fn from(attr: common_attrs::AnimationAttributeTargetAttributes) -> Self {
+		Self::AnimationAttributeTargetAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationEventAttributes> for SetAttrs {
+	fn from(attr: common_attrs::AnimationEventAttributes) -> Self {
+		Self::AnimationEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::AnimationTimingAttributes> for SetAttrs {
+	fn from(attr: common_attrs::AnimationTimingAttributes) -> Self {
+		Self::AnimationTimingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for SetAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for SetAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for SetAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl SetAttrs {
@@ -16457,6 +18451,12 @@ impl SetAttrs {
 		match self {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::To => "to",
+			Self::AnimationAttributeTargetAttributes(attr) => attr.as_str(),
+			Self::AnimationEventAttributes(attr) => attr.as_str(),
+			Self::AnimationTimingAttributes(attr) => attr.as_str(),
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -16551,11 +18551,11 @@ impl Set {
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16563,11 +18563,11 @@ impl TagWithAnimationAttributeTargetAttributes for Set {}
 
 impl common_attrs::AnimationEventAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16575,11 +18575,11 @@ impl TagWithAnimationEventAttributes for Set {}
 
 impl common_attrs::AnimationTimingAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16587,11 +18587,11 @@ impl TagWithAnimationTimingAttributes for Set {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16599,11 +18599,11 @@ impl TagWithConditionalProcessingAttributes for Set {}
 
 impl common_attrs::CoreAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16611,11 +18611,11 @@ impl TagWithCoreAttributes for Set {}
 
 impl common_attrs::XLinkAttributesSetter for Set {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SetAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SetAttrs::from(attr))
 	}
 }
 
@@ -16638,6 +18638,20 @@ enum StopAttrs {
 	StopColor,
 	StopOpacity,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for StopAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for StopAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl StopAttrs {
@@ -16648,6 +18662,8 @@ impl StopAttrs {
 			Self::StopColor => "stop-color",
 			Self::StopOpacity => "stop-opacity",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -16808,11 +18824,11 @@ impl Stop {
 
 impl common_attrs::CoreAttributesSetter for Stop {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(StopAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(StopAttrs::from(attr))
 	}
 }
 
@@ -16820,11 +18836,11 @@ impl TagWithCoreAttributes for Stop {}
 
 impl common_attrs::PresentationAttributesSetter for Stop {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(StopAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(StopAttrs::from(attr))
 	}
 }
 
@@ -16845,6 +18861,13 @@ enum StyleAttrs {
 	Media,
 	Title,
 	Type,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for StyleAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl StyleAttrs {
@@ -16853,6 +18876,7 @@ impl StyleAttrs {
 			Self::Media => "media",
 			Self::Title => "title",
 			Self::Type => "type",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -16969,11 +18993,11 @@ impl Style {
 
 impl common_attrs::CoreAttributesSetter for Style {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(StyleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(StyleAttrs::from(attr))
 	}
 }
 
@@ -17004,6 +19028,41 @@ enum SvgAttrs {
 	Width,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	DocumentEventAttributes(common_attrs::DocumentEventAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::DocumentEventAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::DocumentEventAttributes) -> Self {
+		Self::DocumentEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl SvgAttrs {
@@ -17022,6 +19081,11 @@ impl SvgAttrs {
 			Self::Width => "width",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::DocumentEventAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -17358,11 +19422,11 @@ impl Svg {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SvgAttrs::from(attr))
 	}
 }
 
@@ -17370,11 +19434,11 @@ impl TagWithConditionalProcessingAttributes for Svg {}
 
 impl common_attrs::CoreAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SvgAttrs::from(attr))
 	}
 }
 
@@ -17382,11 +19446,11 @@ impl TagWithCoreAttributes for Svg {}
 
 impl common_attrs::DocumentEventAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::DocumentEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::DocumentEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SvgAttrs::from(attr))
 	}
 }
 
@@ -17394,11 +19458,11 @@ impl TagWithDocumentEventAttributes for Svg {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SvgAttrs::from(attr))
 	}
 }
 
@@ -17406,11 +19470,11 @@ impl TagWithGraphicalEventAttributes for Svg {}
 
 impl common_attrs::PresentationAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SvgAttrs::from(attr))
 	}
 }
 
@@ -17433,6 +19497,34 @@ enum SwitchAttrs {
 	ExternalResourcesRequired,
 	Style,
 	Transform,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for SwitchAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for SwitchAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for SwitchAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for SwitchAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl SwitchAttrs {
@@ -17443,6 +19535,10 @@ impl SwitchAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Style => "style",
 			Self::Transform => "transform",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -17603,11 +19699,11 @@ impl Switch {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Switch {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
 
@@ -17615,11 +19711,11 @@ impl TagWithConditionalProcessingAttributes for Switch {}
 
 impl common_attrs::CoreAttributesSetter for Switch {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
 
@@ -17627,11 +19723,11 @@ impl TagWithCoreAttributes for Switch {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Switch {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
 
@@ -17639,11 +19735,11 @@ impl TagWithGraphicalEventAttributes for Switch {}
 
 impl common_attrs::PresentationAttributesSetter for Switch {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
 
@@ -17666,6 +19762,27 @@ enum SymbolAttrs {
 	PreserveAspectRatio,
 	Style,
 	ViewBox,
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for SymbolAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for SymbolAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for SymbolAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl SymbolAttrs {
@@ -17676,6 +19793,9 @@ impl SymbolAttrs {
 			Self::PreserveAspectRatio => "preserveAspectRatio",
 			Self::Style => "style",
 			Self::ViewBox => "viewBox",
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -17836,11 +19956,11 @@ impl Symbol {
 
 impl common_attrs::CoreAttributesSetter for Symbol {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
 
@@ -17848,11 +19968,11 @@ impl TagWithCoreAttributes for Symbol {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Symbol {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
 
@@ -17860,11 +19980,11 @@ impl TagWithGraphicalEventAttributes for Symbol {}
 
 impl common_attrs::PresentationAttributesSetter for Symbol {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
 
@@ -17894,6 +20014,34 @@ enum TextAttrs {
 	Transform,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for TextAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for TextAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for TextAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for TextAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl TextAttrs {
@@ -17911,6 +20059,10 @@ impl TextAttrs {
 			Self::Transform => "transform",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -18225,11 +20377,11 @@ impl Text {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Text {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextAttrs::from(attr))
 	}
 }
 
@@ -18237,11 +20389,11 @@ impl TagWithConditionalProcessingAttributes for Text {}
 
 impl common_attrs::CoreAttributesSetter for Text {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextAttrs::from(attr))
 	}
 }
 
@@ -18249,11 +20401,11 @@ impl TagWithCoreAttributes for Text {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Text {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextAttrs::from(attr))
 	}
 }
 
@@ -18261,11 +20413,11 @@ impl TagWithGraphicalEventAttributes for Text {}
 
 impl common_attrs::PresentationAttributesSetter for Text {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextAttrs::from(attr))
 	}
 }
 
@@ -18292,6 +20444,41 @@ enum TextPathAttrs {
 	StartOffset,
 	Style,
 	XlinkHref,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl TextPathAttrs {
@@ -18304,6 +20491,11 @@ impl TextPathAttrs {
 			Self::StartOffset => "startOffset",
 			Self::Style => "style",
 			Self::XlinkHref => "xlink:href",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -18508,11 +20700,11 @@ impl TextPath {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for TextPath {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
 
@@ -18520,11 +20712,11 @@ impl TagWithConditionalProcessingAttributes for TextPath {}
 
 impl common_attrs::CoreAttributesSetter for TextPath {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
 
@@ -18532,11 +20724,11 @@ impl TagWithCoreAttributes for TextPath {}
 
 impl common_attrs::GraphicalEventAttributesSetter for TextPath {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
 
@@ -18544,11 +20736,11 @@ impl TagWithGraphicalEventAttributes for TextPath {}
 
 impl common_attrs::PresentationAttributesSetter for TextPath {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
 
@@ -18556,11 +20748,11 @@ impl TagWithPresentationAttributes for TextPath {}
 
 impl common_attrs::XLinkAttributesSetter for TextPath {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
 
@@ -18580,6 +20772,13 @@ impl Tag for TextPath {
 enum TitleAttrs {
 	Class,
 	Style,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for TitleAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl TitleAttrs {
@@ -18587,6 +20786,7 @@ impl TitleAttrs {
 		match self {
 			Self::Class => "class",
 			Self::Style => "style",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -18681,11 +20881,11 @@ impl Title {
 
 impl common_attrs::CoreAttributesSetter for Title {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TitleAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TitleAttrs::from(attr))
 	}
 }
 
@@ -18707,6 +20907,41 @@ enum TrefAttrs {
 	ExternalResourcesRequired,
 	Style,
 	XlinkHref,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl TrefAttrs {
@@ -18716,6 +20951,11 @@ impl TrefAttrs {
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
 			Self::Style => "style",
 			Self::XlinkHref => "xlink:href",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -18854,11 +21094,11 @@ impl Tref {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Tref {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TrefAttrs::from(attr))
 	}
 }
 
@@ -18866,11 +21106,11 @@ impl TagWithConditionalProcessingAttributes for Tref {}
 
 impl common_attrs::CoreAttributesSetter for Tref {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TrefAttrs::from(attr))
 	}
 }
 
@@ -18878,11 +21118,11 @@ impl TagWithCoreAttributes for Tref {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Tref {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TrefAttrs::from(attr))
 	}
 }
 
@@ -18890,11 +21130,11 @@ impl TagWithGraphicalEventAttributes for Tref {}
 
 impl common_attrs::PresentationAttributesSetter for Tref {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TrefAttrs::from(attr))
 	}
 }
 
@@ -18902,11 +21142,11 @@ impl TagWithPresentationAttributes for Tref {}
 
 impl common_attrs::XLinkAttributesSetter for Tref {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TrefAttrs::from(attr))
 	}
 }
 
@@ -18934,6 +21174,34 @@ enum TspanAttrs {
 	TextLength,
 	X,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for TspanAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for TspanAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for TspanAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for TspanAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
 }
 
 impl TspanAttrs {
@@ -18949,6 +21217,10 @@ impl TspanAttrs {
 			Self::TextLength => "textLength",
 			Self::X => "x",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -19219,11 +21491,11 @@ impl Tspan {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Tspan {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TspanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TspanAttrs::from(attr))
 	}
 }
 
@@ -19231,11 +21503,11 @@ impl TagWithConditionalProcessingAttributes for Tspan {}
 
 impl common_attrs::CoreAttributesSetter for Tspan {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TspanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TspanAttrs::from(attr))
 	}
 }
 
@@ -19243,11 +21515,11 @@ impl TagWithCoreAttributes for Tspan {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Tspan {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TspanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TspanAttrs::from(attr))
 	}
 }
 
@@ -19255,11 +21527,11 @@ impl TagWithGraphicalEventAttributes for Tspan {}
 
 impl common_attrs::PresentationAttributesSetter for Tspan {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(TspanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(TspanAttrs::from(attr))
 	}
 }
 
@@ -19287,6 +21559,41 @@ enum UseAttrs {
 	X,
 	XlinkHref,
 	Y,
+	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
+	CoreAttributes(common_attrs::CoreAttributes),
+	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
+	PresentationAttributes(common_attrs::PresentationAttributes),
+	XLinkAttributes(common_attrs::XLinkAttributes),
+}
+
+impl From<common_attrs::ConditionalProcessingAttributes> for UseAttrs {
+	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
+		Self::ConditionalProcessingAttributes(attr)
+	}
+}
+
+impl From<common_attrs::CoreAttributes> for UseAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GraphicalEventAttributes> for UseAttrs {
+	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
+		Self::GraphicalEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::PresentationAttributes> for UseAttrs {
+	fn from(attr: common_attrs::PresentationAttributes) -> Self {
+		Self::PresentationAttributes(attr)
+	}
+}
+
+impl From<common_attrs::XLinkAttributes> for UseAttrs {
+	fn from(attr: common_attrs::XLinkAttributes) -> Self {
+		Self::XLinkAttributes(attr)
+	}
 }
 
 impl UseAttrs {
@@ -19301,6 +21608,11 @@ impl UseAttrs {
 			Self::X => "x",
 			Self::XlinkHref => "xlink:href",
 			Self::Y => "y",
+			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
+			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GraphicalEventAttributes(attr) => attr.as_str(),
+			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::XLinkAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -19549,11 +21861,11 @@ impl Use {
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Use {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(UseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(UseAttrs::from(attr))
 	}
 }
 
@@ -19561,11 +21873,11 @@ impl TagWithConditionalProcessingAttributes for Use {}
 
 impl common_attrs::CoreAttributesSetter for Use {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(UseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(UseAttrs::from(attr))
 	}
 }
 
@@ -19573,11 +21885,11 @@ impl TagWithCoreAttributes for Use {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Use {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(UseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(UseAttrs::from(attr))
 	}
 }
 
@@ -19585,11 +21897,11 @@ impl TagWithGraphicalEventAttributes for Use {}
 
 impl common_attrs::PresentationAttributesSetter for Use {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(UseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(UseAttrs::from(attr))
 	}
 }
 
@@ -19597,11 +21909,11 @@ impl TagWithPresentationAttributes for Use {}
 
 impl common_attrs::XLinkAttributesSetter for Use {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(UseAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(UseAttrs::from(attr))
 	}
 }
 
@@ -19624,6 +21936,13 @@ enum ViewAttrs {
 	ViewBox,
 	ViewTarget,
 	ZoomAndPan,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for ViewAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl ViewAttrs {
@@ -19634,6 +21953,7 @@ impl ViewAttrs {
 			Self::ViewBox => "viewBox",
 			Self::ViewTarget => "viewTarget",
 			Self::ZoomAndPan => "zoomAndPan",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -19794,11 +22114,11 @@ impl View {
 
 impl common_attrs::CoreAttributesSetter for View {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(ViewAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(ViewAttrs::from(attr))
 	}
 }
 
@@ -19821,6 +22141,13 @@ enum VkernAttrs {
 	K,
 	U1,
 	U2,
+	CoreAttributes(common_attrs::CoreAttributes),
+}
+
+impl From<common_attrs::CoreAttributes> for VkernAttrs {
+	fn from(attr: common_attrs::CoreAttributes) -> Self {
+		Self::CoreAttributes(attr)
+	}
 }
 
 impl VkernAttrs {
@@ -19831,6 +22158,7 @@ impl VkernAttrs {
 			Self::K => "k",
 			Self::U1 => "u1",
 			Self::U2 => "u2",
+			Self::CoreAttributes(attr) => attr.as_str(),
 		}
 	}
 }
@@ -19991,11 +22319,11 @@ impl Vkern {
 
 impl common_attrs::CoreAttributesSetter for Vkern {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		unimplemented!()
+		self.set_attr(VkernAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		unimplemented!()
+		self.get_attr(VkernAttrs::from(attr))
 	}
 }
 

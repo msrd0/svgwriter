@@ -1,17 +1,34 @@
-{% macro attr_enum(vis, name, attrs) -%}
+{% macro attr_enum(vis, name, attrs, cats) -%}
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 {% if !vis.is_empty() %}{{vis}} {% endif -%}
 enum {{name|camel_case}} {
 	{%- for attr in attrs.iter() %}
 	{{attr|camel_case}},
 	{%- endfor %}
+	{%- for cat in cats.iter() %}
+	{{cat|camel_case}}(common_attrs::{{cat|camel_case}}),
+	{%- endfor %}
 }
 
+{%- for cat in cats.iter() %}
+
+impl From<common_attrs::{{cat|camel_case}}> for {{name|camel_case}} {
+	fn from(attr: common_attrs::{{cat|camel_case}}) -> Self {
+		Self::{{cat|camel_case}}(attr)
+	}
+}
+
+{%- endfor %}
+
 impl {{name|camel_case}} {
+	{% if !vis.is_empty() %}{{vis}} {% endif -%}
 	fn as_str(&self) -> &'static str {
 		match self {
 			{%- for attr in attrs.iter() %}
 			Self::{{attr|camel_case}} => "{{attr}}",
+			{%- endfor %}
+			{%- for cat in cats.iter() %}
+			Self::{{cat|camel_case}}(attr) => attr.as_str(),
 			{%- endfor %}
 		}
 	}

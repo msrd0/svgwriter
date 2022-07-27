@@ -9,7 +9,7 @@ pub enum AnimationAdditionAttributes {
 }
 
 impl AnimationAdditionAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Accumulate => "accumulate",
 			Self::Additive => "additive",
@@ -88,7 +88,7 @@ pub enum AnimationAttributeTargetAttributes {
 }
 
 impl AnimationAttributeTargetAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::AttributeName => "attributeName",
 			Self::AttributeType => "attributeType",
@@ -168,7 +168,7 @@ pub enum AnimationEventAttributes {
 }
 
 impl AnimationEventAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Onbegin => "onbegin",
 			Self::Onend => "onend",
@@ -277,7 +277,7 @@ pub enum AnimationTimingAttributes {
 }
 
 impl AnimationTimingAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Begin => "begin",
 			Self::Dur => "dur",
@@ -525,7 +525,7 @@ pub enum AnimationValueAttributes {
 }
 
 impl AnimationValueAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Accelerate => "accelerate",
 			Self::AutoReverse => "autoReverse",
@@ -789,7 +789,7 @@ pub enum ConditionalProcessingAttributes {
 }
 
 impl ConditionalProcessingAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::RequiredExtensions => "requiredExtensions",
 			Self::RequiredFeatures => "requiredFeatures",
@@ -895,7 +895,7 @@ pub enum CoreAttributes {
 }
 
 impl CoreAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Id => "id",
 			Self::Lang => "lang",
@@ -1069,7 +1069,7 @@ pub enum DocumentEventAttributes {
 }
 
 impl DocumentEventAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Onabort => "onabort",
 			Self::Onerror => "onerror",
@@ -1220,7 +1220,7 @@ pub enum FilterAttributes {
 }
 
 impl FilterAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Height => "height",
 			Self::Result => "result",
@@ -1422,7 +1422,7 @@ pub enum GlobalEventAttributes {
 }
 
 impl GlobalEventAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Oncancel => "oncancel",
 			Self::Oncanplay => "oncanplay",
@@ -2744,7 +2744,7 @@ pub enum GraphicalEventAttributes {
 }
 
 impl GraphicalEventAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Onactivate => "onactivate",
 			Self::Onfocusin => "onfocusin",
@@ -2906,7 +2906,7 @@ pub enum PresentationAttributes {
 }
 
 impl PresentationAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::AlignmentBaseline => "alignment-baseline",
 			Self::BaselineShift => "baseline-shift",
@@ -4365,7 +4365,7 @@ pub enum StyleAttributes {
 }
 
 impl StyleAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Class => "class",
 			Self::Style => "style",
@@ -4449,7 +4449,7 @@ pub enum TransferFunctionAttributes {
 }
 
 impl TransferFunctionAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::Amplitude => "amplitude",
 			Self::Exponent => "exponent",
@@ -4648,7 +4648,7 @@ pub enum XLinkAttributes {
 }
 
 impl XLinkAttributes {
-	fn as_str(&self) -> &'static str {
+	pub fn as_str(&self) -> &'static str {
 		match self {
 			Self::XlinkActuate => "xlink:actuate",
 			Self::XlinkArcrole => "xlink:arcrole",
