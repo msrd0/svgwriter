@@ -4,7 +4,8 @@ use std::{
 	collections::{BTreeMap, BTreeSet, HashMap},
 	fs::{self, File},
 	io::{self, Write},
-	path::Path, mem
+	mem,
+	path::Path
 };
 
 // from https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute#svg_attributes_by_category
@@ -255,25 +256,20 @@ mod tpl {
 		use askama::Result;
 		use heck::{ToShoutySnakeCase, ToSnakeCase, ToUpperCamelCase};
 
-		fn sanitize(ident: &str) -> String {
-			ident.replace('+', "_plus_").replace('-', "_minus_")
-		}
-
 		pub fn camel_case(ident: &str) -> Result<String> {
-			Ok(sanitize(ident).to_upper_camel_case())
+			Ok(ident.to_upper_camel_case())
 		}
 
 		pub fn snake_case(ident: &str) -> Result<String> {
-			let sanitized = sanitize(ident);
-			Ok(match sanitized.as_str() {
+			Ok(match ident {
 				"in" => "in1".to_owned(),
 				"type" => "ty".to_owned(),
-				sanitized => sanitized.to_snake_case()
+				ident => ident.to_snake_case()
 			})
 		}
 
 		pub fn upper_case(ident: &str) -> Result<String> {
-			Ok(sanitize(ident).to_shouty_snake_case())
+			Ok(ident.to_shouty_snake_case())
 		}
 	}
 

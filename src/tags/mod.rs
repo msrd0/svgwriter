@@ -2455,31 +2455,31 @@ impl Tag for ClipPath {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum ColorMinusProfileAttrs {
+enum ColorProfileAttrs {
 	Local,
 	Name,
-	RenderingMinusIntent,
+	RenderingIntent,
 	XlinkHref,
 }
 
-impl ColorMinusProfileAttrs {
+impl ColorProfileAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Local => "local",
 			Self::Name => "name",
-			Self::RenderingMinusIntent => "rendering-intent",
+			Self::RenderingIntent => "rendering-intent",
 			Self::XlinkHref => "xlink:href",
 		}
 	}
 }
 
-impl Display for ColorMinusProfileAttrs {
+impl Display for ColorProfileAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for ColorMinusProfileAttrs {
+impl Debug for ColorProfileAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -2489,17 +2489,17 @@ impl Debug for ColorMinusProfileAttrs {
 #[doc = include_str!("color-profile.md")]
 #[doc = "\n\n [`<color-profile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/color-profile"]
 #[derive(Clone, Debug)]
-pub struct ColorMinusProfile {
-	attrs: IndexMap<ColorMinusProfileAttrs, String>,
+pub struct ColorProfile {
+	attrs: IndexMap<ColorProfileAttrs, String>,
 }
 
-impl Default for ColorMinusProfile {
+impl Default for ColorProfile {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl ColorMinusProfile {
+impl ColorProfile {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -2507,12 +2507,12 @@ impl ColorMinusProfile {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ColorMinusProfileAttrs, value: String) {
+	fn set_attr(&mut self, attr: ColorProfileAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: ColorMinusProfileAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: ColorProfileAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -2521,7 +2521,7 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::Local, value.into());
+		self.set_attr(ColorProfileAttrs::Local, value.into());
 		self
 	}
 
@@ -2530,12 +2530,12 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::Local, value.into());
+		self.set_attr(ColorProfileAttrs::Local, value.into());
 	}
 
 	/// Get the `local` attribute.
 	pub fn local(&self) -> Option<&str> {
-		self.get_attr(ColorMinusProfileAttrs::Local)
+		self.get_attr(ColorProfileAttrs::Local)
 	}
 
 	/// Set the `name` attribute.
@@ -2543,7 +2543,7 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::Name, value.into());
+		self.set_attr(ColorProfileAttrs::Name, value.into());
 		self
 	}
 
@@ -2552,34 +2552,34 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::Name, value.into());
+		self.set_attr(ColorProfileAttrs::Name, value.into());
 	}
 
 	/// Get the `name` attribute.
 	pub fn name(&self) -> Option<&str> {
-		self.get_attr(ColorMinusProfileAttrs::Name)
+		self.get_attr(ColorProfileAttrs::Name)
 	}
 
 	/// Set the `rendering-intent` attribute.
-	pub fn with_rendering_minus_intent<T>(mut self, value: T) -> Self
+	pub fn with_rendering_intent<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::RenderingMinusIntent, value.into());
+		self.set_attr(ColorProfileAttrs::RenderingIntent, value.into());
 		self
 	}
 
 	/// Set the `rendering-intent` attribute.
-	pub fn set_rendering_minus_intent<T>(&mut self, value: T)
+	pub fn set_rendering_intent<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::RenderingMinusIntent, value.into());
+		self.set_attr(ColorProfileAttrs::RenderingIntent, value.into());
 	}
 
 	/// Get the `rendering-intent` attribute.
-	pub fn rendering_minus_intent(&self) -> Option<&str> {
-		self.get_attr(ColorMinusProfileAttrs::RenderingMinusIntent)
+	pub fn rendering_intent(&self) -> Option<&str> {
+		self.get_attr(ColorProfileAttrs::RenderingIntent)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -2587,7 +2587,7 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::XlinkHref, value.into());
+		self.set_attr(ColorProfileAttrs::XlinkHref, value.into());
 		self
 	}
 
@@ -2596,16 +2596,16 @@ impl ColorMinusProfile {
 	where
 		T: Into<String>
 	{
-		self.set_attr(ColorMinusProfileAttrs::XlinkHref, value.into());
+		self.set_attr(ColorProfileAttrs::XlinkHref, value.into());
 	}
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.get_attr(ColorMinusProfileAttrs::XlinkHref)
+		self.get_attr(ColorProfileAttrs::XlinkHref)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for ColorMinusProfile {
+impl common_attrs::CoreAttributesSetter for ColorProfile {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -2615,9 +2615,9 @@ impl common_attrs::CoreAttributesSetter for ColorMinusProfile {
 	}
 }
 
-impl TagWithCoreAttributes for ColorMinusProfile {}
+impl TagWithCoreAttributes for ColorProfile {}
 
-impl common_attrs::XLinkAttributesSetter for ColorMinusProfile {
+impl common_attrs::XLinkAttributesSetter for ColorProfile {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
 		unimplemented!()
 	}
@@ -2627,9 +2627,9 @@ impl common_attrs::XLinkAttributesSetter for ColorMinusProfile {
 	}
 }
 
-impl TagWithXLinkAttributes for ColorMinusProfile {}
+impl TagWithXLinkAttributes for ColorProfile {}
 
-impl Tag for ColorMinusProfile {
+impl Tag for ColorProfile {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("color-profile");
 		for (attr, value) in &self.attrs {
@@ -5820,8 +5820,8 @@ impl Tag for FeDropShadow {
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFloodAttrs {
 	Class,
-	FloodMinusColor,
-	FloodMinusOpacity,
+	FloodColor,
+	FloodOpacity,
 	Style,
 }
 
@@ -5829,8 +5829,8 @@ impl FeFloodAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Class => "class",
-			Self::FloodMinusColor => "flood-color",
-			Self::FloodMinusOpacity => "flood-opacity",
+			Self::FloodColor => "flood-color",
+			Self::FloodOpacity => "flood-opacity",
 			Self::Style => "style",
 		}
 	}
@@ -5902,47 +5902,47 @@ impl FeFlood {
 	}
 
 	/// Set the `flood-color` attribute.
-	pub fn with_flood_minus_color<T>(mut self, value: T) -> Self
+	pub fn with_flood_color<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FeFloodAttrs::FloodMinusColor, value.into());
+		self.set_attr(FeFloodAttrs::FloodColor, value.into());
 		self
 	}
 
 	/// Set the `flood-color` attribute.
-	pub fn set_flood_minus_color<T>(&mut self, value: T)
+	pub fn set_flood_color<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FeFloodAttrs::FloodMinusColor, value.into());
+		self.set_attr(FeFloodAttrs::FloodColor, value.into());
 	}
 
 	/// Get the `flood-color` attribute.
-	pub fn flood_minus_color(&self) -> Option<&str> {
-		self.get_attr(FeFloodAttrs::FloodMinusColor)
+	pub fn flood_color(&self) -> Option<&str> {
+		self.get_attr(FeFloodAttrs::FloodColor)
 	}
 
 	/// Set the `flood-opacity` attribute.
-	pub fn with_flood_minus_opacity<T>(mut self, value: T) -> Self
+	pub fn with_flood_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FeFloodAttrs::FloodMinusOpacity, value.into());
+		self.set_attr(FeFloodAttrs::FloodOpacity, value.into());
 		self
 	}
 
 	/// Set the `flood-opacity` attribute.
-	pub fn set_flood_minus_opacity<T>(&mut self, value: T)
+	pub fn set_flood_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FeFloodAttrs::FloodMinusOpacity, value.into());
+		self.set_attr(FeFloodAttrs::FloodOpacity, value.into());
 	}
 
 	/// Get the `flood-opacity` attribute.
-	pub fn flood_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(FeFloodAttrs::FloodMinusOpacity)
+	pub fn flood_opacity(&self) -> Option<&str> {
+		self.get_attr(FeFloodAttrs::FloodOpacity)
 	}
 
 	/// Set the `style` attribute.
@@ -8838,13 +8838,13 @@ impl Tag for Filter {
 enum FontAttrs {
 	Class,
 	ExternalResourcesRequired,
-	HorizMinusAdvMinusX,
-	HorizMinusOriginMinusX,
-	HorizMinusOriginMinusY,
+	HorizAdvX,
+	HorizOriginX,
+	HorizOriginY,
 	Style,
-	VertMinusAdvMinusY,
-	VertMinusOriginMinusX,
-	VertMinusOriginMinusY,
+	VertAdvY,
+	VertOriginX,
+	VertOriginY,
 }
 
 impl FontAttrs {
@@ -8852,13 +8852,13 @@ impl FontAttrs {
 		match self {
 			Self::Class => "class",
 			Self::ExternalResourcesRequired => "externalResourcesRequired",
-			Self::HorizMinusAdvMinusX => "horiz-adv-x",
-			Self::HorizMinusOriginMinusX => "horiz-origin-x",
-			Self::HorizMinusOriginMinusY => "horiz-origin-y",
+			Self::HorizAdvX => "horiz-adv-x",
+			Self::HorizOriginX => "horiz-origin-x",
+			Self::HorizOriginY => "horiz-origin-y",
 			Self::Style => "style",
-			Self::VertMinusAdvMinusY => "vert-adv-y",
-			Self::VertMinusOriginMinusX => "vert-origin-x",
-			Self::VertMinusOriginMinusY => "vert-origin-y",
+			Self::VertAdvY => "vert-adv-y",
+			Self::VertOriginX => "vert-origin-x",
+			Self::VertOriginY => "vert-origin-y",
 		}
 	}
 }
@@ -8951,69 +8951,69 @@ impl Font {
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_minus_adv_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(FontAttrs::HorizAdvX, value.into());
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_minus_adv_minus_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(FontAttrs::HorizAdvX, value.into());
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::HorizMinusAdvMinusX)
+	pub fn horiz_adv_x(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::HorizAdvX)
 	}
 
 	/// Set the `horiz-origin-x` attribute.
-	pub fn with_horiz_minus_origin_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_origin_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusOriginMinusX, value.into());
+		self.set_attr(FontAttrs::HorizOriginX, value.into());
 		self
 	}
 
 	/// Set the `horiz-origin-x` attribute.
-	pub fn set_horiz_minus_origin_minus_x<T>(&mut self, value: T)
+	pub fn set_horiz_origin_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusOriginMinusX, value.into());
+		self.set_attr(FontAttrs::HorizOriginX, value.into());
 	}
 
 	/// Get the `horiz-origin-x` attribute.
-	pub fn horiz_minus_origin_minus_x(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::HorizMinusOriginMinusX)
+	pub fn horiz_origin_x(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::HorizOriginX)
 	}
 
 	/// Set the `horiz-origin-y` attribute.
-	pub fn with_horiz_minus_origin_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_horiz_origin_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusOriginMinusY, value.into());
+		self.set_attr(FontAttrs::HorizOriginY, value.into());
 		self
 	}
 
 	/// Set the `horiz-origin-y` attribute.
-	pub fn set_horiz_minus_origin_minus_y<T>(&mut self, value: T)
+	pub fn set_horiz_origin_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::HorizMinusOriginMinusY, value.into());
+		self.set_attr(FontAttrs::HorizOriginY, value.into());
 	}
 
 	/// Get the `horiz-origin-y` attribute.
-	pub fn horiz_minus_origin_minus_y(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::HorizMinusOriginMinusY)
+	pub fn horiz_origin_y(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::HorizOriginY)
 	}
 
 	/// Set the `style` attribute.
@@ -9039,69 +9039,69 @@ impl Font {
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_minus_adv_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(FontAttrs::VertAdvY, value.into());
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_minus_adv_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(FontAttrs::VertAdvY, value.into());
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::VertMinusAdvMinusY)
+	pub fn vert_adv_y(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_minus_origin_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(FontAttrs::VertOriginX, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_minus_origin_minus_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(FontAttrs::VertOriginX, value.into());
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::VertMinusOriginMinusX)
+	pub fn vert_origin_x(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_minus_origin_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(FontAttrs::VertOriginY, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_minus_origin_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(FontAttrs::VertOriginY, value.into());
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.get_attr(FontAttrs::VertMinusOriginMinusY)
+	pub fn vert_origin_y(&self) -> Option<&str> {
+		self.get_attr(FontAttrs::VertOriginY)
 	}
 }
 
@@ -9140,89 +9140,89 @@ impl Tag for Font {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum FontMinusFaceAttrs {
-	AccentMinusHeight,
+enum FontFaceAttrs {
+	AccentHeight,
 	Alphabetic,
 	Ascent,
 	Bbox,
-	CapMinusHeight,
+	CapHeight,
 	Descent,
-	FontMinusFamily,
-	FontMinusSize,
-	FontMinusStretch,
-	FontMinusStyle,
-	FontMinusVariant,
-	FontMinusWeight,
+	FontFamily,
+	FontSize,
+	FontStretch,
+	FontStyle,
+	FontVariant,
+	FontWeight,
 	Hanging,
 	Ideographic,
 	Mathematical,
-	OverlineMinusPosition,
-	OverlineMinusThickness,
-	PanoseMinus1,
+	OverlinePosition,
+	OverlineThickness,
+	Panose1,
 	Slope,
 	Stemh,
 	Stemv,
-	StrikethroughMinusPosition,
-	StrikethroughMinusThickness,
-	UnderlineMinusPosition,
-	UnderlineMinusThickness,
-	UnicodeMinusRange,
-	UnitsMinusPerMinusEm,
-	VMinusAlphabetic,
-	VMinusHanging,
-	VMinusIdeographic,
-	VMinusMathematical,
+	StrikethroughPosition,
+	StrikethroughThickness,
+	UnderlinePosition,
+	UnderlineThickness,
+	UnicodeRange,
+	UnitsPerEm,
+	VAlphabetic,
+	VHanging,
+	VIdeographic,
+	VMathematical,
 	Widths,
-	XMinusHeight,
+	XHeight,
 }
 
-impl FontMinusFaceAttrs {
+impl FontFaceAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
-			Self::AccentMinusHeight => "accent-height",
+			Self::AccentHeight => "accent-height",
 			Self::Alphabetic => "alphabetic",
 			Self::Ascent => "ascent",
 			Self::Bbox => "bbox",
-			Self::CapMinusHeight => "cap-height",
+			Self::CapHeight => "cap-height",
 			Self::Descent => "descent",
-			Self::FontMinusFamily => "font-family",
-			Self::FontMinusSize => "font-size",
-			Self::FontMinusStretch => "font-stretch",
-			Self::FontMinusStyle => "font-style",
-			Self::FontMinusVariant => "font-variant",
-			Self::FontMinusWeight => "font-weight",
+			Self::FontFamily => "font-family",
+			Self::FontSize => "font-size",
+			Self::FontStretch => "font-stretch",
+			Self::FontStyle => "font-style",
+			Self::FontVariant => "font-variant",
+			Self::FontWeight => "font-weight",
 			Self::Hanging => "hanging",
 			Self::Ideographic => "ideographic",
 			Self::Mathematical => "mathematical",
-			Self::OverlineMinusPosition => "overline-position",
-			Self::OverlineMinusThickness => "overline-thickness",
-			Self::PanoseMinus1 => "panose-1",
+			Self::OverlinePosition => "overline-position",
+			Self::OverlineThickness => "overline-thickness",
+			Self::Panose1 => "panose-1",
 			Self::Slope => "slope",
 			Self::Stemh => "stemh",
 			Self::Stemv => "stemv",
-			Self::StrikethroughMinusPosition => "strikethrough-position",
-			Self::StrikethroughMinusThickness => "strikethrough-thickness",
-			Self::UnderlineMinusPosition => "underline-position",
-			Self::UnderlineMinusThickness => "underline-thickness",
-			Self::UnicodeMinusRange => "unicode-range",
-			Self::UnitsMinusPerMinusEm => "units-per-em",
-			Self::VMinusAlphabetic => "v-alphabetic",
-			Self::VMinusHanging => "v-hanging",
-			Self::VMinusIdeographic => "v-ideographic",
-			Self::VMinusMathematical => "v-mathematical",
+			Self::StrikethroughPosition => "strikethrough-position",
+			Self::StrikethroughThickness => "strikethrough-thickness",
+			Self::UnderlinePosition => "underline-position",
+			Self::UnderlineThickness => "underline-thickness",
+			Self::UnicodeRange => "unicode-range",
+			Self::UnitsPerEm => "units-per-em",
+			Self::VAlphabetic => "v-alphabetic",
+			Self::VHanging => "v-hanging",
+			Self::VIdeographic => "v-ideographic",
+			Self::VMathematical => "v-mathematical",
 			Self::Widths => "widths",
-			Self::XMinusHeight => "x-height",
+			Self::XHeight => "x-height",
 		}
 	}
 }
 
-impl Display for FontMinusFaceAttrs {
+impl Display for FontFaceAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for FontMinusFaceAttrs {
+impl Debug for FontFaceAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -9232,17 +9232,17 @@ impl Debug for FontMinusFaceAttrs {
 #[doc = include_str!("font-face.md")]
 #[doc = "\n\n [`<font-face>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face"]
 #[derive(Clone, Debug)]
-pub struct FontMinusFace {
-	attrs: IndexMap<FontMinusFaceAttrs, String>,
+pub struct FontFace {
+	attrs: IndexMap<FontFaceAttrs, String>,
 }
 
-impl Default for FontMinusFace {
+impl Default for FontFace {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl FontMinusFace {
+impl FontFace {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -9250,35 +9250,35 @@ impl FontMinusFace {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontMinusFaceAttrs, value: String) {
+	fn set_attr(&mut self, attr: FontFaceAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: FontMinusFaceAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: FontFaceAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
 	/// Set the `accent-height` attribute.
-	pub fn with_accent_minus_height<T>(mut self, value: T) -> Self
+	pub fn with_accent_height<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::AccentMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::AccentHeight, value.into());
 		self
 	}
 
 	/// Set the `accent-height` attribute.
-	pub fn set_accent_minus_height<T>(&mut self, value: T)
+	pub fn set_accent_height<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::AccentMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::AccentHeight, value.into());
 	}
 
 	/// Get the `accent-height` attribute.
-	pub fn accent_minus_height(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::AccentMinusHeight)
+	pub fn accent_height(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::AccentHeight)
 	}
 
 	/// Set the `alphabetic` attribute.
@@ -9286,7 +9286,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Alphabetic, value.into());
+		self.set_attr(FontFaceAttrs::Alphabetic, value.into());
 		self
 	}
 
@@ -9295,12 +9295,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Alphabetic, value.into());
+		self.set_attr(FontFaceAttrs::Alphabetic, value.into());
 	}
 
 	/// Get the `alphabetic` attribute.
 	pub fn alphabetic(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Alphabetic)
+		self.get_attr(FontFaceAttrs::Alphabetic)
 	}
 
 	/// Set the `ascent` attribute.
@@ -9308,7 +9308,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Ascent, value.into());
+		self.set_attr(FontFaceAttrs::Ascent, value.into());
 		self
 	}
 
@@ -9317,12 +9317,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Ascent, value.into());
+		self.set_attr(FontFaceAttrs::Ascent, value.into());
 	}
 
 	/// Get the `ascent` attribute.
 	pub fn ascent(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Ascent)
+		self.get_attr(FontFaceAttrs::Ascent)
 	}
 
 	/// Set the `bbox` attribute.
@@ -9330,7 +9330,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Bbox, value.into());
+		self.set_attr(FontFaceAttrs::Bbox, value.into());
 		self
 	}
 
@@ -9339,34 +9339,34 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Bbox, value.into());
+		self.set_attr(FontFaceAttrs::Bbox, value.into());
 	}
 
 	/// Get the `bbox` attribute.
 	pub fn bbox(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Bbox)
+		self.get_attr(FontFaceAttrs::Bbox)
 	}
 
 	/// Set the `cap-height` attribute.
-	pub fn with_cap_minus_height<T>(mut self, value: T) -> Self
+	pub fn with_cap_height<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::CapMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::CapHeight, value.into());
 		self
 	}
 
 	/// Set the `cap-height` attribute.
-	pub fn set_cap_minus_height<T>(&mut self, value: T)
+	pub fn set_cap_height<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::CapMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::CapHeight, value.into());
 	}
 
 	/// Get the `cap-height` attribute.
-	pub fn cap_minus_height(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::CapMinusHeight)
+	pub fn cap_height(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::CapHeight)
 	}
 
 	/// Set the `descent` attribute.
@@ -9374,7 +9374,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Descent, value.into());
+		self.set_attr(FontFaceAttrs::Descent, value.into());
 		self
 	}
 
@@ -9383,144 +9383,144 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Descent, value.into());
+		self.set_attr(FontFaceAttrs::Descent, value.into());
 	}
 
 	/// Get the `descent` attribute.
 	pub fn descent(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Descent)
+		self.get_attr(FontFaceAttrs::Descent)
 	}
 
 	/// Set the `font-family` attribute.
-	pub fn with_font_minus_family<T>(mut self, value: T) -> Self
+	pub fn with_font_family<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusFamily, value.into());
+		self.set_attr(FontFaceAttrs::FontFamily, value.into());
 		self
 	}
 
 	/// Set the `font-family` attribute.
-	pub fn set_font_minus_family<T>(&mut self, value: T)
+	pub fn set_font_family<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusFamily, value.into());
+		self.set_attr(FontFaceAttrs::FontFamily, value.into());
 	}
 
 	/// Get the `font-family` attribute.
-	pub fn font_minus_family(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusFamily)
+	pub fn font_family(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontFamily)
 	}
 
 	/// Set the `font-size` attribute.
-	pub fn with_font_minus_size<T>(mut self, value: T) -> Self
+	pub fn with_font_size<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusSize, value.into());
+		self.set_attr(FontFaceAttrs::FontSize, value.into());
 		self
 	}
 
 	/// Set the `font-size` attribute.
-	pub fn set_font_minus_size<T>(&mut self, value: T)
+	pub fn set_font_size<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusSize, value.into());
+		self.set_attr(FontFaceAttrs::FontSize, value.into());
 	}
 
 	/// Get the `font-size` attribute.
-	pub fn font_minus_size(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusSize)
+	pub fn font_size(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontSize)
 	}
 
 	/// Set the `font-stretch` attribute.
-	pub fn with_font_minus_stretch<T>(mut self, value: T) -> Self
+	pub fn with_font_stretch<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusStretch, value.into());
+		self.set_attr(FontFaceAttrs::FontStretch, value.into());
 		self
 	}
 
 	/// Set the `font-stretch` attribute.
-	pub fn set_font_minus_stretch<T>(&mut self, value: T)
+	pub fn set_font_stretch<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusStretch, value.into());
+		self.set_attr(FontFaceAttrs::FontStretch, value.into());
 	}
 
 	/// Get the `font-stretch` attribute.
-	pub fn font_minus_stretch(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusStretch)
+	pub fn font_stretch(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontStretch)
 	}
 
 	/// Set the `font-style` attribute.
-	pub fn with_font_minus_style<T>(mut self, value: T) -> Self
+	pub fn with_font_style<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusStyle, value.into());
+		self.set_attr(FontFaceAttrs::FontStyle, value.into());
 		self
 	}
 
 	/// Set the `font-style` attribute.
-	pub fn set_font_minus_style<T>(&mut self, value: T)
+	pub fn set_font_style<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusStyle, value.into());
+		self.set_attr(FontFaceAttrs::FontStyle, value.into());
 	}
 
 	/// Get the `font-style` attribute.
-	pub fn font_minus_style(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusStyle)
+	pub fn font_style(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontStyle)
 	}
 
 	/// Set the `font-variant` attribute.
-	pub fn with_font_minus_variant<T>(mut self, value: T) -> Self
+	pub fn with_font_variant<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusVariant, value.into());
+		self.set_attr(FontFaceAttrs::FontVariant, value.into());
 		self
 	}
 
 	/// Set the `font-variant` attribute.
-	pub fn set_font_minus_variant<T>(&mut self, value: T)
+	pub fn set_font_variant<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusVariant, value.into());
+		self.set_attr(FontFaceAttrs::FontVariant, value.into());
 	}
 
 	/// Get the `font-variant` attribute.
-	pub fn font_minus_variant(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusVariant)
+	pub fn font_variant(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontVariant)
 	}
 
 	/// Set the `font-weight` attribute.
-	pub fn with_font_minus_weight<T>(mut self, value: T) -> Self
+	pub fn with_font_weight<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusWeight, value.into());
+		self.set_attr(FontFaceAttrs::FontWeight, value.into());
 		self
 	}
 
 	/// Set the `font-weight` attribute.
-	pub fn set_font_minus_weight<T>(&mut self, value: T)
+	pub fn set_font_weight<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::FontMinusWeight, value.into());
+		self.set_attr(FontFaceAttrs::FontWeight, value.into());
 	}
 
 	/// Get the `font-weight` attribute.
-	pub fn font_minus_weight(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::FontMinusWeight)
+	pub fn font_weight(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::FontWeight)
 	}
 
 	/// Set the `hanging` attribute.
@@ -9528,7 +9528,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Hanging, value.into());
+		self.set_attr(FontFaceAttrs::Hanging, value.into());
 		self
 	}
 
@@ -9537,12 +9537,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Hanging, value.into());
+		self.set_attr(FontFaceAttrs::Hanging, value.into());
 	}
 
 	/// Get the `hanging` attribute.
 	pub fn hanging(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Hanging)
+		self.get_attr(FontFaceAttrs::Hanging)
 	}
 
 	/// Set the `ideographic` attribute.
@@ -9550,7 +9550,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Ideographic, value.into());
+		self.set_attr(FontFaceAttrs::Ideographic, value.into());
 		self
 	}
 
@@ -9559,12 +9559,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Ideographic, value.into());
+		self.set_attr(FontFaceAttrs::Ideographic, value.into());
 	}
 
 	/// Get the `ideographic` attribute.
 	pub fn ideographic(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Ideographic)
+		self.get_attr(FontFaceAttrs::Ideographic)
 	}
 
 	/// Set the `mathematical` attribute.
@@ -9572,7 +9572,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Mathematical, value.into());
+		self.set_attr(FontFaceAttrs::Mathematical, value.into());
 		self
 	}
 
@@ -9581,78 +9581,78 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Mathematical, value.into());
+		self.set_attr(FontFaceAttrs::Mathematical, value.into());
 	}
 
 	/// Get the `mathematical` attribute.
 	pub fn mathematical(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Mathematical)
+		self.get_attr(FontFaceAttrs::Mathematical)
 	}
 
 	/// Set the `overline-position` attribute.
-	pub fn with_overline_minus_position<T>(mut self, value: T) -> Self
+	pub fn with_overline_position<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::OverlineMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::OverlinePosition, value.into());
 		self
 	}
 
 	/// Set the `overline-position` attribute.
-	pub fn set_overline_minus_position<T>(&mut self, value: T)
+	pub fn set_overline_position<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::OverlineMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::OverlinePosition, value.into());
 	}
 
 	/// Get the `overline-position` attribute.
-	pub fn overline_minus_position(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::OverlineMinusPosition)
+	pub fn overline_position(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::OverlinePosition)
 	}
 
 	/// Set the `overline-thickness` attribute.
-	pub fn with_overline_minus_thickness<T>(mut self, value: T) -> Self
+	pub fn with_overline_thickness<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::OverlineMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::OverlineThickness, value.into());
 		self
 	}
 
 	/// Set the `overline-thickness` attribute.
-	pub fn set_overline_minus_thickness<T>(&mut self, value: T)
+	pub fn set_overline_thickness<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::OverlineMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::OverlineThickness, value.into());
 	}
 
 	/// Get the `overline-thickness` attribute.
-	pub fn overline_minus_thickness(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::OverlineMinusThickness)
+	pub fn overline_thickness(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::OverlineThickness)
 	}
 
 	/// Set the `panose-1` attribute.
-	pub fn with_panose_minus_1<T>(mut self, value: T) -> Self
+	pub fn with_panose_1<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::PanoseMinus1, value.into());
+		self.set_attr(FontFaceAttrs::Panose1, value.into());
 		self
 	}
 
 	/// Set the `panose-1` attribute.
-	pub fn set_panose_minus_1<T>(&mut self, value: T)
+	pub fn set_panose_1<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::PanoseMinus1, value.into());
+		self.set_attr(FontFaceAttrs::Panose1, value.into());
 	}
 
 	/// Get the `panose-1` attribute.
-	pub fn panose_minus_1(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::PanoseMinus1)
+	pub fn panose_1(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::Panose1)
 	}
 
 	/// Set the `slope` attribute.
@@ -9660,7 +9660,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Slope, value.into());
+		self.set_attr(FontFaceAttrs::Slope, value.into());
 		self
 	}
 
@@ -9669,12 +9669,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Slope, value.into());
+		self.set_attr(FontFaceAttrs::Slope, value.into());
 	}
 
 	/// Get the `slope` attribute.
 	pub fn slope(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Slope)
+		self.get_attr(FontFaceAttrs::Slope)
 	}
 
 	/// Set the `stemh` attribute.
@@ -9682,7 +9682,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Stemh, value.into());
+		self.set_attr(FontFaceAttrs::Stemh, value.into());
 		self
 	}
 
@@ -9691,12 +9691,12 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Stemh, value.into());
+		self.set_attr(FontFaceAttrs::Stemh, value.into());
 	}
 
 	/// Get the `stemh` attribute.
 	pub fn stemh(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Stemh)
+		self.get_attr(FontFaceAttrs::Stemh)
 	}
 
 	/// Set the `stemv` attribute.
@@ -9704,7 +9704,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Stemv, value.into());
+		self.set_attr(FontFaceAttrs::Stemv, value.into());
 		self
 	}
 
@@ -9713,232 +9713,232 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Stemv, value.into());
+		self.set_attr(FontFaceAttrs::Stemv, value.into());
 	}
 
 	/// Get the `stemv` attribute.
 	pub fn stemv(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Stemv)
+		self.get_attr(FontFaceAttrs::Stemv)
 	}
 
 	/// Set the `strikethrough-position` attribute.
-	pub fn with_strikethrough_minus_position<T>(mut self, value: T) -> Self
+	pub fn with_strikethrough_position<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::StrikethroughMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughPosition, value.into());
 		self
 	}
 
 	/// Set the `strikethrough-position` attribute.
-	pub fn set_strikethrough_minus_position<T>(&mut self, value: T)
+	pub fn set_strikethrough_position<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::StrikethroughMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughPosition, value.into());
 	}
 
 	/// Get the `strikethrough-position` attribute.
-	pub fn strikethrough_minus_position(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::StrikethroughMinusPosition)
+	pub fn strikethrough_position(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::StrikethroughPosition)
 	}
 
 	/// Set the `strikethrough-thickness` attribute.
-	pub fn with_strikethrough_minus_thickness<T>(mut self, value: T) -> Self
+	pub fn with_strikethrough_thickness<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::StrikethroughMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughThickness, value.into());
 		self
 	}
 
 	/// Set the `strikethrough-thickness` attribute.
-	pub fn set_strikethrough_minus_thickness<T>(&mut self, value: T)
+	pub fn set_strikethrough_thickness<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::StrikethroughMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughThickness, value.into());
 	}
 
 	/// Get the `strikethrough-thickness` attribute.
-	pub fn strikethrough_minus_thickness(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::StrikethroughMinusThickness)
+	pub fn strikethrough_thickness(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::StrikethroughThickness)
 	}
 
 	/// Set the `underline-position` attribute.
-	pub fn with_underline_minus_position<T>(mut self, value: T) -> Self
+	pub fn with_underline_position<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnderlineMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::UnderlinePosition, value.into());
 		self
 	}
 
 	/// Set the `underline-position` attribute.
-	pub fn set_underline_minus_position<T>(&mut self, value: T)
+	pub fn set_underline_position<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnderlineMinusPosition, value.into());
+		self.set_attr(FontFaceAttrs::UnderlinePosition, value.into());
 	}
 
 	/// Get the `underline-position` attribute.
-	pub fn underline_minus_position(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::UnderlineMinusPosition)
+	pub fn underline_position(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::UnderlinePosition)
 	}
 
 	/// Set the `underline-thickness` attribute.
-	pub fn with_underline_minus_thickness<T>(mut self, value: T) -> Self
+	pub fn with_underline_thickness<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnderlineMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::UnderlineThickness, value.into());
 		self
 	}
 
 	/// Set the `underline-thickness` attribute.
-	pub fn set_underline_minus_thickness<T>(&mut self, value: T)
+	pub fn set_underline_thickness<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnderlineMinusThickness, value.into());
+		self.set_attr(FontFaceAttrs::UnderlineThickness, value.into());
 	}
 
 	/// Get the `underline-thickness` attribute.
-	pub fn underline_minus_thickness(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::UnderlineMinusThickness)
+	pub fn underline_thickness(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::UnderlineThickness)
 	}
 
 	/// Set the `unicode-range` attribute.
-	pub fn with_unicode_minus_range<T>(mut self, value: T) -> Self
+	pub fn with_unicode_range<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnicodeMinusRange, value.into());
+		self.set_attr(FontFaceAttrs::UnicodeRange, value.into());
 		self
 	}
 
 	/// Set the `unicode-range` attribute.
-	pub fn set_unicode_minus_range<T>(&mut self, value: T)
+	pub fn set_unicode_range<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnicodeMinusRange, value.into());
+		self.set_attr(FontFaceAttrs::UnicodeRange, value.into());
 	}
 
 	/// Get the `unicode-range` attribute.
-	pub fn unicode_minus_range(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::UnicodeMinusRange)
+	pub fn unicode_range(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::UnicodeRange)
 	}
 
 	/// Set the `units-per-em` attribute.
-	pub fn with_units_minus_per_minus_em<T>(mut self, value: T) -> Self
+	pub fn with_units_per_em<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnitsMinusPerMinusEm, value.into());
+		self.set_attr(FontFaceAttrs::UnitsPerEm, value.into());
 		self
 	}
 
 	/// Set the `units-per-em` attribute.
-	pub fn set_units_minus_per_minus_em<T>(&mut self, value: T)
+	pub fn set_units_per_em<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::UnitsMinusPerMinusEm, value.into());
+		self.set_attr(FontFaceAttrs::UnitsPerEm, value.into());
 	}
 
 	/// Get the `units-per-em` attribute.
-	pub fn units_minus_per_minus_em(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::UnitsMinusPerMinusEm)
+	pub fn units_per_em(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::UnitsPerEm)
 	}
 
 	/// Set the `v-alphabetic` attribute.
-	pub fn with_v_minus_alphabetic<T>(mut self, value: T) -> Self
+	pub fn with_v_alphabetic<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusAlphabetic, value.into());
+		self.set_attr(FontFaceAttrs::VAlphabetic, value.into());
 		self
 	}
 
 	/// Set the `v-alphabetic` attribute.
-	pub fn set_v_minus_alphabetic<T>(&mut self, value: T)
+	pub fn set_v_alphabetic<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusAlphabetic, value.into());
+		self.set_attr(FontFaceAttrs::VAlphabetic, value.into());
 	}
 
 	/// Get the `v-alphabetic` attribute.
-	pub fn v_minus_alphabetic(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::VMinusAlphabetic)
+	pub fn v_alphabetic(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::VAlphabetic)
 	}
 
 	/// Set the `v-hanging` attribute.
-	pub fn with_v_minus_hanging<T>(mut self, value: T) -> Self
+	pub fn with_v_hanging<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusHanging, value.into());
+		self.set_attr(FontFaceAttrs::VHanging, value.into());
 		self
 	}
 
 	/// Set the `v-hanging` attribute.
-	pub fn set_v_minus_hanging<T>(&mut self, value: T)
+	pub fn set_v_hanging<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusHanging, value.into());
+		self.set_attr(FontFaceAttrs::VHanging, value.into());
 	}
 
 	/// Get the `v-hanging` attribute.
-	pub fn v_minus_hanging(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::VMinusHanging)
+	pub fn v_hanging(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::VHanging)
 	}
 
 	/// Set the `v-ideographic` attribute.
-	pub fn with_v_minus_ideographic<T>(mut self, value: T) -> Self
+	pub fn with_v_ideographic<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusIdeographic, value.into());
+		self.set_attr(FontFaceAttrs::VIdeographic, value.into());
 		self
 	}
 
 	/// Set the `v-ideographic` attribute.
-	pub fn set_v_minus_ideographic<T>(&mut self, value: T)
+	pub fn set_v_ideographic<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusIdeographic, value.into());
+		self.set_attr(FontFaceAttrs::VIdeographic, value.into());
 	}
 
 	/// Get the `v-ideographic` attribute.
-	pub fn v_minus_ideographic(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::VMinusIdeographic)
+	pub fn v_ideographic(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::VIdeographic)
 	}
 
 	/// Set the `v-mathematical` attribute.
-	pub fn with_v_minus_mathematical<T>(mut self, value: T) -> Self
+	pub fn with_v_mathematical<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusMathematical, value.into());
+		self.set_attr(FontFaceAttrs::VMathematical, value.into());
 		self
 	}
 
 	/// Set the `v-mathematical` attribute.
-	pub fn set_v_minus_mathematical<T>(&mut self, value: T)
+	pub fn set_v_mathematical<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::VMinusMathematical, value.into());
+		self.set_attr(FontFaceAttrs::VMathematical, value.into());
 	}
 
 	/// Get the `v-mathematical` attribute.
-	pub fn v_minus_mathematical(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::VMinusMathematical)
+	pub fn v_mathematical(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::VMathematical)
 	}
 
 	/// Set the `widths` attribute.
@@ -9946,7 +9946,7 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Widths, value.into());
+		self.set_attr(FontFaceAttrs::Widths, value.into());
 		self
 	}
 
@@ -9955,38 +9955,38 @@ impl FontMinusFace {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::Widths, value.into());
+		self.set_attr(FontFaceAttrs::Widths, value.into());
 	}
 
 	/// Get the `widths` attribute.
 	pub fn widths(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::Widths)
+		self.get_attr(FontFaceAttrs::Widths)
 	}
 
 	/// Set the `x-height` attribute.
-	pub fn with_x_minus_height<T>(mut self, value: T) -> Self
+	pub fn with_x_height<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::XMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::XHeight, value.into());
 		self
 	}
 
 	/// Set the `x-height` attribute.
-	pub fn set_x_minus_height<T>(&mut self, value: T)
+	pub fn set_x_height<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceAttrs::XMinusHeight, value.into());
+		self.set_attr(FontFaceAttrs::XHeight, value.into());
 	}
 
 	/// Get the `x-height` attribute.
-	pub fn x_minus_height(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceAttrs::XMinusHeight)
+	pub fn x_height(&self) -> Option<&str> {
+		self.get_attr(FontFaceAttrs::XHeight)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for FontMinusFace {
+impl common_attrs::CoreAttributesSetter for FontFace {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -9996,9 +9996,9 @@ impl common_attrs::CoreAttributesSetter for FontMinusFace {
 	}
 }
 
-impl TagWithCoreAttributes for FontMinusFace {}
+impl TagWithCoreAttributes for FontFace {}
 
-impl Tag for FontMinusFace {
+impl Tag for FontFace {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face");
 		for (attr, value) in &self.attrs {
@@ -10009,11 +10009,11 @@ impl Tag for FontMinusFace {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum FontMinusFaceMinusFormatAttrs {
+enum FontFaceFormatAttrs {
 	String,
 }
 
-impl FontMinusFaceMinusFormatAttrs {
+impl FontFaceFormatAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::String => "string",
@@ -10021,13 +10021,13 @@ impl FontMinusFaceMinusFormatAttrs {
 	}
 }
 
-impl Display for FontMinusFaceMinusFormatAttrs {
+impl Display for FontFaceFormatAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for FontMinusFaceMinusFormatAttrs {
+impl Debug for FontFaceFormatAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -10037,17 +10037,17 @@ impl Debug for FontMinusFaceMinusFormatAttrs {
 #[doc = include_str!("font-face-format.md")]
 #[doc = "\n\n [`<font-face-format>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-format"]
 #[derive(Clone, Debug)]
-pub struct FontMinusFaceMinusFormat {
-	attrs: IndexMap<FontMinusFaceMinusFormatAttrs, String>,
+pub struct FontFaceFormat {
+	attrs: IndexMap<FontFaceFormatAttrs, String>,
 }
 
-impl Default for FontMinusFaceMinusFormat {
+impl Default for FontFaceFormat {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl FontMinusFaceMinusFormat {
+impl FontFaceFormat {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -10055,12 +10055,12 @@ impl FontMinusFaceMinusFormat {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontMinusFaceMinusFormatAttrs, value: String) {
+	fn set_attr(&mut self, attr: FontFaceFormatAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: FontMinusFaceMinusFormatAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: FontFaceFormatAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -10069,7 +10069,7 @@ impl FontMinusFaceMinusFormat {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusFormatAttrs::String, value.into());
+		self.set_attr(FontFaceFormatAttrs::String, value.into());
 		self
 	}
 
@@ -10078,16 +10078,16 @@ impl FontMinusFaceMinusFormat {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusFormatAttrs::String, value.into());
+		self.set_attr(FontFaceFormatAttrs::String, value.into());
 	}
 
 	/// Get the `string` attribute.
 	pub fn string(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceMinusFormatAttrs::String)
+		self.get_attr(FontFaceFormatAttrs::String)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusFormat {
+impl common_attrs::CoreAttributesSetter for FontFaceFormat {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -10097,9 +10097,9 @@ impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusFormat {
 	}
 }
 
-impl TagWithCoreAttributes for FontMinusFaceMinusFormat {}
+impl TagWithCoreAttributes for FontFaceFormat {}
 
-impl Tag for FontMinusFaceMinusFormat {
+impl Tag for FontFaceFormat {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face-format");
 		for (attr, value) in &self.attrs {
@@ -10110,11 +10110,11 @@ impl Tag for FontMinusFaceMinusFormat {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum FontMinusFaceMinusNameAttrs {
+enum FontFaceNameAttrs {
 	Name,
 }
 
-impl FontMinusFaceMinusNameAttrs {
+impl FontFaceNameAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Name => "name",
@@ -10122,13 +10122,13 @@ impl FontMinusFaceMinusNameAttrs {
 	}
 }
 
-impl Display for FontMinusFaceMinusNameAttrs {
+impl Display for FontFaceNameAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for FontMinusFaceMinusNameAttrs {
+impl Debug for FontFaceNameAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -10138,17 +10138,17 @@ impl Debug for FontMinusFaceMinusNameAttrs {
 #[doc = include_str!("font-face-name.md")]
 #[doc = "\n\n [`<font-face-name>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-name"]
 #[derive(Clone, Debug)]
-pub struct FontMinusFaceMinusName {
-	attrs: IndexMap<FontMinusFaceMinusNameAttrs, String>,
+pub struct FontFaceName {
+	attrs: IndexMap<FontFaceNameAttrs, String>,
 }
 
-impl Default for FontMinusFaceMinusName {
+impl Default for FontFaceName {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl FontMinusFaceMinusName {
+impl FontFaceName {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -10156,12 +10156,12 @@ impl FontMinusFaceMinusName {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontMinusFaceMinusNameAttrs, value: String) {
+	fn set_attr(&mut self, attr: FontFaceNameAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: FontMinusFaceMinusNameAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: FontFaceNameAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -10170,7 +10170,7 @@ impl FontMinusFaceMinusName {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusNameAttrs::Name, value.into());
+		self.set_attr(FontFaceNameAttrs::Name, value.into());
 		self
 	}
 
@@ -10179,16 +10179,16 @@ impl FontMinusFaceMinusName {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusNameAttrs::Name, value.into());
+		self.set_attr(FontFaceNameAttrs::Name, value.into());
 	}
 
 	/// Get the `name` attribute.
 	pub fn name(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceMinusNameAttrs::Name)
+		self.get_attr(FontFaceNameAttrs::Name)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusName {
+impl common_attrs::CoreAttributesSetter for FontFaceName {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -10198,9 +10198,9 @@ impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusName {
 	}
 }
 
-impl TagWithCoreAttributes for FontMinusFaceMinusName {}
+impl TagWithCoreAttributes for FontFaceName {}
 
-impl Tag for FontMinusFaceMinusName {
+impl Tag for FontFaceName {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face-name");
 		for (attr, value) in &self.attrs {
@@ -10214,16 +10214,16 @@ impl Tag for FontMinusFaceMinusName {
 #[doc = include_str!("font-face-src.md")]
 #[doc = "\n\n [`<font-face-src>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-src"]
 #[derive(Clone, Debug)]
-pub struct FontMinusFaceMinusSrc {
+pub struct FontFaceSrc {
 }
 
-impl Default for FontMinusFaceMinusSrc {
+impl Default for FontFaceSrc {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl FontMinusFaceMinusSrc {
+impl FontFaceSrc {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -10231,7 +10231,7 @@ impl FontMinusFaceMinusSrc {
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusSrc {
+impl common_attrs::CoreAttributesSetter for FontFaceSrc {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -10241,20 +10241,20 @@ impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusSrc {
 	}
 }
 
-impl TagWithCoreAttributes for FontMinusFaceMinusSrc {}
+impl TagWithCoreAttributes for FontFaceSrc {}
 
-impl Tag for FontMinusFaceMinusSrc {
+impl Tag for FontFaceSrc {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face-src");w.end_element();
 	}
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum FontMinusFaceMinusUriAttrs {
+enum FontFaceUriAttrs {
 	XlinkHref,
 }
 
-impl FontMinusFaceMinusUriAttrs {
+impl FontFaceUriAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::XlinkHref => "xlink:href",
@@ -10262,13 +10262,13 @@ impl FontMinusFaceMinusUriAttrs {
 	}
 }
 
-impl Display for FontMinusFaceMinusUriAttrs {
+impl Display for FontFaceUriAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for FontMinusFaceMinusUriAttrs {
+impl Debug for FontFaceUriAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -10278,17 +10278,17 @@ impl Debug for FontMinusFaceMinusUriAttrs {
 #[doc = include_str!("font-face-uri.md")]
 #[doc = "\n\n [`<font-face-uri>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-uri"]
 #[derive(Clone, Debug)]
-pub struct FontMinusFaceMinusUri {
-	attrs: IndexMap<FontMinusFaceMinusUriAttrs, String>,
+pub struct FontFaceUri {
+	attrs: IndexMap<FontFaceUriAttrs, String>,
 }
 
-impl Default for FontMinusFaceMinusUri {
+impl Default for FontFaceUri {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl FontMinusFaceMinusUri {
+impl FontFaceUri {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -10296,12 +10296,12 @@ impl FontMinusFaceMinusUri {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontMinusFaceMinusUriAttrs, value: String) {
+	fn set_attr(&mut self, attr: FontFaceUriAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: FontMinusFaceMinusUriAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: FontFaceUriAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -10310,7 +10310,7 @@ impl FontMinusFaceMinusUri {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusUriAttrs::XlinkHref, value.into());
+		self.set_attr(FontFaceUriAttrs::XlinkHref, value.into());
 		self
 	}
 
@@ -10319,16 +10319,16 @@ impl FontMinusFaceMinusUri {
 	where
 		T: Into<String>
 	{
-		self.set_attr(FontMinusFaceMinusUriAttrs::XlinkHref, value.into());
+		self.set_attr(FontFaceUriAttrs::XlinkHref, value.into());
 	}
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.get_attr(FontMinusFaceMinusUriAttrs::XlinkHref)
+		self.get_attr(FontFaceUriAttrs::XlinkHref)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusUri {
+impl common_attrs::CoreAttributesSetter for FontFaceUri {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -10338,9 +10338,9 @@ impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusUri {
 	}
 }
 
-impl TagWithCoreAttributes for FontMinusFaceMinusUri {}
+impl TagWithCoreAttributes for FontFaceUri {}
 
-impl common_attrs::XLinkAttributesSetter for FontMinusFaceMinusUri {
+impl common_attrs::XLinkAttributesSetter for FontFaceUri {
 	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
 		unimplemented!()
 	}
@@ -10350,9 +10350,9 @@ impl common_attrs::XLinkAttributesSetter for FontMinusFaceMinusUri {
 	}
 }
 
-impl TagWithXLinkAttributes for FontMinusFaceMinusUri {}
+impl TagWithXLinkAttributes for FontFaceUri {}
 
-impl Tag for FontMinusFaceMinusUri {
+impl Tag for FontFaceUri {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face-uri");
 		for (attr, value) in &self.attrs {
@@ -10878,35 +10878,35 @@ impl Tag for G {
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum GlyphAttrs {
-	ArabicMinusForm,
+	ArabicForm,
 	Class,
 	D,
-	GlyphMinusName,
-	HorizMinusAdvMinusX,
+	GlyphName,
+	HorizAdvX,
 	Lang,
 	Orientation,
 	Style,
 	Unicode,
-	VertMinusAdvMinusY,
-	VertMinusOriginMinusX,
-	VertMinusOriginMinusY,
+	VertAdvY,
+	VertOriginX,
+	VertOriginY,
 }
 
 impl GlyphAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
-			Self::ArabicMinusForm => "arabic-form",
+			Self::ArabicForm => "arabic-form",
 			Self::Class => "class",
 			Self::D => "d",
-			Self::GlyphMinusName => "glyph-name",
-			Self::HorizMinusAdvMinusX => "horiz-adv-x",
+			Self::GlyphName => "glyph-name",
+			Self::HorizAdvX => "horiz-adv-x",
 			Self::Lang => "lang",
 			Self::Orientation => "orientation",
 			Self::Style => "style",
 			Self::Unicode => "unicode",
-			Self::VertMinusAdvMinusY => "vert-adv-y",
-			Self::VertMinusOriginMinusX => "vert-origin-x",
-			Self::VertMinusOriginMinusY => "vert-origin-y",
+			Self::VertAdvY => "vert-adv-y",
+			Self::VertOriginX => "vert-origin-x",
+			Self::VertOriginY => "vert-origin-y",
 		}
 	}
 }
@@ -10955,25 +10955,25 @@ impl Glyph {
 	}
 
 	/// Set the `arabic-form` attribute.
-	pub fn with_arabic_minus_form<T>(mut self, value: T) -> Self
+	pub fn with_arabic_form<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::ArabicMinusForm, value.into());
+		self.set_attr(GlyphAttrs::ArabicForm, value.into());
 		self
 	}
 
 	/// Set the `arabic-form` attribute.
-	pub fn set_arabic_minus_form<T>(&mut self, value: T)
+	pub fn set_arabic_form<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::ArabicMinusForm, value.into());
+		self.set_attr(GlyphAttrs::ArabicForm, value.into());
 	}
 
 	/// Get the `arabic-form` attribute.
-	pub fn arabic_minus_form(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::ArabicMinusForm)
+	pub fn arabic_form(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::ArabicForm)
 	}
 
 	/// Set the `class` attribute.
@@ -11021,47 +11021,47 @@ impl Glyph {
 	}
 
 	/// Set the `glyph-name` attribute.
-	pub fn with_glyph_minus_name<T>(mut self, value: T) -> Self
+	pub fn with_glyph_name<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::GlyphMinusName, value.into());
+		self.set_attr(GlyphAttrs::GlyphName, value.into());
 		self
 	}
 
 	/// Set the `glyph-name` attribute.
-	pub fn set_glyph_minus_name<T>(&mut self, value: T)
+	pub fn set_glyph_name<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::GlyphMinusName, value.into());
+		self.set_attr(GlyphAttrs::GlyphName, value.into());
 	}
 
 	/// Get the `glyph-name` attribute.
-	pub fn glyph_minus_name(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::GlyphMinusName)
+	pub fn glyph_name(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::GlyphName)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_minus_adv_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(GlyphAttrs::HorizAdvX, value.into());
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_minus_adv_minus_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(GlyphAttrs::HorizAdvX, value.into());
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::HorizMinusAdvMinusX)
+	pub fn horiz_adv_x(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::HorizAdvX)
 	}
 
 	/// Set the `lang` attribute.
@@ -11153,69 +11153,69 @@ impl Glyph {
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_minus_adv_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(GlyphAttrs::VertAdvY, value.into());
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_minus_adv_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(GlyphAttrs::VertAdvY, value.into());
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::VertMinusAdvMinusY)
+	pub fn vert_adv_y(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_minus_origin_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(GlyphAttrs::VertOriginX, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_minus_origin_minus_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(GlyphAttrs::VertOriginX, value.into());
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::VertMinusOriginMinusX)
+	pub fn vert_origin_x(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_minus_origin_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(GlyphAttrs::VertOriginY, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_minus_origin_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(GlyphAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(GlyphAttrs::VertOriginY, value.into());
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.get_attr(GlyphAttrs::VertMinusOriginMinusY)
+	pub fn vert_origin_y(&self) -> Option<&str> {
+		self.get_attr(GlyphAttrs::VertOriginY)
 	}
 }
 
@@ -14002,37 +14002,37 @@ impl Tag for Metadata {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum MissingMinusGlyphAttrs {
+enum MissingGlyphAttrs {
 	Class,
 	D,
-	HorizMinusAdvMinusX,
+	HorizAdvX,
 	Style,
-	VertMinusAdvMinusY,
-	VertMinusOriginMinusX,
-	VertMinusOriginMinusY,
+	VertAdvY,
+	VertOriginX,
+	VertOriginY,
 }
 
-impl MissingMinusGlyphAttrs {
+impl MissingGlyphAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Class => "class",
 			Self::D => "d",
-			Self::HorizMinusAdvMinusX => "horiz-adv-x",
+			Self::HorizAdvX => "horiz-adv-x",
 			Self::Style => "style",
-			Self::VertMinusAdvMinusY => "vert-adv-y",
-			Self::VertMinusOriginMinusX => "vert-origin-x",
-			Self::VertMinusOriginMinusY => "vert-origin-y",
+			Self::VertAdvY => "vert-adv-y",
+			Self::VertOriginX => "vert-origin-x",
+			Self::VertOriginY => "vert-origin-y",
 		}
 	}
 }
 
-impl Display for MissingMinusGlyphAttrs {
+impl Display for MissingGlyphAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for MissingMinusGlyphAttrs {
+impl Debug for MissingGlyphAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -14042,17 +14042,17 @@ impl Debug for MissingMinusGlyphAttrs {
 #[doc = include_str!("missing-glyph.md")]
 #[doc = "\n\n [`<missing-glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/missing-glyph"]
 #[derive(Clone, Debug)]
-pub struct MissingMinusGlyph {
-	attrs: IndexMap<MissingMinusGlyphAttrs, String>,
+pub struct MissingGlyph {
+	attrs: IndexMap<MissingGlyphAttrs, String>,
 }
 
-impl Default for MissingMinusGlyph {
+impl Default for MissingGlyph {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl MissingMinusGlyph {
+impl MissingGlyph {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -14060,12 +14060,12 @@ impl MissingMinusGlyph {
 		}
 	}
 
-	fn set_attr(&mut self, attr: MissingMinusGlyphAttrs, value: String) {
+	fn set_attr(&mut self, attr: MissingGlyphAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: MissingMinusGlyphAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: MissingGlyphAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -14074,7 +14074,7 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::Class, value.into());
+		self.set_attr(MissingGlyphAttrs::Class, value.into());
 		self
 	}
 
@@ -14083,12 +14083,12 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::Class, value.into());
+		self.set_attr(MissingGlyphAttrs::Class, value.into());
 	}
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::Class)
+		self.get_attr(MissingGlyphAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
@@ -14096,7 +14096,7 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::D, value.into());
+		self.set_attr(MissingGlyphAttrs::D, value.into());
 		self
 	}
 
@@ -14105,34 +14105,34 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::D, value.into());
+		self.set_attr(MissingGlyphAttrs::D, value.into());
 	}
 
 	/// Get the `d` attribute.
 	pub fn d(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::D)
+		self.get_attr(MissingGlyphAttrs::D)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_minus_adv_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(MissingGlyphAttrs::HorizAdvX, value.into());
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_minus_adv_minus_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::HorizMinusAdvMinusX, value.into());
+		self.set_attr(MissingGlyphAttrs::HorizAdvX, value.into());
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::HorizMinusAdvMinusX)
+	pub fn horiz_adv_x(&self) -> Option<&str> {
+		self.get_attr(MissingGlyphAttrs::HorizAdvX)
 	}
 
 	/// Set the `style` attribute.
@@ -14140,7 +14140,7 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::Style, value.into());
+		self.set_attr(MissingGlyphAttrs::Style, value.into());
 		self
 	}
 
@@ -14149,82 +14149,82 @@ impl MissingMinusGlyph {
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::Style, value.into());
+		self.set_attr(MissingGlyphAttrs::Style, value.into());
 	}
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::Style)
+		self.get_attr(MissingGlyphAttrs::Style)
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_minus_adv_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertAdvY, value.into());
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_minus_adv_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusAdvMinusY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertAdvY, value.into());
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::VertMinusAdvMinusY)
+	pub fn vert_adv_y(&self) -> Option<&str> {
+		self.get_attr(MissingGlyphAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_minus_origin_minus_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginX, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_minus_origin_minus_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusX, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginX, value.into());
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusX)
+	pub fn vert_origin_x(&self) -> Option<&str> {
+		self.get_attr(MissingGlyphAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_minus_origin_minus_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginY, value.into());
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_minus_origin_minus_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginY, value.into());
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.get_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusY)
+	pub fn vert_origin_y(&self) -> Option<&str> {
+		self.get_attr(MissingGlyphAttrs::VertOriginY)
 	}
 }
 
-impl common_attrs::CoreAttributesSetter for MissingMinusGlyph {
+impl common_attrs::CoreAttributesSetter for MissingGlyph {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
 		unimplemented!()
 	}
@@ -14234,9 +14234,9 @@ impl common_attrs::CoreAttributesSetter for MissingMinusGlyph {
 	}
 }
 
-impl TagWithCoreAttributes for MissingMinusGlyph {}
+impl TagWithCoreAttributes for MissingGlyph {}
 
-impl common_attrs::PresentationAttributesSetter for MissingMinusGlyph {
+impl common_attrs::PresentationAttributesSetter for MissingGlyph {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
 		unimplemented!()
 	}
@@ -14246,9 +14246,9 @@ impl common_attrs::PresentationAttributesSetter for MissingMinusGlyph {
 	}
 }
 
-impl TagWithPresentationAttributes for MissingMinusGlyph {}
+impl TagWithPresentationAttributes for MissingGlyph {}
 
-impl Tag for MissingMinusGlyph {
+impl Tag for MissingGlyph {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("missing-glyph");
 		for (attr, value) in &self.attrs {
@@ -16635,8 +16635,8 @@ impl Tag for Set {
 enum StopAttrs {
 	Class,
 	Offset,
-	StopMinusColor,
-	StopMinusOpacity,
+	StopColor,
+	StopOpacity,
 	Style,
 }
 
@@ -16645,8 +16645,8 @@ impl StopAttrs {
 		match self {
 			Self::Class => "class",
 			Self::Offset => "offset",
-			Self::StopMinusColor => "stop-color",
-			Self::StopMinusOpacity => "stop-opacity",
+			Self::StopColor => "stop-color",
+			Self::StopOpacity => "stop-opacity",
 			Self::Style => "style",
 		}
 	}
@@ -16740,47 +16740,47 @@ impl Stop {
 	}
 
 	/// Set the `stop-color` attribute.
-	pub fn with_stop_minus_color<T>(mut self, value: T) -> Self
+	pub fn with_stop_color<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(StopAttrs::StopMinusColor, value.into());
+		self.set_attr(StopAttrs::StopColor, value.into());
 		self
 	}
 
 	/// Set the `stop-color` attribute.
-	pub fn set_stop_minus_color<T>(&mut self, value: T)
+	pub fn set_stop_color<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(StopAttrs::StopMinusColor, value.into());
+		self.set_attr(StopAttrs::StopColor, value.into());
 	}
 
 	/// Get the `stop-color` attribute.
-	pub fn stop_minus_color(&self) -> Option<&str> {
-		self.get_attr(StopAttrs::StopMinusColor)
+	pub fn stop_color(&self) -> Option<&str> {
+		self.get_attr(StopAttrs::StopColor)
 	}
 
 	/// Set the `stop-opacity` attribute.
-	pub fn with_stop_minus_opacity<T>(mut self, value: T) -> Self
+	pub fn with_stop_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(StopAttrs::StopMinusOpacity, value.into());
+		self.set_attr(StopAttrs::StopOpacity, value.into());
 		self
 	}
 
 	/// Set the `stop-opacity` attribute.
-	pub fn set_stop_minus_opacity<T>(&mut self, value: T)
+	pub fn set_stop_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(StopAttrs::StopMinusOpacity, value.into());
+		self.set_attr(StopAttrs::StopOpacity, value.into());
 	}
 
 	/// Get the `stop-opacity` attribute.
-	pub fn stop_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(StopAttrs::StopMinusOpacity)
+	pub fn stop_opacity(&self) -> Option<&str> {
+		self.get_attr(StopAttrs::StopOpacity)
 	}
 
 	/// Set the `style` attribute.
@@ -17889,7 +17889,7 @@ enum TextAttrs {
 	LengthAdjust,
 	Rotate,
 	Style,
-	TextMinusAnchor,
+	TextAnchor,
 	TextLength,
 	Transform,
 	X,
@@ -17906,7 +17906,7 @@ impl TextAttrs {
 			Self::LengthAdjust => "lengthAdjust",
 			Self::Rotate => "rotate",
 			Self::Style => "style",
-			Self::TextMinusAnchor => "text-anchor",
+			Self::TextAnchor => "text-anchor",
 			Self::TextLength => "textLength",
 			Self::Transform => "transform",
 			Self::X => "x",
@@ -18113,25 +18113,25 @@ impl Text {
 	}
 
 	/// Set the `text-anchor` attribute.
-	pub fn with_text_minus_anchor<T>(mut self, value: T) -> Self
+	pub fn with_text_anchor<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(TextAttrs::TextMinusAnchor, value.into());
+		self.set_attr(TextAttrs::TextAnchor, value.into());
 		self
 	}
 
 	/// Set the `text-anchor` attribute.
-	pub fn set_text_minus_anchor<T>(&mut self, value: T)
+	pub fn set_text_anchor<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(TextAttrs::TextMinusAnchor, value.into());
+		self.set_attr(TextAttrs::TextAnchor, value.into());
 	}
 
 	/// Get the `text-anchor` attribute.
-	pub fn text_minus_anchor(&self) -> Option<&str> {
-		self.get_attr(TextAttrs::TextMinusAnchor)
+	pub fn text_anchor(&self) -> Option<&str> {
+		self.get_attr(TextAttrs::TextAnchor)
 	}
 
 	/// Set the `textLength` attribute.

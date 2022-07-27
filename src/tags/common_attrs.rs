@@ -2841,135 +2841,135 @@ pub trait TagWithGraphicalEventAttributes: GraphicalEventAttributesSetter + Size
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub enum PresentationAttributes {
-	AlignmentMinusBaseline,
-	BaselineMinusShift,
+	AlignmentBaseline,
+	BaselineShift,
 	Clip,
-	ClipMinusPath,
-	ClipMinusRule,
+	ClipPath,
+	ClipRule,
 	Color,
-	ColorMinusInterpolation,
-	ColorMinusInterpolationMinusFilters,
-	ColorMinusProfile,
-	ColorMinusRendering,
+	ColorInterpolation,
+	ColorInterpolationFilters,
+	ColorProfile,
+	ColorRendering,
 	Cursor,
 	Direction,
 	Display,
-	DominantMinusBaseline,
-	EnableMinusBackground,
+	DominantBaseline,
+	EnableBackground,
 	Fill,
-	FillMinusOpacity,
-	FillMinusRule,
+	FillOpacity,
+	FillRule,
 	Filter,
-	FloodMinusColor,
-	FloodMinusOpacity,
-	FontMinusFamily,
-	FontMinusSize,
-	FontMinusSizeMinusAdjust,
-	FontMinusStretch,
-	FontMinusStyle,
-	FontMinusVariant,
-	FontMinusWeight,
-	GlyphMinusOrientationMinusHorizontal,
-	GlyphMinusOrientationMinusVertical,
-	ImageMinusRendering,
+	FloodColor,
+	FloodOpacity,
+	FontFamily,
+	FontSize,
+	FontSizeAdjust,
+	FontStretch,
+	FontStyle,
+	FontVariant,
+	FontWeight,
+	GlyphOrientationHorizontal,
+	GlyphOrientationVertical,
+	ImageRendering,
 	Kerning,
-	LetterMinusSpacing,
-	LightingMinusColor,
-	MarkerMinusEnd,
-	MarkerMinusMid,
-	MarkerMinusStart,
+	LetterSpacing,
+	LightingColor,
+	MarkerEnd,
+	MarkerMid,
+	MarkerStart,
 	Mask,
 	Opacity,
 	Overflow,
-	PointerMinusEvents,
-	ShapeMinusRendering,
-	StopMinusColor,
-	StopMinusOpacity,
+	PointerEvents,
+	ShapeRendering,
+	StopColor,
+	StopOpacity,
 	Stroke,
-	StrokeMinusDasharray,
-	StrokeMinusDashoffset,
-	StrokeMinusLinecap,
-	StrokeMinusLinejoin,
-	StrokeMinusMiterlimit,
-	StrokeMinusOpacity,
-	StrokeMinusWidth,
-	TextMinusAnchor,
-	TextMinusDecoration,
-	TextMinusRendering,
+	StrokeDasharray,
+	StrokeDashoffset,
+	StrokeLinecap,
+	StrokeLinejoin,
+	StrokeMiterlimit,
+	StrokeOpacity,
+	StrokeWidth,
+	TextAnchor,
+	TextDecoration,
+	TextRendering,
 	Transform,
-	TransformMinusOrigin,
-	UnicodeMinusBidi,
-	VectorMinusEffect,
+	TransformOrigin,
+	UnicodeBidi,
+	VectorEffect,
 	Visibility,
-	WordMinusSpacing,
-	WritingMinusMode,
+	WordSpacing,
+	WritingMode,
 }
 
 impl PresentationAttributes {
 	fn as_str(&self) -> &'static str {
 		match self {
-			Self::AlignmentMinusBaseline => "alignment-baseline",
-			Self::BaselineMinusShift => "baseline-shift",
+			Self::AlignmentBaseline => "alignment-baseline",
+			Self::BaselineShift => "baseline-shift",
 			Self::Clip => "clip",
-			Self::ClipMinusPath => "clip-path",
-			Self::ClipMinusRule => "clip-rule",
+			Self::ClipPath => "clip-path",
+			Self::ClipRule => "clip-rule",
 			Self::Color => "color",
-			Self::ColorMinusInterpolation => "color-interpolation",
-			Self::ColorMinusInterpolationMinusFilters => "color-interpolation-filters",
-			Self::ColorMinusProfile => "color-profile",
-			Self::ColorMinusRendering => "color-rendering",
+			Self::ColorInterpolation => "color-interpolation",
+			Self::ColorInterpolationFilters => "color-interpolation-filters",
+			Self::ColorProfile => "color-profile",
+			Self::ColorRendering => "color-rendering",
 			Self::Cursor => "cursor",
 			Self::Direction => "direction",
 			Self::Display => "display",
-			Self::DominantMinusBaseline => "dominant-baseline",
-			Self::EnableMinusBackground => "enable-background",
+			Self::DominantBaseline => "dominant-baseline",
+			Self::EnableBackground => "enable-background",
 			Self::Fill => "fill",
-			Self::FillMinusOpacity => "fill-opacity",
-			Self::FillMinusRule => "fill-rule",
+			Self::FillOpacity => "fill-opacity",
+			Self::FillRule => "fill-rule",
 			Self::Filter => "filter",
-			Self::FloodMinusColor => "flood-color",
-			Self::FloodMinusOpacity => "flood-opacity",
-			Self::FontMinusFamily => "font-family",
-			Self::FontMinusSize => "font-size",
-			Self::FontMinusSizeMinusAdjust => "font-size-adjust",
-			Self::FontMinusStretch => "font-stretch",
-			Self::FontMinusStyle => "font-style",
-			Self::FontMinusVariant => "font-variant",
-			Self::FontMinusWeight => "font-weight",
-			Self::GlyphMinusOrientationMinusHorizontal => "glyph-orientation-horizontal",
-			Self::GlyphMinusOrientationMinusVertical => "glyph-orientation-vertical",
-			Self::ImageMinusRendering => "image-rendering",
+			Self::FloodColor => "flood-color",
+			Self::FloodOpacity => "flood-opacity",
+			Self::FontFamily => "font-family",
+			Self::FontSize => "font-size",
+			Self::FontSizeAdjust => "font-size-adjust",
+			Self::FontStretch => "font-stretch",
+			Self::FontStyle => "font-style",
+			Self::FontVariant => "font-variant",
+			Self::FontWeight => "font-weight",
+			Self::GlyphOrientationHorizontal => "glyph-orientation-horizontal",
+			Self::GlyphOrientationVertical => "glyph-orientation-vertical",
+			Self::ImageRendering => "image-rendering",
 			Self::Kerning => "kerning",
-			Self::LetterMinusSpacing => "letter-spacing",
-			Self::LightingMinusColor => "lighting-color",
-			Self::MarkerMinusEnd => "marker-end",
-			Self::MarkerMinusMid => "marker-mid",
-			Self::MarkerMinusStart => "marker-start",
+			Self::LetterSpacing => "letter-spacing",
+			Self::LightingColor => "lighting-color",
+			Self::MarkerEnd => "marker-end",
+			Self::MarkerMid => "marker-mid",
+			Self::MarkerStart => "marker-start",
 			Self::Mask => "mask",
 			Self::Opacity => "opacity",
 			Self::Overflow => "overflow",
-			Self::PointerMinusEvents => "pointer-events",
-			Self::ShapeMinusRendering => "shape-rendering",
-			Self::StopMinusColor => "stop-color",
-			Self::StopMinusOpacity => "stop-opacity",
+			Self::PointerEvents => "pointer-events",
+			Self::ShapeRendering => "shape-rendering",
+			Self::StopColor => "stop-color",
+			Self::StopOpacity => "stop-opacity",
 			Self::Stroke => "stroke",
-			Self::StrokeMinusDasharray => "stroke-dasharray",
-			Self::StrokeMinusDashoffset => "stroke-dashoffset",
-			Self::StrokeMinusLinecap => "stroke-linecap",
-			Self::StrokeMinusLinejoin => "stroke-linejoin",
-			Self::StrokeMinusMiterlimit => "stroke-miterlimit",
-			Self::StrokeMinusOpacity => "stroke-opacity",
-			Self::StrokeMinusWidth => "stroke-width",
-			Self::TextMinusAnchor => "text-anchor",
-			Self::TextMinusDecoration => "text-decoration",
-			Self::TextMinusRendering => "text-rendering",
+			Self::StrokeDasharray => "stroke-dasharray",
+			Self::StrokeDashoffset => "stroke-dashoffset",
+			Self::StrokeLinecap => "stroke-linecap",
+			Self::StrokeLinejoin => "stroke-linejoin",
+			Self::StrokeMiterlimit => "stroke-miterlimit",
+			Self::StrokeOpacity => "stroke-opacity",
+			Self::StrokeWidth => "stroke-width",
+			Self::TextAnchor => "text-anchor",
+			Self::TextDecoration => "text-decoration",
+			Self::TextRendering => "text-rendering",
 			Self::Transform => "transform",
-			Self::TransformMinusOrigin => "transform-origin",
-			Self::UnicodeMinusBidi => "unicode-bidi",
-			Self::VectorMinusEffect => "vector-effect",
+			Self::TransformOrigin => "transform-origin",
+			Self::UnicodeBidi => "unicode-bidi",
+			Self::VectorEffect => "vector-effect",
 			Self::Visibility => "visibility",
-			Self::WordMinusSpacing => "word-spacing",
-			Self::WritingMinusMode => "writing-mode",
+			Self::WordSpacing => "word-spacing",
+			Self::WritingMode => "writing-mode",
 		}
 	}
 }
@@ -2994,47 +2994,47 @@ pub trait PresentationAttributesSetter {
 pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 
 	/// Set the `alignment-baseline` attribute.
-	fn with_alignment_minus_baseline<T>(mut self, value: T) -> Self
+	fn with_alignment_baseline<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::AlignmentMinusBaseline, value.into());
+		self.set_attr(PresentationAttributes::AlignmentBaseline, value.into());
 		self
 	}
 
 	/// Set the `alignment-baseline` attribute.
-	fn set_alignment_minus_baseline<T>(&mut self, value: T)
+	fn set_alignment_baseline<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::AlignmentMinusBaseline, value.into());
+		self.set_attr(PresentationAttributes::AlignmentBaseline, value.into());
 	}
 
 	/// Get the `alignment-baseline` attribute.
-	fn alignment_minus_baseline(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::AlignmentMinusBaseline)
+	fn alignment_baseline(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::AlignmentBaseline)
 	}
 
 	/// Set the `baseline-shift` attribute.
-	fn with_baseline_minus_shift<T>(mut self, value: T) -> Self
+	fn with_baseline_shift<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::BaselineMinusShift, value.into());
+		self.set_attr(PresentationAttributes::BaselineShift, value.into());
 		self
 	}
 
 	/// Set the `baseline-shift` attribute.
-	fn set_baseline_minus_shift<T>(&mut self, value: T)
+	fn set_baseline_shift<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::BaselineMinusShift, value.into());
+		self.set_attr(PresentationAttributes::BaselineShift, value.into());
 	}
 
 	/// Get the `baseline-shift` attribute.
-	fn baseline_minus_shift(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::BaselineMinusShift)
+	fn baseline_shift(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::BaselineShift)
 	}
 
 	/// Set the `clip` attribute.
@@ -3060,47 +3060,47 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `clip-path` attribute.
-	fn with_clip_minus_path<T>(mut self, value: T) -> Self
+	fn with_clip_path<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ClipMinusPath, value.into());
+		self.set_attr(PresentationAttributes::ClipPath, value.into());
 		self
 	}
 
 	/// Set the `clip-path` attribute.
-	fn set_clip_minus_path<T>(&mut self, value: T)
+	fn set_clip_path<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ClipMinusPath, value.into());
+		self.set_attr(PresentationAttributes::ClipPath, value.into());
 	}
 
 	/// Get the `clip-path` attribute.
-	fn clip_minus_path(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ClipMinusPath)
+	fn clip_path(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ClipPath)
 	}
 
 	/// Set the `clip-rule` attribute.
-	fn with_clip_minus_rule<T>(mut self, value: T) -> Self
+	fn with_clip_rule<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ClipMinusRule, value.into());
+		self.set_attr(PresentationAttributes::ClipRule, value.into());
 		self
 	}
 
 	/// Set the `clip-rule` attribute.
-	fn set_clip_minus_rule<T>(&mut self, value: T)
+	fn set_clip_rule<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ClipMinusRule, value.into());
+		self.set_attr(PresentationAttributes::ClipRule, value.into());
 	}
 
 	/// Get the `clip-rule` attribute.
-	fn clip_minus_rule(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ClipMinusRule)
+	fn clip_rule(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ClipRule)
 	}
 
 	/// Set the `color` attribute.
@@ -3126,91 +3126,91 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `color-interpolation` attribute.
-	fn with_color_minus_interpolation<T>(mut self, value: T) -> Self
+	fn with_color_interpolation<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusInterpolation, value.into());
+		self.set_attr(PresentationAttributes::ColorInterpolation, value.into());
 		self
 	}
 
 	/// Set the `color-interpolation` attribute.
-	fn set_color_minus_interpolation<T>(&mut self, value: T)
+	fn set_color_interpolation<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusInterpolation, value.into());
+		self.set_attr(PresentationAttributes::ColorInterpolation, value.into());
 	}
 
 	/// Get the `color-interpolation` attribute.
-	fn color_minus_interpolation(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ColorMinusInterpolation)
+	fn color_interpolation(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ColorInterpolation)
 	}
 
 	/// Set the `color-interpolation-filters` attribute.
-	fn with_color_minus_interpolation_minus_filters<T>(mut self, value: T) -> Self
+	fn with_color_interpolation_filters<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusInterpolationMinusFilters, value.into());
+		self.set_attr(PresentationAttributes::ColorInterpolationFilters, value.into());
 		self
 	}
 
 	/// Set the `color-interpolation-filters` attribute.
-	fn set_color_minus_interpolation_minus_filters<T>(&mut self, value: T)
+	fn set_color_interpolation_filters<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusInterpolationMinusFilters, value.into());
+		self.set_attr(PresentationAttributes::ColorInterpolationFilters, value.into());
 	}
 
 	/// Get the `color-interpolation-filters` attribute.
-	fn color_minus_interpolation_minus_filters(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ColorMinusInterpolationMinusFilters)
+	fn color_interpolation_filters(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ColorInterpolationFilters)
 	}
 
 	/// Set the `color-profile` attribute.
-	fn with_color_minus_profile<T>(mut self, value: T) -> Self
+	fn with_color_profile<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusProfile, value.into());
+		self.set_attr(PresentationAttributes::ColorProfile, value.into());
 		self
 	}
 
 	/// Set the `color-profile` attribute.
-	fn set_color_minus_profile<T>(&mut self, value: T)
+	fn set_color_profile<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusProfile, value.into());
+		self.set_attr(PresentationAttributes::ColorProfile, value.into());
 	}
 
 	/// Get the `color-profile` attribute.
-	fn color_minus_profile(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ColorMinusProfile)
+	fn color_profile(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ColorProfile)
 	}
 
 	/// Set the `color-rendering` attribute.
-	fn with_color_minus_rendering<T>(mut self, value: T) -> Self
+	fn with_color_rendering<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ColorRendering, value.into());
 		self
 	}
 
 	/// Set the `color-rendering` attribute.
-	fn set_color_minus_rendering<T>(&mut self, value: T)
+	fn set_color_rendering<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ColorMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ColorRendering, value.into());
 	}
 
 	/// Get the `color-rendering` attribute.
-	fn color_minus_rendering(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ColorMinusRendering)
+	fn color_rendering(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ColorRendering)
 	}
 
 	/// Set the `cursor` attribute.
@@ -3280,47 +3280,47 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `dominant-baseline` attribute.
-	fn with_dominant_minus_baseline<T>(mut self, value: T) -> Self
+	fn with_dominant_baseline<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::DominantMinusBaseline, value.into());
+		self.set_attr(PresentationAttributes::DominantBaseline, value.into());
 		self
 	}
 
 	/// Set the `dominant-baseline` attribute.
-	fn set_dominant_minus_baseline<T>(&mut self, value: T)
+	fn set_dominant_baseline<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::DominantMinusBaseline, value.into());
+		self.set_attr(PresentationAttributes::DominantBaseline, value.into());
 	}
 
 	/// Get the `dominant-baseline` attribute.
-	fn dominant_minus_baseline(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::DominantMinusBaseline)
+	fn dominant_baseline(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::DominantBaseline)
 	}
 
 	/// Set the `enable-background` attribute.
-	fn with_enable_minus_background<T>(mut self, value: T) -> Self
+	fn with_enable_background<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::EnableMinusBackground, value.into());
+		self.set_attr(PresentationAttributes::EnableBackground, value.into());
 		self
 	}
 
 	/// Set the `enable-background` attribute.
-	fn set_enable_minus_background<T>(&mut self, value: T)
+	fn set_enable_background<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::EnableMinusBackground, value.into());
+		self.set_attr(PresentationAttributes::EnableBackground, value.into());
 	}
 
 	/// Get the `enable-background` attribute.
-	fn enable_minus_background(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::EnableMinusBackground)
+	fn enable_background(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::EnableBackground)
 	}
 
 	/// Set the `fill` attribute.
@@ -3346,47 +3346,47 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `fill-opacity` attribute.
-	fn with_fill_minus_opacity<T>(mut self, value: T) -> Self
+	fn with_fill_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FillMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::FillOpacity, value.into());
 		self
 	}
 
 	/// Set the `fill-opacity` attribute.
-	fn set_fill_minus_opacity<T>(&mut self, value: T)
+	fn set_fill_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FillMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::FillOpacity, value.into());
 	}
 
 	/// Get the `fill-opacity` attribute.
-	fn fill_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FillMinusOpacity)
+	fn fill_opacity(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FillOpacity)
 	}
 
 	/// Set the `fill-rule` attribute.
-	fn with_fill_minus_rule<T>(mut self, value: T) -> Self
+	fn with_fill_rule<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FillMinusRule, value.into());
+		self.set_attr(PresentationAttributes::FillRule, value.into());
 		self
 	}
 
 	/// Set the `fill-rule` attribute.
-	fn set_fill_minus_rule<T>(&mut self, value: T)
+	fn set_fill_rule<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FillMinusRule, value.into());
+		self.set_attr(PresentationAttributes::FillRule, value.into());
 	}
 
 	/// Get the `fill-rule` attribute.
-	fn fill_minus_rule(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FillMinusRule)
+	fn fill_rule(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FillRule)
 	}
 
 	/// Set the `filter` attribute.
@@ -3412,267 +3412,267 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `flood-color` attribute.
-	fn with_flood_minus_color<T>(mut self, value: T) -> Self
+	fn with_flood_color<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FloodMinusColor, value.into());
+		self.set_attr(PresentationAttributes::FloodColor, value.into());
 		self
 	}
 
 	/// Set the `flood-color` attribute.
-	fn set_flood_minus_color<T>(&mut self, value: T)
+	fn set_flood_color<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FloodMinusColor, value.into());
+		self.set_attr(PresentationAttributes::FloodColor, value.into());
 	}
 
 	/// Get the `flood-color` attribute.
-	fn flood_minus_color(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FloodMinusColor)
+	fn flood_color(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FloodColor)
 	}
 
 	/// Set the `flood-opacity` attribute.
-	fn with_flood_minus_opacity<T>(mut self, value: T) -> Self
+	fn with_flood_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FloodMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::FloodOpacity, value.into());
 		self
 	}
 
 	/// Set the `flood-opacity` attribute.
-	fn set_flood_minus_opacity<T>(&mut self, value: T)
+	fn set_flood_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FloodMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::FloodOpacity, value.into());
 	}
 
 	/// Get the `flood-opacity` attribute.
-	fn flood_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FloodMinusOpacity)
+	fn flood_opacity(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FloodOpacity)
 	}
 
 	/// Set the `font-family` attribute.
-	fn with_font_minus_family<T>(mut self, value: T) -> Self
+	fn with_font_family<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusFamily, value.into());
+		self.set_attr(PresentationAttributes::FontFamily, value.into());
 		self
 	}
 
 	/// Set the `font-family` attribute.
-	fn set_font_minus_family<T>(&mut self, value: T)
+	fn set_font_family<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusFamily, value.into());
+		self.set_attr(PresentationAttributes::FontFamily, value.into());
 	}
 
 	/// Get the `font-family` attribute.
-	fn font_minus_family(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusFamily)
+	fn font_family(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontFamily)
 	}
 
 	/// Set the `font-size` attribute.
-	fn with_font_minus_size<T>(mut self, value: T) -> Self
+	fn with_font_size<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusSize, value.into());
+		self.set_attr(PresentationAttributes::FontSize, value.into());
 		self
 	}
 
 	/// Set the `font-size` attribute.
-	fn set_font_minus_size<T>(&mut self, value: T)
+	fn set_font_size<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusSize, value.into());
+		self.set_attr(PresentationAttributes::FontSize, value.into());
 	}
 
 	/// Get the `font-size` attribute.
-	fn font_minus_size(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusSize)
+	fn font_size(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontSize)
 	}
 
 	/// Set the `font-size-adjust` attribute.
-	fn with_font_minus_size_minus_adjust<T>(mut self, value: T) -> Self
+	fn with_font_size_adjust<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusSizeMinusAdjust, value.into());
+		self.set_attr(PresentationAttributes::FontSizeAdjust, value.into());
 		self
 	}
 
 	/// Set the `font-size-adjust` attribute.
-	fn set_font_minus_size_minus_adjust<T>(&mut self, value: T)
+	fn set_font_size_adjust<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusSizeMinusAdjust, value.into());
+		self.set_attr(PresentationAttributes::FontSizeAdjust, value.into());
 	}
 
 	/// Get the `font-size-adjust` attribute.
-	fn font_minus_size_minus_adjust(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusSizeMinusAdjust)
+	fn font_size_adjust(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontSizeAdjust)
 	}
 
 	/// Set the `font-stretch` attribute.
-	fn with_font_minus_stretch<T>(mut self, value: T) -> Self
+	fn with_font_stretch<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusStretch, value.into());
+		self.set_attr(PresentationAttributes::FontStretch, value.into());
 		self
 	}
 
 	/// Set the `font-stretch` attribute.
-	fn set_font_minus_stretch<T>(&mut self, value: T)
+	fn set_font_stretch<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusStretch, value.into());
+		self.set_attr(PresentationAttributes::FontStretch, value.into());
 	}
 
 	/// Get the `font-stretch` attribute.
-	fn font_minus_stretch(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusStretch)
+	fn font_stretch(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontStretch)
 	}
 
 	/// Set the `font-style` attribute.
-	fn with_font_minus_style<T>(mut self, value: T) -> Self
+	fn with_font_style<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusStyle, value.into());
+		self.set_attr(PresentationAttributes::FontStyle, value.into());
 		self
 	}
 
 	/// Set the `font-style` attribute.
-	fn set_font_minus_style<T>(&mut self, value: T)
+	fn set_font_style<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusStyle, value.into());
+		self.set_attr(PresentationAttributes::FontStyle, value.into());
 	}
 
 	/// Get the `font-style` attribute.
-	fn font_minus_style(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusStyle)
+	fn font_style(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontStyle)
 	}
 
 	/// Set the `font-variant` attribute.
-	fn with_font_minus_variant<T>(mut self, value: T) -> Self
+	fn with_font_variant<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusVariant, value.into());
+		self.set_attr(PresentationAttributes::FontVariant, value.into());
 		self
 	}
 
 	/// Set the `font-variant` attribute.
-	fn set_font_minus_variant<T>(&mut self, value: T)
+	fn set_font_variant<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusVariant, value.into());
+		self.set_attr(PresentationAttributes::FontVariant, value.into());
 	}
 
 	/// Get the `font-variant` attribute.
-	fn font_minus_variant(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusVariant)
+	fn font_variant(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontVariant)
 	}
 
 	/// Set the `font-weight` attribute.
-	fn with_font_minus_weight<T>(mut self, value: T) -> Self
+	fn with_font_weight<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusWeight, value.into());
+		self.set_attr(PresentationAttributes::FontWeight, value.into());
 		self
 	}
 
 	/// Set the `font-weight` attribute.
-	fn set_font_minus_weight<T>(&mut self, value: T)
+	fn set_font_weight<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::FontMinusWeight, value.into());
+		self.set_attr(PresentationAttributes::FontWeight, value.into());
 	}
 
 	/// Get the `font-weight` attribute.
-	fn font_minus_weight(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::FontMinusWeight)
+	fn font_weight(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::FontWeight)
 	}
 
 	/// Set the `glyph-orientation-horizontal` attribute.
-	fn with_glyph_minus_orientation_minus_horizontal<T>(mut self, value: T) -> Self
+	fn with_glyph_orientation_horizontal<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::GlyphMinusOrientationMinusHorizontal, value.into());
+		self.set_attr(PresentationAttributes::GlyphOrientationHorizontal, value.into());
 		self
 	}
 
 	/// Set the `glyph-orientation-horizontal` attribute.
-	fn set_glyph_minus_orientation_minus_horizontal<T>(&mut self, value: T)
+	fn set_glyph_orientation_horizontal<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::GlyphMinusOrientationMinusHorizontal, value.into());
+		self.set_attr(PresentationAttributes::GlyphOrientationHorizontal, value.into());
 	}
 
 	/// Get the `glyph-orientation-horizontal` attribute.
-	fn glyph_minus_orientation_minus_horizontal(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::GlyphMinusOrientationMinusHorizontal)
+	fn glyph_orientation_horizontal(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::GlyphOrientationHorizontal)
 	}
 
 	/// Set the `glyph-orientation-vertical` attribute.
-	fn with_glyph_minus_orientation_minus_vertical<T>(mut self, value: T) -> Self
+	fn with_glyph_orientation_vertical<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::GlyphMinusOrientationMinusVertical, value.into());
+		self.set_attr(PresentationAttributes::GlyphOrientationVertical, value.into());
 		self
 	}
 
 	/// Set the `glyph-orientation-vertical` attribute.
-	fn set_glyph_minus_orientation_minus_vertical<T>(&mut self, value: T)
+	fn set_glyph_orientation_vertical<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::GlyphMinusOrientationMinusVertical, value.into());
+		self.set_attr(PresentationAttributes::GlyphOrientationVertical, value.into());
 	}
 
 	/// Get the `glyph-orientation-vertical` attribute.
-	fn glyph_minus_orientation_minus_vertical(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::GlyphMinusOrientationMinusVertical)
+	fn glyph_orientation_vertical(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::GlyphOrientationVertical)
 	}
 
 	/// Set the `image-rendering` attribute.
-	fn with_image_minus_rendering<T>(mut self, value: T) -> Self
+	fn with_image_rendering<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ImageMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ImageRendering, value.into());
 		self
 	}
 
 	/// Set the `image-rendering` attribute.
-	fn set_image_minus_rendering<T>(&mut self, value: T)
+	fn set_image_rendering<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ImageMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ImageRendering, value.into());
 	}
 
 	/// Get the `image-rendering` attribute.
-	fn image_minus_rendering(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ImageMinusRendering)
+	fn image_rendering(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ImageRendering)
 	}
 
 	/// Set the `kerning` attribute.
@@ -3698,113 +3698,113 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `letter-spacing` attribute.
-	fn with_letter_minus_spacing<T>(mut self, value: T) -> Self
+	fn with_letter_spacing<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::LetterMinusSpacing, value.into());
+		self.set_attr(PresentationAttributes::LetterSpacing, value.into());
 		self
 	}
 
 	/// Set the `letter-spacing` attribute.
-	fn set_letter_minus_spacing<T>(&mut self, value: T)
+	fn set_letter_spacing<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::LetterMinusSpacing, value.into());
+		self.set_attr(PresentationAttributes::LetterSpacing, value.into());
 	}
 
 	/// Get the `letter-spacing` attribute.
-	fn letter_minus_spacing(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::LetterMinusSpacing)
+	fn letter_spacing(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::LetterSpacing)
 	}
 
 	/// Set the `lighting-color` attribute.
-	fn with_lighting_minus_color<T>(mut self, value: T) -> Self
+	fn with_lighting_color<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::LightingMinusColor, value.into());
+		self.set_attr(PresentationAttributes::LightingColor, value.into());
 		self
 	}
 
 	/// Set the `lighting-color` attribute.
-	fn set_lighting_minus_color<T>(&mut self, value: T)
+	fn set_lighting_color<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::LightingMinusColor, value.into());
+		self.set_attr(PresentationAttributes::LightingColor, value.into());
 	}
 
 	/// Get the `lighting-color` attribute.
-	fn lighting_minus_color(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::LightingMinusColor)
+	fn lighting_color(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::LightingColor)
 	}
 
 	/// Set the `marker-end` attribute.
-	fn with_marker_minus_end<T>(mut self, value: T) -> Self
+	fn with_marker_end<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusEnd, value.into());
+		self.set_attr(PresentationAttributes::MarkerEnd, value.into());
 		self
 	}
 
 	/// Set the `marker-end` attribute.
-	fn set_marker_minus_end<T>(&mut self, value: T)
+	fn set_marker_end<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusEnd, value.into());
+		self.set_attr(PresentationAttributes::MarkerEnd, value.into());
 	}
 
 	/// Get the `marker-end` attribute.
-	fn marker_minus_end(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::MarkerMinusEnd)
+	fn marker_end(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::MarkerEnd)
 	}
 
 	/// Set the `marker-mid` attribute.
-	fn with_marker_minus_mid<T>(mut self, value: T) -> Self
+	fn with_marker_mid<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusMid, value.into());
+		self.set_attr(PresentationAttributes::MarkerMid, value.into());
 		self
 	}
 
 	/// Set the `marker-mid` attribute.
-	fn set_marker_minus_mid<T>(&mut self, value: T)
+	fn set_marker_mid<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusMid, value.into());
+		self.set_attr(PresentationAttributes::MarkerMid, value.into());
 	}
 
 	/// Get the `marker-mid` attribute.
-	fn marker_minus_mid(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::MarkerMinusMid)
+	fn marker_mid(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::MarkerMid)
 	}
 
 	/// Set the `marker-start` attribute.
-	fn with_marker_minus_start<T>(mut self, value: T) -> Self
+	fn with_marker_start<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusStart, value.into());
+		self.set_attr(PresentationAttributes::MarkerStart, value.into());
 		self
 	}
 
 	/// Set the `marker-start` attribute.
-	fn set_marker_minus_start<T>(&mut self, value: T)
+	fn set_marker_start<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::MarkerMinusStart, value.into());
+		self.set_attr(PresentationAttributes::MarkerStart, value.into());
 	}
 
 	/// Get the `marker-start` attribute.
-	fn marker_minus_start(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::MarkerMinusStart)
+	fn marker_start(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::MarkerStart)
 	}
 
 	/// Set the `mask` attribute.
@@ -3874,91 +3874,91 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `pointer-events` attribute.
-	fn with_pointer_minus_events<T>(mut self, value: T) -> Self
+	fn with_pointer_events<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::PointerMinusEvents, value.into());
+		self.set_attr(PresentationAttributes::PointerEvents, value.into());
 		self
 	}
 
 	/// Set the `pointer-events` attribute.
-	fn set_pointer_minus_events<T>(&mut self, value: T)
+	fn set_pointer_events<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::PointerMinusEvents, value.into());
+		self.set_attr(PresentationAttributes::PointerEvents, value.into());
 	}
 
 	/// Get the `pointer-events` attribute.
-	fn pointer_minus_events(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::PointerMinusEvents)
+	fn pointer_events(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::PointerEvents)
 	}
 
 	/// Set the `shape-rendering` attribute.
-	fn with_shape_minus_rendering<T>(mut self, value: T) -> Self
+	fn with_shape_rendering<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ShapeMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ShapeRendering, value.into());
 		self
 	}
 
 	/// Set the `shape-rendering` attribute.
-	fn set_shape_minus_rendering<T>(&mut self, value: T)
+	fn set_shape_rendering<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::ShapeMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::ShapeRendering, value.into());
 	}
 
 	/// Get the `shape-rendering` attribute.
-	fn shape_minus_rendering(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::ShapeMinusRendering)
+	fn shape_rendering(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::ShapeRendering)
 	}
 
 	/// Set the `stop-color` attribute.
-	fn with_stop_minus_color<T>(mut self, value: T) -> Self
+	fn with_stop_color<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StopMinusColor, value.into());
+		self.set_attr(PresentationAttributes::StopColor, value.into());
 		self
 	}
 
 	/// Set the `stop-color` attribute.
-	fn set_stop_minus_color<T>(&mut self, value: T)
+	fn set_stop_color<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StopMinusColor, value.into());
+		self.set_attr(PresentationAttributes::StopColor, value.into());
 	}
 
 	/// Get the `stop-color` attribute.
-	fn stop_minus_color(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StopMinusColor)
+	fn stop_color(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StopColor)
 	}
 
 	/// Set the `stop-opacity` attribute.
-	fn with_stop_minus_opacity<T>(mut self, value: T) -> Self
+	fn with_stop_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StopMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::StopOpacity, value.into());
 		self
 	}
 
 	/// Set the `stop-opacity` attribute.
-	fn set_stop_minus_opacity<T>(&mut self, value: T)
+	fn set_stop_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StopMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::StopOpacity, value.into());
 	}
 
 	/// Get the `stop-opacity` attribute.
-	fn stop_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StopMinusOpacity)
+	fn stop_opacity(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StopOpacity)
 	}
 
 	/// Set the `stroke` attribute.
@@ -3984,223 +3984,223 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `stroke-dasharray` attribute.
-	fn with_stroke_minus_dasharray<T>(mut self, value: T) -> Self
+	fn with_stroke_dasharray<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusDasharray, value.into());
+		self.set_attr(PresentationAttributes::StrokeDasharray, value.into());
 		self
 	}
 
 	/// Set the `stroke-dasharray` attribute.
-	fn set_stroke_minus_dasharray<T>(&mut self, value: T)
+	fn set_stroke_dasharray<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusDasharray, value.into());
+		self.set_attr(PresentationAttributes::StrokeDasharray, value.into());
 	}
 
 	/// Get the `stroke-dasharray` attribute.
-	fn stroke_minus_dasharray(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusDasharray)
+	fn stroke_dasharray(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeDasharray)
 	}
 
 	/// Set the `stroke-dashoffset` attribute.
-	fn with_stroke_minus_dashoffset<T>(mut self, value: T) -> Self
+	fn with_stroke_dashoffset<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusDashoffset, value.into());
+		self.set_attr(PresentationAttributes::StrokeDashoffset, value.into());
 		self
 	}
 
 	/// Set the `stroke-dashoffset` attribute.
-	fn set_stroke_minus_dashoffset<T>(&mut self, value: T)
+	fn set_stroke_dashoffset<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusDashoffset, value.into());
+		self.set_attr(PresentationAttributes::StrokeDashoffset, value.into());
 	}
 
 	/// Get the `stroke-dashoffset` attribute.
-	fn stroke_minus_dashoffset(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusDashoffset)
+	fn stroke_dashoffset(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeDashoffset)
 	}
 
 	/// Set the `stroke-linecap` attribute.
-	fn with_stroke_minus_linecap<T>(mut self, value: T) -> Self
+	fn with_stroke_linecap<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusLinecap, value.into());
+		self.set_attr(PresentationAttributes::StrokeLinecap, value.into());
 		self
 	}
 
 	/// Set the `stroke-linecap` attribute.
-	fn set_stroke_minus_linecap<T>(&mut self, value: T)
+	fn set_stroke_linecap<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusLinecap, value.into());
+		self.set_attr(PresentationAttributes::StrokeLinecap, value.into());
 	}
 
 	/// Get the `stroke-linecap` attribute.
-	fn stroke_minus_linecap(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusLinecap)
+	fn stroke_linecap(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeLinecap)
 	}
 
 	/// Set the `stroke-linejoin` attribute.
-	fn with_stroke_minus_linejoin<T>(mut self, value: T) -> Self
+	fn with_stroke_linejoin<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusLinejoin, value.into());
+		self.set_attr(PresentationAttributes::StrokeLinejoin, value.into());
 		self
 	}
 
 	/// Set the `stroke-linejoin` attribute.
-	fn set_stroke_minus_linejoin<T>(&mut self, value: T)
+	fn set_stroke_linejoin<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusLinejoin, value.into());
+		self.set_attr(PresentationAttributes::StrokeLinejoin, value.into());
 	}
 
 	/// Get the `stroke-linejoin` attribute.
-	fn stroke_minus_linejoin(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusLinejoin)
+	fn stroke_linejoin(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeLinejoin)
 	}
 
 	/// Set the `stroke-miterlimit` attribute.
-	fn with_stroke_minus_miterlimit<T>(mut self, value: T) -> Self
+	fn with_stroke_miterlimit<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusMiterlimit, value.into());
+		self.set_attr(PresentationAttributes::StrokeMiterlimit, value.into());
 		self
 	}
 
 	/// Set the `stroke-miterlimit` attribute.
-	fn set_stroke_minus_miterlimit<T>(&mut self, value: T)
+	fn set_stroke_miterlimit<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusMiterlimit, value.into());
+		self.set_attr(PresentationAttributes::StrokeMiterlimit, value.into());
 	}
 
 	/// Get the `stroke-miterlimit` attribute.
-	fn stroke_minus_miterlimit(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusMiterlimit)
+	fn stroke_miterlimit(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeMiterlimit)
 	}
 
 	/// Set the `stroke-opacity` attribute.
-	fn with_stroke_minus_opacity<T>(mut self, value: T) -> Self
+	fn with_stroke_opacity<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::StrokeOpacity, value.into());
 		self
 	}
 
 	/// Set the `stroke-opacity` attribute.
-	fn set_stroke_minus_opacity<T>(&mut self, value: T)
+	fn set_stroke_opacity<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusOpacity, value.into());
+		self.set_attr(PresentationAttributes::StrokeOpacity, value.into());
 	}
 
 	/// Get the `stroke-opacity` attribute.
-	fn stroke_minus_opacity(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusOpacity)
+	fn stroke_opacity(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeOpacity)
 	}
 
 	/// Set the `stroke-width` attribute.
-	fn with_stroke_minus_width<T>(mut self, value: T) -> Self
+	fn with_stroke_width<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusWidth, value.into());
+		self.set_attr(PresentationAttributes::StrokeWidth, value.into());
 		self
 	}
 
 	/// Set the `stroke-width` attribute.
-	fn set_stroke_minus_width<T>(&mut self, value: T)
+	fn set_stroke_width<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::StrokeMinusWidth, value.into());
+		self.set_attr(PresentationAttributes::StrokeWidth, value.into());
 	}
 
 	/// Get the `stroke-width` attribute.
-	fn stroke_minus_width(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::StrokeMinusWidth)
+	fn stroke_width(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::StrokeWidth)
 	}
 
 	/// Set the `text-anchor` attribute.
-	fn with_text_minus_anchor<T>(mut self, value: T) -> Self
+	fn with_text_anchor<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusAnchor, value.into());
+		self.set_attr(PresentationAttributes::TextAnchor, value.into());
 		self
 	}
 
 	/// Set the `text-anchor` attribute.
-	fn set_text_minus_anchor<T>(&mut self, value: T)
+	fn set_text_anchor<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusAnchor, value.into());
+		self.set_attr(PresentationAttributes::TextAnchor, value.into());
 	}
 
 	/// Get the `text-anchor` attribute.
-	fn text_minus_anchor(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::TextMinusAnchor)
+	fn text_anchor(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::TextAnchor)
 	}
 
 	/// Set the `text-decoration` attribute.
-	fn with_text_minus_decoration<T>(mut self, value: T) -> Self
+	fn with_text_decoration<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusDecoration, value.into());
+		self.set_attr(PresentationAttributes::TextDecoration, value.into());
 		self
 	}
 
 	/// Set the `text-decoration` attribute.
-	fn set_text_minus_decoration<T>(&mut self, value: T)
+	fn set_text_decoration<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusDecoration, value.into());
+		self.set_attr(PresentationAttributes::TextDecoration, value.into());
 	}
 
 	/// Get the `text-decoration` attribute.
-	fn text_minus_decoration(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::TextMinusDecoration)
+	fn text_decoration(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::TextDecoration)
 	}
 
 	/// Set the `text-rendering` attribute.
-	fn with_text_minus_rendering<T>(mut self, value: T) -> Self
+	fn with_text_rendering<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::TextRendering, value.into());
 		self
 	}
 
 	/// Set the `text-rendering` attribute.
-	fn set_text_minus_rendering<T>(&mut self, value: T)
+	fn set_text_rendering<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TextMinusRendering, value.into());
+		self.set_attr(PresentationAttributes::TextRendering, value.into());
 	}
 
 	/// Get the `text-rendering` attribute.
-	fn text_minus_rendering(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::TextMinusRendering)
+	fn text_rendering(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::TextRendering)
 	}
 
 	/// Set the `transform` attribute.
@@ -4226,69 +4226,69 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `transform-origin` attribute.
-	fn with_transform_minus_origin<T>(mut self, value: T) -> Self
+	fn with_transform_origin<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TransformMinusOrigin, value.into());
+		self.set_attr(PresentationAttributes::TransformOrigin, value.into());
 		self
 	}
 
 	/// Set the `transform-origin` attribute.
-	fn set_transform_minus_origin<T>(&mut self, value: T)
+	fn set_transform_origin<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::TransformMinusOrigin, value.into());
+		self.set_attr(PresentationAttributes::TransformOrigin, value.into());
 	}
 
 	/// Get the `transform-origin` attribute.
-	fn transform_minus_origin(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::TransformMinusOrigin)
+	fn transform_origin(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::TransformOrigin)
 	}
 
 	/// Set the `unicode-bidi` attribute.
-	fn with_unicode_minus_bidi<T>(mut self, value: T) -> Self
+	fn with_unicode_bidi<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::UnicodeMinusBidi, value.into());
+		self.set_attr(PresentationAttributes::UnicodeBidi, value.into());
 		self
 	}
 
 	/// Set the `unicode-bidi` attribute.
-	fn set_unicode_minus_bidi<T>(&mut self, value: T)
+	fn set_unicode_bidi<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::UnicodeMinusBidi, value.into());
+		self.set_attr(PresentationAttributes::UnicodeBidi, value.into());
 	}
 
 	/// Get the `unicode-bidi` attribute.
-	fn unicode_minus_bidi(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::UnicodeMinusBidi)
+	fn unicode_bidi(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::UnicodeBidi)
 	}
 
 	/// Set the `vector-effect` attribute.
-	fn with_vector_minus_effect<T>(mut self, value: T) -> Self
+	fn with_vector_effect<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::VectorMinusEffect, value.into());
+		self.set_attr(PresentationAttributes::VectorEffect, value.into());
 		self
 	}
 
 	/// Set the `vector-effect` attribute.
-	fn set_vector_minus_effect<T>(&mut self, value: T)
+	fn set_vector_effect<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::VectorMinusEffect, value.into());
+		self.set_attr(PresentationAttributes::VectorEffect, value.into());
 	}
 
 	/// Get the `vector-effect` attribute.
-	fn vector_minus_effect(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::VectorMinusEffect)
+	fn vector_effect(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::VectorEffect)
 	}
 
 	/// Set the `visibility` attribute.
@@ -4314,47 +4314,47 @@ pub trait TagWithPresentationAttributes: PresentationAttributesSetter + Sized {
 	}
 
 	/// Set the `word-spacing` attribute.
-	fn with_word_minus_spacing<T>(mut self, value: T) -> Self
+	fn with_word_spacing<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::WordMinusSpacing, value.into());
+		self.set_attr(PresentationAttributes::WordSpacing, value.into());
 		self
 	}
 
 	/// Set the `word-spacing` attribute.
-	fn set_word_minus_spacing<T>(&mut self, value: T)
+	fn set_word_spacing<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::WordMinusSpacing, value.into());
+		self.set_attr(PresentationAttributes::WordSpacing, value.into());
 	}
 
 	/// Get the `word-spacing` attribute.
-	fn word_minus_spacing(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::WordMinusSpacing)
+	fn word_spacing(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::WordSpacing)
 	}
 
 	/// Set the `writing-mode` attribute.
-	fn with_writing_minus_mode<T>(mut self, value: T) -> Self
+	fn with_writing_mode<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::WritingMinusMode, value.into());
+		self.set_attr(PresentationAttributes::WritingMode, value.into());
 		self
 	}
 
 	/// Set the `writing-mode` attribute.
-	fn set_writing_minus_mode<T>(&mut self, value: T)
+	fn set_writing_mode<T>(&mut self, value: T)
 	where
 		T: Into<String>
 	{
-		self.set_attr(PresentationAttributes::WritingMinusMode, value.into());
+		self.set_attr(PresentationAttributes::WritingMode, value.into());
 	}
 
 	/// Get the `writing-mode` attribute.
-	fn writing_minus_mode(&self) -> Option<&str> {
-		self.get_attr(PresentationAttributes::WritingMinusMode)
+	fn writing_mode(&self) -> Option<&str> {
+		self.get_attr(PresentationAttributes::WritingMode)
 	}
 }
 
