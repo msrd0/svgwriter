@@ -4,7 +4,7 @@ use std::{
 	collections::{BTreeMap, BTreeSet, HashMap},
 	fs::{self, File},
 	io::{self, Write},
-	path::Path
+	path::Path, mem
 };
 
 // from https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute#svg_attributes_by_category
@@ -19,7 +19,7 @@ fn attributes_by_category() -> BTreeMap<&'static str, BTreeSet<&'static str>> {
 			"xml:space"
 		]),
 		("styleAttributes", &["class", "style"]),
-		("conditionalProccessingAttributes", &[
+		("conditionalProcessingAttributes", &[
 			"requiredExtensions",
 			"requiredFeatures",
 			"systemLanguage"
@@ -249,7 +249,7 @@ impl Description {
 mod tpl {
 	use super::Element;
 	use askama::Template;
-	use std::collections::{BTreeMap, BTreeSet, HashMap};
+	use std::collections::{BTreeMap, BTreeSet};
 
 	mod filters {
 		use askama::Result;
@@ -307,12 +307,17 @@ fn main() {
 	let attr_categories = attributes_by_category();
 
 	for elem in data.elements.values_mut() {
-		elem.attributes = elem
-			.attributes
-			.iter()
-			.filter(|attr| attr.starts_with('\'') && attr.ends_with('\''))
-			.map(|attr| attr.trim_matches('\'').to_owned())
-			.collect();
+		let mut attributes = BTreeSet::new();
+		let mut attribute_categories = BTreeSet::new();
+		for attr in mem::take(&mut elem.attributes) {
+			if attr.starts_with('\'') && attr.ends_with('\'') {
+				attributes.insert(attr.trim_matches('\'').to_owned());
+			} else {
+				attribute_categories.insert(attr);
+			}
+		}
+		elem.attributes = attributes;
+		elem.attribute_categories = attribute_categories;
 	}
 
 	let dir: &Path = "../src/tags".as_ref();

@@ -782,13 +782,13 @@ pub trait TagWithAnimationValueAttributes: AnimationValueAttributesSetter + Size
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-pub enum ConditionalProccessingAttributes {
+pub enum ConditionalProcessingAttributes {
 	RequiredExtensions,
 	RequiredFeatures,
 	SystemLanguage,
 }
 
-impl ConditionalProccessingAttributes {
+impl ConditionalProcessingAttributes {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::RequiredExtensions => "requiredExtensions",
@@ -798,31 +798,31 @@ impl ConditionalProccessingAttributes {
 	}
 }
 
-impl Display for ConditionalProccessingAttributes {
+impl Display for ConditionalProcessingAttributes {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for ConditionalProccessingAttributes {
+impl Debug for ConditionalProcessingAttributes {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-pub trait ConditionalProccessingAttributesSetter {
-	fn set_attr(&mut self, attr: ConditionalProccessingAttributes, value: String);
-	fn get_attr(&self, attr: ConditionalProccessingAttributes) -> Option<&str>;
+pub trait ConditionalProcessingAttributesSetter {
+	fn set_attr(&mut self, attr: ConditionalProcessingAttributes, value: String);
+	fn get_attr(&self, attr: ConditionalProcessingAttributes) -> Option<&str>;
 }
 
-pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttributesSetter + Sized {
+pub trait TagWithConditionalProcessingAttributes: ConditionalProcessingAttributesSetter + Sized {
 
 	/// Set the `requiredExtensions` attribute.
 	fn with_required_extensions<T>(mut self, value: T) -> Self
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::RequiredExtensions, value.into());
+		self.set_attr(ConditionalProcessingAttributes::RequiredExtensions, value.into());
 		self
 	}
 
@@ -831,12 +831,12 @@ pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttribu
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::RequiredExtensions, value.into());
+		self.set_attr(ConditionalProcessingAttributes::RequiredExtensions, value.into());
 	}
 
 	/// Get the `requiredExtensions` attribute.
 	fn required_extensions(&self) -> Option<&str> {
-		self.get_attr(ConditionalProccessingAttributes::RequiredExtensions)
+		self.get_attr(ConditionalProcessingAttributes::RequiredExtensions)
 	}
 
 	/// Set the `requiredFeatures` attribute.
@@ -844,7 +844,7 @@ pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttribu
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::RequiredFeatures, value.into());
+		self.set_attr(ConditionalProcessingAttributes::RequiredFeatures, value.into());
 		self
 	}
 
@@ -853,12 +853,12 @@ pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttribu
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::RequiredFeatures, value.into());
+		self.set_attr(ConditionalProcessingAttributes::RequiredFeatures, value.into());
 	}
 
 	/// Get the `requiredFeatures` attribute.
 	fn required_features(&self) -> Option<&str> {
-		self.get_attr(ConditionalProccessingAttributes::RequiredFeatures)
+		self.get_attr(ConditionalProcessingAttributes::RequiredFeatures)
 	}
 
 	/// Set the `systemLanguage` attribute.
@@ -866,7 +866,7 @@ pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttribu
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::SystemLanguage, value.into());
+		self.set_attr(ConditionalProcessingAttributes::SystemLanguage, value.into());
 		self
 	}
 
@@ -875,12 +875,12 @@ pub trait TagWithConditionalProccessingAttributes: ConditionalProccessingAttribu
 	where
 		T: Into<String>
 	{
-		self.set_attr(ConditionalProccessingAttributes::SystemLanguage, value.into());
+		self.set_attr(ConditionalProcessingAttributes::SystemLanguage, value.into());
 	}
 
 	/// Get the `systemLanguage` attribute.
 	fn system_language(&self) -> Option<&str> {
-		self.get_attr(ConditionalProccessingAttributes::SystemLanguage)
+		self.get_attr(ConditionalProcessingAttributes::SystemLanguage)
 	}
 }
 
@@ -4842,7 +4842,7 @@ pub(super) mod prelude {
 		TagWithAnimationEventAttributes,
 		TagWithAnimationTimingAttributes,
 		TagWithAnimationValueAttributes,
-		TagWithConditionalProccessingAttributes,
+		TagWithConditionalProcessingAttributes,
 		TagWithCoreAttributes,
 		TagWithDocumentEventAttributes,
 		TagWithFilterAttributes,

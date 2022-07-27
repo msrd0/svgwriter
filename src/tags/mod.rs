@@ -255,6 +255,66 @@ impl A {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for A {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for A {}
+
+impl common_attrs::CoreAttributesSetter for A {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for A {}
+
+impl common_attrs::GraphicalEventAttributesSetter for A {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for A {}
+
+impl common_attrs::PresentationAttributesSetter for A {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for A {}
+
+impl common_attrs::XLinkAttributesSetter for A {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for A {}
+
 impl Tag for A {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("a");
@@ -584,6 +644,66 @@ impl AltGlyph {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for AltGlyph {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for AltGlyph {}
+
+impl common_attrs::CoreAttributesSetter for AltGlyph {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AltGlyph {}
+
+impl common_attrs::GraphicalEventAttributesSetter for AltGlyph {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for AltGlyph {}
+
+impl common_attrs::PresentationAttributesSetter for AltGlyph {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for AltGlyph {}
+
+impl common_attrs::XLinkAttributesSetter for AltGlyph {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for AltGlyph {}
+
 impl Tag for AltGlyph {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("altGlyph");
@@ -615,6 +735,18 @@ impl AltGlyphDef {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for AltGlyphDef {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AltGlyphDef {}
+
 impl Tag for AltGlyphDef {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("altGlyphDef");w.end_element();
@@ -641,6 +773,18 @@ impl AltGlyphItem {
 		}
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for AltGlyphItem {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AltGlyphItem {}
 
 impl Tag for AltGlyphItem {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -871,6 +1015,102 @@ impl Animate {
 	}
 }
 
+impl common_attrs::AnimationAdditionAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAdditionAttributes for Animate {}
+
+impl common_attrs::AnimationAttributeTargetAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAttributeTargetAttributes for Animate {}
+
+impl common_attrs::AnimationEventAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationEventAttributes for Animate {}
+
+impl common_attrs::AnimationTimingAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationTimingAttributes for Animate {}
+
+impl common_attrs::AnimationValueAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationValueAttributes for Animate {}
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Animate {}
+
+impl common_attrs::CoreAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Animate {}
+
+impl common_attrs::XLinkAttributesSetter for Animate {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Animate {}
+
 impl Tag for Animate {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("animate");
@@ -1031,6 +1271,102 @@ impl AnimateColor {
 		self.get_attr(AnimateColorAttrs::To)
 	}
 }
+
+impl common_attrs::AnimationAdditionAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAdditionAttributes for AnimateColor {}
+
+impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAttributeTargetAttributes for AnimateColor {}
+
+impl common_attrs::AnimationEventAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationEventAttributes for AnimateColor {}
+
+impl common_attrs::AnimationTimingAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationTimingAttributes for AnimateColor {}
+
+impl common_attrs::AnimationValueAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationValueAttributes for AnimateColor {}
+
+impl common_attrs::ConditionalProcessingAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for AnimateColor {}
+
+impl common_attrs::CoreAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AnimateColor {}
+
+impl common_attrs::XLinkAttributesSetter for AnimateColor {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for AnimateColor {}
 
 impl Tag for AnimateColor {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -1241,6 +1577,90 @@ impl AnimateMotion {
 	}
 }
 
+impl common_attrs::AnimationAdditionAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAdditionAttributes for AnimateMotion {}
+
+impl common_attrs::AnimationEventAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationEventAttributes for AnimateMotion {}
+
+impl common_attrs::AnimationTimingAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationTimingAttributes for AnimateMotion {}
+
+impl common_attrs::AnimationValueAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationValueAttributes for AnimateMotion {}
+
+impl common_attrs::ConditionalProcessingAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for AnimateMotion {}
+
+impl common_attrs::CoreAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AnimateMotion {}
+
+impl common_attrs::XLinkAttributesSetter for AnimateMotion {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for AnimateMotion {}
+
 impl Tag for AnimateMotion {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("animateMotion");
@@ -1425,6 +1845,102 @@ impl AnimateTransform {
 		self.get_attr(AnimateTransformAttrs::Type)
 	}
 }
+
+impl common_attrs::AnimationAdditionAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAdditionAttributes for AnimateTransform {}
+
+impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAttributeTargetAttributes for AnimateTransform {}
+
+impl common_attrs::AnimationEventAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationEventAttributes for AnimateTransform {}
+
+impl common_attrs::AnimationTimingAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationTimingAttributes for AnimateTransform {}
+
+impl common_attrs::AnimationValueAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationValueAttributes for AnimateTransform {}
+
+impl common_attrs::ConditionalProcessingAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for AnimateTransform {}
+
+impl common_attrs::CoreAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for AnimateTransform {}
+
+impl common_attrs::XLinkAttributesSetter for AnimateTransform {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for AnimateTransform {}
 
 impl Tag for AnimateTransform {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -1659,6 +2175,54 @@ impl Circle {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Circle {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Circle {}
+
+impl common_attrs::CoreAttributesSetter for Circle {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Circle {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Circle {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Circle {}
+
+impl common_attrs::PresentationAttributesSetter for Circle {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Circle {}
+
 impl Tag for Circle {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("circle");
@@ -1844,6 +2408,42 @@ impl ClipPath {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for ClipPath {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for ClipPath {}
+
+impl common_attrs::CoreAttributesSetter for ClipPath {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for ClipPath {}
+
+impl common_attrs::PresentationAttributesSetter for ClipPath {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for ClipPath {}
+
 impl Tag for ClipPath {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("clipPath");
@@ -2004,6 +2604,30 @@ impl ColorMinusProfile {
 		self.get_attr(ColorMinusProfileAttrs::XlinkHref)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for ColorMinusProfile {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for ColorMinusProfile {}
+
+impl common_attrs::XLinkAttributesSetter for ColorMinusProfile {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for ColorMinusProfile {}
 
 impl Tag for ColorMinusProfile {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -2166,6 +2790,42 @@ impl Cursor {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Cursor {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Cursor {}
+
+impl common_attrs::CoreAttributesSetter for Cursor {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Cursor {}
+
+impl common_attrs::XLinkAttributesSetter for Cursor {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Cursor {}
+
 impl Tag for Cursor {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("cursor");
@@ -2327,6 +2987,54 @@ impl Defs {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Defs {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Defs {}
+
+impl common_attrs::CoreAttributesSetter for Defs {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Defs {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Defs {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Defs {}
+
+impl common_attrs::PresentationAttributesSetter for Defs {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Defs {}
+
 impl Tag for Defs {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("defs");
@@ -2440,6 +3148,18 @@ impl Desc {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Desc {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Desc {}
+
 impl Tag for Desc {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("desc");
@@ -2552,6 +3272,30 @@ impl Discard {
 		self.get_attr(DiscardAttrs::Href)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Discard {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Discard {}
+
+impl common_attrs::CoreAttributesSetter for Discard {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Discard {}
 
 impl Tag for Discard {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -2810,6 +3554,54 @@ impl Ellipse {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Ellipse {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Ellipse {}
+
+impl common_attrs::CoreAttributesSetter for Ellipse {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Ellipse {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Ellipse {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Ellipse {}
+
+impl common_attrs::PresentationAttributesSetter for Ellipse {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Ellipse {}
+
 impl Tag for Ellipse {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("ellipse");
@@ -2994,6 +3786,42 @@ impl FeBlend {
 		self.get_attr(FeBlendAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeBlend {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeBlend {}
+
+impl common_attrs::FilterAttributesSetter for FeBlend {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeBlend {}
+
+impl common_attrs::PresentationAttributesSetter for FeBlend {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeBlend {}
 
 impl Tag for FeBlend {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -3180,6 +4008,42 @@ impl FeColorMatrix {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeColorMatrix {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeColorMatrix {}
+
+impl common_attrs::FilterAttributesSetter for FeColorMatrix {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeColorMatrix {}
+
+impl common_attrs::PresentationAttributesSetter for FeColorMatrix {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeColorMatrix {}
+
 impl Tag for FeColorMatrix {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feColorMatrix");
@@ -3316,6 +4180,42 @@ impl FeComponentTransfer {
 		self.get_attr(FeComponentTransferAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeComponentTransfer {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeComponentTransfer {}
+
+impl common_attrs::FilterAttributesSetter for FeComponentTransfer {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeComponentTransfer {}
+
+impl common_attrs::PresentationAttributesSetter for FeComponentTransfer {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeComponentTransfer {}
 
 impl Tag for FeComponentTransfer {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -3597,6 +4497,42 @@ impl FeComposite {
 		self.get_attr(FeCompositeAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeComposite {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeComposite {}
+
+impl common_attrs::FilterAttributesSetter for FeComposite {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeComposite {}
+
+impl common_attrs::PresentationAttributesSetter for FeComposite {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeComposite {}
 
 impl Tag for FeComposite {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -3951,6 +4887,42 @@ impl FeConvolveMatrix {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeConvolveMatrix {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeConvolveMatrix {}
+
+impl common_attrs::FilterAttributesSetter for FeConvolveMatrix {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeConvolveMatrix {}
+
+impl common_attrs::PresentationAttributesSetter for FeConvolveMatrix {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeConvolveMatrix {}
+
 impl Tag for FeConvolveMatrix {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feConvolveMatrix");
@@ -4159,6 +5131,42 @@ impl FeDiffuseLighting {
 		self.get_attr(FeDiffuseLightingAttrs::SurfaceScale)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeDiffuseLighting {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeDiffuseLighting {}
+
+impl common_attrs::FilterAttributesSetter for FeDiffuseLighting {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeDiffuseLighting {}
+
+impl common_attrs::PresentationAttributesSetter for FeDiffuseLighting {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeDiffuseLighting {}
 
 impl Tag for FeDiffuseLighting {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -4393,6 +5401,42 @@ impl FeDisplacementMap {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeDisplacementMap {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeDisplacementMap {}
+
+impl common_attrs::FilterAttributesSetter for FeDisplacementMap {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeDisplacementMap {}
+
+impl common_attrs::PresentationAttributesSetter for FeDisplacementMap {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeDisplacementMap {}
+
 impl Tag for FeDisplacementMap {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feDisplacementMap");
@@ -4505,6 +5549,18 @@ impl FeDistantLight {
 		self.get_attr(FeDistantLightAttrs::Elevation)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeDistantLight {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeDistantLight {}
 
 impl Tag for FeDistantLight {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -4715,6 +5771,42 @@ impl FeDropShadow {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeDropShadow {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeDropShadow {}
+
+impl common_attrs::FilterAttributesSetter for FeDropShadow {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeDropShadow {}
+
+impl common_attrs::PresentationAttributesSetter for FeDropShadow {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeDropShadow {}
+
 impl Tag for FeDropShadow {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feDropShadow");
@@ -4876,6 +5968,42 @@ impl FeFlood {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeFlood {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeFlood {}
+
+impl common_attrs::FilterAttributesSetter for FeFlood {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeFlood {}
+
+impl common_attrs::PresentationAttributesSetter for FeFlood {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeFlood {}
+
 impl Tag for FeFlood {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feFlood");
@@ -4907,6 +6035,30 @@ impl FeFuncA {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeFuncA {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeFuncA {}
+
+impl common_attrs::TransferFunctionAttributesSetter for FeFuncA {
+	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithTransferFunctionAttributes for FeFuncA {}
+
 impl Tag for FeFuncA {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feFuncA");w.end_element();
@@ -4933,6 +6085,30 @@ impl FeFuncB {
 		}
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeFuncB {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeFuncB {}
+
+impl common_attrs::TransferFunctionAttributesSetter for FeFuncB {
+	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithTransferFunctionAttributes for FeFuncB {}
 
 impl Tag for FeFuncB {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -4961,6 +6137,30 @@ impl FeFuncG {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeFuncG {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeFuncG {}
+
+impl common_attrs::TransferFunctionAttributesSetter for FeFuncG {
+	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithTransferFunctionAttributes for FeFuncG {}
+
 impl Tag for FeFuncG {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feFuncG");w.end_element();
@@ -4987,6 +6187,30 @@ impl FeFuncR {
 		}
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeFuncR {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeFuncR {}
+
+impl common_attrs::TransferFunctionAttributesSetter for FeFuncR {
+	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithTransferFunctionAttributes for FeFuncR {}
 
 impl Tag for FeFuncR {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -5144,6 +6368,42 @@ impl FeGaussianBlur {
 		self.get_attr(FeGaussianBlurAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeGaussianBlur {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeGaussianBlur {}
+
+impl common_attrs::FilterAttributesSetter for FeGaussianBlur {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeGaussianBlur {}
+
+impl common_attrs::PresentationAttributesSetter for FeGaussianBlur {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeGaussianBlur {}
 
 impl Tag for FeGaussianBlur {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -5330,6 +6590,54 @@ impl FeImage {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeImage {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeImage {}
+
+impl common_attrs::FilterAttributesSetter for FeImage {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeImage {}
+
+impl common_attrs::PresentationAttributesSetter for FeImage {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeImage {}
+
+impl common_attrs::XLinkAttributesSetter for FeImage {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for FeImage {}
+
 impl Tag for FeImage {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feImage");
@@ -5443,6 +6751,42 @@ impl FeMerge {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeMerge {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeMerge {}
+
+impl common_attrs::FilterAttributesSetter for FeMerge {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeMerge {}
+
+impl common_attrs::PresentationAttributesSetter for FeMerge {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeMerge {}
+
 impl Tag for FeMerge {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feMerge");
@@ -5531,6 +6875,18 @@ impl FeMergeNode {
 		self.get_attr(FeMergeNodeAttrs::In)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeMergeNode {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeMergeNode {}
 
 impl Tag for FeMergeNode {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -5717,6 +7073,42 @@ impl FeMorphology {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeMorphology {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeMorphology {}
+
+impl common_attrs::FilterAttributesSetter for FeMorphology {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeMorphology {}
+
+impl common_attrs::PresentationAttributesSetter for FeMorphology {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeMorphology {}
+
 impl Tag for FeMorphology {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feMorphology");
@@ -5902,6 +7294,42 @@ impl FeOffset {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeOffset {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeOffset {}
+
+impl common_attrs::FilterAttributesSetter for FeOffset {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeOffset {}
+
+impl common_attrs::PresentationAttributesSetter for FeOffset {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeOffset {}
+
 impl Tag for FeOffset {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feOffset");
@@ -6038,6 +7466,18 @@ impl FePointLight {
 		self.get_attr(FePointLightAttrs::Z)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FePointLight {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FePointLight {}
 
 impl Tag for FePointLight {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -6271,6 +7711,42 @@ impl FeSpecularLighting {
 		self.get_attr(FeSpecularLightingAttrs::SurfaceScale)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeSpecularLighting {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeSpecularLighting {}
+
+impl common_attrs::FilterAttributesSetter for FeSpecularLighting {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeSpecularLighting {}
+
+impl common_attrs::PresentationAttributesSetter for FeSpecularLighting {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeSpecularLighting {}
 
 impl Tag for FeSpecularLighting {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -6529,6 +8005,18 @@ impl FeSpotLight {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FeSpotLight {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeSpotLight {}
+
 impl Tag for FeSpotLight {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("feSpotLight");
@@ -6665,6 +8153,42 @@ impl FeTile {
 		self.get_attr(FeTileAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeTile {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeTile {}
+
+impl common_attrs::FilterAttributesSetter for FeTile {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeTile {}
+
+impl common_attrs::PresentationAttributesSetter for FeTile {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeTile {}
 
 impl Tag for FeTile {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -6898,6 +8422,42 @@ impl FeTurbulence {
 		self.get_attr(FeTurbulenceAttrs::Type)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FeTurbulence {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FeTurbulence {}
+
+impl common_attrs::FilterAttributesSetter for FeTurbulence {
+	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithFilterAttributes for FeTurbulence {}
+
+impl common_attrs::PresentationAttributesSetter for FeTurbulence {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for FeTurbulence {}
 
 impl Tag for FeTurbulence {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -7228,6 +8788,42 @@ impl Filter {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Filter {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Filter {}
+
+impl common_attrs::PresentationAttributesSetter for Filter {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Filter {}
+
+impl common_attrs::XLinkAttributesSetter for Filter {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Filter {}
+
 impl Tag for Filter {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("filter");
@@ -7508,6 +9104,30 @@ impl Font {
 		self.get_attr(FontAttrs::VertMinusOriginMinusY)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Font {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Font {}
+
+impl common_attrs::PresentationAttributesSetter for Font {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Font {}
 
 impl Tag for Font {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -8366,6 +9986,18 @@ impl FontMinusFace {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FontMinusFace {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FontMinusFace {}
+
 impl Tag for FontMinusFace {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face");
@@ -8454,6 +10086,18 @@ impl FontMinusFaceMinusFormat {
 		self.get_attr(FontMinusFaceMinusFormatAttrs::String)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusFormat {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FontMinusFaceMinusFormat {}
 
 impl Tag for FontMinusFaceMinusFormat {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -8544,6 +10188,18 @@ impl FontMinusFaceMinusName {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusName {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FontMinusFaceMinusName {}
+
 impl Tag for FontMinusFaceMinusName {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("font-face-name");
@@ -8574,6 +10230,18 @@ impl FontMinusFaceMinusSrc {
 		}
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusSrc {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FontMinusFaceMinusSrc {}
 
 impl Tag for FontMinusFaceMinusSrc {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -8659,6 +10327,30 @@ impl FontMinusFaceMinusUri {
 		self.get_attr(FontMinusFaceMinusUriAttrs::XlinkHref)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for FontMinusFaceMinusUri {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for FontMinusFaceMinusUri {}
+
+impl common_attrs::XLinkAttributesSetter for FontMinusFaceMinusUri {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for FontMinusFaceMinusUri {}
 
 impl Tag for FontMinusFaceMinusUri {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -8917,6 +10609,54 @@ impl ForeignObject {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for ForeignObject {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for ForeignObject {}
+
+impl common_attrs::CoreAttributesSetter for ForeignObject {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for ForeignObject {}
+
+impl common_attrs::GraphicalEventAttributesSetter for ForeignObject {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for ForeignObject {}
+
+impl common_attrs::PresentationAttributesSetter for ForeignObject {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for ForeignObject {}
+
 impl Tag for ForeignObject {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("foreignObject");
@@ -9077,6 +10817,54 @@ impl G {
 		self.get_attr(GAttrs::Transform)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for G {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for G {}
+
+impl common_attrs::CoreAttributesSetter for G {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for G {}
+
+impl common_attrs::GraphicalEventAttributesSetter for G {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for G {}
+
+impl common_attrs::PresentationAttributesSetter for G {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for G {}
 
 impl Tag for G {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -9431,6 +11219,30 @@ impl Glyph {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Glyph {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Glyph {}
+
+impl common_attrs::PresentationAttributesSetter for Glyph {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Glyph {}
+
 impl Tag for Glyph {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("glyph");
@@ -9712,6 +11524,42 @@ impl GlyphRef {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for GlyphRef {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for GlyphRef {}
+
+impl common_attrs::PresentationAttributesSetter for GlyphRef {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for GlyphRef {}
+
+impl common_attrs::XLinkAttributesSetter for GlyphRef {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for GlyphRef {}
+
 impl Tag for GlyphRef {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("glyphRef");
@@ -9969,6 +11817,54 @@ impl Hatch {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Hatch {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Hatch {}
+
+impl common_attrs::GlobalEventAttributesSetter for Hatch {
+	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGlobalEventAttributes for Hatch {}
+
+impl common_attrs::PresentationAttributesSetter for Hatch {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Hatch {}
+
+impl common_attrs::StyleAttributesSetter for Hatch {
+	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithStyleAttributes for Hatch {}
+
 impl Tag for Hatch {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("hatch");
@@ -10081,6 +11977,54 @@ impl Hatchpath {
 		self.get_attr(HatchpathAttrs::Offset)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Hatchpath {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Hatchpath {}
+
+impl common_attrs::GlobalEventAttributesSetter for Hatchpath {
+	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGlobalEventAttributes for Hatchpath {}
+
+impl common_attrs::PresentationAttributesSetter for Hatchpath {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Hatchpath {}
+
+impl common_attrs::StyleAttributesSetter for Hatchpath {
+	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithStyleAttributes for Hatchpath {}
 
 impl Tag for Hatchpath {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -10266,6 +12210,18 @@ impl Hkern {
 		self.get_attr(HkernAttrs::U2)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Hkern {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Hkern {}
 
 impl Tag for Hkern {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -10572,6 +12528,66 @@ impl Image {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Image {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Image {}
+
+impl common_attrs::CoreAttributesSetter for Image {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Image {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Image {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Image {}
+
+impl common_attrs::PresentationAttributesSetter for Image {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Image {}
+
+impl common_attrs::XLinkAttributesSetter for Image {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Image {}
+
 impl Tag for Image {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("image");
@@ -10828,6 +12844,54 @@ impl Line {
 		self.get_attr(LineAttrs::Y2)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Line {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Line {}
+
+impl common_attrs::CoreAttributesSetter for Line {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Line {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Line {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Line {}
+
+impl common_attrs::PresentationAttributesSetter for Line {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Line {}
 
 impl Tag for Line {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -11157,6 +13221,42 @@ impl LinearGradient {
 		self.get_attr(LinearGradientAttrs::Y2)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for LinearGradient {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for LinearGradient {}
+
+impl common_attrs::PresentationAttributesSetter for LinearGradient {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for LinearGradient {}
+
+impl common_attrs::XLinkAttributesSetter for LinearGradient {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for LinearGradient {}
 
 impl Tag for LinearGradient {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -11511,6 +13611,30 @@ impl Marker {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Marker {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Marker {}
+
+impl common_attrs::PresentationAttributesSetter for Marker {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Marker {}
+
 impl Tag for Marker {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("marker");
@@ -11792,6 +13916,42 @@ impl Mask {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Mask {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Mask {}
+
+impl common_attrs::CoreAttributesSetter for Mask {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Mask {}
+
+impl common_attrs::PresentationAttributesSetter for Mask {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Mask {}
+
 impl Tag for Mask {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("mask");
@@ -11822,6 +13982,18 @@ impl Metadata {
 		}
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Metadata {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Metadata {}
 
 impl Tag for Metadata {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -12052,6 +14224,30 @@ impl MissingMinusGlyph {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for MissingMinusGlyph {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for MissingMinusGlyph {}
+
+impl common_attrs::PresentationAttributesSetter for MissingMinusGlyph {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for MissingMinusGlyph {}
+
 impl Tag for MissingMinusGlyph {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("missing-glyph");
@@ -12164,6 +14360,30 @@ impl Mpath {
 		self.get_attr(MpathAttrs::XlinkHref)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Mpath {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Mpath {}
+
+impl common_attrs::XLinkAttributesSetter for Mpath {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Mpath {}
 
 impl Tag for Mpath {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -12373,6 +14593,54 @@ impl Path {
 		self.get_attr(PathAttrs::Transform)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Path {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Path {}
+
+impl common_attrs::CoreAttributesSetter for Path {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Path {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Path {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Path {}
+
+impl common_attrs::PresentationAttributesSetter for Path {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Path {}
 
 impl Tag for Path {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -12751,6 +15019,54 @@ impl Pattern {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Pattern {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Pattern {}
+
+impl common_attrs::CoreAttributesSetter for Pattern {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Pattern {}
+
+impl common_attrs::PresentationAttributesSetter for Pattern {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Pattern {}
+
+impl common_attrs::XLinkAttributesSetter for Pattern {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Pattern {}
+
 impl Tag for Pattern {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("pattern");
@@ -12936,6 +15252,54 @@ impl Polygon {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Polygon {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Polygon {}
+
+impl common_attrs::CoreAttributesSetter for Polygon {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Polygon {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Polygon {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Polygon {}
+
+impl common_attrs::PresentationAttributesSetter for Polygon {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Polygon {}
+
 impl Tag for Polygon {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("polygon");
@@ -13120,6 +15484,54 @@ impl Polyline {
 		self.get_attr(PolylineAttrs::Transform)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Polyline {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Polyline {}
+
+impl common_attrs::CoreAttributesSetter for Polyline {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Polyline {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Polyline {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Polyline {}
+
+impl common_attrs::PresentationAttributesSetter for Polyline {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Polyline {}
 
 impl Tag for Polyline {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -13474,6 +15886,42 @@ impl RadialGradient {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for RadialGradient {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for RadialGradient {}
+
+impl common_attrs::PresentationAttributesSetter for RadialGradient {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for RadialGradient {}
+
+impl common_attrs::XLinkAttributesSetter for RadialGradient {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for RadialGradient {}
+
 impl Tag for RadialGradient {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("radialGradient");
@@ -13779,6 +16227,54 @@ impl Rect {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Rect {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Rect {}
+
+impl common_attrs::CoreAttributesSetter for Rect {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Rect {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Rect {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Rect {}
+
+impl common_attrs::PresentationAttributesSetter for Rect {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Rect {}
+
 impl Tag for Rect {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("rect");
@@ -13916,6 +16412,30 @@ impl Script {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Script {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Script {}
+
+impl common_attrs::XLinkAttributesSetter for Script {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Script {}
+
 impl Tag for Script {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("script");
@@ -14028,6 +16548,78 @@ impl Set {
 		self.get_attr(SetAttrs::To)
 	}
 }
+
+impl common_attrs::AnimationAttributeTargetAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationAttributeTargetAttributes for Set {}
+
+impl common_attrs::AnimationEventAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationEventAttributes for Set {}
+
+impl common_attrs::AnimationTimingAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithAnimationTimingAttributes for Set {}
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Set {}
+
+impl common_attrs::CoreAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Set {}
+
+impl common_attrs::XLinkAttributesSetter for Set {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Set {}
 
 impl Tag for Set {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -14214,6 +16806,30 @@ impl Stop {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for Stop {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Stop {}
+
+impl common_attrs::PresentationAttributesSetter for Stop {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Stop {}
+
 impl Tag for Stop {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("stop");
@@ -14350,6 +16966,18 @@ impl Style {
 		self.get_attr(StyleAttrs::Type)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Style {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Style {}
 
 impl Tag for Style {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -14728,6 +17356,66 @@ impl Svg {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Svg {}
+
+impl common_attrs::CoreAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Svg {}
+
+impl common_attrs::DocumentEventAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::DocumentEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::DocumentEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithDocumentEventAttributes for Svg {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Svg {}
+
+impl common_attrs::PresentationAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Svg {}
+
 impl Tag for Svg {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("svg");
@@ -14913,6 +17601,54 @@ impl Switch {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Switch {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Switch {}
+
+impl common_attrs::CoreAttributesSetter for Switch {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Switch {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Switch {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Switch {}
+
+impl common_attrs::PresentationAttributesSetter for Switch {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Switch {}
+
 impl Tag for Switch {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("switch");
@@ -15097,6 +17833,42 @@ impl Symbol {
 		self.get_attr(SymbolAttrs::ViewBox)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Symbol {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Symbol {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Symbol {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Symbol {}
+
+impl common_attrs::PresentationAttributesSetter for Symbol {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Symbol {}
 
 impl Tag for Symbol {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -15451,6 +18223,54 @@ impl Text {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Text {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Text {}
+
+impl common_attrs::CoreAttributesSetter for Text {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Text {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Text {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Text {}
+
+impl common_attrs::PresentationAttributesSetter for Text {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Text {}
+
 impl Tag for Text {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("text");
@@ -15686,6 +18506,66 @@ impl TextPath {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for TextPath {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for TextPath {}
+
+impl common_attrs::CoreAttributesSetter for TextPath {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for TextPath {}
+
+impl common_attrs::GraphicalEventAttributesSetter for TextPath {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for TextPath {}
+
+impl common_attrs::PresentationAttributesSetter for TextPath {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for TextPath {}
+
+impl common_attrs::XLinkAttributesSetter for TextPath {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for TextPath {}
+
 impl Tag for TextPath {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("textPath");
@@ -15798,6 +18678,18 @@ impl Title {
 		self.get_attr(TitleAttrs::Style)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Title {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Title {}
 
 impl Tag for Title {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -15959,6 +18851,66 @@ impl Tref {
 		self.get_attr(TrefAttrs::XlinkHref)
 	}
 }
+
+impl common_attrs::ConditionalProcessingAttributesSetter for Tref {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Tref {}
+
+impl common_attrs::CoreAttributesSetter for Tref {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Tref {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Tref {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Tref {}
+
+impl common_attrs::PresentationAttributesSetter for Tref {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Tref {}
+
+impl common_attrs::XLinkAttributesSetter for Tref {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Tref {}
 
 impl Tag for Tref {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
@@ -16265,6 +19217,54 @@ impl Tspan {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Tspan {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Tspan {}
+
+impl common_attrs::CoreAttributesSetter for Tspan {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Tspan {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Tspan {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Tspan {}
+
+impl common_attrs::PresentationAttributesSetter for Tspan {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Tspan {}
+
 impl Tag for Tspan {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("tspan");
@@ -16547,6 +19547,66 @@ impl Use {
 	}
 }
 
+impl common_attrs::ConditionalProcessingAttributesSetter for Use {
+	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithConditionalProcessingAttributes for Use {}
+
+impl common_attrs::CoreAttributesSetter for Use {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Use {}
+
+impl common_attrs::GraphicalEventAttributesSetter for Use {
+	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithGraphicalEventAttributes for Use {}
+
+impl common_attrs::PresentationAttributesSetter for Use {
+	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithPresentationAttributes for Use {}
+
+impl common_attrs::XLinkAttributesSetter for Use {
+	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithXLinkAttributes for Use {}
+
 impl Tag for Use {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("use");
@@ -16732,6 +19792,18 @@ impl View {
 	}
 }
 
+impl common_attrs::CoreAttributesSetter for View {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for View {}
+
 impl Tag for View {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("view");
@@ -16916,6 +19988,18 @@ impl Vkern {
 		self.get_attr(VkernAttrs::U2)
 	}
 }
+
+impl common_attrs::CoreAttributesSetter for Vkern {
+	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWithCoreAttributes for Vkern {}
 
 impl Tag for Vkern {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {

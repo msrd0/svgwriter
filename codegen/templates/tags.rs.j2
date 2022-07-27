@@ -59,6 +59,22 @@ impl {{name|camel_case}} {
 	{%- endif %}
 }
 
+{%- for cat in elem.attribute_categories %}
+
+impl common_attrs::{{cat|camel_case}}Setter for {{name|camel_case}} {
+	fn set_attr(&mut self, attr: common_attrs::{{cat|camel_case}}, value: String) {
+		unimplemented!()
+	}
+
+	fn get_attr(&self, attr: common_attrs::{{cat|camel_case}}) -> Option<&str> {
+		unimplemented!()
+	}
+}
+
+impl TagWith{{cat|camel_case}} for {{name|camel_case}} {}
+
+{%- endfor %}
+
 impl Tag for {{name|camel_case}} {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
 		w.start_element("{{name}}");
