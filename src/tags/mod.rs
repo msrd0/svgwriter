@@ -20407,7 +20407,7 @@ impl Tag for Style {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum SvgAttrs {
+pub(crate) enum SvgAttrs {
 	BaseProfile,
 	Class,
 	ContentScriptType,
@@ -20426,6 +20426,7 @@ enum SvgAttrs {
 	DocumentEventAttributes(common_attrs::DocumentEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
+	Custom(&'static str),
 }
 
 impl From<common_attrs::ConditionalProcessingAttributes> for SvgAttrs {
@@ -20458,8 +20459,14 @@ impl From<common_attrs::PresentationAttributes> for SvgAttrs {
 	}
 }
 
+impl From<&'static str> for SvgAttrs {
+	fn from(attr: &'static str) -> Self {
+		Self::Custom(attr)
+	}
+}
+
 impl SvgAttrs {
-	fn as_str(&self) -> &'static str {
+	pub(crate) fn as_str(&self) -> &'static str {
 		match self {
 			Self::BaseProfile => "baseProfile",
 			Self::Class => "class",
@@ -20479,6 +20486,7 @@ impl SvgAttrs {
 			Self::DocumentEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
+			Self::Custom(attr) => attr,
 		}
 	}
 }
@@ -20559,7 +20567,7 @@ impl Svg {
 		self
 	}
 
-	fn set_attr(&mut self, attr: SvgAttrs, value: String) {
+	pub(crate) fn set_attr(&mut self, attr: SvgAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
@@ -21603,6 +21611,8 @@ mod text_private {
 
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
+	impl Content for String {}
+	impl Content for &'static str {}
 }
 
 #[doc = "The [`<text>`] svg tag.\n\n# Content\n"]
@@ -22859,6 +22869,8 @@ mod tspan_private {
 	impl Content for super::Set {}
 	impl Content for super::Tref {}
 	impl Content for super::Tspan {}
+	impl Content for String {}
+	impl Content for &'static str {}
 }
 
 #[doc = "The [`<tspan>`] svg tag.\n\n# Content\n"]

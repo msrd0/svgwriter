@@ -5,7 +5,7 @@ use std::fmt::{self, Debug, Display, Formatter};
 
 {%- for (cat, attrs) in categories %}
 
-{% call macros::attr_enum("pub", cat, attrs, empty_array) %}
+{% call macros::attr_enum("pub", cat, attrs, empty_array, false) %}
 
 pub trait {{cat|camel_case}}Setter {
 	fn set_attr(&mut self, attr: {{cat|camel_case}}, value: String);

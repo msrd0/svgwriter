@@ -13,7 +13,13 @@ pub use common_attrs::prelude::*;
 
 {%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
-{% call macros::attr_enum("", "{}Attrs"|format(name), elem.attributes, elem.attribute_categories) %}
+{% call macros::attr_enum(
+	(name == "svg").then_some("pub(crate)").unwrap_or_default(),
+	"{}Attrs"|format(name),
+	elem.attributes,
+	elem.attribute_categories,
+	name == "svg"
+) %}
 
 {%- endif %}
 
@@ -27,6 +33,10 @@ mod {{name|snake_case}}_private {
 	{%- for content in elem.content.elements %}
 	impl Content for super::{{content|camel_case}} {}
 	{%- endfor %}
+	{%- if name == "text" || name == "tspan" %}
+	impl Content for String {}
+	impl Content for &'static str {}
+	{%- endif %}
 }
 
 {%- endif %}
@@ -83,6 +93,7 @@ impl {{name|camel_case}} {
 	{%- endif %}
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
+	{% if name == "svg" %}pub(crate) {% endif -%}
 	fn set_attr(&mut self, attr: {{name|camel_case}}Attrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
