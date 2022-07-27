@@ -7,7 +7,7 @@ use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
 
 mod common_attrs;
-pub use common_attrs::*;
+pub use common_attrs::prelude::*;
 
 {%- for (name, elem) in elements %}
 
@@ -50,31 +50,12 @@ impl {{name|camel_case}} {
 		self.attrs.insert(attr, value);
 	}
 
-	{%- for attr in elem.attributes %}
-
-	/// Set the `{{attr}}` attribute.
-	pub fn with_{{attr|snake_case}}<T>(mut self, value: T) -> Self
-	where
-		T: Into<String>
-	{
-		self.set_attr({{name|camel_case}}Attrs::{{attr|camel_case}}, value.into());
-		self
+	fn get_attr(&self, attr: {{name|camel_case}}Attrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
 	}
 
-	/// Set the `{{attr}}` attribute.
-	pub fn set_{{attr|snake_case}}<T>(&mut self, value: T)
-	where
-		T: Into<String>
-	{
-		self.set_attr({{name|camel_case}}Attrs::{{attr|camel_case}}, value.into());
-	}
+	{%- call macros::attrs_get_set("pub", "{}Attrs"|format(name), elem.attributes) %}
 
-	/// Get the `{{attr}}` attribute.
-	pub fn {{attr|snake_case}}(&self) -> Option<&str> {
-		self.attrs.get(&{{name|camel_case}}Attrs::{{attr|camel_case}}).map(String::as_str)
-	}
-
-	{%- endfor %}
 	{%- endif %}
 }
 

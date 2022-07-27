@@ -29,3 +29,33 @@ impl Debug for {{name|camel_case}} {
 	}
 }
 {%- endmacro %}
+
+{% macro attrs_get_set(vis, attr_enum, attrs) -%}
+	{%- for attr in attrs.iter() %}
+
+	/// Set the `{{attr}}` attribute.
+	{% if !vis.is_empty() %}{{vis}} {% endif -%}
+	fn with_{{attr|snake_case}}<T>(mut self, value: T) -> Self
+	where
+		T: Into<String>
+	{
+		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value.into());
+		self
+	}
+
+	/// Set the `{{attr}}` attribute.
+	{% if !vis.is_empty() %}{{vis}} {% endif -%}
+	fn set_{{attr|snake_case}}<T>(&mut self, value: T)
+	where
+		T: Into<String>
+	{
+		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value.into());
+	}
+
+	/// Get the `{{attr}}` attribute.
+	{% if !vis.is_empty() %}{{vis}} {% endif -%}
+	fn {{attr|snake_case}}(&self) -> Option<&str> {
+		self.get_attr({{attr_enum|camel_case}}::{{attr|camel_case}})
+	}
+	{%- endfor %}
+{%- endmacro %}

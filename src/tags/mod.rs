@@ -6,7 +6,7 @@ use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
 
 mod common_attrs;
-pub use common_attrs::*;
+pub use common_attrs::prelude::*;
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AAttrs {
@@ -74,6 +74,10 @@ impl A {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -93,7 +97,7 @@ impl A {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::Class).map(String::as_str)
+		self.get_attr(AAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -115,7 +119,7 @@ impl A {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -137,7 +141,7 @@ impl A {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::Style).map(String::as_str)
+		self.get_attr(AAttrs::Style)
 	}
 
 	/// Set the `target` attribute.
@@ -159,7 +163,7 @@ impl A {
 
 	/// Get the `target` attribute.
 	pub fn target(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::Target).map(String::as_str)
+		self.get_attr(AAttrs::Target)
 	}
 
 	/// Set the `transform` attribute.
@@ -181,7 +185,7 @@ impl A {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::Transform).map(String::as_str)
+		self.get_attr(AAttrs::Transform)
 	}
 
 	/// Set the `xlink:actuate` attribute.
@@ -203,7 +207,7 @@ impl A {
 
 	/// Get the `xlink:actuate` attribute.
 	pub fn xlink_actuate(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::XlinkActuate).map(String::as_str)
+		self.get_attr(AAttrs::XlinkActuate)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -225,7 +229,7 @@ impl A {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(AAttrs::XlinkHref)
 	}
 
 	/// Set the `xlink:show` attribute.
@@ -247,7 +251,7 @@ impl A {
 
 	/// Get the `xlink:show` attribute.
 	pub fn xlink_show(&self) -> Option<&str> {
-		self.attrs.get(&AAttrs::XlinkShow).map(String::as_str)
+		self.get_attr(AAttrs::XlinkShow)
 	}
 }
 
@@ -333,6 +337,10 @@ impl AltGlyph {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AltGlyphAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -352,7 +360,7 @@ impl AltGlyph {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Class).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -374,7 +382,7 @@ impl AltGlyph {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Dx).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -396,7 +404,7 @@ impl AltGlyph {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Dy).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -418,7 +426,7 @@ impl AltGlyph {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `format` attribute.
@@ -440,7 +448,7 @@ impl AltGlyph {
 
 	/// Get the `format` attribute.
 	pub fn format(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Format).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Format)
 	}
 
 	/// Set the `glyphRef` attribute.
@@ -462,7 +470,7 @@ impl AltGlyph {
 
 	/// Get the `glyphRef` attribute.
 	pub fn glyph_ref(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::GlyphRef).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::GlyphRef)
 	}
 
 	/// Set the `rotate` attribute.
@@ -484,7 +492,7 @@ impl AltGlyph {
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Rotate).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
@@ -506,7 +514,7 @@ impl AltGlyph {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Style).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Style)
 	}
 
 	/// Set the `x` attribute.
@@ -528,7 +536,7 @@ impl AltGlyph {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::X).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -550,7 +558,7 @@ impl AltGlyph {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -572,7 +580,7 @@ impl AltGlyph {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&AltGlyphAttrs::Y).map(String::as_str)
+		self.get_attr(AltGlyphAttrs::Y)
 	}
 }
 
@@ -704,6 +712,10 @@ impl Animate {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AnimateAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `attributeName` attribute.
 	pub fn with_attribute_name<T>(mut self, value: T) -> Self
 	where
@@ -723,7 +735,7 @@ impl Animate {
 
 	/// Get the `attributeName` attribute.
 	pub fn attribute_name(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::AttributeName).map(String::as_str)
+		self.get_attr(AnimateAttrs::AttributeName)
 	}
 
 	/// Set the `attributeType` attribute.
@@ -745,7 +757,7 @@ impl Animate {
 
 	/// Get the `attributeType` attribute.
 	pub fn attribute_type(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::AttributeType).map(String::as_str)
+		self.get_attr(AnimateAttrs::AttributeType)
 	}
 
 	/// Set the `dur` attribute.
@@ -767,7 +779,7 @@ impl Animate {
 
 	/// Get the `dur` attribute.
 	pub fn dur(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::Dur).map(String::as_str)
+		self.get_attr(AnimateAttrs::Dur)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -789,7 +801,7 @@ impl Animate {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AnimateAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
@@ -811,7 +823,7 @@ impl Animate {
 
 	/// Get the `from` attribute.
 	pub fn from(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::From).map(String::as_str)
+		self.get_attr(AnimateAttrs::From)
 	}
 
 	/// Set the `repeatCount` attribute.
@@ -833,7 +845,7 @@ impl Animate {
 
 	/// Get the `repeatCount` attribute.
 	pub fn repeat_count(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::RepeatCount).map(String::as_str)
+		self.get_attr(AnimateAttrs::RepeatCount)
 	}
 
 	/// Set the `to` attribute.
@@ -855,7 +867,7 @@ impl Animate {
 
 	/// Get the `to` attribute.
 	pub fn to(&self) -> Option<&str> {
-		self.attrs.get(&AnimateAttrs::To).map(String::as_str)
+		self.get_attr(AnimateAttrs::To)
 	}
 }
 
@@ -927,6 +939,10 @@ impl AnimateColor {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AnimateColorAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `by` attribute.
 	pub fn with_by<T>(mut self, value: T) -> Self
 	where
@@ -946,7 +962,7 @@ impl AnimateColor {
 
 	/// Get the `by` attribute.
 	pub fn by(&self) -> Option<&str> {
-		self.attrs.get(&AnimateColorAttrs::By).map(String::as_str)
+		self.get_attr(AnimateColorAttrs::By)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -968,7 +984,7 @@ impl AnimateColor {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AnimateColorAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AnimateColorAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
@@ -990,7 +1006,7 @@ impl AnimateColor {
 
 	/// Get the `from` attribute.
 	pub fn from(&self) -> Option<&str> {
-		self.attrs.get(&AnimateColorAttrs::From).map(String::as_str)
+		self.get_attr(AnimateColorAttrs::From)
 	}
 
 	/// Set the `to` attribute.
@@ -1012,7 +1028,7 @@ impl AnimateColor {
 
 	/// Get the `to` attribute.
 	pub fn to(&self) -> Option<&str> {
-		self.attrs.get(&AnimateColorAttrs::To).map(String::as_str)
+		self.get_attr(AnimateColorAttrs::To)
 	}
 }
 
@@ -1088,6 +1104,10 @@ impl AnimateMotion {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AnimateMotionAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `calcMode` attribute.
 	pub fn with_calc_mode<T>(mut self, value: T) -> Self
 	where
@@ -1107,7 +1127,7 @@ impl AnimateMotion {
 
 	/// Get the `calcMode` attribute.
 	pub fn calc_mode(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::CalcMode).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::CalcMode)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -1129,7 +1149,7 @@ impl AnimateMotion {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `keyPoints` attribute.
@@ -1151,7 +1171,7 @@ impl AnimateMotion {
 
 	/// Get the `keyPoints` attribute.
 	pub fn key_points(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::KeyPoints).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::KeyPoints)
 	}
 
 	/// Set the `origin` attribute.
@@ -1173,7 +1193,7 @@ impl AnimateMotion {
 
 	/// Get the `origin` attribute.
 	pub fn origin(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::Origin).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::Origin)
 	}
 
 	/// Set the `path` attribute.
@@ -1195,7 +1215,7 @@ impl AnimateMotion {
 
 	/// Get the `path` attribute.
 	pub fn path(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::Path).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::Path)
 	}
 
 	/// Set the `rotate` attribute.
@@ -1217,7 +1237,7 @@ impl AnimateMotion {
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.attrs.get(&AnimateMotionAttrs::Rotate).map(String::as_str)
+		self.get_attr(AnimateMotionAttrs::Rotate)
 	}
 }
 
@@ -1291,6 +1311,10 @@ impl AnimateTransform {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: AnimateTransformAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `by` attribute.
 	pub fn with_by<T>(mut self, value: T) -> Self
 	where
@@ -1310,7 +1334,7 @@ impl AnimateTransform {
 
 	/// Get the `by` attribute.
 	pub fn by(&self) -> Option<&str> {
-		self.attrs.get(&AnimateTransformAttrs::By).map(String::as_str)
+		self.get_attr(AnimateTransformAttrs::By)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -1332,7 +1356,7 @@ impl AnimateTransform {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&AnimateTransformAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(AnimateTransformAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
@@ -1354,7 +1378,7 @@ impl AnimateTransform {
 
 	/// Get the `from` attribute.
 	pub fn from(&self) -> Option<&str> {
-		self.attrs.get(&AnimateTransformAttrs::From).map(String::as_str)
+		self.get_attr(AnimateTransformAttrs::From)
 	}
 
 	/// Set the `to` attribute.
@@ -1376,7 +1400,7 @@ impl AnimateTransform {
 
 	/// Get the `to` attribute.
 	pub fn to(&self) -> Option<&str> {
-		self.attrs.get(&AnimateTransformAttrs::To).map(String::as_str)
+		self.get_attr(AnimateTransformAttrs::To)
 	}
 
 	/// Set the `type` attribute.
@@ -1398,7 +1422,7 @@ impl AnimateTransform {
 
 	/// Get the `type` attribute.
 	pub fn ty(&self) -> Option<&str> {
-		self.attrs.get(&AnimateTransformAttrs::Type).map(String::as_str)
+		self.get_attr(AnimateTransformAttrs::Type)
 	}
 }
 
@@ -1476,6 +1500,10 @@ impl Circle {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: CircleAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -1495,7 +1523,7 @@ impl Circle {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::Class).map(String::as_str)
+		self.get_attr(CircleAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
@@ -1517,7 +1545,7 @@ impl Circle {
 
 	/// Get the `cx` attribute.
 	pub fn cx(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::Cx).map(String::as_str)
+		self.get_attr(CircleAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
@@ -1539,7 +1567,7 @@ impl Circle {
 
 	/// Get the `cy` attribute.
 	pub fn cy(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::Cy).map(String::as_str)
+		self.get_attr(CircleAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -1561,7 +1589,7 @@ impl Circle {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(CircleAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `r` attribute.
@@ -1583,7 +1611,7 @@ impl Circle {
 
 	/// Get the `r` attribute.
 	pub fn r(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::R).map(String::as_str)
+		self.get_attr(CircleAttrs::R)
 	}
 
 	/// Set the `style` attribute.
@@ -1605,7 +1633,7 @@ impl Circle {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::Style).map(String::as_str)
+		self.get_attr(CircleAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -1627,7 +1655,7 @@ impl Circle {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&CircleAttrs::Transform).map(String::as_str)
+		self.get_attr(CircleAttrs::Transform)
 	}
 }
 
@@ -1701,6 +1729,10 @@ impl ClipPath {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ClipPathAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -1720,7 +1752,7 @@ impl ClipPath {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&ClipPathAttrs::Class).map(String::as_str)
+		self.get_attr(ClipPathAttrs::Class)
 	}
 
 	/// Set the `clipPathUnits` attribute.
@@ -1742,7 +1774,7 @@ impl ClipPath {
 
 	/// Get the `clipPathUnits` attribute.
 	pub fn clip_path_units(&self) -> Option<&str> {
-		self.attrs.get(&ClipPathAttrs::ClipPathUnits).map(String::as_str)
+		self.get_attr(ClipPathAttrs::ClipPathUnits)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -1764,7 +1796,7 @@ impl ClipPath {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&ClipPathAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(ClipPathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -1786,7 +1818,7 @@ impl ClipPath {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&ClipPathAttrs::Style).map(String::as_str)
+		self.get_attr(ClipPathAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -1808,7 +1840,7 @@ impl ClipPath {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&ClipPathAttrs::Transform).map(String::as_str)
+		self.get_attr(ClipPathAttrs::Transform)
 	}
 }
 
@@ -1880,6 +1912,10 @@ impl ColorMinusProfile {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ColorMinusProfileAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `local` attribute.
 	pub fn with_local<T>(mut self, value: T) -> Self
 	where
@@ -1899,7 +1935,7 @@ impl ColorMinusProfile {
 
 	/// Get the `local` attribute.
 	pub fn local(&self) -> Option<&str> {
-		self.attrs.get(&ColorMinusProfileAttrs::Local).map(String::as_str)
+		self.get_attr(ColorMinusProfileAttrs::Local)
 	}
 
 	/// Set the `name` attribute.
@@ -1921,7 +1957,7 @@ impl ColorMinusProfile {
 
 	/// Get the `name` attribute.
 	pub fn name(&self) -> Option<&str> {
-		self.attrs.get(&ColorMinusProfileAttrs::Name).map(String::as_str)
+		self.get_attr(ColorMinusProfileAttrs::Name)
 	}
 
 	/// Set the `rendering-intent` attribute.
@@ -1943,7 +1979,7 @@ impl ColorMinusProfile {
 
 	/// Get the `rendering-intent` attribute.
 	pub fn rendering_minus_intent(&self) -> Option<&str> {
-		self.attrs.get(&ColorMinusProfileAttrs::RenderingMinusIntent).map(String::as_str)
+		self.get_attr(ColorMinusProfileAttrs::RenderingMinusIntent)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -1965,7 +2001,7 @@ impl ColorMinusProfile {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&ColorMinusProfileAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(ColorMinusProfileAttrs::XlinkHref)
 	}
 }
 
@@ -2037,6 +2073,10 @@ impl Cursor {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: CursorAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `externalResourcesRequired` attribute.
 	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
 	where
@@ -2056,7 +2096,7 @@ impl Cursor {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&CursorAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(CursorAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `x` attribute.
@@ -2078,7 +2118,7 @@ impl Cursor {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&CursorAttrs::X).map(String::as_str)
+		self.get_attr(CursorAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -2100,7 +2140,7 @@ impl Cursor {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&CursorAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(CursorAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -2122,7 +2162,7 @@ impl Cursor {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&CursorAttrs::Y).map(String::as_str)
+		self.get_attr(CursorAttrs::Y)
 	}
 }
 
@@ -2194,6 +2234,10 @@ impl Defs {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: DefsAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -2213,7 +2257,7 @@ impl Defs {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&DefsAttrs::Class).map(String::as_str)
+		self.get_attr(DefsAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -2235,7 +2279,7 @@ impl Defs {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&DefsAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(DefsAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -2257,7 +2301,7 @@ impl Defs {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&DefsAttrs::Style).map(String::as_str)
+		self.get_attr(DefsAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -2279,7 +2323,7 @@ impl Defs {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&DefsAttrs::Transform).map(String::as_str)
+		self.get_attr(DefsAttrs::Transform)
 	}
 }
 
@@ -2347,6 +2391,10 @@ impl Desc {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: DescAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -2366,7 +2414,7 @@ impl Desc {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&DescAttrs::Class).map(String::as_str)
+		self.get_attr(DescAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
@@ -2388,7 +2436,7 @@ impl Desc {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&DescAttrs::Style).map(String::as_str)
+		self.get_attr(DescAttrs::Style)
 	}
 }
 
@@ -2456,6 +2504,10 @@ impl Discard {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: DiscardAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `begin` attribute.
 	pub fn with_begin<T>(mut self, value: T) -> Self
 	where
@@ -2475,7 +2527,7 @@ impl Discard {
 
 	/// Get the `begin` attribute.
 	pub fn begin(&self) -> Option<&str> {
-		self.attrs.get(&DiscardAttrs::Begin).map(String::as_str)
+		self.get_attr(DiscardAttrs::Begin)
 	}
 
 	/// Set the `href` attribute.
@@ -2497,7 +2549,7 @@ impl Discard {
 
 	/// Get the `href` attribute.
 	pub fn href(&self) -> Option<&str> {
-		self.attrs.get(&DiscardAttrs::Href).map(String::as_str)
+		self.get_attr(DiscardAttrs::Href)
 	}
 }
 
@@ -2577,6 +2629,10 @@ impl Ellipse {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: EllipseAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -2596,7 +2652,7 @@ impl Ellipse {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Class).map(String::as_str)
+		self.get_attr(EllipseAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
@@ -2618,7 +2674,7 @@ impl Ellipse {
 
 	/// Get the `cx` attribute.
 	pub fn cx(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Cx).map(String::as_str)
+		self.get_attr(EllipseAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
@@ -2640,7 +2696,7 @@ impl Ellipse {
 
 	/// Get the `cy` attribute.
 	pub fn cy(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Cy).map(String::as_str)
+		self.get_attr(EllipseAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -2662,7 +2718,7 @@ impl Ellipse {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(EllipseAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `rx` attribute.
@@ -2684,7 +2740,7 @@ impl Ellipse {
 
 	/// Get the `rx` attribute.
 	pub fn rx(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Rx).map(String::as_str)
+		self.get_attr(EllipseAttrs::Rx)
 	}
 
 	/// Set the `ry` attribute.
@@ -2706,7 +2762,7 @@ impl Ellipse {
 
 	/// Get the `ry` attribute.
 	pub fn ry(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Ry).map(String::as_str)
+		self.get_attr(EllipseAttrs::Ry)
 	}
 
 	/// Set the `style` attribute.
@@ -2728,7 +2784,7 @@ impl Ellipse {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Style).map(String::as_str)
+		self.get_attr(EllipseAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -2750,7 +2806,7 @@ impl Ellipse {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&EllipseAttrs::Transform).map(String::as_str)
+		self.get_attr(EllipseAttrs::Transform)
 	}
 }
 
@@ -2824,6 +2880,10 @@ impl FeBlend {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeBlendAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -2843,7 +2903,7 @@ impl FeBlend {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeBlendAttrs::Class).map(String::as_str)
+		self.get_attr(FeBlendAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -2865,7 +2925,7 @@ impl FeBlend {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeBlendAttrs::In).map(String::as_str)
+		self.get_attr(FeBlendAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
@@ -2887,7 +2947,7 @@ impl FeBlend {
 
 	/// Get the `in2` attribute.
 	pub fn in2(&self) -> Option<&str> {
-		self.attrs.get(&FeBlendAttrs::In2).map(String::as_str)
+		self.get_attr(FeBlendAttrs::In2)
 	}
 
 	/// Set the `mode` attribute.
@@ -2909,7 +2969,7 @@ impl FeBlend {
 
 	/// Get the `mode` attribute.
 	pub fn mode(&self) -> Option<&str> {
-		self.attrs.get(&FeBlendAttrs::Mode).map(String::as_str)
+		self.get_attr(FeBlendAttrs::Mode)
 	}
 
 	/// Set the `style` attribute.
@@ -2931,7 +2991,7 @@ impl FeBlend {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeBlendAttrs::Style).map(String::as_str)
+		self.get_attr(FeBlendAttrs::Style)
 	}
 }
 
@@ -3005,6 +3065,10 @@ impl FeColorMatrix {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeColorMatrixAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -3024,7 +3088,7 @@ impl FeColorMatrix {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeColorMatrixAttrs::Class).map(String::as_str)
+		self.get_attr(FeColorMatrixAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -3046,7 +3110,7 @@ impl FeColorMatrix {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeColorMatrixAttrs::In).map(String::as_str)
+		self.get_attr(FeColorMatrixAttrs::In)
 	}
 
 	/// Set the `style` attribute.
@@ -3068,7 +3132,7 @@ impl FeColorMatrix {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeColorMatrixAttrs::Style).map(String::as_str)
+		self.get_attr(FeColorMatrixAttrs::Style)
 	}
 
 	/// Set the `type` attribute.
@@ -3090,7 +3154,7 @@ impl FeColorMatrix {
 
 	/// Get the `type` attribute.
 	pub fn ty(&self) -> Option<&str> {
-		self.attrs.get(&FeColorMatrixAttrs::Type).map(String::as_str)
+		self.get_attr(FeColorMatrixAttrs::Type)
 	}
 
 	/// Set the `values` attribute.
@@ -3112,7 +3176,7 @@ impl FeColorMatrix {
 
 	/// Get the `values` attribute.
 	pub fn values(&self) -> Option<&str> {
-		self.attrs.get(&FeColorMatrixAttrs::Values).map(String::as_str)
+		self.get_attr(FeColorMatrixAttrs::Values)
 	}
 }
 
@@ -3182,6 +3246,10 @@ impl FeComponentTransfer {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeComponentTransferAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -3201,7 +3269,7 @@ impl FeComponentTransfer {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeComponentTransferAttrs::Class).map(String::as_str)
+		self.get_attr(FeComponentTransferAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -3223,7 +3291,7 @@ impl FeComponentTransfer {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeComponentTransferAttrs::In).map(String::as_str)
+		self.get_attr(FeComponentTransferAttrs::In)
 	}
 
 	/// Set the `style` attribute.
@@ -3245,7 +3313,7 @@ impl FeComponentTransfer {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeComponentTransferAttrs::Style).map(String::as_str)
+		self.get_attr(FeComponentTransferAttrs::Style)
 	}
 }
 
@@ -3327,6 +3395,10 @@ impl FeComposite {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeCompositeAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -3346,7 +3418,7 @@ impl FeComposite {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::Class).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -3368,7 +3440,7 @@ impl FeComposite {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::In).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
@@ -3390,7 +3462,7 @@ impl FeComposite {
 
 	/// Get the `in2` attribute.
 	pub fn in2(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::In2).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::In2)
 	}
 
 	/// Set the `k1` attribute.
@@ -3412,7 +3484,7 @@ impl FeComposite {
 
 	/// Get the `k1` attribute.
 	pub fn k1(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::K1).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::K1)
 	}
 
 	/// Set the `k2` attribute.
@@ -3434,7 +3506,7 @@ impl FeComposite {
 
 	/// Get the `k2` attribute.
 	pub fn k2(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::K2).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::K2)
 	}
 
 	/// Set the `k3` attribute.
@@ -3456,7 +3528,7 @@ impl FeComposite {
 
 	/// Get the `k3` attribute.
 	pub fn k3(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::K3).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::K3)
 	}
 
 	/// Set the `k4` attribute.
@@ -3478,7 +3550,7 @@ impl FeComposite {
 
 	/// Get the `k4` attribute.
 	pub fn k4(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::K4).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::K4)
 	}
 
 	/// Set the `operator` attribute.
@@ -3500,7 +3572,7 @@ impl FeComposite {
 
 	/// Get the `operator` attribute.
 	pub fn operator(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::Operator).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::Operator)
 	}
 
 	/// Set the `style` attribute.
@@ -3522,7 +3594,7 @@ impl FeComposite {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeCompositeAttrs::Style).map(String::as_str)
+		self.get_attr(FeCompositeAttrs::Style)
 	}
 }
 
@@ -3610,6 +3682,10 @@ impl FeConvolveMatrix {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeConvolveMatrixAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `bias` attribute.
 	pub fn with_bias<T>(mut self, value: T) -> Self
 	where
@@ -3629,7 +3705,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `bias` attribute.
 	pub fn bias(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::Bias).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::Bias)
 	}
 
 	/// Set the `class` attribute.
@@ -3651,7 +3727,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::Class).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::Class)
 	}
 
 	/// Set the `divisor` attribute.
@@ -3673,7 +3749,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `divisor` attribute.
 	pub fn divisor(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::Divisor).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::Divisor)
 	}
 
 	/// Set the `edgeMode` attribute.
@@ -3695,7 +3771,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `edgeMode` attribute.
 	pub fn edge_mode(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::EdgeMode).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::EdgeMode)
 	}
 
 	/// Set the `in` attribute.
@@ -3717,7 +3793,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::In).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::In)
 	}
 
 	/// Set the `kernelMatrix` attribute.
@@ -3739,7 +3815,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `kernelMatrix` attribute.
 	pub fn kernel_matrix(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::KernelMatrix).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::KernelMatrix)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
@@ -3761,7 +3837,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `kernelUnitLength` attribute.
 	pub fn kernel_unit_length(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::KernelUnitLength).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::KernelUnitLength)
 	}
 
 	/// Set the `order` attribute.
@@ -3783,7 +3859,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `order` attribute.
 	pub fn order(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::Order).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::Order)
 	}
 
 	/// Set the `preserveAlpha` attribute.
@@ -3805,7 +3881,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `preserveAlpha` attribute.
 	pub fn preserve_alpha(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::PreserveAlpha).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::PreserveAlpha)
 	}
 
 	/// Set the `style` attribute.
@@ -3827,7 +3903,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::Style).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::Style)
 	}
 
 	/// Set the `targetX` attribute.
@@ -3849,7 +3925,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `targetX` attribute.
 	pub fn target_x(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::TargetX).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::TargetX)
 	}
 
 	/// Set the `targetY` attribute.
@@ -3871,7 +3947,7 @@ impl FeConvolveMatrix {
 
 	/// Get the `targetY` attribute.
 	pub fn target_y(&self) -> Option<&str> {
-		self.attrs.get(&FeConvolveMatrixAttrs::TargetY).map(String::as_str)
+		self.get_attr(FeConvolveMatrixAttrs::TargetY)
 	}
 }
 
@@ -3947,6 +4023,10 @@ impl FeDiffuseLighting {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeDiffuseLightingAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -3966,7 +4046,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::Class).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::Class)
 	}
 
 	/// Set the `diffuseConstant` attribute.
@@ -3988,7 +4068,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `diffuseConstant` attribute.
 	pub fn diffuse_constant(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::DiffuseConstant).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::DiffuseConstant)
 	}
 
 	/// Set the `in` attribute.
@@ -4010,7 +4090,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::In).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::In)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
@@ -4032,7 +4112,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `kernelUnitLength` attribute.
 	pub fn kernel_unit_length(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::KernelUnitLength).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::KernelUnitLength)
 	}
 
 	/// Set the `style` attribute.
@@ -4054,7 +4134,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::Style).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::Style)
 	}
 
 	/// Set the `surfaceScale` attribute.
@@ -4076,7 +4156,7 @@ impl FeDiffuseLighting {
 
 	/// Get the `surfaceScale` attribute.
 	pub fn surface_scale(&self) -> Option<&str> {
-		self.attrs.get(&FeDiffuseLightingAttrs::SurfaceScale).map(String::as_str)
+		self.get_attr(FeDiffuseLightingAttrs::SurfaceScale)
 	}
 }
 
@@ -4154,6 +4234,10 @@ impl FeDisplacementMap {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeDisplacementMapAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -4173,7 +4257,7 @@ impl FeDisplacementMap {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::Class).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -4195,7 +4279,7 @@ impl FeDisplacementMap {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::In).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
@@ -4217,7 +4301,7 @@ impl FeDisplacementMap {
 
 	/// Get the `in2` attribute.
 	pub fn in2(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::In2).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::In2)
 	}
 
 	/// Set the `scale` attribute.
@@ -4239,7 +4323,7 @@ impl FeDisplacementMap {
 
 	/// Get the `scale` attribute.
 	pub fn scale(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::Scale).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::Scale)
 	}
 
 	/// Set the `style` attribute.
@@ -4261,7 +4345,7 @@ impl FeDisplacementMap {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::Style).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::Style)
 	}
 
 	/// Set the `xChannelSelector` attribute.
@@ -4283,7 +4367,7 @@ impl FeDisplacementMap {
 
 	/// Get the `xChannelSelector` attribute.
 	pub fn x_channel_selector(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::XChannelSelector).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::XChannelSelector)
 	}
 
 	/// Set the `yChannelSelector` attribute.
@@ -4305,7 +4389,7 @@ impl FeDisplacementMap {
 
 	/// Get the `yChannelSelector` attribute.
 	pub fn y_channel_selector(&self) -> Option<&str> {
-		self.attrs.get(&FeDisplacementMapAttrs::YChannelSelector).map(String::as_str)
+		self.get_attr(FeDisplacementMapAttrs::YChannelSelector)
 	}
 }
 
@@ -4373,6 +4457,10 @@ impl FeDistantLight {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeDistantLightAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `azimuth` attribute.
 	pub fn with_azimuth<T>(mut self, value: T) -> Self
 	where
@@ -4392,7 +4480,7 @@ impl FeDistantLight {
 
 	/// Get the `azimuth` attribute.
 	pub fn azimuth(&self) -> Option<&str> {
-		self.attrs.get(&FeDistantLightAttrs::Azimuth).map(String::as_str)
+		self.get_attr(FeDistantLightAttrs::Azimuth)
 	}
 
 	/// Set the `elevation` attribute.
@@ -4414,7 +4502,7 @@ impl FeDistantLight {
 
 	/// Get the `elevation` attribute.
 	pub fn elevation(&self) -> Option<&str> {
-		self.attrs.get(&FeDistantLightAttrs::Elevation).map(String::as_str)
+		self.get_attr(FeDistantLightAttrs::Elevation)
 	}
 }
 
@@ -4490,6 +4578,10 @@ impl FeDropShadow {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeDropShadowAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -4509,7 +4601,7 @@ impl FeDropShadow {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::Class).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -4531,7 +4623,7 @@ impl FeDropShadow {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::Dx).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -4553,7 +4645,7 @@ impl FeDropShadow {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::Dy).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::Dy)
 	}
 
 	/// Set the `in` attribute.
@@ -4575,7 +4667,7 @@ impl FeDropShadow {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::In).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::In)
 	}
 
 	/// Set the `stdDeviation` attribute.
@@ -4597,7 +4689,7 @@ impl FeDropShadow {
 
 	/// Get the `stdDeviation` attribute.
 	pub fn std_deviation(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::StdDeviation).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::StdDeviation)
 	}
 
 	/// Set the `style` attribute.
@@ -4619,7 +4711,7 @@ impl FeDropShadow {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeDropShadowAttrs::Style).map(String::as_str)
+		self.get_attr(FeDropShadowAttrs::Style)
 	}
 }
 
@@ -4691,6 +4783,10 @@ impl FeFlood {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeFloodAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -4710,7 +4806,7 @@ impl FeFlood {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeFloodAttrs::Class).map(String::as_str)
+		self.get_attr(FeFloodAttrs::Class)
 	}
 
 	/// Set the `flood-color` attribute.
@@ -4732,7 +4828,7 @@ impl FeFlood {
 
 	/// Get the `flood-color` attribute.
 	pub fn flood_minus_color(&self) -> Option<&str> {
-		self.attrs.get(&FeFloodAttrs::FloodMinusColor).map(String::as_str)
+		self.get_attr(FeFloodAttrs::FloodMinusColor)
 	}
 
 	/// Set the `flood-opacity` attribute.
@@ -4754,7 +4850,7 @@ impl FeFlood {
 
 	/// Get the `flood-opacity` attribute.
 	pub fn flood_minus_opacity(&self) -> Option<&str> {
-		self.attrs.get(&FeFloodAttrs::FloodMinusOpacity).map(String::as_str)
+		self.get_attr(FeFloodAttrs::FloodMinusOpacity)
 	}
 
 	/// Set the `style` attribute.
@@ -4776,7 +4872,7 @@ impl FeFlood {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeFloodAttrs::Style).map(String::as_str)
+		self.get_attr(FeFloodAttrs::Style)
 	}
 }
 
@@ -4956,6 +5052,10 @@ impl FeGaussianBlur {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeGaussianBlurAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -4975,7 +5075,7 @@ impl FeGaussianBlur {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeGaussianBlurAttrs::Class).map(String::as_str)
+		self.get_attr(FeGaussianBlurAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -4997,7 +5097,7 @@ impl FeGaussianBlur {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeGaussianBlurAttrs::In).map(String::as_str)
+		self.get_attr(FeGaussianBlurAttrs::In)
 	}
 
 	/// Set the `stdDeviation` attribute.
@@ -5019,7 +5119,7 @@ impl FeGaussianBlur {
 
 	/// Get the `stdDeviation` attribute.
 	pub fn std_deviation(&self) -> Option<&str> {
-		self.attrs.get(&FeGaussianBlurAttrs::StdDeviation).map(String::as_str)
+		self.get_attr(FeGaussianBlurAttrs::StdDeviation)
 	}
 
 	/// Set the `style` attribute.
@@ -5041,7 +5141,7 @@ impl FeGaussianBlur {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeGaussianBlurAttrs::Style).map(String::as_str)
+		self.get_attr(FeGaussianBlurAttrs::Style)
 	}
 }
 
@@ -5115,6 +5215,10 @@ impl FeImage {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeImageAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -5134,7 +5238,7 @@ impl FeImage {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeImageAttrs::Class).map(String::as_str)
+		self.get_attr(FeImageAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -5156,7 +5260,7 @@ impl FeImage {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&FeImageAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(FeImageAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -5178,7 +5282,7 @@ impl FeImage {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&FeImageAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(FeImageAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
@@ -5200,7 +5304,7 @@ impl FeImage {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeImageAttrs::Style).map(String::as_str)
+		self.get_attr(FeImageAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -5222,7 +5326,7 @@ impl FeImage {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&FeImageAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(FeImageAttrs::XlinkHref)
 	}
 }
 
@@ -5290,6 +5394,10 @@ impl FeMerge {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeMergeAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -5309,7 +5417,7 @@ impl FeMerge {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeMergeAttrs::Class).map(String::as_str)
+		self.get_attr(FeMergeAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
@@ -5331,7 +5439,7 @@ impl FeMerge {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeMergeAttrs::Style).map(String::as_str)
+		self.get_attr(FeMergeAttrs::Style)
 	}
 }
 
@@ -5397,6 +5505,10 @@ impl FeMergeNode {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeMergeNodeAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `in` attribute.
 	pub fn with_in1<T>(mut self, value: T) -> Self
 	where
@@ -5416,7 +5528,7 @@ impl FeMergeNode {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeMergeNodeAttrs::In).map(String::as_str)
+		self.get_attr(FeMergeNodeAttrs::In)
 	}
 }
 
@@ -5490,6 +5602,10 @@ impl FeMorphology {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeMorphologyAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -5509,7 +5625,7 @@ impl FeMorphology {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeMorphologyAttrs::Class).map(String::as_str)
+		self.get_attr(FeMorphologyAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -5531,7 +5647,7 @@ impl FeMorphology {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeMorphologyAttrs::In).map(String::as_str)
+		self.get_attr(FeMorphologyAttrs::In)
 	}
 
 	/// Set the `operator` attribute.
@@ -5553,7 +5669,7 @@ impl FeMorphology {
 
 	/// Get the `operator` attribute.
 	pub fn operator(&self) -> Option<&str> {
-		self.attrs.get(&FeMorphologyAttrs::Operator).map(String::as_str)
+		self.get_attr(FeMorphologyAttrs::Operator)
 	}
 
 	/// Set the `radius` attribute.
@@ -5575,7 +5691,7 @@ impl FeMorphology {
 
 	/// Get the `radius` attribute.
 	pub fn radius(&self) -> Option<&str> {
-		self.attrs.get(&FeMorphologyAttrs::Radius).map(String::as_str)
+		self.get_attr(FeMorphologyAttrs::Radius)
 	}
 
 	/// Set the `style` attribute.
@@ -5597,7 +5713,7 @@ impl FeMorphology {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeMorphologyAttrs::Style).map(String::as_str)
+		self.get_attr(FeMorphologyAttrs::Style)
 	}
 }
 
@@ -5671,6 +5787,10 @@ impl FeOffset {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeOffsetAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -5690,7 +5810,7 @@ impl FeOffset {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeOffsetAttrs::Class).map(String::as_str)
+		self.get_attr(FeOffsetAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -5712,7 +5832,7 @@ impl FeOffset {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&FeOffsetAttrs::Dx).map(String::as_str)
+		self.get_attr(FeOffsetAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -5734,7 +5854,7 @@ impl FeOffset {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&FeOffsetAttrs::Dy).map(String::as_str)
+		self.get_attr(FeOffsetAttrs::Dy)
 	}
 
 	/// Set the `in` attribute.
@@ -5756,7 +5876,7 @@ impl FeOffset {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeOffsetAttrs::In).map(String::as_str)
+		self.get_attr(FeOffsetAttrs::In)
 	}
 
 	/// Set the `style` attribute.
@@ -5778,7 +5898,7 @@ impl FeOffset {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeOffsetAttrs::Style).map(String::as_str)
+		self.get_attr(FeOffsetAttrs::Style)
 	}
 }
 
@@ -5848,6 +5968,10 @@ impl FePointLight {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FePointLightAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `x` attribute.
 	pub fn with_x<T>(mut self, value: T) -> Self
 	where
@@ -5867,7 +5991,7 @@ impl FePointLight {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&FePointLightAttrs::X).map(String::as_str)
+		self.get_attr(FePointLightAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -5889,7 +6013,7 @@ impl FePointLight {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&FePointLightAttrs::Y).map(String::as_str)
+		self.get_attr(FePointLightAttrs::Y)
 	}
 
 	/// Set the `z` attribute.
@@ -5911,7 +6035,7 @@ impl FePointLight {
 
 	/// Get the `z` attribute.
 	pub fn z(&self) -> Option<&str> {
-		self.attrs.get(&FePointLightAttrs::Z).map(String::as_str)
+		self.get_attr(FePointLightAttrs::Z)
 	}
 }
 
@@ -5989,6 +6113,10 @@ impl FeSpecularLighting {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeSpecularLightingAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -6008,7 +6136,7 @@ impl FeSpecularLighting {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::Class).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -6030,7 +6158,7 @@ impl FeSpecularLighting {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::In).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::In)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
@@ -6052,7 +6180,7 @@ impl FeSpecularLighting {
 
 	/// Get the `kernelUnitLength` attribute.
 	pub fn kernel_unit_length(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::KernelUnitLength).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::KernelUnitLength)
 	}
 
 	/// Set the `specularConstant` attribute.
@@ -6074,7 +6202,7 @@ impl FeSpecularLighting {
 
 	/// Get the `specularConstant` attribute.
 	pub fn specular_constant(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::SpecularConstant).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::SpecularConstant)
 	}
 
 	/// Set the `specularExponent` attribute.
@@ -6096,7 +6224,7 @@ impl FeSpecularLighting {
 
 	/// Get the `specularExponent` attribute.
 	pub fn specular_exponent(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::SpecularExponent).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::SpecularExponent)
 	}
 
 	/// Set the `style` attribute.
@@ -6118,7 +6246,7 @@ impl FeSpecularLighting {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::Style).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::Style)
 	}
 
 	/// Set the `surfaceScale` attribute.
@@ -6140,7 +6268,7 @@ impl FeSpecularLighting {
 
 	/// Get the `surfaceScale` attribute.
 	pub fn surface_scale(&self) -> Option<&str> {
-		self.attrs.get(&FeSpecularLightingAttrs::SurfaceScale).map(String::as_str)
+		self.get_attr(FeSpecularLightingAttrs::SurfaceScale)
 	}
 }
 
@@ -6220,6 +6348,10 @@ impl FeSpotLight {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeSpotLightAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `limitingConeAngle` attribute.
 	pub fn with_limiting_cone_angle<T>(mut self, value: T) -> Self
 	where
@@ -6239,7 +6371,7 @@ impl FeSpotLight {
 
 	/// Get the `limitingConeAngle` attribute.
 	pub fn limiting_cone_angle(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::LimitingConeAngle).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::LimitingConeAngle)
 	}
 
 	/// Set the `pointsAtX` attribute.
@@ -6261,7 +6393,7 @@ impl FeSpotLight {
 
 	/// Get the `pointsAtX` attribute.
 	pub fn points_at_x(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::PointsAtX).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::PointsAtX)
 	}
 
 	/// Set the `pointsAtY` attribute.
@@ -6283,7 +6415,7 @@ impl FeSpotLight {
 
 	/// Get the `pointsAtY` attribute.
 	pub fn points_at_y(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::PointsAtY).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::PointsAtY)
 	}
 
 	/// Set the `pointsAtZ` attribute.
@@ -6305,7 +6437,7 @@ impl FeSpotLight {
 
 	/// Get the `pointsAtZ` attribute.
 	pub fn points_at_z(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::PointsAtZ).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::PointsAtZ)
 	}
 
 	/// Set the `specularExponent` attribute.
@@ -6327,7 +6459,7 @@ impl FeSpotLight {
 
 	/// Get the `specularExponent` attribute.
 	pub fn specular_exponent(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::SpecularExponent).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::SpecularExponent)
 	}
 
 	/// Set the `x` attribute.
@@ -6349,7 +6481,7 @@ impl FeSpotLight {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::X).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -6371,7 +6503,7 @@ impl FeSpotLight {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::Y).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::Y)
 	}
 
 	/// Set the `z` attribute.
@@ -6393,7 +6525,7 @@ impl FeSpotLight {
 
 	/// Get the `z` attribute.
 	pub fn z(&self) -> Option<&str> {
-		self.attrs.get(&FeSpotLightAttrs::Z).map(String::as_str)
+		self.get_attr(FeSpotLightAttrs::Z)
 	}
 }
 
@@ -6463,6 +6595,10 @@ impl FeTile {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeTileAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -6482,7 +6618,7 @@ impl FeTile {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeTileAttrs::Class).map(String::as_str)
+		self.get_attr(FeTileAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
@@ -6504,7 +6640,7 @@ impl FeTile {
 
 	/// Get the `in` attribute.
 	pub fn in1(&self) -> Option<&str> {
-		self.attrs.get(&FeTileAttrs::In).map(String::as_str)
+		self.get_attr(FeTileAttrs::In)
 	}
 
 	/// Set the `style` attribute.
@@ -6526,7 +6662,7 @@ impl FeTile {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeTileAttrs::Style).map(String::as_str)
+		self.get_attr(FeTileAttrs::Style)
 	}
 }
 
@@ -6604,6 +6740,10 @@ impl FeTurbulence {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FeTurbulenceAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `baseFrequency` attribute.
 	pub fn with_base_frequency<T>(mut self, value: T) -> Self
 	where
@@ -6623,7 +6763,7 @@ impl FeTurbulence {
 
 	/// Get the `baseFrequency` attribute.
 	pub fn base_frequency(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::BaseFrequency).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::BaseFrequency)
 	}
 
 	/// Set the `class` attribute.
@@ -6645,7 +6785,7 @@ impl FeTurbulence {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::Class).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::Class)
 	}
 
 	/// Set the `numOctaves` attribute.
@@ -6667,7 +6807,7 @@ impl FeTurbulence {
 
 	/// Get the `numOctaves` attribute.
 	pub fn num_octaves(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::NumOctaves).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::NumOctaves)
 	}
 
 	/// Set the `seed` attribute.
@@ -6689,7 +6829,7 @@ impl FeTurbulence {
 
 	/// Get the `seed` attribute.
 	pub fn seed(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::Seed).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::Seed)
 	}
 
 	/// Set the `stitchTiles` attribute.
@@ -6711,7 +6851,7 @@ impl FeTurbulence {
 
 	/// Get the `stitchTiles` attribute.
 	pub fn stitch_tiles(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::StitchTiles).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::StitchTiles)
 	}
 
 	/// Set the `style` attribute.
@@ -6733,7 +6873,7 @@ impl FeTurbulence {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::Style).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::Style)
 	}
 
 	/// Set the `type` attribute.
@@ -6755,7 +6895,7 @@ impl FeTurbulence {
 
 	/// Get the `type` attribute.
 	pub fn ty(&self) -> Option<&str> {
-		self.attrs.get(&FeTurbulenceAttrs::Type).map(String::as_str)
+		self.get_attr(FeTurbulenceAttrs::Type)
 	}
 }
 
@@ -6841,6 +6981,10 @@ impl Filter {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FilterAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -6860,7 +7004,7 @@ impl Filter {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::Class).map(String::as_str)
+		self.get_attr(FilterAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -6882,7 +7026,7 @@ impl Filter {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(FilterAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `filterRes` attribute.
@@ -6904,7 +7048,7 @@ impl Filter {
 
 	/// Get the `filterRes` attribute.
 	pub fn filter_res(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::FilterRes).map(String::as_str)
+		self.get_attr(FilterAttrs::FilterRes)
 	}
 
 	/// Set the `filterUnits` attribute.
@@ -6926,7 +7070,7 @@ impl Filter {
 
 	/// Get the `filterUnits` attribute.
 	pub fn filter_units(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::FilterUnits).map(String::as_str)
+		self.get_attr(FilterAttrs::FilterUnits)
 	}
 
 	/// Set the `height` attribute.
@@ -6948,7 +7092,7 @@ impl Filter {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::Height).map(String::as_str)
+		self.get_attr(FilterAttrs::Height)
 	}
 
 	/// Set the `primitiveUnits` attribute.
@@ -6970,7 +7114,7 @@ impl Filter {
 
 	/// Get the `primitiveUnits` attribute.
 	pub fn primitive_units(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::PrimitiveUnits).map(String::as_str)
+		self.get_attr(FilterAttrs::PrimitiveUnits)
 	}
 
 	/// Set the `style` attribute.
@@ -6992,7 +7136,7 @@ impl Filter {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::Style).map(String::as_str)
+		self.get_attr(FilterAttrs::Style)
 	}
 
 	/// Set the `width` attribute.
@@ -7014,7 +7158,7 @@ impl Filter {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::Width).map(String::as_str)
+		self.get_attr(FilterAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -7036,7 +7180,7 @@ impl Filter {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::X).map(String::as_str)
+		self.get_attr(FilterAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -7058,7 +7202,7 @@ impl Filter {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(FilterAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -7080,7 +7224,7 @@ impl Filter {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&FilterAttrs::Y).map(String::as_str)
+		self.get_attr(FilterAttrs::Y)
 	}
 }
 
@@ -7162,6 +7306,10 @@ impl Font {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FontAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -7181,7 +7329,7 @@ impl Font {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::Class).map(String::as_str)
+		self.get_attr(FontAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -7203,7 +7351,7 @@ impl Font {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(FontAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
@@ -7225,7 +7373,7 @@ impl Font {
 
 	/// Get the `horiz-adv-x` attribute.
 	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::HorizMinusAdvMinusX).map(String::as_str)
+		self.get_attr(FontAttrs::HorizMinusAdvMinusX)
 	}
 
 	/// Set the `horiz-origin-x` attribute.
@@ -7247,7 +7395,7 @@ impl Font {
 
 	/// Get the `horiz-origin-x` attribute.
 	pub fn horiz_minus_origin_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::HorizMinusOriginMinusX).map(String::as_str)
+		self.get_attr(FontAttrs::HorizMinusOriginMinusX)
 	}
 
 	/// Set the `horiz-origin-y` attribute.
@@ -7269,7 +7417,7 @@ impl Font {
 
 	/// Get the `horiz-origin-y` attribute.
 	pub fn horiz_minus_origin_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::HorizMinusOriginMinusY).map(String::as_str)
+		self.get_attr(FontAttrs::HorizMinusOriginMinusY)
 	}
 
 	/// Set the `style` attribute.
@@ -7291,7 +7439,7 @@ impl Font {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::Style).map(String::as_str)
+		self.get_attr(FontAttrs::Style)
 	}
 
 	/// Set the `vert-adv-y` attribute.
@@ -7313,7 +7461,7 @@ impl Font {
 
 	/// Get the `vert-adv-y` attribute.
 	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::VertMinusAdvMinusY).map(String::as_str)
+		self.get_attr(FontAttrs::VertMinusAdvMinusY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
@@ -7335,7 +7483,7 @@ impl Font {
 
 	/// Get the `vert-origin-x` attribute.
 	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::VertMinusOriginMinusX).map(String::as_str)
+		self.get_attr(FontAttrs::VertMinusOriginMinusX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
@@ -7357,7 +7505,7 @@ impl Font {
 
 	/// Get the `vert-origin-y` attribute.
 	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&FontAttrs::VertMinusOriginMinusY).map(String::as_str)
+		self.get_attr(FontAttrs::VertMinusOriginMinusY)
 	}
 }
 
@@ -7487,6 +7635,10 @@ impl FontMinusFace {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FontMinusFaceAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `accent-height` attribute.
 	pub fn with_accent_minus_height<T>(mut self, value: T) -> Self
 	where
@@ -7506,7 +7658,7 @@ impl FontMinusFace {
 
 	/// Get the `accent-height` attribute.
 	pub fn accent_minus_height(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::AccentMinusHeight).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::AccentMinusHeight)
 	}
 
 	/// Set the `alphabetic` attribute.
@@ -7528,7 +7680,7 @@ impl FontMinusFace {
 
 	/// Get the `alphabetic` attribute.
 	pub fn alphabetic(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Alphabetic).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Alphabetic)
 	}
 
 	/// Set the `ascent` attribute.
@@ -7550,7 +7702,7 @@ impl FontMinusFace {
 
 	/// Get the `ascent` attribute.
 	pub fn ascent(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Ascent).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Ascent)
 	}
 
 	/// Set the `bbox` attribute.
@@ -7572,7 +7724,7 @@ impl FontMinusFace {
 
 	/// Get the `bbox` attribute.
 	pub fn bbox(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Bbox).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Bbox)
 	}
 
 	/// Set the `cap-height` attribute.
@@ -7594,7 +7746,7 @@ impl FontMinusFace {
 
 	/// Get the `cap-height` attribute.
 	pub fn cap_minus_height(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::CapMinusHeight).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::CapMinusHeight)
 	}
 
 	/// Set the `descent` attribute.
@@ -7616,7 +7768,7 @@ impl FontMinusFace {
 
 	/// Get the `descent` attribute.
 	pub fn descent(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Descent).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Descent)
 	}
 
 	/// Set the `font-family` attribute.
@@ -7638,7 +7790,7 @@ impl FontMinusFace {
 
 	/// Get the `font-family` attribute.
 	pub fn font_minus_family(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusFamily).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusFamily)
 	}
 
 	/// Set the `font-size` attribute.
@@ -7660,7 +7812,7 @@ impl FontMinusFace {
 
 	/// Get the `font-size` attribute.
 	pub fn font_minus_size(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusSize).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusSize)
 	}
 
 	/// Set the `font-stretch` attribute.
@@ -7682,7 +7834,7 @@ impl FontMinusFace {
 
 	/// Get the `font-stretch` attribute.
 	pub fn font_minus_stretch(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusStretch).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusStretch)
 	}
 
 	/// Set the `font-style` attribute.
@@ -7704,7 +7856,7 @@ impl FontMinusFace {
 
 	/// Get the `font-style` attribute.
 	pub fn font_minus_style(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusStyle).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusStyle)
 	}
 
 	/// Set the `font-variant` attribute.
@@ -7726,7 +7878,7 @@ impl FontMinusFace {
 
 	/// Get the `font-variant` attribute.
 	pub fn font_minus_variant(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusVariant).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusVariant)
 	}
 
 	/// Set the `font-weight` attribute.
@@ -7748,7 +7900,7 @@ impl FontMinusFace {
 
 	/// Get the `font-weight` attribute.
 	pub fn font_minus_weight(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::FontMinusWeight).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::FontMinusWeight)
 	}
 
 	/// Set the `hanging` attribute.
@@ -7770,7 +7922,7 @@ impl FontMinusFace {
 
 	/// Get the `hanging` attribute.
 	pub fn hanging(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Hanging).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Hanging)
 	}
 
 	/// Set the `ideographic` attribute.
@@ -7792,7 +7944,7 @@ impl FontMinusFace {
 
 	/// Get the `ideographic` attribute.
 	pub fn ideographic(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Ideographic).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Ideographic)
 	}
 
 	/// Set the `mathematical` attribute.
@@ -7814,7 +7966,7 @@ impl FontMinusFace {
 
 	/// Get the `mathematical` attribute.
 	pub fn mathematical(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Mathematical).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Mathematical)
 	}
 
 	/// Set the `overline-position` attribute.
@@ -7836,7 +7988,7 @@ impl FontMinusFace {
 
 	/// Get the `overline-position` attribute.
 	pub fn overline_minus_position(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::OverlineMinusPosition).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::OverlineMinusPosition)
 	}
 
 	/// Set the `overline-thickness` attribute.
@@ -7858,7 +8010,7 @@ impl FontMinusFace {
 
 	/// Get the `overline-thickness` attribute.
 	pub fn overline_minus_thickness(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::OverlineMinusThickness).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::OverlineMinusThickness)
 	}
 
 	/// Set the `panose-1` attribute.
@@ -7880,7 +8032,7 @@ impl FontMinusFace {
 
 	/// Get the `panose-1` attribute.
 	pub fn panose_minus_1(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::PanoseMinus1).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::PanoseMinus1)
 	}
 
 	/// Set the `slope` attribute.
@@ -7902,7 +8054,7 @@ impl FontMinusFace {
 
 	/// Get the `slope` attribute.
 	pub fn slope(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Slope).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Slope)
 	}
 
 	/// Set the `stemh` attribute.
@@ -7924,7 +8076,7 @@ impl FontMinusFace {
 
 	/// Get the `stemh` attribute.
 	pub fn stemh(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Stemh).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Stemh)
 	}
 
 	/// Set the `stemv` attribute.
@@ -7946,7 +8098,7 @@ impl FontMinusFace {
 
 	/// Get the `stemv` attribute.
 	pub fn stemv(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Stemv).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Stemv)
 	}
 
 	/// Set the `strikethrough-position` attribute.
@@ -7968,7 +8120,7 @@ impl FontMinusFace {
 
 	/// Get the `strikethrough-position` attribute.
 	pub fn strikethrough_minus_position(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::StrikethroughMinusPosition).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::StrikethroughMinusPosition)
 	}
 
 	/// Set the `strikethrough-thickness` attribute.
@@ -7990,7 +8142,7 @@ impl FontMinusFace {
 
 	/// Get the `strikethrough-thickness` attribute.
 	pub fn strikethrough_minus_thickness(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::StrikethroughMinusThickness).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::StrikethroughMinusThickness)
 	}
 
 	/// Set the `underline-position` attribute.
@@ -8012,7 +8164,7 @@ impl FontMinusFace {
 
 	/// Get the `underline-position` attribute.
 	pub fn underline_minus_position(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::UnderlineMinusPosition).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::UnderlineMinusPosition)
 	}
 
 	/// Set the `underline-thickness` attribute.
@@ -8034,7 +8186,7 @@ impl FontMinusFace {
 
 	/// Get the `underline-thickness` attribute.
 	pub fn underline_minus_thickness(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::UnderlineMinusThickness).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::UnderlineMinusThickness)
 	}
 
 	/// Set the `unicode-range` attribute.
@@ -8056,7 +8208,7 @@ impl FontMinusFace {
 
 	/// Get the `unicode-range` attribute.
 	pub fn unicode_minus_range(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::UnicodeMinusRange).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::UnicodeMinusRange)
 	}
 
 	/// Set the `units-per-em` attribute.
@@ -8078,7 +8230,7 @@ impl FontMinusFace {
 
 	/// Get the `units-per-em` attribute.
 	pub fn units_minus_per_minus_em(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::UnitsMinusPerMinusEm).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::UnitsMinusPerMinusEm)
 	}
 
 	/// Set the `v-alphabetic` attribute.
@@ -8100,7 +8252,7 @@ impl FontMinusFace {
 
 	/// Get the `v-alphabetic` attribute.
 	pub fn v_minus_alphabetic(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::VMinusAlphabetic).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::VMinusAlphabetic)
 	}
 
 	/// Set the `v-hanging` attribute.
@@ -8122,7 +8274,7 @@ impl FontMinusFace {
 
 	/// Get the `v-hanging` attribute.
 	pub fn v_minus_hanging(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::VMinusHanging).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::VMinusHanging)
 	}
 
 	/// Set the `v-ideographic` attribute.
@@ -8144,7 +8296,7 @@ impl FontMinusFace {
 
 	/// Get the `v-ideographic` attribute.
 	pub fn v_minus_ideographic(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::VMinusIdeographic).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::VMinusIdeographic)
 	}
 
 	/// Set the `v-mathematical` attribute.
@@ -8166,7 +8318,7 @@ impl FontMinusFace {
 
 	/// Get the `v-mathematical` attribute.
 	pub fn v_minus_mathematical(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::VMinusMathematical).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::VMinusMathematical)
 	}
 
 	/// Set the `widths` attribute.
@@ -8188,7 +8340,7 @@ impl FontMinusFace {
 
 	/// Get the `widths` attribute.
 	pub fn widths(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::Widths).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::Widths)
 	}
 
 	/// Set the `x-height` attribute.
@@ -8210,7 +8362,7 @@ impl FontMinusFace {
 
 	/// Get the `x-height` attribute.
 	pub fn x_minus_height(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceAttrs::XMinusHeight).map(String::as_str)
+		self.get_attr(FontMinusFaceAttrs::XMinusHeight)
 	}
 }
 
@@ -8276,6 +8428,10 @@ impl FontMinusFaceMinusFormat {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FontMinusFaceMinusFormatAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `string` attribute.
 	pub fn with_string<T>(mut self, value: T) -> Self
 	where
@@ -8295,7 +8451,7 @@ impl FontMinusFaceMinusFormat {
 
 	/// Get the `string` attribute.
 	pub fn string(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceMinusFormatAttrs::String).map(String::as_str)
+		self.get_attr(FontMinusFaceMinusFormatAttrs::String)
 	}
 }
 
@@ -8361,6 +8517,10 @@ impl FontMinusFaceMinusName {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FontMinusFaceMinusNameAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `name` attribute.
 	pub fn with_name<T>(mut self, value: T) -> Self
 	where
@@ -8380,7 +8540,7 @@ impl FontMinusFaceMinusName {
 
 	/// Get the `name` attribute.
 	pub fn name(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceMinusNameAttrs::Name).map(String::as_str)
+		self.get_attr(FontMinusFaceMinusNameAttrs::Name)
 	}
 }
 
@@ -8473,6 +8633,10 @@ impl FontMinusFaceMinusUri {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: FontMinusFaceMinusUriAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `xlink:href` attribute.
 	pub fn with_xlink_href<T>(mut self, value: T) -> Self
 	where
@@ -8492,7 +8656,7 @@ impl FontMinusFaceMinusUri {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&FontMinusFaceMinusUriAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(FontMinusFaceMinusUriAttrs::XlinkHref)
 	}
 }
 
@@ -8572,6 +8736,10 @@ impl ForeignObject {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ForeignObjectAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -8591,7 +8759,7 @@ impl ForeignObject {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Class).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -8613,7 +8781,7 @@ impl ForeignObject {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -8635,7 +8803,7 @@ impl ForeignObject {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Height).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Height)
 	}
 
 	/// Set the `style` attribute.
@@ -8657,7 +8825,7 @@ impl ForeignObject {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Style).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -8679,7 +8847,7 @@ impl ForeignObject {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Transform).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
@@ -8701,7 +8869,7 @@ impl ForeignObject {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Width).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -8723,7 +8891,7 @@ impl ForeignObject {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::X).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -8745,7 +8913,7 @@ impl ForeignObject {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&ForeignObjectAttrs::Y).map(String::as_str)
+		self.get_attr(ForeignObjectAttrs::Y)
 	}
 }
 
@@ -8817,6 +8985,10 @@ impl G {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: GAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -8836,7 +9008,7 @@ impl G {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&GAttrs::Class).map(String::as_str)
+		self.get_attr(GAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -8858,7 +9030,7 @@ impl G {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&GAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(GAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -8880,7 +9052,7 @@ impl G {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&GAttrs::Style).map(String::as_str)
+		self.get_attr(GAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -8902,7 +9074,7 @@ impl G {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&GAttrs::Transform).map(String::as_str)
+		self.get_attr(GAttrs::Transform)
 	}
 }
 
@@ -8990,6 +9162,10 @@ impl Glyph {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: GlyphAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `arabic-form` attribute.
 	pub fn with_arabic_minus_form<T>(mut self, value: T) -> Self
 	where
@@ -9009,7 +9185,7 @@ impl Glyph {
 
 	/// Get the `arabic-form` attribute.
 	pub fn arabic_minus_form(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::ArabicMinusForm).map(String::as_str)
+		self.get_attr(GlyphAttrs::ArabicMinusForm)
 	}
 
 	/// Set the `class` attribute.
@@ -9031,7 +9207,7 @@ impl Glyph {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::Class).map(String::as_str)
+		self.get_attr(GlyphAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
@@ -9053,7 +9229,7 @@ impl Glyph {
 
 	/// Get the `d` attribute.
 	pub fn d(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::D).map(String::as_str)
+		self.get_attr(GlyphAttrs::D)
 	}
 
 	/// Set the `glyph-name` attribute.
@@ -9075,7 +9251,7 @@ impl Glyph {
 
 	/// Get the `glyph-name` attribute.
 	pub fn glyph_minus_name(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::GlyphMinusName).map(String::as_str)
+		self.get_attr(GlyphAttrs::GlyphMinusName)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
@@ -9097,7 +9273,7 @@ impl Glyph {
 
 	/// Get the `horiz-adv-x` attribute.
 	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::HorizMinusAdvMinusX).map(String::as_str)
+		self.get_attr(GlyphAttrs::HorizMinusAdvMinusX)
 	}
 
 	/// Set the `lang` attribute.
@@ -9119,7 +9295,7 @@ impl Glyph {
 
 	/// Get the `lang` attribute.
 	pub fn lang(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::Lang).map(String::as_str)
+		self.get_attr(GlyphAttrs::Lang)
 	}
 
 	/// Set the `orientation` attribute.
@@ -9141,7 +9317,7 @@ impl Glyph {
 
 	/// Get the `orientation` attribute.
 	pub fn orientation(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::Orientation).map(String::as_str)
+		self.get_attr(GlyphAttrs::Orientation)
 	}
 
 	/// Set the `style` attribute.
@@ -9163,7 +9339,7 @@ impl Glyph {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::Style).map(String::as_str)
+		self.get_attr(GlyphAttrs::Style)
 	}
 
 	/// Set the `unicode` attribute.
@@ -9185,7 +9361,7 @@ impl Glyph {
 
 	/// Get the `unicode` attribute.
 	pub fn unicode(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::Unicode).map(String::as_str)
+		self.get_attr(GlyphAttrs::Unicode)
 	}
 
 	/// Set the `vert-adv-y` attribute.
@@ -9207,7 +9383,7 @@ impl Glyph {
 
 	/// Get the `vert-adv-y` attribute.
 	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::VertMinusAdvMinusY).map(String::as_str)
+		self.get_attr(GlyphAttrs::VertMinusAdvMinusY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
@@ -9229,7 +9405,7 @@ impl Glyph {
 
 	/// Get the `vert-origin-x` attribute.
 	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::VertMinusOriginMinusX).map(String::as_str)
+		self.get_attr(GlyphAttrs::VertMinusOriginMinusX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
@@ -9251,7 +9427,7 @@ impl Glyph {
 
 	/// Get the `vert-origin-y` attribute.
 	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&GlyphAttrs::VertMinusOriginMinusY).map(String::as_str)
+		self.get_attr(GlyphAttrs::VertMinusOriginMinusY)
 	}
 }
 
@@ -9333,6 +9509,10 @@ impl GlyphRef {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: GlyphRefAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -9352,7 +9532,7 @@ impl GlyphRef {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Class).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -9374,7 +9554,7 @@ impl GlyphRef {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Dx).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -9396,7 +9576,7 @@ impl GlyphRef {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Dy).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Dy)
 	}
 
 	/// Set the `format` attribute.
@@ -9418,7 +9598,7 @@ impl GlyphRef {
 
 	/// Get the `format` attribute.
 	pub fn format(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Format).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Format)
 	}
 
 	/// Set the `glyphRef` attribute.
@@ -9440,7 +9620,7 @@ impl GlyphRef {
 
 	/// Get the `glyphRef` attribute.
 	pub fn glyph_ref(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::GlyphRef).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::GlyphRef)
 	}
 
 	/// Set the `style` attribute.
@@ -9462,7 +9642,7 @@ impl GlyphRef {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Style).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Style)
 	}
 
 	/// Set the `x` attribute.
@@ -9484,7 +9664,7 @@ impl GlyphRef {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::X).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -9506,7 +9686,7 @@ impl GlyphRef {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -9528,7 +9708,7 @@ impl GlyphRef {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&GlyphRefAttrs::Y).map(String::as_str)
+		self.get_attr(GlyphRefAttrs::Y)
 	}
 }
 
@@ -9608,6 +9788,10 @@ impl Hatch {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: HatchAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `hatchContentUnits` attribute.
 	pub fn with_hatch_content_units<T>(mut self, value: T) -> Self
 	where
@@ -9627,7 +9811,7 @@ impl Hatch {
 
 	/// Get the `hatchContentUnits` attribute.
 	pub fn hatch_content_units(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::HatchContentUnits).map(String::as_str)
+		self.get_attr(HatchAttrs::HatchContentUnits)
 	}
 
 	/// Set the `hatchUnits` attribute.
@@ -9649,7 +9833,7 @@ impl Hatch {
 
 	/// Get the `hatchUnits` attribute.
 	pub fn hatch_units(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::HatchUnits).map(String::as_str)
+		self.get_attr(HatchAttrs::HatchUnits)
 	}
 
 	/// Set the `href` attribute.
@@ -9671,7 +9855,7 @@ impl Hatch {
 
 	/// Get the `href` attribute.
 	pub fn href(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::Href).map(String::as_str)
+		self.get_attr(HatchAttrs::Href)
 	}
 
 	/// Set the `pitch` attribute.
@@ -9693,7 +9877,7 @@ impl Hatch {
 
 	/// Get the `pitch` attribute.
 	pub fn pitch(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::Pitch).map(String::as_str)
+		self.get_attr(HatchAttrs::Pitch)
 	}
 
 	/// Set the `rotate` attribute.
@@ -9715,7 +9899,7 @@ impl Hatch {
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::Rotate).map(String::as_str)
+		self.get_attr(HatchAttrs::Rotate)
 	}
 
 	/// Set the `transform` attribute.
@@ -9737,7 +9921,7 @@ impl Hatch {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::Transform).map(String::as_str)
+		self.get_attr(HatchAttrs::Transform)
 	}
 
 	/// Set the `x` attribute.
@@ -9759,7 +9943,7 @@ impl Hatch {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::X).map(String::as_str)
+		self.get_attr(HatchAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -9781,7 +9965,7 @@ impl Hatch {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&HatchAttrs::Y).map(String::as_str)
+		self.get_attr(HatchAttrs::Y)
 	}
 }
 
@@ -9849,6 +10033,10 @@ impl Hatchpath {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: HatchpathAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `d` attribute.
 	pub fn with_d<T>(mut self, value: T) -> Self
 	where
@@ -9868,7 +10056,7 @@ impl Hatchpath {
 
 	/// Get the `d` attribute.
 	pub fn d(&self) -> Option<&str> {
-		self.attrs.get(&HatchpathAttrs::D).map(String::as_str)
+		self.get_attr(HatchpathAttrs::D)
 	}
 
 	/// Set the `offset` attribute.
@@ -9890,7 +10078,7 @@ impl Hatchpath {
 
 	/// Get the `offset` attribute.
 	pub fn offset(&self) -> Option<&str> {
-		self.attrs.get(&HatchpathAttrs::Offset).map(String::as_str)
+		self.get_attr(HatchpathAttrs::Offset)
 	}
 }
 
@@ -9964,6 +10152,10 @@ impl Hkern {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: HkernAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `g1` attribute.
 	pub fn with_g1<T>(mut self, value: T) -> Self
 	where
@@ -9983,7 +10175,7 @@ impl Hkern {
 
 	/// Get the `g1` attribute.
 	pub fn g1(&self) -> Option<&str> {
-		self.attrs.get(&HkernAttrs::G1).map(String::as_str)
+		self.get_attr(HkernAttrs::G1)
 	}
 
 	/// Set the `g2` attribute.
@@ -10005,7 +10197,7 @@ impl Hkern {
 
 	/// Get the `g2` attribute.
 	pub fn g2(&self) -> Option<&str> {
-		self.attrs.get(&HkernAttrs::G2).map(String::as_str)
+		self.get_attr(HkernAttrs::G2)
 	}
 
 	/// Set the `k` attribute.
@@ -10027,7 +10219,7 @@ impl Hkern {
 
 	/// Get the `k` attribute.
 	pub fn k(&self) -> Option<&str> {
-		self.attrs.get(&HkernAttrs::K).map(String::as_str)
+		self.get_attr(HkernAttrs::K)
 	}
 
 	/// Set the `u1` attribute.
@@ -10049,7 +10241,7 @@ impl Hkern {
 
 	/// Get the `u1` attribute.
 	pub fn u1(&self) -> Option<&str> {
-		self.attrs.get(&HkernAttrs::U1).map(String::as_str)
+		self.get_attr(HkernAttrs::U1)
 	}
 
 	/// Set the `u2` attribute.
@@ -10071,7 +10263,7 @@ impl Hkern {
 
 	/// Get the `u2` attribute.
 	pub fn u2(&self) -> Option<&str> {
-		self.attrs.get(&HkernAttrs::U2).map(String::as_str)
+		self.get_attr(HkernAttrs::U2)
 	}
 }
 
@@ -10155,6 +10347,10 @@ impl Image {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ImageAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -10174,7 +10370,7 @@ impl Image {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Class).map(String::as_str)
+		self.get_attr(ImageAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -10196,7 +10392,7 @@ impl Image {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(ImageAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -10218,7 +10414,7 @@ impl Image {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Height).map(String::as_str)
+		self.get_attr(ImageAttrs::Height)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -10240,7 +10436,7 @@ impl Image {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(ImageAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
@@ -10262,7 +10458,7 @@ impl Image {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Style).map(String::as_str)
+		self.get_attr(ImageAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -10284,7 +10480,7 @@ impl Image {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Transform).map(String::as_str)
+		self.get_attr(ImageAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
@@ -10306,7 +10502,7 @@ impl Image {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Width).map(String::as_str)
+		self.get_attr(ImageAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -10328,7 +10524,7 @@ impl Image {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::X).map(String::as_str)
+		self.get_attr(ImageAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -10350,7 +10546,7 @@ impl Image {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(ImageAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -10372,7 +10568,7 @@ impl Image {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&ImageAttrs::Y).map(String::as_str)
+		self.get_attr(ImageAttrs::Y)
 	}
 }
 
@@ -10452,6 +10648,10 @@ impl Line {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: LineAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -10471,7 +10671,7 @@ impl Line {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::Class).map(String::as_str)
+		self.get_attr(LineAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -10493,7 +10693,7 @@ impl Line {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(LineAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -10515,7 +10715,7 @@ impl Line {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::Style).map(String::as_str)
+		self.get_attr(LineAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -10537,7 +10737,7 @@ impl Line {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::Transform).map(String::as_str)
+		self.get_attr(LineAttrs::Transform)
 	}
 
 	/// Set the `x1` attribute.
@@ -10559,7 +10759,7 @@ impl Line {
 
 	/// Get the `x1` attribute.
 	pub fn x1(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::X1).map(String::as_str)
+		self.get_attr(LineAttrs::X1)
 	}
 
 	/// Set the `x2` attribute.
@@ -10581,7 +10781,7 @@ impl Line {
 
 	/// Get the `x2` attribute.
 	pub fn x2(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::X2).map(String::as_str)
+		self.get_attr(LineAttrs::X2)
 	}
 
 	/// Set the `y1` attribute.
@@ -10603,7 +10803,7 @@ impl Line {
 
 	/// Get the `y1` attribute.
 	pub fn y1(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::Y1).map(String::as_str)
+		self.get_attr(LineAttrs::Y1)
 	}
 
 	/// Set the `y2` attribute.
@@ -10625,7 +10825,7 @@ impl Line {
 
 	/// Get the `y2` attribute.
 	pub fn y2(&self) -> Option<&str> {
-		self.attrs.get(&LineAttrs::Y2).map(String::as_str)
+		self.get_attr(LineAttrs::Y2)
 	}
 }
 
@@ -10711,6 +10911,10 @@ impl LinearGradient {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: LinearGradientAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -10730,7 +10934,7 @@ impl LinearGradient {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::Class).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -10752,7 +10956,7 @@ impl LinearGradient {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `gradientTransform` attribute.
@@ -10774,7 +10978,7 @@ impl LinearGradient {
 
 	/// Get the `gradientTransform` attribute.
 	pub fn gradient_transform(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::GradientTransform).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::GradientTransform)
 	}
 
 	/// Set the `gradientUnits` attribute.
@@ -10796,7 +11000,7 @@ impl LinearGradient {
 
 	/// Get the `gradientUnits` attribute.
 	pub fn gradient_units(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::GradientUnits).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::GradientUnits)
 	}
 
 	/// Set the `spreadMethod` attribute.
@@ -10818,7 +11022,7 @@ impl LinearGradient {
 
 	/// Get the `spreadMethod` attribute.
 	pub fn spread_method(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::SpreadMethod).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::SpreadMethod)
 	}
 
 	/// Set the `style` attribute.
@@ -10840,7 +11044,7 @@ impl LinearGradient {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::Style).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::Style)
 	}
 
 	/// Set the `x1` attribute.
@@ -10862,7 +11066,7 @@ impl LinearGradient {
 
 	/// Get the `x1` attribute.
 	pub fn x1(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::X1).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::X1)
 	}
 
 	/// Set the `x2` attribute.
@@ -10884,7 +11088,7 @@ impl LinearGradient {
 
 	/// Get the `x2` attribute.
 	pub fn x2(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::X2).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::X2)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -10906,7 +11110,7 @@ impl LinearGradient {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::XlinkHref)
 	}
 
 	/// Set the `y1` attribute.
@@ -10928,7 +11132,7 @@ impl LinearGradient {
 
 	/// Get the `y1` attribute.
 	pub fn y1(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::Y1).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::Y1)
 	}
 
 	/// Set the `y2` attribute.
@@ -10950,7 +11154,7 @@ impl LinearGradient {
 
 	/// Get the `y2` attribute.
 	pub fn y2(&self) -> Option<&str> {
-		self.attrs.get(&LinearGradientAttrs::Y2).map(String::as_str)
+		self.get_attr(LinearGradientAttrs::Y2)
 	}
 }
 
@@ -11038,6 +11242,10 @@ impl Marker {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: MarkerAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -11057,7 +11265,7 @@ impl Marker {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::Class).map(String::as_str)
+		self.get_attr(MarkerAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -11079,7 +11287,7 @@ impl Marker {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(MarkerAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `markerHeight` attribute.
@@ -11101,7 +11309,7 @@ impl Marker {
 
 	/// Get the `markerHeight` attribute.
 	pub fn marker_height(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::MarkerHeight).map(String::as_str)
+		self.get_attr(MarkerAttrs::MarkerHeight)
 	}
 
 	/// Set the `markerUnits` attribute.
@@ -11123,7 +11331,7 @@ impl Marker {
 
 	/// Get the `markerUnits` attribute.
 	pub fn marker_units(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::MarkerUnits).map(String::as_str)
+		self.get_attr(MarkerAttrs::MarkerUnits)
 	}
 
 	/// Set the `markerWidth` attribute.
@@ -11145,7 +11353,7 @@ impl Marker {
 
 	/// Get the `markerWidth` attribute.
 	pub fn marker_width(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::MarkerWidth).map(String::as_str)
+		self.get_attr(MarkerAttrs::MarkerWidth)
 	}
 
 	/// Set the `orient` attribute.
@@ -11167,7 +11375,7 @@ impl Marker {
 
 	/// Get the `orient` attribute.
 	pub fn orient(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::Orient).map(String::as_str)
+		self.get_attr(MarkerAttrs::Orient)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -11189,7 +11397,7 @@ impl Marker {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(MarkerAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `refX` attribute.
@@ -11211,7 +11419,7 @@ impl Marker {
 
 	/// Get the `refX` attribute.
 	pub fn ref_x(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::RefX).map(String::as_str)
+		self.get_attr(MarkerAttrs::RefX)
 	}
 
 	/// Set the `refY` attribute.
@@ -11233,7 +11441,7 @@ impl Marker {
 
 	/// Get the `refY` attribute.
 	pub fn ref_y(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::RefY).map(String::as_str)
+		self.get_attr(MarkerAttrs::RefY)
 	}
 
 	/// Set the `style` attribute.
@@ -11255,7 +11463,7 @@ impl Marker {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::Style).map(String::as_str)
+		self.get_attr(MarkerAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -11277,7 +11485,7 @@ impl Marker {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::Transform).map(String::as_str)
+		self.get_attr(MarkerAttrs::Transform)
 	}
 
 	/// Set the `viewBox` attribute.
@@ -11299,7 +11507,7 @@ impl Marker {
 
 	/// Get the `viewBox` attribute.
 	pub fn view_box(&self) -> Option<&str> {
-		self.attrs.get(&MarkerAttrs::ViewBox).map(String::as_str)
+		self.get_attr(MarkerAttrs::ViewBox)
 	}
 }
 
@@ -11381,6 +11589,10 @@ impl Mask {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: MaskAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -11400,7 +11612,7 @@ impl Mask {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::Class).map(String::as_str)
+		self.get_attr(MaskAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -11422,7 +11634,7 @@ impl Mask {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(MaskAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -11444,7 +11656,7 @@ impl Mask {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::Height).map(String::as_str)
+		self.get_attr(MaskAttrs::Height)
 	}
 
 	/// Set the `maskContentUnits` attribute.
@@ -11466,7 +11678,7 @@ impl Mask {
 
 	/// Get the `maskContentUnits` attribute.
 	pub fn mask_content_units(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::MaskContentUnits).map(String::as_str)
+		self.get_attr(MaskAttrs::MaskContentUnits)
 	}
 
 	/// Set the `maskUnits` attribute.
@@ -11488,7 +11700,7 @@ impl Mask {
 
 	/// Get the `maskUnits` attribute.
 	pub fn mask_units(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::MaskUnits).map(String::as_str)
+		self.get_attr(MaskAttrs::MaskUnits)
 	}
 
 	/// Set the `style` attribute.
@@ -11510,7 +11722,7 @@ impl Mask {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::Style).map(String::as_str)
+		self.get_attr(MaskAttrs::Style)
 	}
 
 	/// Set the `width` attribute.
@@ -11532,7 +11744,7 @@ impl Mask {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::Width).map(String::as_str)
+		self.get_attr(MaskAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -11554,7 +11766,7 @@ impl Mask {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::X).map(String::as_str)
+		self.get_attr(MaskAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -11576,7 +11788,7 @@ impl Mask {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&MaskAttrs::Y).map(String::as_str)
+		self.get_attr(MaskAttrs::Y)
 	}
 }
 
@@ -11681,6 +11893,10 @@ impl MissingMinusGlyph {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: MissingMinusGlyphAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -11700,7 +11916,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::Class).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
@@ -11722,7 +11938,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `d` attribute.
 	pub fn d(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::D).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::D)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
@@ -11744,7 +11960,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `horiz-adv-x` attribute.
 	pub fn horiz_minus_adv_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::HorizMinusAdvMinusX).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::HorizMinusAdvMinusX)
 	}
 
 	/// Set the `style` attribute.
@@ -11766,7 +11982,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::Style).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::Style)
 	}
 
 	/// Set the `vert-adv-y` attribute.
@@ -11788,7 +12004,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `vert-adv-y` attribute.
 	pub fn vert_minus_adv_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::VertMinusAdvMinusY).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::VertMinusAdvMinusY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
@@ -11810,7 +12026,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `vert-origin-x` attribute.
 	pub fn vert_minus_origin_minus_x(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::VertMinusOriginMinusX).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
@@ -11832,7 +12048,7 @@ impl MissingMinusGlyph {
 
 	/// Get the `vert-origin-y` attribute.
 	pub fn vert_minus_origin_minus_y(&self) -> Option<&str> {
-		self.attrs.get(&MissingMinusGlyphAttrs::VertMinusOriginMinusY).map(String::as_str)
+		self.get_attr(MissingMinusGlyphAttrs::VertMinusOriginMinusY)
 	}
 }
 
@@ -11900,6 +12116,10 @@ impl Mpath {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: MpathAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `externalResourcesRequired` attribute.
 	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
 	where
@@ -11919,7 +12139,7 @@ impl Mpath {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&MpathAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(MpathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -11941,7 +12161,7 @@ impl Mpath {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&MpathAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(MpathAttrs::XlinkHref)
 	}
 }
 
@@ -12017,6 +12237,10 @@ impl Path {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: PathAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -12036,7 +12260,7 @@ impl Path {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::Class).map(String::as_str)
+		self.get_attr(PathAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
@@ -12058,7 +12282,7 @@ impl Path {
 
 	/// Get the `d` attribute.
 	pub fn d(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::D).map(String::as_str)
+		self.get_attr(PathAttrs::D)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -12080,7 +12304,7 @@ impl Path {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(PathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `pathLength` attribute.
@@ -12102,7 +12326,7 @@ impl Path {
 
 	/// Get the `pathLength` attribute.
 	pub fn path_length(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::PathLength).map(String::as_str)
+		self.get_attr(PathAttrs::PathLength)
 	}
 
 	/// Set the `style` attribute.
@@ -12124,7 +12348,7 @@ impl Path {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::Style).map(String::as_str)
+		self.get_attr(PathAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -12146,7 +12370,7 @@ impl Path {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&PathAttrs::Transform).map(String::as_str)
+		self.get_attr(PathAttrs::Transform)
 	}
 }
 
@@ -12236,6 +12460,10 @@ impl Pattern {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: PatternAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -12255,7 +12483,7 @@ impl Pattern {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::Class).map(String::as_str)
+		self.get_attr(PatternAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -12277,7 +12505,7 @@ impl Pattern {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(PatternAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -12299,7 +12527,7 @@ impl Pattern {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::Height).map(String::as_str)
+		self.get_attr(PatternAttrs::Height)
 	}
 
 	/// Set the `patternContentUnits` attribute.
@@ -12321,7 +12549,7 @@ impl Pattern {
 
 	/// Get the `patternContentUnits` attribute.
 	pub fn pattern_content_units(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::PatternContentUnits).map(String::as_str)
+		self.get_attr(PatternAttrs::PatternContentUnits)
 	}
 
 	/// Set the `patternTransform` attribute.
@@ -12343,7 +12571,7 @@ impl Pattern {
 
 	/// Get the `patternTransform` attribute.
 	pub fn pattern_transform(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::PatternTransform).map(String::as_str)
+		self.get_attr(PatternAttrs::PatternTransform)
 	}
 
 	/// Set the `patternUnits` attribute.
@@ -12365,7 +12593,7 @@ impl Pattern {
 
 	/// Get the `patternUnits` attribute.
 	pub fn pattern_units(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::PatternUnits).map(String::as_str)
+		self.get_attr(PatternAttrs::PatternUnits)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -12387,7 +12615,7 @@ impl Pattern {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(PatternAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
@@ -12409,7 +12637,7 @@ impl Pattern {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::Style).map(String::as_str)
+		self.get_attr(PatternAttrs::Style)
 	}
 
 	/// Set the `viewBox` attribute.
@@ -12431,7 +12659,7 @@ impl Pattern {
 
 	/// Get the `viewBox` attribute.
 	pub fn view_box(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::ViewBox).map(String::as_str)
+		self.get_attr(PatternAttrs::ViewBox)
 	}
 
 	/// Set the `width` attribute.
@@ -12453,7 +12681,7 @@ impl Pattern {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::Width).map(String::as_str)
+		self.get_attr(PatternAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -12475,7 +12703,7 @@ impl Pattern {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::X).map(String::as_str)
+		self.get_attr(PatternAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -12497,7 +12725,7 @@ impl Pattern {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(PatternAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -12519,7 +12747,7 @@ impl Pattern {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&PatternAttrs::Y).map(String::as_str)
+		self.get_attr(PatternAttrs::Y)
 	}
 }
 
@@ -12593,6 +12821,10 @@ impl Polygon {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: PolygonAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -12612,7 +12844,7 @@ impl Polygon {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&PolygonAttrs::Class).map(String::as_str)
+		self.get_attr(PolygonAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -12634,7 +12866,7 @@ impl Polygon {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&PolygonAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(PolygonAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `points` attribute.
@@ -12656,7 +12888,7 @@ impl Polygon {
 
 	/// Get the `points` attribute.
 	pub fn points(&self) -> Option<&str> {
-		self.attrs.get(&PolygonAttrs::Points).map(String::as_str)
+		self.get_attr(PolygonAttrs::Points)
 	}
 
 	/// Set the `style` attribute.
@@ -12678,7 +12910,7 @@ impl Polygon {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&PolygonAttrs::Style).map(String::as_str)
+		self.get_attr(PolygonAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -12700,7 +12932,7 @@ impl Polygon {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&PolygonAttrs::Transform).map(String::as_str)
+		self.get_attr(PolygonAttrs::Transform)
 	}
 }
 
@@ -12774,6 +13006,10 @@ impl Polyline {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: PolylineAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -12793,7 +13029,7 @@ impl Polyline {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&PolylineAttrs::Class).map(String::as_str)
+		self.get_attr(PolylineAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -12815,7 +13051,7 @@ impl Polyline {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&PolylineAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(PolylineAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `points` attribute.
@@ -12837,7 +13073,7 @@ impl Polyline {
 
 	/// Get the `points` attribute.
 	pub fn points(&self) -> Option<&str> {
-		self.attrs.get(&PolylineAttrs::Points).map(String::as_str)
+		self.get_attr(PolylineAttrs::Points)
 	}
 
 	/// Set the `style` attribute.
@@ -12859,7 +13095,7 @@ impl Polyline {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&PolylineAttrs::Style).map(String::as_str)
+		self.get_attr(PolylineAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -12881,7 +13117,7 @@ impl Polyline {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&PolylineAttrs::Transform).map(String::as_str)
+		self.get_attr(PolylineAttrs::Transform)
 	}
 }
 
@@ -12969,6 +13205,10 @@ impl RadialGradient {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: RadialGradientAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -12988,7 +13228,7 @@ impl RadialGradient {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Class).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
@@ -13010,7 +13250,7 @@ impl RadialGradient {
 
 	/// Get the `cx` attribute.
 	pub fn cx(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Cx).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
@@ -13032,7 +13272,7 @@ impl RadialGradient {
 
 	/// Get the `cy` attribute.
 	pub fn cy(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Cy).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -13054,7 +13294,7 @@ impl RadialGradient {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `fx` attribute.
@@ -13076,7 +13316,7 @@ impl RadialGradient {
 
 	/// Get the `fx` attribute.
 	pub fn fx(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Fx).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Fx)
 	}
 
 	/// Set the `fy` attribute.
@@ -13098,7 +13338,7 @@ impl RadialGradient {
 
 	/// Get the `fy` attribute.
 	pub fn fy(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Fy).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Fy)
 	}
 
 	/// Set the `gradientTransform` attribute.
@@ -13120,7 +13360,7 @@ impl RadialGradient {
 
 	/// Get the `gradientTransform` attribute.
 	pub fn gradient_transform(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::GradientTransform).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::GradientTransform)
 	}
 
 	/// Set the `gradientUnits` attribute.
@@ -13142,7 +13382,7 @@ impl RadialGradient {
 
 	/// Get the `gradientUnits` attribute.
 	pub fn gradient_units(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::GradientUnits).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::GradientUnits)
 	}
 
 	/// Set the `r` attribute.
@@ -13164,7 +13404,7 @@ impl RadialGradient {
 
 	/// Get the `r` attribute.
 	pub fn r(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::R).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::R)
 	}
 
 	/// Set the `spreadMethod` attribute.
@@ -13186,7 +13426,7 @@ impl RadialGradient {
 
 	/// Get the `spreadMethod` attribute.
 	pub fn spread_method(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::SpreadMethod).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::SpreadMethod)
 	}
 
 	/// Set the `style` attribute.
@@ -13208,7 +13448,7 @@ impl RadialGradient {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::Style).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -13230,7 +13470,7 @@ impl RadialGradient {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&RadialGradientAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(RadialGradientAttrs::XlinkHref)
 	}
 }
 
@@ -13314,6 +13554,10 @@ impl Rect {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: RectAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -13333,7 +13577,7 @@ impl Rect {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Class).map(String::as_str)
+		self.get_attr(RectAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -13355,7 +13599,7 @@ impl Rect {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(RectAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -13377,7 +13621,7 @@ impl Rect {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Height).map(String::as_str)
+		self.get_attr(RectAttrs::Height)
 	}
 
 	/// Set the `rx` attribute.
@@ -13399,7 +13643,7 @@ impl Rect {
 
 	/// Get the `rx` attribute.
 	pub fn rx(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Rx).map(String::as_str)
+		self.get_attr(RectAttrs::Rx)
 	}
 
 	/// Set the `ry` attribute.
@@ -13421,7 +13665,7 @@ impl Rect {
 
 	/// Get the `ry` attribute.
 	pub fn ry(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Ry).map(String::as_str)
+		self.get_attr(RectAttrs::Ry)
 	}
 
 	/// Set the `style` attribute.
@@ -13443,7 +13687,7 @@ impl Rect {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Style).map(String::as_str)
+		self.get_attr(RectAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -13465,7 +13709,7 @@ impl Rect {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Transform).map(String::as_str)
+		self.get_attr(RectAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
@@ -13487,7 +13731,7 @@ impl Rect {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Width).map(String::as_str)
+		self.get_attr(RectAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -13509,7 +13753,7 @@ impl Rect {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::X).map(String::as_str)
+		self.get_attr(RectAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -13531,7 +13775,7 @@ impl Rect {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&RectAttrs::Y).map(String::as_str)
+		self.get_attr(RectAttrs::Y)
 	}
 }
 
@@ -13601,6 +13845,10 @@ impl Script {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ScriptAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `externalResourcesRequired` attribute.
 	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
 	where
@@ -13620,7 +13868,7 @@ impl Script {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&ScriptAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(ScriptAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `type` attribute.
@@ -13642,7 +13890,7 @@ impl Script {
 
 	/// Get the `type` attribute.
 	pub fn ty(&self) -> Option<&str> {
-		self.attrs.get(&ScriptAttrs::Type).map(String::as_str)
+		self.get_attr(ScriptAttrs::Type)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -13664,7 +13912,7 @@ impl Script {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&ScriptAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(ScriptAttrs::XlinkHref)
 	}
 }
 
@@ -13732,6 +13980,10 @@ impl Set {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: SetAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `externalResourcesRequired` attribute.
 	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
 	where
@@ -13751,7 +14003,7 @@ impl Set {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&SetAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(SetAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `to` attribute.
@@ -13773,7 +14025,7 @@ impl Set {
 
 	/// Get the `to` attribute.
 	pub fn to(&self) -> Option<&str> {
-		self.attrs.get(&SetAttrs::To).map(String::as_str)
+		self.get_attr(SetAttrs::To)
 	}
 }
 
@@ -13847,6 +14099,10 @@ impl Stop {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: StopAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -13866,7 +14122,7 @@ impl Stop {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&StopAttrs::Class).map(String::as_str)
+		self.get_attr(StopAttrs::Class)
 	}
 
 	/// Set the `offset` attribute.
@@ -13888,7 +14144,7 @@ impl Stop {
 
 	/// Get the `offset` attribute.
 	pub fn offset(&self) -> Option<&str> {
-		self.attrs.get(&StopAttrs::Offset).map(String::as_str)
+		self.get_attr(StopAttrs::Offset)
 	}
 
 	/// Set the `stop-color` attribute.
@@ -13910,7 +14166,7 @@ impl Stop {
 
 	/// Get the `stop-color` attribute.
 	pub fn stop_minus_color(&self) -> Option<&str> {
-		self.attrs.get(&StopAttrs::StopMinusColor).map(String::as_str)
+		self.get_attr(StopAttrs::StopMinusColor)
 	}
 
 	/// Set the `stop-opacity` attribute.
@@ -13932,7 +14188,7 @@ impl Stop {
 
 	/// Get the `stop-opacity` attribute.
 	pub fn stop_minus_opacity(&self) -> Option<&str> {
-		self.attrs.get(&StopAttrs::StopMinusOpacity).map(String::as_str)
+		self.get_attr(StopAttrs::StopMinusOpacity)
 	}
 
 	/// Set the `style` attribute.
@@ -13954,7 +14210,7 @@ impl Stop {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&StopAttrs::Style).map(String::as_str)
+		self.get_attr(StopAttrs::Style)
 	}
 }
 
@@ -14024,6 +14280,10 @@ impl Style {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: StyleAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `media` attribute.
 	pub fn with_media<T>(mut self, value: T) -> Self
 	where
@@ -14043,7 +14303,7 @@ impl Style {
 
 	/// Get the `media` attribute.
 	pub fn media(&self) -> Option<&str> {
-		self.attrs.get(&StyleAttrs::Media).map(String::as_str)
+		self.get_attr(StyleAttrs::Media)
 	}
 
 	/// Set the `title` attribute.
@@ -14065,7 +14325,7 @@ impl Style {
 
 	/// Get the `title` attribute.
 	pub fn title(&self) -> Option<&str> {
-		self.attrs.get(&StyleAttrs::Title).map(String::as_str)
+		self.get_attr(StyleAttrs::Title)
 	}
 
 	/// Set the `type` attribute.
@@ -14087,7 +14347,7 @@ impl Style {
 
 	/// Get the `type` attribute.
 	pub fn ty(&self) -> Option<&str> {
-		self.attrs.get(&StyleAttrs::Type).map(String::as_str)
+		self.get_attr(StyleAttrs::Type)
 	}
 }
 
@@ -14177,6 +14437,10 @@ impl Svg {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: SvgAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `baseProfile` attribute.
 	pub fn with_base_profile<T>(mut self, value: T) -> Self
 	where
@@ -14196,7 +14460,7 @@ impl Svg {
 
 	/// Get the `baseProfile` attribute.
 	pub fn base_profile(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::BaseProfile).map(String::as_str)
+		self.get_attr(SvgAttrs::BaseProfile)
 	}
 
 	/// Set the `class` attribute.
@@ -14218,7 +14482,7 @@ impl Svg {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Class).map(String::as_str)
+		self.get_attr(SvgAttrs::Class)
 	}
 
 	/// Set the `contentScriptType` attribute.
@@ -14240,7 +14504,7 @@ impl Svg {
 
 	/// Get the `contentScriptType` attribute.
 	pub fn content_script_type(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::ContentScriptType).map(String::as_str)
+		self.get_attr(SvgAttrs::ContentScriptType)
 	}
 
 	/// Set the `contentStyleType` attribute.
@@ -14262,7 +14526,7 @@ impl Svg {
 
 	/// Get the `contentStyleType` attribute.
 	pub fn content_style_type(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::ContentStyleType).map(String::as_str)
+		self.get_attr(SvgAttrs::ContentStyleType)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -14284,7 +14548,7 @@ impl Svg {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(SvgAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -14306,7 +14570,7 @@ impl Svg {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Height).map(String::as_str)
+		self.get_attr(SvgAttrs::Height)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -14328,7 +14592,7 @@ impl Svg {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(SvgAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
@@ -14350,7 +14614,7 @@ impl Svg {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Style).map(String::as_str)
+		self.get_attr(SvgAttrs::Style)
 	}
 
 	/// Set the `version` attribute.
@@ -14372,7 +14636,7 @@ impl Svg {
 
 	/// Get the `version` attribute.
 	pub fn version(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Version).map(String::as_str)
+		self.get_attr(SvgAttrs::Version)
 	}
 
 	/// Set the `viewBox` attribute.
@@ -14394,7 +14658,7 @@ impl Svg {
 
 	/// Get the `viewBox` attribute.
 	pub fn view_box(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::ViewBox).map(String::as_str)
+		self.get_attr(SvgAttrs::ViewBox)
 	}
 
 	/// Set the `width` attribute.
@@ -14416,7 +14680,7 @@ impl Svg {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Width).map(String::as_str)
+		self.get_attr(SvgAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -14438,7 +14702,7 @@ impl Svg {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::X).map(String::as_str)
+		self.get_attr(SvgAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -14460,7 +14724,7 @@ impl Svg {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&SvgAttrs::Y).map(String::as_str)
+		self.get_attr(SvgAttrs::Y)
 	}
 }
 
@@ -14534,6 +14798,10 @@ impl Switch {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: SwitchAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `allowReorder` attribute.
 	pub fn with_allow_reorder<T>(mut self, value: T) -> Self
 	where
@@ -14553,7 +14821,7 @@ impl Switch {
 
 	/// Get the `allowReorder` attribute.
 	pub fn allow_reorder(&self) -> Option<&str> {
-		self.attrs.get(&SwitchAttrs::AllowReorder).map(String::as_str)
+		self.get_attr(SwitchAttrs::AllowReorder)
 	}
 
 	/// Set the `class` attribute.
@@ -14575,7 +14843,7 @@ impl Switch {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&SwitchAttrs::Class).map(String::as_str)
+		self.get_attr(SwitchAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -14597,7 +14865,7 @@ impl Switch {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&SwitchAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(SwitchAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -14619,7 +14887,7 @@ impl Switch {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&SwitchAttrs::Style).map(String::as_str)
+		self.get_attr(SwitchAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -14641,7 +14909,7 @@ impl Switch {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&SwitchAttrs::Transform).map(String::as_str)
+		self.get_attr(SwitchAttrs::Transform)
 	}
 }
 
@@ -14715,6 +14983,10 @@ impl Symbol {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: SymbolAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -14734,7 +15006,7 @@ impl Symbol {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&SymbolAttrs::Class).map(String::as_str)
+		self.get_attr(SymbolAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -14756,7 +15028,7 @@ impl Symbol {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&SymbolAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(SymbolAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -14778,7 +15050,7 @@ impl Symbol {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&SymbolAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(SymbolAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
@@ -14800,7 +15072,7 @@ impl Symbol {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&SymbolAttrs::Style).map(String::as_str)
+		self.get_attr(SymbolAttrs::Style)
 	}
 
 	/// Set the `viewBox` attribute.
@@ -14822,7 +15094,7 @@ impl Symbol {
 
 	/// Get the `viewBox` attribute.
 	pub fn view_box(&self) -> Option<&str> {
-		self.attrs.get(&SymbolAttrs::ViewBox).map(String::as_str)
+		self.get_attr(SymbolAttrs::ViewBox)
 	}
 }
 
@@ -14910,6 +15182,10 @@ impl Text {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: TextAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -14929,7 +15205,7 @@ impl Text {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Class).map(String::as_str)
+		self.get_attr(TextAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -14951,7 +15227,7 @@ impl Text {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Dx).map(String::as_str)
+		self.get_attr(TextAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -14973,7 +15249,7 @@ impl Text {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Dy).map(String::as_str)
+		self.get_attr(TextAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -14995,7 +15271,7 @@ impl Text {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(TextAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `lengthAdjust` attribute.
@@ -15017,7 +15293,7 @@ impl Text {
 
 	/// Get the `lengthAdjust` attribute.
 	pub fn length_adjust(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::LengthAdjust).map(String::as_str)
+		self.get_attr(TextAttrs::LengthAdjust)
 	}
 
 	/// Set the `rotate` attribute.
@@ -15039,7 +15315,7 @@ impl Text {
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Rotate).map(String::as_str)
+		self.get_attr(TextAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
@@ -15061,7 +15337,7 @@ impl Text {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Style).map(String::as_str)
+		self.get_attr(TextAttrs::Style)
 	}
 
 	/// Set the `text-anchor` attribute.
@@ -15083,7 +15359,7 @@ impl Text {
 
 	/// Get the `text-anchor` attribute.
 	pub fn text_minus_anchor(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::TextMinusAnchor).map(String::as_str)
+		self.get_attr(TextAttrs::TextMinusAnchor)
 	}
 
 	/// Set the `textLength` attribute.
@@ -15105,7 +15381,7 @@ impl Text {
 
 	/// Get the `textLength` attribute.
 	pub fn text_length(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::TextLength).map(String::as_str)
+		self.get_attr(TextAttrs::TextLength)
 	}
 
 	/// Set the `transform` attribute.
@@ -15127,7 +15403,7 @@ impl Text {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Transform).map(String::as_str)
+		self.get_attr(TextAttrs::Transform)
 	}
 
 	/// Set the `x` attribute.
@@ -15149,7 +15425,7 @@ impl Text {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::X).map(String::as_str)
+		self.get_attr(TextAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -15171,7 +15447,7 @@ impl Text {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&TextAttrs::Y).map(String::as_str)
+		self.get_attr(TextAttrs::Y)
 	}
 }
 
@@ -15251,6 +15527,10 @@ impl TextPath {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: TextPathAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -15270,7 +15550,7 @@ impl TextPath {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::Class).map(String::as_str)
+		self.get_attr(TextPathAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -15292,7 +15572,7 @@ impl TextPath {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(TextPathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `method` attribute.
@@ -15314,7 +15594,7 @@ impl TextPath {
 
 	/// Get the `method` attribute.
 	pub fn method(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::Method).map(String::as_str)
+		self.get_attr(TextPathAttrs::Method)
 	}
 
 	/// Set the `spacing` attribute.
@@ -15336,7 +15616,7 @@ impl TextPath {
 
 	/// Get the `spacing` attribute.
 	pub fn spacing(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::Spacing).map(String::as_str)
+		self.get_attr(TextPathAttrs::Spacing)
 	}
 
 	/// Set the `startOffset` attribute.
@@ -15358,7 +15638,7 @@ impl TextPath {
 
 	/// Get the `startOffset` attribute.
 	pub fn start_offset(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::StartOffset).map(String::as_str)
+		self.get_attr(TextPathAttrs::StartOffset)
 	}
 
 	/// Set the `style` attribute.
@@ -15380,7 +15660,7 @@ impl TextPath {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::Style).map(String::as_str)
+		self.get_attr(TextPathAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -15402,7 +15682,7 @@ impl TextPath {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&TextPathAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(TextPathAttrs::XlinkHref)
 	}
 }
 
@@ -15470,6 +15750,10 @@ impl Title {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: TitleAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -15489,7 +15773,7 @@ impl Title {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&TitleAttrs::Class).map(String::as_str)
+		self.get_attr(TitleAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
@@ -15511,7 +15795,7 @@ impl Title {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&TitleAttrs::Style).map(String::as_str)
+		self.get_attr(TitleAttrs::Style)
 	}
 }
 
@@ -15583,6 +15867,10 @@ impl Tref {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: TrefAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -15602,7 +15890,7 @@ impl Tref {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&TrefAttrs::Class).map(String::as_str)
+		self.get_attr(TrefAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -15624,7 +15912,7 @@ impl Tref {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&TrefAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(TrefAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -15646,7 +15934,7 @@ impl Tref {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&TrefAttrs::Style).map(String::as_str)
+		self.get_attr(TrefAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -15668,7 +15956,7 @@ impl Tref {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&TrefAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(TrefAttrs::XlinkHref)
 	}
 }
 
@@ -15752,6 +16040,10 @@ impl Tspan {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: TspanAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -15771,7 +16063,7 @@ impl Tspan {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Class).map(String::as_str)
+		self.get_attr(TspanAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -15793,7 +16085,7 @@ impl Tspan {
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Dx).map(String::as_str)
+		self.get_attr(TspanAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -15815,7 +16107,7 @@ impl Tspan {
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Dy).map(String::as_str)
+		self.get_attr(TspanAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -15837,7 +16129,7 @@ impl Tspan {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(TspanAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `lengthAdjust` attribute.
@@ -15859,7 +16151,7 @@ impl Tspan {
 
 	/// Get the `lengthAdjust` attribute.
 	pub fn length_adjust(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::LengthAdjust).map(String::as_str)
+		self.get_attr(TspanAttrs::LengthAdjust)
 	}
 
 	/// Set the `rotate` attribute.
@@ -15881,7 +16173,7 @@ impl Tspan {
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Rotate).map(String::as_str)
+		self.get_attr(TspanAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
@@ -15903,7 +16195,7 @@ impl Tspan {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Style).map(String::as_str)
+		self.get_attr(TspanAttrs::Style)
 	}
 
 	/// Set the `textLength` attribute.
@@ -15925,7 +16217,7 @@ impl Tspan {
 
 	/// Get the `textLength` attribute.
 	pub fn text_length(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::TextLength).map(String::as_str)
+		self.get_attr(TspanAttrs::TextLength)
 	}
 
 	/// Set the `x` attribute.
@@ -15947,7 +16239,7 @@ impl Tspan {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::X).map(String::as_str)
+		self.get_attr(TspanAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -15969,7 +16261,7 @@ impl Tspan {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&TspanAttrs::Y).map(String::as_str)
+		self.get_attr(TspanAttrs::Y)
 	}
 }
 
@@ -16052,6 +16344,10 @@ impl Use {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: UseAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `class` attribute.
 	pub fn with_class<T>(mut self, value: T) -> Self
 	where
@@ -16071,7 +16367,7 @@ impl Use {
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Class).map(String::as_str)
+		self.get_attr(UseAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -16093,7 +16389,7 @@ impl Use {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(UseAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
@@ -16115,7 +16411,7 @@ impl Use {
 
 	/// Get the `height` attribute.
 	pub fn height(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Height).map(String::as_str)
+		self.get_attr(UseAttrs::Height)
 	}
 
 	/// Set the `style` attribute.
@@ -16137,7 +16433,7 @@ impl Use {
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Style).map(String::as_str)
+		self.get_attr(UseAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -16159,7 +16455,7 @@ impl Use {
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Transform).map(String::as_str)
+		self.get_attr(UseAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
@@ -16181,7 +16477,7 @@ impl Use {
 
 	/// Get the `width` attribute.
 	pub fn width(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Width).map(String::as_str)
+		self.get_attr(UseAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
@@ -16203,7 +16499,7 @@ impl Use {
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::X).map(String::as_str)
+		self.get_attr(UseAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
@@ -16225,7 +16521,7 @@ impl Use {
 
 	/// Get the `xlink:href` attribute.
 	pub fn xlink_href(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::XlinkHref).map(String::as_str)
+		self.get_attr(UseAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
@@ -16247,7 +16543,7 @@ impl Use {
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.attrs.get(&UseAttrs::Y).map(String::as_str)
+		self.get_attr(UseAttrs::Y)
 	}
 }
 
@@ -16321,6 +16617,10 @@ impl View {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: ViewAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `externalResourcesRequired` attribute.
 	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
 	where
@@ -16340,7 +16640,7 @@ impl View {
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.attrs.get(&ViewAttrs::ExternalResourcesRequired).map(String::as_str)
+		self.get_attr(ViewAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
@@ -16362,7 +16662,7 @@ impl View {
 
 	/// Get the `preserveAspectRatio` attribute.
 	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
-		self.attrs.get(&ViewAttrs::PreserveAspectRatio).map(String::as_str)
+		self.get_attr(ViewAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `viewBox` attribute.
@@ -16384,7 +16684,7 @@ impl View {
 
 	/// Get the `viewBox` attribute.
 	pub fn view_box(&self) -> Option<&str> {
-		self.attrs.get(&ViewAttrs::ViewBox).map(String::as_str)
+		self.get_attr(ViewAttrs::ViewBox)
 	}
 
 	/// Set the `viewTarget` attribute.
@@ -16406,7 +16706,7 @@ impl View {
 
 	/// Get the `viewTarget` attribute.
 	pub fn view_target(&self) -> Option<&str> {
-		self.attrs.get(&ViewAttrs::ViewTarget).map(String::as_str)
+		self.get_attr(ViewAttrs::ViewTarget)
 	}
 
 	/// Set the `zoomAndPan` attribute.
@@ -16428,7 +16728,7 @@ impl View {
 
 	/// Get the `zoomAndPan` attribute.
 	pub fn zoom_and_pan(&self) -> Option<&str> {
-		self.attrs.get(&ViewAttrs::ZoomAndPan).map(String::as_str)
+		self.get_attr(ViewAttrs::ZoomAndPan)
 	}
 }
 
@@ -16502,6 +16802,10 @@ impl Vkern {
 		self.attrs.insert(attr, value);
 	}
 
+	fn get_attr(&self, attr: VkernAttrs) -> Option<&str> {
+		self.attrs.get(&attr).map(String::as_str)
+	}
+
 	/// Set the `g1` attribute.
 	pub fn with_g1<T>(mut self, value: T) -> Self
 	where
@@ -16521,7 +16825,7 @@ impl Vkern {
 
 	/// Get the `g1` attribute.
 	pub fn g1(&self) -> Option<&str> {
-		self.attrs.get(&VkernAttrs::G1).map(String::as_str)
+		self.get_attr(VkernAttrs::G1)
 	}
 
 	/// Set the `g2` attribute.
@@ -16543,7 +16847,7 @@ impl Vkern {
 
 	/// Get the `g2` attribute.
 	pub fn g2(&self) -> Option<&str> {
-		self.attrs.get(&VkernAttrs::G2).map(String::as_str)
+		self.get_attr(VkernAttrs::G2)
 	}
 
 	/// Set the `k` attribute.
@@ -16565,7 +16869,7 @@ impl Vkern {
 
 	/// Get the `k` attribute.
 	pub fn k(&self) -> Option<&str> {
-		self.attrs.get(&VkernAttrs::K).map(String::as_str)
+		self.get_attr(VkernAttrs::K)
 	}
 
 	/// Set the `u1` attribute.
@@ -16587,7 +16891,7 @@ impl Vkern {
 
 	/// Get the `u1` attribute.
 	pub fn u1(&self) -> Option<&str> {
-		self.attrs.get(&VkernAttrs::U1).map(String::as_str)
+		self.get_attr(VkernAttrs::U1)
 	}
 
 	/// Set the `u2` attribute.
@@ -16609,7 +16913,7 @@ impl Vkern {
 
 	/// Get the `u2` attribute.
 	pub fn u2(&self) -> Option<&str> {
-		self.attrs.get(&VkernAttrs::U2).map(String::as_str)
+		self.get_attr(VkernAttrs::U2)
 	}
 }
 

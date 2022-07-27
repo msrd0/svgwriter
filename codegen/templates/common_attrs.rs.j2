@@ -5,6 +5,23 @@ use std::fmt::{self, Debug, Display, Formatter};
 
 {%- for (cat, attrs) in categories %}
 
-{% call macros::attr_enum("pub(super)", cat, attrs) %}
+{% call macros::attr_enum("pub", cat, attrs) %}
+
+pub trait {{cat|camel_case}}Setter {
+	fn set_attr(&mut self, attr: {{cat|camel_case}}, value: String);
+	fn get_attr(&self, attr: {{cat|camel_case}}) -> Option<&str>;
+}
+
+pub trait TagWith{{cat|camel_case}}: {{cat|camel_case}}Setter + Sized {
+	{%- call macros::attrs_get_set("", cat, attrs) %}
+}
 
 {%- endfor %}
+
+pub(super) mod prelude {
+	pub use super::{
+		{%- for cat in categories.keys() %}
+		TagWith{{cat|camel_case}},
+		{%- endfor %}
+	};
+}
