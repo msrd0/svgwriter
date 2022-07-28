@@ -13037,7 +13037,7 @@ impl Tag for ForeignObject {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum GAttrs {
+enum GroupAttrs {
 	Class,
 	ExternalResourcesRequired,
 	Style,
@@ -13048,31 +13048,31 @@ enum GAttrs {
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
 
-impl From<common_attrs::ConditionalProcessingAttributes> for GAttrs {
+impl From<common_attrs::ConditionalProcessingAttributes> for GroupAttrs {
 	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
 		Self::ConditionalProcessingAttributes(attr)
 	}
 }
 
-impl From<common_attrs::CoreAttributes> for GAttrs {
+impl From<common_attrs::CoreAttributes> for GroupAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
 	}
 }
 
-impl From<common_attrs::GraphicalEventAttributes> for GAttrs {
+impl From<common_attrs::GraphicalEventAttributes> for GroupAttrs {
 	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
 		Self::GraphicalEventAttributes(attr)
 	}
 }
 
-impl From<common_attrs::PresentationAttributes> for GAttrs {
+impl From<common_attrs::PresentationAttributes> for GroupAttrs {
 	fn from(attr: common_attrs::PresentationAttributes) -> Self {
 		Self::PresentationAttributes(attr)
 	}
 }
 
-impl GAttrs {
+impl GroupAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Class => "class",
@@ -13087,13 +13087,13 @@ impl GAttrs {
 	}
 }
 
-impl Display for GAttrs {
+impl Display for GroupAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for GAttrs {
+impl Debug for GroupAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -13128,18 +13128,18 @@ mod g_private {
 #[doc = include_str!("g.md")]
 #[doc = "\n\n [`<g>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g"]
 #[derive(Debug)]
-pub struct G {
-	attrs: IndexMap<GAttrs, String>,
+pub struct Group {
+	attrs: IndexMap<GroupAttrs, String>,
 	content: Vec<Box<dyn g_private::Content>>,
 }
 
-impl Default for G {
+impl Default for Group {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl G {
+impl Group {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -13163,12 +13163,12 @@ impl G {
 		self
 	}
 
-	fn set_attr(&mut self, attr: GAttrs, value: String) {
+	fn set_attr(&mut self, attr: GroupAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: GAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: GroupAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -13177,7 +13177,7 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Class, value.into());
+		self.set_attr(GroupAttrs::Class, value.into());
 		self
 	}
 
@@ -13186,12 +13186,12 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Class, value.into());
+		self.set_attr(GroupAttrs::Class, value.into());
 	}
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.get_attr(GAttrs::Class)
+		self.get_attr(GroupAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -13199,7 +13199,7 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(GroupAttrs::ExternalResourcesRequired, value.into());
 		self
 	}
 
@@ -13208,12 +13208,12 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(GroupAttrs::ExternalResourcesRequired, value.into());
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.get_attr(GAttrs::ExternalResourcesRequired)
+		self.get_attr(GroupAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
@@ -13221,7 +13221,7 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Style, value.into());
+		self.set_attr(GroupAttrs::Style, value.into());
 		self
 	}
 
@@ -13230,12 +13230,12 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Style, value.into());
+		self.set_attr(GroupAttrs::Style, value.into());
 	}
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.get_attr(GAttrs::Style)
+		self.get_attr(GroupAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
@@ -13243,7 +13243,7 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Transform, value.into());
+		self.set_attr(GroupAttrs::Transform, value.into());
 		self
 	}
 
@@ -13252,64 +13252,64 @@ impl G {
 	where
 		T: Into<String>
 	{
-		self.set_attr(GAttrs::Transform, value.into());
+		self.set_attr(GroupAttrs::Transform, value.into());
 	}
 
 	/// Get the `transform` attribute.
 	pub fn transform(&self) -> Option<&str> {
-		self.get_attr(GAttrs::Transform)
+		self.get_attr(GroupAttrs::Transform)
 	}
 }
 
-impl common_attrs::ConditionalProcessingAttributesSetter for G {
+impl common_attrs::ConditionalProcessingAttributesSetter for Group {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		self.set_attr(GAttrs::from(attr), value);
+		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		self.get_attr(GAttrs::from(attr))
+		self.get_attr(GroupAttrs::from(attr))
 	}
 }
 
-impl TagWithConditionalProcessingAttributes for G {}
+impl TagWithConditionalProcessingAttributes for Group {}
 
-impl common_attrs::CoreAttributesSetter for G {
+impl common_attrs::CoreAttributesSetter for Group {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		self.set_attr(GAttrs::from(attr), value);
+		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		self.get_attr(GAttrs::from(attr))
+		self.get_attr(GroupAttrs::from(attr))
 	}
 }
 
-impl TagWithCoreAttributes for G {}
+impl TagWithCoreAttributes for Group {}
 
-impl common_attrs::GraphicalEventAttributesSetter for G {
+impl common_attrs::GraphicalEventAttributesSetter for Group {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		self.set_attr(GAttrs::from(attr), value);
+		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		self.get_attr(GAttrs::from(attr))
+		self.get_attr(GroupAttrs::from(attr))
 	}
 }
 
-impl TagWithGraphicalEventAttributes for G {}
+impl TagWithGraphicalEventAttributes for Group {}
 
-impl common_attrs::PresentationAttributesSetter for G {
+impl common_attrs::PresentationAttributesSetter for Group {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		self.set_attr(GAttrs::from(attr), value);
+		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		self.get_attr(GAttrs::from(attr))
+		self.get_attr(GroupAttrs::from(attr))
 	}
 }
 
-impl TagWithPresentationAttributes for G {}
+impl TagWithPresentationAttributes for Group {}
 
-impl Tag for G {
+impl Tag for Group {
 	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("g");
 		for (attr, value) in &self.attrs {
@@ -21028,7 +21028,7 @@ mod switch_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::ForeignObject {}
-	impl Content for super::G {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
 	impl Content for super::Svg {}
 	impl Content for super::Switch {}
@@ -22099,7 +22099,7 @@ mod text_path_private {
 	impl Content for super::AnimateColor {}
 	impl Content for super::Set {}
 	impl Content for super::Tref {}
-	impl Content for super::Tspan {}
+	impl Content for super::TSpan {}
 }
 
 #[doc = "The [`<textPath>`] svg tag.\n\n# Content\n"]
@@ -22803,7 +22803,7 @@ impl Tag for Tref {
 }
 
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
-enum TspanAttrs {
+enum TSpanAttrs {
 	Class,
 	Dx,
 	Dy,
@@ -22820,31 +22820,31 @@ enum TspanAttrs {
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
 
-impl From<common_attrs::ConditionalProcessingAttributes> for TspanAttrs {
+impl From<common_attrs::ConditionalProcessingAttributes> for TSpanAttrs {
 	fn from(attr: common_attrs::ConditionalProcessingAttributes) -> Self {
 		Self::ConditionalProcessingAttributes(attr)
 	}
 }
 
-impl From<common_attrs::CoreAttributes> for TspanAttrs {
+impl From<common_attrs::CoreAttributes> for TSpanAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
 	}
 }
 
-impl From<common_attrs::GraphicalEventAttributes> for TspanAttrs {
+impl From<common_attrs::GraphicalEventAttributes> for TSpanAttrs {
 	fn from(attr: common_attrs::GraphicalEventAttributes) -> Self {
 		Self::GraphicalEventAttributes(attr)
 	}
 }
 
-impl From<common_attrs::PresentationAttributes> for TspanAttrs {
+impl From<common_attrs::PresentationAttributes> for TSpanAttrs {
 	fn from(attr: common_attrs::PresentationAttributes) -> Self {
 		Self::PresentationAttributes(attr)
 	}
 }
 
-impl TspanAttrs {
+impl TSpanAttrs {
 	fn as_str(&self) -> &'static str {
 		match self {
 			Self::Class => "class",
@@ -22865,13 +22865,13 @@ impl TspanAttrs {
 	}
 }
 
-impl Display for TspanAttrs {
+impl Display for TSpanAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
 }
 
-impl Debug for TspanAttrs {
+impl Debug for TSpanAttrs {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
 		f.write_str(self.as_str())
 	}
@@ -22888,7 +22888,7 @@ mod tspan_private {
 	impl Content for super::AnimateColor {}
 	impl Content for super::Set {}
 	impl Content for super::Tref {}
-	impl Content for super::Tspan {}
+	impl Content for super::TSpan {}
 	impl Content for String {}
 	impl Content for &'static str {}
 }
@@ -22897,18 +22897,18 @@ mod tspan_private {
 #[doc = include_str!("tspan.md")]
 #[doc = "\n\n [`<tspan>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan"]
 #[derive(Debug)]
-pub struct Tspan {
-	attrs: IndexMap<TspanAttrs, String>,
+pub struct TSpan {
+	attrs: IndexMap<TSpanAttrs, String>,
 	content: Vec<Box<dyn tspan_private::Content>>,
 }
 
-impl Default for Tspan {
+impl Default for TSpan {
 	fn default() -> Self {
 		Self::new()
 	}
 }
 
-impl Tspan {
+impl TSpan {
 	/// Create a new, empty tag.
 	pub fn new() -> Self {
 		Self {
@@ -22932,12 +22932,12 @@ impl Tspan {
 		self
 	}
 
-	fn set_attr(&mut self, attr: TspanAttrs, value: String) {
+	fn set_attr(&mut self, attr: TSpanAttrs, value: String) {
 		self.attrs.shift_remove(&attr);
 		self.attrs.insert(attr, value);
 	}
 
-	fn get_attr(&self, attr: TspanAttrs) -> Option<&str> {
+	fn get_attr(&self, attr: TSpanAttrs) -> Option<&str> {
 		self.attrs.get(&attr).map(String::as_str)
 	}
 
@@ -22946,7 +22946,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Class, value.into());
+		self.set_attr(TSpanAttrs::Class, value.into());
 		self
 	}
 
@@ -22955,12 +22955,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Class, value.into());
+		self.set_attr(TSpanAttrs::Class, value.into());
 	}
 
 	/// Get the `class` attribute.
 	pub fn class(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Class)
+		self.get_attr(TSpanAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
@@ -22968,7 +22968,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Dx, value.into());
+		self.set_attr(TSpanAttrs::Dx, value.into());
 		self
 	}
 
@@ -22977,12 +22977,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Dx, value.into());
+		self.set_attr(TSpanAttrs::Dx, value.into());
 	}
 
 	/// Get the `dx` attribute.
 	pub fn dx(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Dx)
+		self.get_attr(TSpanAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
@@ -22990,7 +22990,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Dy, value.into());
+		self.set_attr(TSpanAttrs::Dy, value.into());
 		self
 	}
 
@@ -22999,12 +22999,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Dy, value.into());
+		self.set_attr(TSpanAttrs::Dy, value.into());
 	}
 
 	/// Get the `dy` attribute.
 	pub fn dy(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Dy)
+		self.get_attr(TSpanAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
@@ -23012,7 +23012,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value.into());
 		self
 	}
 
@@ -23021,12 +23021,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value.into());
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
 	pub fn external_resources_required(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::ExternalResourcesRequired)
+		self.get_attr(TSpanAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `lengthAdjust` attribute.
@@ -23034,7 +23034,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::LengthAdjust, value.into());
+		self.set_attr(TSpanAttrs::LengthAdjust, value.into());
 		self
 	}
 
@@ -23043,12 +23043,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::LengthAdjust, value.into());
+		self.set_attr(TSpanAttrs::LengthAdjust, value.into());
 	}
 
 	/// Get the `lengthAdjust` attribute.
 	pub fn length_adjust(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::LengthAdjust)
+		self.get_attr(TSpanAttrs::LengthAdjust)
 	}
 
 	/// Set the `rotate` attribute.
@@ -23056,7 +23056,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Rotate, value.into());
+		self.set_attr(TSpanAttrs::Rotate, value.into());
 		self
 	}
 
@@ -23065,12 +23065,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Rotate, value.into());
+		self.set_attr(TSpanAttrs::Rotate, value.into());
 	}
 
 	/// Get the `rotate` attribute.
 	pub fn rotate(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Rotate)
+		self.get_attr(TSpanAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
@@ -23078,7 +23078,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Style, value.into());
+		self.set_attr(TSpanAttrs::Style, value.into());
 		self
 	}
 
@@ -23087,12 +23087,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Style, value.into());
+		self.set_attr(TSpanAttrs::Style, value.into());
 	}
 
 	/// Get the `style` attribute.
 	pub fn style(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Style)
+		self.get_attr(TSpanAttrs::Style)
 	}
 
 	/// Set the `textLength` attribute.
@@ -23100,7 +23100,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::TextLength, value.into());
+		self.set_attr(TSpanAttrs::TextLength, value.into());
 		self
 	}
 
@@ -23109,12 +23109,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::TextLength, value.into());
+		self.set_attr(TSpanAttrs::TextLength, value.into());
 	}
 
 	/// Get the `textLength` attribute.
 	pub fn text_length(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::TextLength)
+		self.get_attr(TSpanAttrs::TextLength)
 	}
 
 	/// Set the `x` attribute.
@@ -23122,7 +23122,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::X, value.into());
+		self.set_attr(TSpanAttrs::X, value.into());
 		self
 	}
 
@@ -23131,12 +23131,12 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::X, value.into());
+		self.set_attr(TSpanAttrs::X, value.into());
 	}
 
 	/// Get the `x` attribute.
 	pub fn x(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::X)
+		self.get_attr(TSpanAttrs::X)
 	}
 
 	/// Set the `y` attribute.
@@ -23144,7 +23144,7 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Y, value.into());
+		self.set_attr(TSpanAttrs::Y, value.into());
 		self
 	}
 
@@ -23153,64 +23153,64 @@ impl Tspan {
 	where
 		T: Into<String>
 	{
-		self.set_attr(TspanAttrs::Y, value.into());
+		self.set_attr(TSpanAttrs::Y, value.into());
 	}
 
 	/// Get the `y` attribute.
 	pub fn y(&self) -> Option<&str> {
-		self.get_attr(TspanAttrs::Y)
+		self.get_attr(TSpanAttrs::Y)
 	}
 }
 
-impl common_attrs::ConditionalProcessingAttributesSetter for Tspan {
+impl common_attrs::ConditionalProcessingAttributesSetter for TSpan {
 	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
-		self.set_attr(TspanAttrs::from(attr), value);
+		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
-		self.get_attr(TspanAttrs::from(attr))
+		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
 
-impl TagWithConditionalProcessingAttributes for Tspan {}
+impl TagWithConditionalProcessingAttributes for TSpan {}
 
-impl common_attrs::CoreAttributesSetter for Tspan {
+impl common_attrs::CoreAttributesSetter for TSpan {
 	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
-		self.set_attr(TspanAttrs::from(attr), value);
+		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
-		self.get_attr(TspanAttrs::from(attr))
+		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
 
-impl TagWithCoreAttributes for Tspan {}
+impl TagWithCoreAttributes for TSpan {}
 
-impl common_attrs::GraphicalEventAttributesSetter for Tspan {
+impl common_attrs::GraphicalEventAttributesSetter for TSpan {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
-		self.set_attr(TspanAttrs::from(attr), value);
+		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
-		self.get_attr(TspanAttrs::from(attr))
+		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
 
-impl TagWithGraphicalEventAttributes for Tspan {}
+impl TagWithGraphicalEventAttributes for TSpan {}
 
-impl common_attrs::PresentationAttributesSetter for Tspan {
+impl common_attrs::PresentationAttributesSetter for TSpan {
 	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
-		self.set_attr(TspanAttrs::from(attr), value);
+		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
 	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
-		self.get_attr(TspanAttrs::from(attr))
+		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
 
-impl TagWithPresentationAttributes for Tspan {}
+impl TagWithPresentationAttributes for TSpan {}
 
-impl Tag for Tspan {
+impl Tag for TSpan {
 	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
 		w.start_element("tspan");
 		w.set_preserve_whitespaces(true);

@@ -259,7 +259,11 @@ mod tpl {
 		use heck::{ToShoutySnakeCase, ToSnakeCase, ToUpperCamelCase};
 
 		pub fn camel_case(ident: &str) -> Result<String> {
-			Ok(ident.to_upper_camel_case())
+			Ok(match ident {
+				"g" => "Group".to_owned(),
+				"tspan" => "TSpan".to_owned(),
+				ident => ident.to_upper_camel_case()
+			})
 		}
 
 		pub fn snake_case(ident: &str) -> Result<String> {
