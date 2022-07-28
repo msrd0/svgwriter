@@ -20424,6 +20424,7 @@ pub(crate) enum SvgAttrs {
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
 	DocumentEventAttributes(common_attrs::DocumentEventAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	Custom(&'static str),
@@ -20444,6 +20445,12 @@ impl From<common_attrs::CoreAttributes> for SvgAttrs {
 impl From<common_attrs::DocumentEventAttributes> for SvgAttrs {
 	fn from(attr: common_attrs::DocumentEventAttributes) -> Self {
 		Self::DocumentEventAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for SvgAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -20484,6 +20491,7 @@ impl SvgAttrs {
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
 			Self::DocumentEventAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::Custom(attr) => attr,
@@ -20898,6 +20906,18 @@ impl common_attrs::DocumentEventAttributesSetter for Svg {
 }
 
 impl TagWithDocumentEventAttributes for Svg {}
+
+impl common_attrs::GlobalEventAttributesSetter for Svg {
+	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+		self.set_attr(SvgAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+		self.get_attr(SvgAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Svg {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Svg {
 	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
