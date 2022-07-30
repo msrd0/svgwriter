@@ -115,6 +115,27 @@ mod a_private {
 
 #[doc = "The [`<a>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("a.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<a>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a"]
 #[derive(Debug)]
 pub struct A {
@@ -518,6 +539,9 @@ impl Debug for AltGlyphAttrs {
 
 #[doc = "The [`<altGlyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyph.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<altGlyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyph"]
 #[derive(Debug)]
 pub struct AltGlyph {
@@ -913,6 +937,9 @@ impl Debug for AltGlyphDefAttrs {
 
 #[doc = "The [`<altGlyphDef>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphDef.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<altGlyphDef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphDef"]
 #[derive(Debug)]
 pub struct AltGlyphDef {
@@ -1002,6 +1029,9 @@ impl Debug for AltGlyphItemAttrs {
 
 #[doc = "The [`<altGlyphItem>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyphItem.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<altGlyphItem>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphItem"]
 #[derive(Debug)]
 pub struct AltGlyphItem {
@@ -1161,6 +1191,9 @@ impl Debug for AnimateAttrs {
 
 #[doc = "The [`<animate>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animate.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<animate>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate"]
 #[derive(Debug)]
 pub struct Animate {
@@ -1577,6 +1610,9 @@ impl Debug for AnimateColorAttrs {
 
 #[doc = "The [`<animateColor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateColor.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<animateColor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateColor"]
 #[derive(Debug)]
 pub struct AnimateColor {
@@ -1931,6 +1967,10 @@ mod animate_motion_private {
 
 #[doc = "The [`<animateMotion>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateMotion.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<mpath>`](Mpath)\n"
+)]
 #[doc = "\n\n [`<animateMotion>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion"]
 #[derive(Debug)]
 pub struct AnimateMotion {
@@ -2332,6 +2372,9 @@ impl Debug for AnimateTransformAttrs {
 
 #[doc = "The [`<animateTransform>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateTransform.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<animateTransform>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform"]
 #[derive(Debug)]
 pub struct AnimateTransform {
@@ -2678,6 +2721,9 @@ impl Debug for CircleAttrs {
 
 #[doc = "The [`<circle>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("circle.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<circle>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle"]
 #[derive(Debug)]
 pub struct Circle {
@@ -3005,6 +3051,11 @@ mod clip_path_private {
 
 #[doc = "The [`<clipPath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("clipPath.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<text>`](Text)\n",
+	"- [`<use>`](Use)\n"
+)]
 #[doc = "\n\n [`<clipPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath"]
 #[derive(Debug)]
 pub struct ClipPath {
@@ -3274,6 +3325,9 @@ impl Debug for ColorProfileAttrs {
 
 #[doc = "The [`<color-profile>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("color-profile.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<color-profile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/color-profile"]
 #[derive(Debug)]
 pub struct ColorProfile {
@@ -3494,6 +3548,9 @@ impl Debug for CursorAttrs {
 
 #[doc = "The [`<cursor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("cursor.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<cursor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/cursor"]
 #[derive(Debug)]
 pub struct Cursor {
@@ -3762,6 +3819,27 @@ mod defs_private {
 
 #[doc = "The [`<defs>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("defs.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<defs>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs"]
 #[derive(Debug)]
 pub struct Defs {
@@ -4012,6 +4090,9 @@ impl Debug for DescAttrs {
 
 #[doc = "The [`<desc>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("desc.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<desc>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/desc"]
 #[derive(Debug)]
 pub struct Desc {
@@ -4169,6 +4250,10 @@ mod discard_private {
 
 #[doc = "The [`<discard>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("discard.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<script>`](Script)\n"
+)]
 #[doc = "\n\n [`<discard>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/discard"]
 #[derive(Debug)]
 pub struct Discard {
@@ -4381,6 +4466,9 @@ impl Debug for EllipseAttrs {
 
 #[doc = "The [`<ellipse>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("ellipse.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<ellipse>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse"]
 #[derive(Debug)]
 pub struct Ellipse {
@@ -4730,6 +4818,11 @@ mod fe_blend_private {
 
 #[doc = "The [`<feBlend>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feBlend.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feBlend>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend"]
 #[derive(Debug)]
 pub struct FeBlend {
@@ -5018,6 +5111,11 @@ mod fe_color_matrix_private {
 
 #[doc = "The [`<feColorMatrix>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feColorMatrix.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feColorMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix"]
 #[derive(Debug)]
 pub struct FeColorMatrix {
@@ -5304,6 +5402,13 @@ mod fe_component_transfer_private {
 
 #[doc = "The [`<feComponentTransfer>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feComponentTransfer.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<feFuncA>`](FeFuncA)\n",
+	"- [`<feFuncB>`](FeFuncB)\n",
+	"- [`<feFuncG>`](FeFuncG)\n",
+	"- [`<feFuncR>`](FeFuncR)\n"
+)]
 #[doc = "\n\n [`<feComponentTransfer>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer"]
 #[derive(Debug)]
 pub struct FeComponentTransfer {
@@ -5556,6 +5661,11 @@ mod fe_composite_private {
 
 #[doc = "The [`<feComposite>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feComposite.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feComposite>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite"]
 #[derive(Debug)]
 pub struct FeComposite {
@@ -5946,6 +6056,11 @@ mod fe_convolve_matrix_private {
 
 #[doc = "The [`<feConvolveMatrix>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feConvolveMatrix.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feConvolveMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix"]
 #[derive(Debug)]
 pub struct FeConvolveMatrix {
@@ -6381,6 +6496,9 @@ impl Debug for FeDiffuseLightingAttrs {
 
 #[doc = "The [`<feDiffuseLighting>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDiffuseLighting.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<feDiffuseLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting"]
 #[derive(Debug)]
 pub struct FeDiffuseLighting {
@@ -6675,6 +6793,11 @@ mod fe_displacement_map_private {
 
 #[doc = "The [`<feDisplacementMap>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDisplacementMap.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feDisplacementMap>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDisplacementMap"]
 #[derive(Debug)]
 pub struct FeDisplacementMap {
@@ -6985,6 +7108,11 @@ mod fe_distant_light_private {
 
 #[doc = "The [`<feDistantLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDistantLight.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feDistantLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDistantLight"]
 #[derive(Debug)]
 pub struct FeDistantLight {
@@ -7180,6 +7308,12 @@ mod fe_drop_shadow_private {
 
 #[doc = "The [`<feDropShadow>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feDropShadow.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feDropShadow>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDropShadow"]
 #[derive(Debug)]
 pub struct FeDropShadow {
@@ -7489,6 +7623,12 @@ mod fe_flood_private {
 
 #[doc = "The [`<feFlood>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFlood.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feFlood>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFlood"]
 #[derive(Debug)]
 pub struct FeFlood {
@@ -7737,6 +7877,11 @@ mod fe_func_a_private {
 
 #[doc = "The [`<feFuncA>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncA.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feFuncA>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncA"]
 #[derive(Debug)]
 pub struct FeFuncA {
@@ -7878,6 +8023,11 @@ mod fe_func_b_private {
 
 #[doc = "The [`<feFuncB>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncB.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feFuncB>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncB"]
 #[derive(Debug)]
 pub struct FeFuncB {
@@ -8019,6 +8169,11 @@ mod fe_func_g_private {
 
 #[doc = "The [`<feFuncG>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncG.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feFuncG>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncG"]
 #[derive(Debug)]
 pub struct FeFuncG {
@@ -8160,6 +8315,11 @@ mod fe_func_r_private {
 
 #[doc = "The [`<feFuncR>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feFuncR.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feFuncR>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncR"]
 #[derive(Debug)]
 pub struct FeFuncR {
@@ -8317,6 +8477,11 @@ mod fe_gaussian_blur_private {
 
 #[doc = "The [`<feGaussianBlur>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feGaussianBlur.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feGaussianBlur>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feGaussianBlur"]
 #[derive(Debug)]
 pub struct FeGaussianBlur {
@@ -8592,6 +8757,12 @@ mod fe_image_private {
 
 #[doc = "The [`<feImage>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feImage.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feImage>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feImage"]
 #[derive(Debug)]
 pub struct FeImage {
@@ -8888,6 +9059,10 @@ mod fe_merge_private {
 
 #[doc = "The [`<feMerge>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMerge.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<feMergeNode>`](FeMergeNode)\n"
+)]
 #[doc = "\n\n [`<feMerge>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge"]
 #[derive(Debug)]
 pub struct FeMerge {
@@ -9086,6 +9261,11 @@ mod fe_merge_node_private {
 
 #[doc = "The [`<feMergeNode>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMergeNode.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feMergeNode>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMergeNode"]
 #[derive(Debug)]
 pub struct FeMergeNode {
@@ -9256,6 +9436,11 @@ mod fe_morphology_private {
 
 #[doc = "The [`<feMorphology>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feMorphology.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feMorphology>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology"]
 #[derive(Debug)]
 pub struct FeMorphology {
@@ -9544,6 +9729,11 @@ mod fe_offset_private {
 
 #[doc = "The [`<feOffset>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feOffset.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feOffset>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feOffset"]
 #[derive(Debug)]
 pub struct FeOffset {
@@ -9812,6 +10002,11 @@ mod fe_point_light_private {
 
 #[doc = "The [`<fePointLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("fePointLight.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<fePointLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/fePointLight"]
 #[derive(Debug)]
 pub struct FePointLight {
@@ -10021,6 +10216,9 @@ impl Debug for FeSpecularLightingAttrs {
 
 #[doc = "The [`<feSpecularLighting>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feSpecularLighting.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<feSpecularLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting"]
 #[derive(Debug)]
 pub struct FeSpecularLighting {
@@ -10323,6 +10521,11 @@ mod fe_spot_light_private {
 
 #[doc = "The [`<feSpotLight>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feSpotLight.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feSpotLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpotLight"]
 #[derive(Debug)]
 pub struct FeSpotLight {
@@ -10643,6 +10846,11 @@ mod fe_tile_private {
 
 #[doc = "The [`<feTile>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feTile.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feTile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTile"]
 #[derive(Debug)]
 pub struct FeTile {
@@ -10891,6 +11099,11 @@ mod fe_turbulence_private {
 
 #[doc = "The [`<feTurbulence>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("feTurbulence.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<feTurbulence>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence"]
 #[derive(Debug)]
 pub struct FeTurbulence {
@@ -11235,6 +11448,11 @@ mod filter_private {
 
 #[doc = "The [`<filter>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("filter.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<filter>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter"]
 #[derive(Debug)]
 pub struct Filter {
@@ -11658,6 +11876,14 @@ mod font_private {
 
 #[doc = "The [`<font>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<glyph>`](Glyph)\n",
+	"- [`<hkern>`](Hkern)\n",
+	"- [`<missing-glyph>`](MissingGlyph)\n",
+	"- [`<vkern>`](Vkern)\n"
+)]
 #[doc = "\n\n [`<font>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font"]
 #[derive(Debug)]
 pub struct Font {
@@ -12050,6 +12276,9 @@ impl Debug for FontFaceAttrs {
 
 #[doc = "The [`<font-face>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<font-face>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face"]
 #[derive(Debug)]
 pub struct FontFace {
@@ -12871,6 +13100,9 @@ impl Debug for FontFaceFormatAttrs {
 
 #[doc = "The [`<font-face-format>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-format.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<font-face-format>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-format"]
 #[derive(Debug)]
 pub struct FontFaceFormat {
@@ -12988,6 +13220,9 @@ impl Debug for FontFaceNameAttrs {
 
 #[doc = "The [`<font-face-name>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-name.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<font-face-name>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-name"]
 #[derive(Debug)]
 pub struct FontFaceName {
@@ -13112,6 +13347,11 @@ mod font_face_src_private {
 
 #[doc = "The [`<font-face-src>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-src.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<font-face-name>`](FontFaceName)\n",
+	"- [`<font-face-uri>`](FontFaceUri)\n"
+)]
 #[doc = "\n\n [`<font-face-src>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-src"]
 #[derive(Debug)]
 pub struct FontFaceSrc {
@@ -13239,6 +13479,10 @@ mod font_face_uri_private {
 
 #[doc = "The [`<font-face-uri>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("font-face-uri.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<font-face-format>`](FontFaceFormat)\n"
+)]
 #[doc = "\n\n [`<font-face-uri>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-uri"]
 #[derive(Debug)]
 pub struct FontFaceUri {
@@ -13429,6 +13673,9 @@ impl Debug for ForeignObjectAttrs {
 
 #[doc = "The [`<foreignObject>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("foreignObject.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<foreignObject>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject"]
 #[derive(Debug)]
 pub struct ForeignObject {
@@ -13800,6 +14047,27 @@ mod g_private {
 
 #[doc = "The [`<g>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("g.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<g>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g"]
 #[derive(Debug)]
 pub struct Group {
@@ -14103,6 +14371,27 @@ mod glyph_private {
 
 #[doc = "The [`<glyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("glyph.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyph"]
 #[derive(Debug)]
 pub struct Glyph {
@@ -14529,6 +14818,9 @@ impl Debug for GlyphRefAttrs {
 
 #[doc = "The [`<glyphRef>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("glyphRef.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<glyphRef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyphRef"]
 #[derive(Debug)]
 pub struct GlyphRef {
@@ -14900,6 +15192,12 @@ mod hatch_private {
 
 #[doc = "The [`<hatch>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatch.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<hatchpath>`](Hatchpath)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n"
+)]
 #[doc = "\n\n [`<hatch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatch"]
 #[derive(Debug)]
 pub struct Hatch {
@@ -15271,6 +15569,11 @@ mod hatchpath_private {
 
 #[doc = "The [`<hatchpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatchpath.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n"
+)]
 #[doc = "\n\n [`<hatchpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatchpath"]
 #[derive(Debug)]
 pub struct Hatchpath {
@@ -15483,6 +15786,9 @@ impl Debug for HkernAttrs {
 
 #[doc = "The [`<hkern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hkern.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<hkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hkern"]
 #[derive(Debug)]
 pub struct Hkern {
@@ -15738,6 +16044,9 @@ impl Debug for ImageAttrs {
 
 #[doc = "The [`<image>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("image.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<image>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image"]
 #[derive(Debug)]
 pub struct Image {
@@ -16151,6 +16460,9 @@ impl Debug for LineAttrs {
 
 #[doc = "The [`<line>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("line.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<line>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line"]
 #[derive(Debug)]
 pub struct Line {
@@ -16514,6 +16826,13 @@ mod linear_gradient_private {
 
 #[doc = "The [`<linearGradient>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("linearGradient.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n"
+)]
 #[doc = "\n\n [`<linearGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient"]
 #[derive(Debug)]
 pub struct LinearGradient {
@@ -16956,6 +17275,27 @@ mod marker_private {
 
 #[doc = "The [`<marker>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("marker.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<marker>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"]
 #[derive(Debug)]
 pub struct Marker {
@@ -17407,6 +17747,27 @@ mod mask_private {
 
 #[doc = "The [`<mask>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("mask.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<mask>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask"]
 #[derive(Debug)]
 pub struct Mask {
@@ -17748,6 +18109,9 @@ impl Debug for MetadataAttrs {
 
 #[doc = "The [`<metadata>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("metadata.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<metadata>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata"]
 #[derive(Debug)]
 pub struct Metadata {
@@ -17884,6 +18248,27 @@ mod missing_glyph_private {
 
 #[doc = "The [`<missing-glyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("missing-glyph.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<missing-glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/missing-glyph"]
 #[derive(Debug)]
 pub struct MissingGlyph {
@@ -18178,6 +18563,9 @@ impl Debug for MpathAttrs {
 
 #[doc = "The [`<mpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("mpath.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<mpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath"]
 #[derive(Debug)]
 pub struct Mpath {
@@ -18366,6 +18754,9 @@ impl Debug for PathAttrs {
 
 #[doc = "The [`<path>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("path.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<path>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path"]
 #[derive(Debug)]
 pub struct Path {
@@ -18711,6 +19102,27 @@ mod pattern_private {
 
 #[doc = "The [`<pattern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("pattern.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<pattern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/pattern"]
 #[derive(Debug)]
 pub struct Pattern {
@@ -19189,6 +19601,9 @@ impl Debug for PolygonAttrs {
 
 #[doc = "The [`<polygon>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polygon.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<polygon>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon"]
 #[derive(Debug)]
 pub struct Polygon {
@@ -19471,6 +19886,9 @@ impl Debug for PolylineAttrs {
 
 #[doc = "The [`<polyline>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polyline.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<polyline>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline"]
 #[derive(Debug)]
 pub struct Polyline {
@@ -19770,6 +20188,13 @@ mod radial_gradient_private {
 
 #[doc = "The [`<radialGradient>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("radialGradient.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n"
+)]
 #[doc = "\n\n [`<radialGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/radialGradient"]
 #[derive(Debug)]
 pub struct RadialGradient {
@@ -20221,6 +20646,9 @@ impl Debug for RectAttrs {
 
 #[doc = "The [`<rect>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("rect.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<rect>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect"]
 #[derive(Debug)]
 pub struct Rect {
@@ -20593,6 +21021,9 @@ impl Debug for ScriptAttrs {
 
 #[doc = "The [`<script>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("script.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<script>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script"]
 #[derive(Debug)]
 pub struct Script {
@@ -20811,6 +21242,9 @@ impl Debug for SetAttrs {
 
 #[doc = "The [`<set>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("set.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<set>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set"]
 #[derive(Debug)]
 pub struct Set {
@@ -21051,6 +21485,12 @@ mod stop_private {
 
 #[doc = "The [`<stop>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("stop.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<stop>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/stop"]
 #[derive(Debug)]
 pub struct Stop {
@@ -21295,6 +21735,9 @@ impl Debug for StyleAttrs {
 
 #[doc = "The [`<style>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("style.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<style>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style"]
 #[derive(Debug)]
 pub struct Style {
@@ -21553,6 +21996,27 @@ mod svg_private {
 
 #[doc = "The [`<svg>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("svg.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<svg>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"]
 #[derive(Debug)]
 pub struct Svg {
@@ -22076,6 +22540,17 @@ mod switch_private {
 
 #[doc = "The [`<switch>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("switch.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<svg>`](Svg)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<use>`](Use)\n"
+)]
 #[doc = "\n\n [`<switch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/switch"]
 #[derive(Debug)]
 pub struct Switch {
@@ -22395,6 +22870,27 @@ mod symbol_private {
 
 #[doc = "The [`<symbol>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("symbol.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<clipPath>`](ClipPath)\n",
+	"- [`<color-profile>`](ColorProfile)\n",
+	"- [`<cursor>`](Cursor)\n",
+	"- [`<filter>`](Filter)\n",
+	"- [`<font>`](Font)\n",
+	"- [`<font-face>`](FontFace)\n",
+	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<image>`](Image)\n",
+	"- [`<marker>`](Marker)\n",
+	"- [`<mask>`](Mask)\n",
+	"- [`<pattern>`](Pattern)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<switch>`](Switch)\n",
+	"- [`<text>`](Text)\n",
+	"- [`<view>`](View)\n"
+)]
 #[doc = "\n\n [`<symbol>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol"]
 #[derive(Debug)]
 pub struct Symbol {
@@ -22706,6 +23202,10 @@ mod text_private {
 
 #[doc = "The [`<text>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("text.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n"
+)]
 #[doc = "\n\n [`<text>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text"]
 #[derive(Debug)]
 pub struct Text {
@@ -23190,6 +23690,16 @@ mod text_path_private {
 
 #[doc = "The [`<textPath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("textPath.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyph>`](AltGlyph)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<tref>`](Tref)\n",
+	"- [`<tspan>`](TSpan)\n"
+)]
 #[doc = "\n\n [`<textPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath"]
 #[derive(Debug)]
 pub struct TextPath {
@@ -23521,6 +24031,9 @@ impl Debug for TitleAttrs {
 
 #[doc = "The [`<title>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("title.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<title>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title"]
 #[derive(Debug)]
 pub struct Title {
@@ -23708,6 +24221,12 @@ mod tref_private {
 
 #[doc = "The [`<tref>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("tref.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<set>`](Set)\n"
+)]
 #[doc = "\n\n [`<tref>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tref"]
 #[derive(Debug)]
 pub struct Tref {
@@ -24029,6 +24548,16 @@ mod tspan_private {
 
 #[doc = "The [`<tspan>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("tspan.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<a>`](A)\n",
+	"- [`<altGlyph>`](AltGlyph)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<tref>`](Tref)\n",
+	"- [`<tspan>`](TSpan)\n"
+)]
 #[doc = "\n\n [`<tspan>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan"]
 #[derive(Debug)]
 pub struct TSpan {
@@ -24458,6 +24987,9 @@ impl Debug for UseAttrs {
 
 #[doc = "The [`<use>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("use.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<use>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use"]
 #[derive(Debug)]
 pub struct Use {
@@ -24819,6 +25351,9 @@ impl Debug for ViewAttrs {
 
 #[doc = "The [`<view>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("view.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<view>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/view"]
 #[derive(Debug)]
 pub struct View {
@@ -25032,6 +25567,9 @@ impl Debug for VkernAttrs {
 
 #[doc = "The [`<vkern>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("vkern.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+)]
 #[doc = "\n\n [`<vkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/vkern"]
 #[derive(Debug)]
 pub struct Vkern {

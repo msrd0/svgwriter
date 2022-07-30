@@ -43,6 +43,12 @@ mod {{name|snake_case}}_private {
 
 #[doc = "The [`<{{name}}>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("{{name}}.md")]
+#[doc = concat!(
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	{%- for content in elem.content.elements %},
+	"- [`<{{content}}>`]({{content|camel_case}})\n"
+	{%- endfor %}
+)]
 #[doc = "\n\n [`<{{name}}>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/{{name}}"]
 #[derive(Debug)]
 pub struct {{name|camel_case}} {
