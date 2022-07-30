@@ -21,6 +21,7 @@ enum AAttrs {
 	XlinkShow,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -35,6 +36,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for AAttrs {
 impl From<common_attrs::CoreAttributes> for AAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for AAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -69,6 +76,7 @@ impl AAttrs {
 			Self::XlinkShow => "xlink:show",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -442,6 +450,21 @@ impl common_attrs::CoreAttributesSetter for A {
 
 impl TagWithCoreAttributes for A {}
 
+impl common_attrs::GlobalEventAttributesSetter for A {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(AAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(AAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for A {}
+
 impl common_attrs::GraphicalEventAttributesSetter for A {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -517,6 +540,7 @@ enum AltGlyphAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -531,6 +555,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for AltGlyphAttrs {
 impl From<common_attrs::CoreAttributes> for AltGlyphAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for AltGlyphAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -568,6 +598,7 @@ impl AltGlyphAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -896,6 +927,21 @@ impl common_attrs::CoreAttributesSetter for AltGlyph {
 }
 
 impl TagWithCoreAttributes for AltGlyph {}
+
+impl common_attrs::GlobalEventAttributesSetter for AltGlyph {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(AltGlyphAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(AltGlyphAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for AltGlyph {}
 
 impl common_attrs::GraphicalEventAttributesSetter for AltGlyph {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -2816,6 +2862,7 @@ enum CircleAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -2829,6 +2876,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for CircleAttrs {
 impl From<common_attrs::CoreAttributes> for CircleAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for CircleAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -2856,6 +2909,7 @@ impl CircleAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -3137,6 +3191,21 @@ impl common_attrs::CoreAttributesSetter for Circle {
 }
 
 impl TagWithCoreAttributes for Circle {}
+
+impl common_attrs::GlobalEventAttributesSetter for Circle {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(CircleAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(CircleAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Circle {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Circle {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -4037,6 +4106,7 @@ enum DefsAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -4050,6 +4120,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for DefsAttrs {
 impl From<common_attrs::CoreAttributes> for DefsAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for DefsAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -4074,6 +4150,7 @@ impl DefsAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -4357,6 +4434,21 @@ impl common_attrs::CoreAttributesSetter for Defs {
 }
 
 impl TagWithCoreAttributes for Defs {}
+
+impl common_attrs::GlobalEventAttributesSetter for Defs {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(DefsAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(DefsAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Defs {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Defs {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -4761,6 +4853,7 @@ enum EllipseAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -4774,6 +4867,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for EllipseAttrs {
 impl From<common_attrs::CoreAttributes> for EllipseAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for EllipseAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -4802,6 +4901,7 @@ impl EllipseAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -5105,6 +5205,21 @@ impl common_attrs::CoreAttributesSetter for Ellipse {
 }
 
 impl TagWithCoreAttributes for Ellipse {}
+
+impl common_attrs::GlobalEventAttributesSetter for Ellipse {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(EllipseAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(EllipseAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Ellipse {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Ellipse {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -14059,6 +14174,7 @@ enum ForeignObjectAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -14072,6 +14188,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for ForeignObjectAttrs 
 impl From<common_attrs::CoreAttributes> for ForeignObjectAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for ForeignObjectAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -14100,6 +14222,7 @@ impl ForeignObjectAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -14362,6 +14485,21 @@ impl common_attrs::CoreAttributesSetter for ForeignObject {
 
 impl TagWithCoreAttributes for ForeignObject {}
 
+impl common_attrs::GlobalEventAttributesSetter for ForeignObject {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(ForeignObjectAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(ForeignObjectAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for ForeignObject {}
+
 impl common_attrs::GraphicalEventAttributesSetter for ForeignObject {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -14412,6 +14550,7 @@ enum GroupAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -14425,6 +14564,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for GroupAttrs {
 impl From<common_attrs::CoreAttributes> for GroupAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for GroupAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -14449,6 +14594,7 @@ impl GroupAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -14732,6 +14878,21 @@ impl common_attrs::CoreAttributesSetter for Group {
 }
 
 impl TagWithCoreAttributes for Group {}
+
+impl common_attrs::GlobalEventAttributesSetter for Group {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(GroupAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(GroupAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Group {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Group {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -16556,6 +16717,7 @@ enum ImageAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -16570,6 +16732,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for ImageAttrs {
 impl From<common_attrs::CoreAttributes> for ImageAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for ImageAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -16606,6 +16774,7 @@ impl ImageAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -16955,6 +17124,21 @@ impl common_attrs::CoreAttributesSetter for Image {
 
 impl TagWithCoreAttributes for Image {}
 
+impl common_attrs::GlobalEventAttributesSetter for Image {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(ImageAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(ImageAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Image {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Image {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -17027,6 +17211,7 @@ enum LineAttrs {
 	Y2,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -17040,6 +17225,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for LineAttrs {
 impl From<common_attrs::CoreAttributes> for LineAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for LineAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -17068,6 +17259,7 @@ impl LineAttrs {
 			Self::Y2 => "y2",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -17371,6 +17563,21 @@ impl common_attrs::CoreAttributesSetter for Line {
 }
 
 impl TagWithCoreAttributes for Line {}
+
+impl common_attrs::GlobalEventAttributesSetter for Line {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(LineAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(LineAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Line {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Line {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -19557,6 +19764,7 @@ enum PathAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -19570,6 +19778,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for PathAttrs {
 impl From<common_attrs::CoreAttributes> for PathAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for PathAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -19596,6 +19810,7 @@ impl PathAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -19855,6 +20070,21 @@ impl common_attrs::CoreAttributesSetter for Path {
 }
 
 impl TagWithCoreAttributes for Path {}
+
+impl common_attrs::GlobalEventAttributesSetter for Path {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(PathAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(PathAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Path {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Path {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -20500,6 +20730,7 @@ enum PolygonAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -20513,6 +20744,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for PolygonAttrs {
 impl From<common_attrs::CoreAttributes> for PolygonAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for PolygonAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -20538,6 +20775,7 @@ impl PolygonAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -20776,6 +21014,21 @@ impl common_attrs::CoreAttributesSetter for Polygon {
 
 impl TagWithCoreAttributes for Polygon {}
 
+impl common_attrs::GlobalEventAttributesSetter for Polygon {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(PolygonAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(PolygonAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Polygon {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Polygon {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -20830,6 +21083,7 @@ enum PolylineAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -20843,6 +21097,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for PolylineAttrs {
 impl From<common_attrs::CoreAttributes> for PolylineAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for PolylineAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -20868,6 +21128,7 @@ impl PolylineAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -21105,6 +21366,21 @@ impl common_attrs::CoreAttributesSetter for Polyline {
 }
 
 impl TagWithCoreAttributes for Polyline {}
+
+impl common_attrs::GlobalEventAttributesSetter for Polyline {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(PolylineAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(PolylineAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Polyline {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Polyline {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -21636,6 +21912,7 @@ enum RectAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -21649,6 +21926,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for RectAttrs {
 impl From<common_attrs::CoreAttributes> for RectAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for RectAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -21679,6 +21962,7 @@ impl RectAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -22026,6 +22310,21 @@ impl common_attrs::CoreAttributesSetter for Rect {
 }
 
 impl TagWithCoreAttributes for Rect {}
+
+impl common_attrs::GlobalEventAttributesSetter for Rect {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(RectAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(RectAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Rect {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Rect {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
@@ -23648,6 +23947,7 @@ enum SwitchAttrs {
 	Transform,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -23661,6 +23961,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for SwitchAttrs {
 impl From<common_attrs::CoreAttributes> for SwitchAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for SwitchAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -23686,6 +23992,7 @@ impl SwitchAttrs {
 			Self::Transform => "transform",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -23956,6 +24263,21 @@ impl common_attrs::CoreAttributesSetter for Switch {
 
 impl TagWithCoreAttributes for Switch {}
 
+impl common_attrs::GlobalEventAttributesSetter for Switch {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(SwitchAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(SwitchAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Switch {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Switch {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -24009,6 +24331,7 @@ enum SymbolAttrs {
 	Style,
 	ViewBox,
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -24016,6 +24339,12 @@ enum SymbolAttrs {
 impl From<common_attrs::CoreAttributes> for SymbolAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for SymbolAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -24040,6 +24369,7 @@ impl SymbolAttrs {
 			Self::Style => "style",
 			Self::ViewBox => "viewBox",
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -24331,6 +24661,21 @@ impl common_attrs::CoreAttributesSetter for Symbol {
 
 impl TagWithCoreAttributes for Symbol {}
 
+impl common_attrs::GlobalEventAttributesSetter for Symbol {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(SymbolAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(SymbolAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Symbol {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Symbol {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -24392,6 +24737,7 @@ enum TextAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -24405,6 +24751,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for TextAttrs {
 impl From<common_attrs::CoreAttributes> for TextAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for TextAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -24437,6 +24789,7 @@ impl TextAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -24841,6 +25194,21 @@ impl common_attrs::CoreAttributesSetter for Text {
 
 impl TagWithCoreAttributes for Text {}
 
+impl common_attrs::GlobalEventAttributesSetter for Text {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(TextAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(TextAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Text {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Text {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -24899,6 +25267,7 @@ enum TextPathAttrs {
 	XlinkHref,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -24913,6 +25282,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for TextPathAttrs {
 impl From<common_attrs::CoreAttributes> for TextPathAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for TextPathAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -24946,6 +25321,7 @@ impl TextPathAttrs {
 			Self::XlinkHref => "xlink:href",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -25231,6 +25607,21 @@ impl common_attrs::CoreAttributesSetter for TextPath {
 
 impl TagWithCoreAttributes for TextPath {}
 
+impl common_attrs::GlobalEventAttributesSetter for TextPath {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(TextPathAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(TextPathAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for TextPath {}
+
 impl common_attrs::GraphicalEventAttributesSetter for TextPath {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -25443,6 +25834,7 @@ enum TrefAttrs {
 	XlinkHref,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -25457,6 +25849,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for TrefAttrs {
 impl From<common_attrs::CoreAttributes> for TrefAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for TrefAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -25487,6 +25885,7 @@ impl TrefAttrs {
 			Self::XlinkHref => "xlink:href",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -25698,6 +26097,21 @@ impl common_attrs::CoreAttributesSetter for Tref {
 
 impl TagWithCoreAttributes for Tref {}
 
+impl common_attrs::GlobalEventAttributesSetter for Tref {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(TrefAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(TrefAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Tref {}
+
 impl common_attrs::GraphicalEventAttributesSetter for Tref {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -25772,6 +26186,7 @@ enum TSpanAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 }
@@ -25785,6 +26200,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for TSpanAttrs {
 impl From<common_attrs::CoreAttributes> for TSpanAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for TSpanAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -25815,6 +26236,7 @@ impl TSpanAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 		}
@@ -26167,6 +26589,21 @@ impl common_attrs::CoreAttributesSetter for TSpan {
 
 impl TagWithCoreAttributes for TSpan {}
 
+impl common_attrs::GlobalEventAttributesSetter for TSpan {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(TSpanAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(TSpanAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for TSpan {}
+
 impl common_attrs::GraphicalEventAttributesSetter for TSpan {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
 	where
@@ -26226,6 +26663,7 @@ enum UseAttrs {
 	Y,
 	ConditionalProcessingAttributes(common_attrs::ConditionalProcessingAttributes),
 	CoreAttributes(common_attrs::CoreAttributes),
+	GlobalEventAttributes(common_attrs::GlobalEventAttributes),
 	GraphicalEventAttributes(common_attrs::GraphicalEventAttributes),
 	PresentationAttributes(common_attrs::PresentationAttributes),
 	XLinkAttributes(common_attrs::XLinkAttributes),
@@ -26240,6 +26678,12 @@ impl From<common_attrs::ConditionalProcessingAttributes> for UseAttrs {
 impl From<common_attrs::CoreAttributes> for UseAttrs {
 	fn from(attr: common_attrs::CoreAttributes) -> Self {
 		Self::CoreAttributes(attr)
+	}
+}
+
+impl From<common_attrs::GlobalEventAttributes> for UseAttrs {
+	fn from(attr: common_attrs::GlobalEventAttributes) -> Self {
+		Self::GlobalEventAttributes(attr)
 	}
 }
 
@@ -26275,6 +26719,7 @@ impl UseAttrs {
 			Self::Y => "y",
 			Self::ConditionalProcessingAttributes(attr) => attr.as_str(),
 			Self::CoreAttributes(attr) => attr.as_str(),
+			Self::GlobalEventAttributes(attr) => attr.as_str(),
 			Self::GraphicalEventAttributes(attr) => attr.as_str(),
 			Self::PresentationAttributes(attr) => attr.as_str(),
 			Self::XLinkAttributes(attr) => attr.as_str(),
@@ -26601,6 +27046,21 @@ impl common_attrs::CoreAttributesSetter for Use {
 }
 
 impl TagWithCoreAttributes for Use {}
+
+impl common_attrs::GlobalEventAttributesSetter for Use {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
+		self.set_attr(UseAttrs::from(attr), value);
+	}
+
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
+		self.get_attr(UseAttrs::from(attr))
+	}
+}
+
+impl TagWithGlobalEventAttributes for Use {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Use {
 	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)

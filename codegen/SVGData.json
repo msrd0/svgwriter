@@ -1586,7 +1586,6 @@
         "coreAttributes",
         "documentEventAttributes",
         "graphicalEventAttributes",
-        "globalEventAttributes",
         "presentationAttributes",
         "'class'",
         "'style'",

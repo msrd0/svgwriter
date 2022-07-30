@@ -331,6 +331,9 @@ fn main() {
 				attribute_categories.insert(attr);
 			}
 		}
+		if attribute_categories.contains("graphicalEventAttributes") {
+			attribute_categories.insert("globalEventAttributes".to_owned());
+		}
 		elem.attributes = attributes;
 		elem.attribute_categories = attribute_categories;
 
