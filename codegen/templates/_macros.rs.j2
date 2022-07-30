@@ -1,4 +1,5 @@
 {% macro attr_enum(vis, name, attrs, cats, custom) -%}
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 {% if !vis.is_empty() %}{{vis}} {% endif -%}
 enum {{name|camel_case}} {
@@ -68,26 +69,26 @@ impl Debug for {{name|camel_case}} {
 
 	/// Set the `{{attr}}` attribute.
 	{% if !vis.is_empty() %}{{vis}} {% endif -%}
-	fn with_{{attr|snake_case}}<T>(mut self, value: T) -> Self
+	fn with_{{attr|snake_case}}<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value.into());
+		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value);
 		self
 	}
 
 	/// Set the `{{attr}}` attribute.
 	{% if !vis.is_empty() %}{{vis}} {% endif -%}
-	fn set_{{attr|snake_case}}<T>(&mut self, value: T)
+	fn set_{{attr|snake_case}}<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value.into());
+		self.set_attr({{attr_enum|camel_case}}::{{attr|camel_case}}, value);
 	}
 
 	/// Get the `{{attr}}` attribute.
 	{% if !vis.is_empty() %}{{vis}} {% endif -%}
-	fn {{attr|snake_case}}(&self) -> Option<&str> {
+	fn {{attr|snake_case}}(&self) -> Option<&dyn Value> {
 		self.get_attr({{attr_enum|camel_case}}::{{attr|camel_case}})
 	}
 	{%- endfor %}

@@ -1,31 +1,10 @@
-use xmlwriter::XmlWriter;
+#![warn(rust_2018_idioms)]
+#![forbid(elided_lifetimes_in_paths, unsafe_code)]
 
 mod graphic;
+mod tag;
 pub mod tags;
+mod value;
 
 pub use graphic::Graphic;
-
-pub trait Tag {
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool);
-}
-
-impl Tag for String {
-	fn write_to(&self, w: &mut XmlWriter, _pretty: bool) {
-		w.write_text(self)
-	}
-}
-
-impl Tag for &'static str {
-	fn write_to(&self, w: &mut XmlWriter, _pretty: bool) {
-		w.write_text(self)
-	}
-}
-
-impl<T> Tag for Box<T>
-where
-	T: ?Sized + Tag
-{
-	fn write_to(&self, w: &mut XmlWriter, pretty: bool) {
-		self.as_ref().write_to(w, pretty)
-	}
-}
+pub use value::Value;

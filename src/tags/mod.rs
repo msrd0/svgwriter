@@ -1,6 +1,6 @@
 // @generated
 
-use crate::Tag;
+use crate::{tag::Tag, value::Value};
 use indexmap::IndexMap;
 use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
@@ -8,6 +8,7 @@ use xmlwriter::XmlWriter;
 mod common_attrs;
 pub use common_attrs::prelude::*;
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AAttrs {
 	Class,
@@ -88,7 +89,7 @@ impl Debug for AAttrs {
 }
 
 mod a_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -117,7 +118,7 @@ mod a_private {
 #[doc = "\n\n [`<a>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a"]
 #[derive(Debug)]
 pub struct A {
-	attrs: IndexMap<AAttrs, String>,
+	attrs: IndexMap<AAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn a_private::Content>>,
 }
 
@@ -151,198 +152,204 @@ impl A {
 		self
 	}
 
-	fn set_attr(&mut self, attr: AAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Class, value.into());
+		self.set_attr(AAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Class, value.into());
+		self.set_attr(AAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Style, value.into());
+		self.set_attr(AAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Style, value.into());
+		self.set_attr(AAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::Style)
 	}
 
 	/// Set the `target` attribute.
-	pub fn with_target<T>(mut self, value: T) -> Self
+	pub fn with_target<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Target, value.into());
+		self.set_attr(AAttrs::Target, value);
 		self
 	}
 
 	/// Set the `target` attribute.
-	pub fn set_target<T>(&mut self, value: T)
+	pub fn set_target<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Target, value.into());
+		self.set_attr(AAttrs::Target, value);
 	}
 
 	/// Get the `target` attribute.
-	pub fn target(&self) -> Option<&str> {
+	pub fn target(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::Target)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Transform, value.into());
+		self.set_attr(AAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::Transform, value.into());
+		self.set_attr(AAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::Transform)
 	}
 
 	/// Set the `xlink:actuate` attribute.
-	pub fn with_xlink_actuate<T>(mut self, value: T) -> Self
+	pub fn with_xlink_actuate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkActuate, value.into());
+		self.set_attr(AAttrs::XlinkActuate, value);
 		self
 	}
 
 	/// Set the `xlink:actuate` attribute.
-	pub fn set_xlink_actuate<T>(&mut self, value: T)
+	pub fn set_xlink_actuate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkActuate, value.into());
+		self.set_attr(AAttrs::XlinkActuate, value);
 	}
 
 	/// Get the `xlink:actuate` attribute.
-	pub fn xlink_actuate(&self) -> Option<&str> {
+	pub fn xlink_actuate(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::XlinkActuate)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkHref, value.into());
+		self.set_attr(AAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkHref, value.into());
+		self.set_attr(AAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::XlinkHref)
 	}
 
 	/// Set the `xlink:show` attribute.
-	pub fn with_xlink_show<T>(mut self, value: T) -> Self
+	pub fn with_xlink_show<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkShow, value.into());
+		self.set_attr(AAttrs::XlinkShow, value);
 		self
 	}
 
 	/// Set the `xlink:show` attribute.
-	pub fn set_xlink_show<T>(&mut self, value: T)
+	pub fn set_xlink_show<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AAttrs::XlinkShow, value.into());
+		self.set_attr(AAttrs::XlinkShow, value);
 	}
 
 	/// Get the `xlink:show` attribute.
-	pub fn xlink_show(&self) -> Option<&str> {
+	pub fn xlink_show(&self) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::XlinkShow)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for A {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::from(attr))
 	}
 }
@@ -350,11 +357,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for A {
 impl TagWithConditionalProcessingAttributes for A {}
 
 impl common_attrs::CoreAttributesSetter for A {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::from(attr))
 	}
 }
@@ -362,11 +372,14 @@ impl common_attrs::CoreAttributesSetter for A {
 impl TagWithCoreAttributes for A {}
 
 impl common_attrs::GraphicalEventAttributesSetter for A {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::from(attr))
 	}
 }
@@ -374,11 +387,14 @@ impl common_attrs::GraphicalEventAttributesSetter for A {
 impl TagWithGraphicalEventAttributes for A {}
 
 impl common_attrs::PresentationAttributesSetter for A {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::from(attr))
 	}
 }
@@ -386,11 +402,14 @@ impl common_attrs::PresentationAttributesSetter for A {
 impl TagWithPresentationAttributes for A {}
 
 impl common_attrs::XLinkAttributesSetter for A {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AAttrs::from(attr))
 	}
 }
@@ -398,9 +417,10 @@ impl common_attrs::XLinkAttributesSetter for A {
 impl TagWithXLinkAttributes for A {}
 
 impl Tag for A {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("a");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -410,6 +430,7 @@ impl Tag for A {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AltGlyphAttrs {
 	Class,
@@ -500,7 +521,7 @@ impl Debug for AltGlyphAttrs {
 #[doc = "\n\n [`<altGlyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyph"]
 #[derive(Debug)]
 pub struct AltGlyph {
-	attrs: IndexMap<AltGlyphAttrs, String>,
+	attrs: IndexMap<AltGlyphAttrs, Box<dyn Value>>,
 }
 
 impl Default for AltGlyph {
@@ -517,264 +538,270 @@ impl AltGlyph {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AltGlyphAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AltGlyphAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AltGlyphAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AltGlyphAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Class, value.into());
+		self.set_attr(AltGlyphAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Class, value.into());
+		self.set_attr(AltGlyphAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Dx, value.into());
+		self.set_attr(AltGlyphAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Dx, value.into());
+		self.set_attr(AltGlyphAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Dy, value.into());
+		self.set_attr(AltGlyphAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Dy, value.into());
+		self.set_attr(AltGlyphAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AltGlyphAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AltGlyphAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `format` attribute.
-	pub fn with_format<T>(mut self, value: T) -> Self
+	pub fn with_format<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Format, value.into());
+		self.set_attr(AltGlyphAttrs::Format, value);
 		self
 	}
 
 	/// Set the `format` attribute.
-	pub fn set_format<T>(&mut self, value: T)
+	pub fn set_format<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Format, value.into());
+		self.set_attr(AltGlyphAttrs::Format, value);
 	}
 
 	/// Get the `format` attribute.
-	pub fn format(&self) -> Option<&str> {
+	pub fn format(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Format)
 	}
 
 	/// Set the `glyphRef` attribute.
-	pub fn with_glyph_ref<T>(mut self, value: T) -> Self
+	pub fn with_glyph_ref<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::GlyphRef, value.into());
+		self.set_attr(AltGlyphAttrs::GlyphRef, value);
 		self
 	}
 
 	/// Set the `glyphRef` attribute.
-	pub fn set_glyph_ref<T>(&mut self, value: T)
+	pub fn set_glyph_ref<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::GlyphRef, value.into());
+		self.set_attr(AltGlyphAttrs::GlyphRef, value);
 	}
 
 	/// Get the `glyphRef` attribute.
-	pub fn glyph_ref(&self) -> Option<&str> {
+	pub fn glyph_ref(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::GlyphRef)
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn with_rotate<T>(mut self, value: T) -> Self
+	pub fn with_rotate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Rotate, value.into());
+		self.set_attr(AltGlyphAttrs::Rotate, value);
 		self
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn set_rotate<T>(&mut self, value: T)
+	pub fn set_rotate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Rotate, value.into());
+		self.set_attr(AltGlyphAttrs::Rotate, value);
 	}
 
 	/// Get the `rotate` attribute.
-	pub fn rotate(&self) -> Option<&str> {
+	pub fn rotate(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Style, value.into());
+		self.set_attr(AltGlyphAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Style, value.into());
+		self.set_attr(AltGlyphAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Style)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::X, value.into());
+		self.set_attr(AltGlyphAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::X, value.into());
+		self.set_attr(AltGlyphAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::XlinkHref, value.into());
+		self.set_attr(AltGlyphAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::XlinkHref, value.into());
+		self.set_attr(AltGlyphAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Y, value.into());
+		self.set_attr(AltGlyphAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AltGlyphAttrs::Y, value.into());
+		self.set_attr(AltGlyphAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AltGlyph {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
@@ -782,11 +809,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for AltGlyph {
 impl TagWithConditionalProcessingAttributes for AltGlyph {}
 
 impl common_attrs::CoreAttributesSetter for AltGlyph {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
@@ -794,11 +824,14 @@ impl common_attrs::CoreAttributesSetter for AltGlyph {
 impl TagWithCoreAttributes for AltGlyph {}
 
 impl common_attrs::GraphicalEventAttributesSetter for AltGlyph {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
@@ -806,11 +839,14 @@ impl common_attrs::GraphicalEventAttributesSetter for AltGlyph {
 impl TagWithGraphicalEventAttributes for AltGlyph {}
 
 impl common_attrs::PresentationAttributesSetter for AltGlyph {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
@@ -818,11 +854,14 @@ impl common_attrs::PresentationAttributesSetter for AltGlyph {
 impl TagWithPresentationAttributes for AltGlyph {}
 
 impl common_attrs::XLinkAttributesSetter for AltGlyph {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphAttrs::from(attr))
 	}
 }
@@ -830,15 +869,17 @@ impl common_attrs::XLinkAttributesSetter for AltGlyph {
 impl TagWithXLinkAttributes for AltGlyph {}
 
 impl Tag for AltGlyph {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("altGlyph");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AltGlyphDefAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -875,7 +916,7 @@ impl Debug for AltGlyphDefAttrs {
 #[doc = "\n\n [`<altGlyphDef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphDef"]
 #[derive(Debug)]
 pub struct AltGlyphDef {
-	attrs: IndexMap<AltGlyphDefAttrs, String>,
+	attrs: IndexMap<AltGlyphDefAttrs, Box<dyn Value>>,
 }
 
 impl Default for AltGlyphDef {
@@ -892,22 +933,28 @@ impl AltGlyphDef {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AltGlyphDefAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AltGlyphDefAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AltGlyphDefAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AltGlyphDefAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for AltGlyphDef {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphDefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphDefAttrs::from(attr))
 	}
 }
@@ -915,12 +962,13 @@ impl common_attrs::CoreAttributesSetter for AltGlyphDef {
 impl TagWithCoreAttributes for AltGlyphDef {}
 
 impl Tag for AltGlyphDef {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("altGlyphDef");
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AltGlyphItemAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -957,7 +1005,7 @@ impl Debug for AltGlyphItemAttrs {
 #[doc = "\n\n [`<altGlyphItem>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyphItem"]
 #[derive(Debug)]
 pub struct AltGlyphItem {
-	attrs: IndexMap<AltGlyphItemAttrs, String>,
+	attrs: IndexMap<AltGlyphItemAttrs, Box<dyn Value>>,
 }
 
 impl Default for AltGlyphItem {
@@ -974,22 +1022,28 @@ impl AltGlyphItem {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AltGlyphItemAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AltGlyphItemAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AltGlyphItemAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AltGlyphItemAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for AltGlyphItem {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AltGlyphItemAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AltGlyphItemAttrs::from(attr))
 	}
 }
@@ -997,12 +1051,13 @@ impl common_attrs::CoreAttributesSetter for AltGlyphItem {
 impl TagWithCoreAttributes for AltGlyphItem {}
 
 impl Tag for AltGlyphItem {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("altGlyphItem");
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AnimateAttrs {
 	AttributeName,
@@ -1109,7 +1164,7 @@ impl Debug for AnimateAttrs {
 #[doc = "\n\n [`<animate>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate"]
 #[derive(Debug)]
 pub struct Animate {
-	attrs: IndexMap<AnimateAttrs, String>,
+	attrs: IndexMap<AnimateAttrs, Box<dyn Value>>,
 }
 
 impl Default for Animate {
@@ -1126,176 +1181,182 @@ impl Animate {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AnimateAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AnimateAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AnimateAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AnimateAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `attributeName` attribute.
-	pub fn with_attribute_name<T>(mut self, value: T) -> Self
+	pub fn with_attribute_name<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::AttributeName, value.into());
+		self.set_attr(AnimateAttrs::AttributeName, value);
 		self
 	}
 
 	/// Set the `attributeName` attribute.
-	pub fn set_attribute_name<T>(&mut self, value: T)
+	pub fn set_attribute_name<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::AttributeName, value.into());
+		self.set_attr(AnimateAttrs::AttributeName, value);
 	}
 
 	/// Get the `attributeName` attribute.
-	pub fn attribute_name(&self) -> Option<&str> {
+	pub fn attribute_name(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::AttributeName)
 	}
 
 	/// Set the `attributeType` attribute.
-	pub fn with_attribute_type<T>(mut self, value: T) -> Self
+	pub fn with_attribute_type<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::AttributeType, value.into());
+		self.set_attr(AnimateAttrs::AttributeType, value);
 		self
 	}
 
 	/// Set the `attributeType` attribute.
-	pub fn set_attribute_type<T>(&mut self, value: T)
+	pub fn set_attribute_type<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::AttributeType, value.into());
+		self.set_attr(AnimateAttrs::AttributeType, value);
 	}
 
 	/// Get the `attributeType` attribute.
-	pub fn attribute_type(&self) -> Option<&str> {
+	pub fn attribute_type(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::AttributeType)
 	}
 
 	/// Set the `dur` attribute.
-	pub fn with_dur<T>(mut self, value: T) -> Self
+	pub fn with_dur<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::Dur, value.into());
+		self.set_attr(AnimateAttrs::Dur, value);
 		self
 	}
 
 	/// Set the `dur` attribute.
-	pub fn set_dur<T>(&mut self, value: T)
+	pub fn set_dur<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::Dur, value.into());
+		self.set_attr(AnimateAttrs::Dur, value);
 	}
 
 	/// Get the `dur` attribute.
-	pub fn dur(&self) -> Option<&str> {
+	pub fn dur(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::Dur)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
-	pub fn with_from<T>(mut self, value: T) -> Self
+	pub fn with_from<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::From, value.into());
+		self.set_attr(AnimateAttrs::From, value);
 		self
 	}
 
 	/// Set the `from` attribute.
-	pub fn set_from<T>(&mut self, value: T)
+	pub fn set_from<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::From, value.into());
+		self.set_attr(AnimateAttrs::From, value);
 	}
 
 	/// Get the `from` attribute.
-	pub fn from(&self) -> Option<&str> {
+	pub fn from(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::From)
 	}
 
 	/// Set the `repeatCount` attribute.
-	pub fn with_repeat_count<T>(mut self, value: T) -> Self
+	pub fn with_repeat_count<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::RepeatCount, value.into());
+		self.set_attr(AnimateAttrs::RepeatCount, value);
 		self
 	}
 
 	/// Set the `repeatCount` attribute.
-	pub fn set_repeat_count<T>(&mut self, value: T)
+	pub fn set_repeat_count<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::RepeatCount, value.into());
+		self.set_attr(AnimateAttrs::RepeatCount, value);
 	}
 
 	/// Get the `repeatCount` attribute.
-	pub fn repeat_count(&self) -> Option<&str> {
+	pub fn repeat_count(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::RepeatCount)
 	}
 
 	/// Set the `to` attribute.
-	pub fn with_to<T>(mut self, value: T) -> Self
+	pub fn with_to<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::To, value.into());
+		self.set_attr(AnimateAttrs::To, value);
 		self
 	}
 
 	/// Set the `to` attribute.
-	pub fn set_to<T>(&mut self, value: T)
+	pub fn set_to<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateAttrs::To, value.into());
+		self.set_attr(AnimateAttrs::To, value);
 	}
 
 	/// Get the `to` attribute.
-	pub fn to(&self) -> Option<&str> {
+	pub fn to(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::To)
 	}
 }
 
 impl common_attrs::AnimationAdditionAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1303,11 +1364,14 @@ impl common_attrs::AnimationAdditionAttributesSetter for Animate {
 impl TagWithAnimationAdditionAttributes for Animate {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1315,11 +1379,14 @@ impl common_attrs::AnimationAttributeTargetAttributesSetter for Animate {
 impl TagWithAnimationAttributeTargetAttributes for Animate {}
 
 impl common_attrs::AnimationEventAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1327,11 +1394,14 @@ impl common_attrs::AnimationEventAttributesSetter for Animate {
 impl TagWithAnimationEventAttributes for Animate {}
 
 impl common_attrs::AnimationTimingAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationTimingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1339,11 +1409,14 @@ impl common_attrs::AnimationTimingAttributesSetter for Animate {
 impl TagWithAnimationTimingAttributes for Animate {}
 
 impl common_attrs::AnimationValueAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationValueAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1351,11 +1424,14 @@ impl common_attrs::AnimationValueAttributesSetter for Animate {
 impl TagWithAnimationValueAttributes for Animate {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1363,11 +1439,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Animate {
 impl TagWithConditionalProcessingAttributes for Animate {}
 
 impl common_attrs::CoreAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1375,11 +1454,14 @@ impl common_attrs::CoreAttributesSetter for Animate {
 impl TagWithCoreAttributes for Animate {}
 
 impl common_attrs::XLinkAttributesSetter for Animate {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateAttrs::from(attr))
 	}
 }
@@ -1387,15 +1469,17 @@ impl common_attrs::XLinkAttributesSetter for Animate {
 impl TagWithXLinkAttributes for Animate {}
 
 impl Tag for Animate {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animate");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AnimateColorAttrs {
 	By,
@@ -1496,7 +1580,7 @@ impl Debug for AnimateColorAttrs {
 #[doc = "\n\n [`<animateColor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateColor"]
 #[derive(Debug)]
 pub struct AnimateColor {
-	attrs: IndexMap<AnimateColorAttrs, String>,
+	attrs: IndexMap<AnimateColorAttrs, Box<dyn Value>>,
 }
 
 impl Default for AnimateColor {
@@ -1513,110 +1597,116 @@ impl AnimateColor {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AnimateColorAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AnimateColorAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AnimateColorAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AnimateColorAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `by` attribute.
-	pub fn with_by<T>(mut self, value: T) -> Self
+	pub fn with_by<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::By, value.into());
+		self.set_attr(AnimateColorAttrs::By, value);
 		self
 	}
 
 	/// Set the `by` attribute.
-	pub fn set_by<T>(&mut self, value: T)
+	pub fn set_by<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::By, value.into());
+		self.set_attr(AnimateColorAttrs::By, value);
 	}
 
 	/// Get the `by` attribute.
-	pub fn by(&self) -> Option<&str> {
+	pub fn by(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::By)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateColorAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateColorAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
-	pub fn with_from<T>(mut self, value: T) -> Self
+	pub fn with_from<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::From, value.into());
+		self.set_attr(AnimateColorAttrs::From, value);
 		self
 	}
 
 	/// Set the `from` attribute.
-	pub fn set_from<T>(&mut self, value: T)
+	pub fn set_from<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::From, value.into());
+		self.set_attr(AnimateColorAttrs::From, value);
 	}
 
 	/// Get the `from` attribute.
-	pub fn from(&self) -> Option<&str> {
+	pub fn from(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::From)
 	}
 
 	/// Set the `to` attribute.
-	pub fn with_to<T>(mut self, value: T) -> Self
+	pub fn with_to<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::To, value.into());
+		self.set_attr(AnimateColorAttrs::To, value);
 		self
 	}
 
 	/// Set the `to` attribute.
-	pub fn set_to<T>(&mut self, value: T)
+	pub fn set_to<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateColorAttrs::To, value.into());
+		self.set_attr(AnimateColorAttrs::To, value);
 	}
 
 	/// Get the `to` attribute.
-	pub fn to(&self) -> Option<&str> {
+	pub fn to(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::To)
 	}
 }
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1624,11 +1714,14 @@ impl common_attrs::AnimationAdditionAttributesSetter for AnimateColor {
 impl TagWithAnimationAdditionAttributes for AnimateColor {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1636,11 +1729,14 @@ impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateColor {
 impl TagWithAnimationAttributeTargetAttributes for AnimateColor {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1648,11 +1744,14 @@ impl common_attrs::AnimationEventAttributesSetter for AnimateColor {
 impl TagWithAnimationEventAttributes for AnimateColor {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationTimingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1660,11 +1759,14 @@ impl common_attrs::AnimationTimingAttributesSetter for AnimateColor {
 impl TagWithAnimationTimingAttributes for AnimateColor {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationValueAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1672,11 +1774,14 @@ impl common_attrs::AnimationValueAttributesSetter for AnimateColor {
 impl TagWithAnimationValueAttributes for AnimateColor {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1684,11 +1789,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for AnimateColor {
 impl TagWithConditionalProcessingAttributes for AnimateColor {}
 
 impl common_attrs::CoreAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1696,11 +1804,14 @@ impl common_attrs::CoreAttributesSetter for AnimateColor {
 impl TagWithCoreAttributes for AnimateColor {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateColor {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateColorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateColorAttrs::from(attr))
 	}
 }
@@ -1708,15 +1819,17 @@ impl common_attrs::XLinkAttributesSetter for AnimateColor {
 impl TagWithXLinkAttributes for AnimateColor {}
 
 impl Tag for AnimateColor {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateColor");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AnimateMotionAttrs {
 	CalcMode,
@@ -1809,7 +1922,7 @@ impl Debug for AnimateMotionAttrs {
 }
 
 mod animate_motion_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -1821,7 +1934,7 @@ mod animate_motion_private {
 #[doc = "\n\n [`<animateMotion>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion"]
 #[derive(Debug)]
 pub struct AnimateMotion {
-	attrs: IndexMap<AnimateMotionAttrs, String>,
+	attrs: IndexMap<AnimateMotionAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn animate_motion_private::Content>>,
 }
 
@@ -1855,154 +1968,160 @@ impl AnimateMotion {
 		self
 	}
 
-	fn set_attr(&mut self, attr: AnimateMotionAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AnimateMotionAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AnimateMotionAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AnimateMotionAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `calcMode` attribute.
-	pub fn with_calc_mode<T>(mut self, value: T) -> Self
+	pub fn with_calc_mode<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::CalcMode, value.into());
+		self.set_attr(AnimateMotionAttrs::CalcMode, value);
 		self
 	}
 
 	/// Set the `calcMode` attribute.
-	pub fn set_calc_mode<T>(&mut self, value: T)
+	pub fn set_calc_mode<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::CalcMode, value.into());
+		self.set_attr(AnimateMotionAttrs::CalcMode, value);
 	}
 
 	/// Get the `calcMode` attribute.
-	pub fn calc_mode(&self) -> Option<&str> {
+	pub fn calc_mode(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::CalcMode)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateMotionAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateMotionAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `keyPoints` attribute.
-	pub fn with_key_points<T>(mut self, value: T) -> Self
+	pub fn with_key_points<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::KeyPoints, value.into());
+		self.set_attr(AnimateMotionAttrs::KeyPoints, value);
 		self
 	}
 
 	/// Set the `keyPoints` attribute.
-	pub fn set_key_points<T>(&mut self, value: T)
+	pub fn set_key_points<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::KeyPoints, value.into());
+		self.set_attr(AnimateMotionAttrs::KeyPoints, value);
 	}
 
 	/// Get the `keyPoints` attribute.
-	pub fn key_points(&self) -> Option<&str> {
+	pub fn key_points(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::KeyPoints)
 	}
 
 	/// Set the `origin` attribute.
-	pub fn with_origin<T>(mut self, value: T) -> Self
+	pub fn with_origin<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Origin, value.into());
+		self.set_attr(AnimateMotionAttrs::Origin, value);
 		self
 	}
 
 	/// Set the `origin` attribute.
-	pub fn set_origin<T>(&mut self, value: T)
+	pub fn set_origin<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Origin, value.into());
+		self.set_attr(AnimateMotionAttrs::Origin, value);
 	}
 
 	/// Get the `origin` attribute.
-	pub fn origin(&self) -> Option<&str> {
+	pub fn origin(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::Origin)
 	}
 
 	/// Set the `path` attribute.
-	pub fn with_path<T>(mut self, value: T) -> Self
+	pub fn with_path<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Path, value.into());
+		self.set_attr(AnimateMotionAttrs::Path, value);
 		self
 	}
 
 	/// Set the `path` attribute.
-	pub fn set_path<T>(&mut self, value: T)
+	pub fn set_path<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Path, value.into());
+		self.set_attr(AnimateMotionAttrs::Path, value);
 	}
 
 	/// Get the `path` attribute.
-	pub fn path(&self) -> Option<&str> {
+	pub fn path(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::Path)
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn with_rotate<T>(mut self, value: T) -> Self
+	pub fn with_rotate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Rotate, value.into());
+		self.set_attr(AnimateMotionAttrs::Rotate, value);
 		self
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn set_rotate<T>(&mut self, value: T)
+	pub fn set_rotate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateMotionAttrs::Rotate, value.into());
+		self.set_attr(AnimateMotionAttrs::Rotate, value);
 	}
 
 	/// Get the `rotate` attribute.
-	pub fn rotate(&self) -> Option<&str> {
+	pub fn rotate(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::Rotate)
 	}
 }
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2010,11 +2129,14 @@ impl common_attrs::AnimationAdditionAttributesSetter for AnimateMotion {
 impl TagWithAnimationAdditionAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2022,11 +2144,14 @@ impl common_attrs::AnimationEventAttributesSetter for AnimateMotion {
 impl TagWithAnimationEventAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationTimingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2034,11 +2159,14 @@ impl common_attrs::AnimationTimingAttributesSetter for AnimateMotion {
 impl TagWithAnimationTimingAttributes for AnimateMotion {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationValueAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2046,11 +2174,14 @@ impl common_attrs::AnimationValueAttributesSetter for AnimateMotion {
 impl TagWithAnimationValueAttributes for AnimateMotion {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2058,11 +2189,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for AnimateMotion {
 impl TagWithConditionalProcessingAttributes for AnimateMotion {}
 
 impl common_attrs::CoreAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2070,11 +2204,14 @@ impl common_attrs::CoreAttributesSetter for AnimateMotion {
 impl TagWithCoreAttributes for AnimateMotion {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateMotion {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateMotionAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateMotionAttrs::from(attr))
 	}
 }
@@ -2082,9 +2219,10 @@ impl common_attrs::XLinkAttributesSetter for AnimateMotion {
 impl TagWithXLinkAttributes for AnimateMotion {}
 
 impl Tag for AnimateMotion {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateMotion");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -2094,6 +2232,7 @@ impl Tag for AnimateMotion {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum AnimateTransformAttrs {
 	By,
@@ -2196,7 +2335,7 @@ impl Debug for AnimateTransformAttrs {
 #[doc = "\n\n [`<animateTransform>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform"]
 #[derive(Debug)]
 pub struct AnimateTransform {
-	attrs: IndexMap<AnimateTransformAttrs, String>,
+	attrs: IndexMap<AnimateTransformAttrs, Box<dyn Value>>,
 }
 
 impl Default for AnimateTransform {
@@ -2213,132 +2352,138 @@ impl AnimateTransform {
 		}
 	}
 
-	fn set_attr(&mut self, attr: AnimateTransformAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: AnimateTransformAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: AnimateTransformAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: AnimateTransformAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `by` attribute.
-	pub fn with_by<T>(mut self, value: T) -> Self
+	pub fn with_by<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::By, value.into());
+		self.set_attr(AnimateTransformAttrs::By, value);
 		self
 	}
 
 	/// Set the `by` attribute.
-	pub fn set_by<T>(&mut self, value: T)
+	pub fn set_by<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::By, value.into());
+		self.set_attr(AnimateTransformAttrs::By, value);
 	}
 
 	/// Get the `by` attribute.
-	pub fn by(&self) -> Option<&str> {
+	pub fn by(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::By)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateTransformAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(AnimateTransformAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `from` attribute.
-	pub fn with_from<T>(mut self, value: T) -> Self
+	pub fn with_from<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::From, value.into());
+		self.set_attr(AnimateTransformAttrs::From, value);
 		self
 	}
 
 	/// Set the `from` attribute.
-	pub fn set_from<T>(&mut self, value: T)
+	pub fn set_from<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::From, value.into());
+		self.set_attr(AnimateTransformAttrs::From, value);
 	}
 
 	/// Get the `from` attribute.
-	pub fn from(&self) -> Option<&str> {
+	pub fn from(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::From)
 	}
 
 	/// Set the `to` attribute.
-	pub fn with_to<T>(mut self, value: T) -> Self
+	pub fn with_to<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::To, value.into());
+		self.set_attr(AnimateTransformAttrs::To, value);
 		self
 	}
 
 	/// Set the `to` attribute.
-	pub fn set_to<T>(&mut self, value: T)
+	pub fn set_to<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::To, value.into());
+		self.set_attr(AnimateTransformAttrs::To, value);
 	}
 
 	/// Get the `to` attribute.
-	pub fn to(&self) -> Option<&str> {
+	pub fn to(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::To)
 	}
 
 	/// Set the `type` attribute.
-	pub fn with_ty<T>(mut self, value: T) -> Self
+	pub fn with_ty<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::Type, value.into());
+		self.set_attr(AnimateTransformAttrs::Type, value);
 		self
 	}
 
 	/// Set the `type` attribute.
-	pub fn set_ty<T>(&mut self, value: T)
+	pub fn set_ty<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(AnimateTransformAttrs::Type, value.into());
+		self.set_attr(AnimateTransformAttrs::Type, value);
 	}
 
 	/// Get the `type` attribute.
-	pub fn ty(&self) -> Option<&str> {
+	pub fn ty(&self) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::Type)
 	}
 }
 
 impl common_attrs::AnimationAdditionAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAdditionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAdditionAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2346,11 +2491,14 @@ impl common_attrs::AnimationAdditionAttributesSetter for AnimateTransform {
 impl TagWithAnimationAdditionAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2358,11 +2506,14 @@ impl common_attrs::AnimationAttributeTargetAttributesSetter for AnimateTransform
 impl TagWithAnimationAttributeTargetAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationEventAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2370,11 +2521,14 @@ impl common_attrs::AnimationEventAttributesSetter for AnimateTransform {
 impl TagWithAnimationEventAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationTimingAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationTimingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2382,11 +2536,14 @@ impl common_attrs::AnimationTimingAttributesSetter for AnimateTransform {
 impl TagWithAnimationTimingAttributes for AnimateTransform {}
 
 impl common_attrs::AnimationValueAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::AnimationValueAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationValueAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationValueAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2394,11 +2551,14 @@ impl common_attrs::AnimationValueAttributesSetter for AnimateTransform {
 impl TagWithAnimationValueAttributes for AnimateTransform {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2406,11 +2566,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for AnimateTransform {
 impl TagWithConditionalProcessingAttributes for AnimateTransform {}
 
 impl common_attrs::CoreAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2418,11 +2581,14 @@ impl common_attrs::CoreAttributesSetter for AnimateTransform {
 impl TagWithCoreAttributes for AnimateTransform {}
 
 impl common_attrs::XLinkAttributesSetter for AnimateTransform {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(AnimateTransformAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(AnimateTransformAttrs::from(attr))
 	}
 }
@@ -2430,15 +2596,17 @@ impl common_attrs::XLinkAttributesSetter for AnimateTransform {
 impl TagWithXLinkAttributes for AnimateTransform {}
 
 impl Tag for AnimateTransform {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateTransform");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum CircleAttrs {
 	Class,
@@ -2513,7 +2681,7 @@ impl Debug for CircleAttrs {
 #[doc = "\n\n [`<circle>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle"]
 #[derive(Debug)]
 pub struct Circle {
-	attrs: IndexMap<CircleAttrs, String>,
+	attrs: IndexMap<CircleAttrs, Box<dyn Value>>,
 }
 
 impl Default for Circle {
@@ -2530,176 +2698,182 @@ impl Circle {
 		}
 	}
 
-	fn set_attr(&mut self, attr: CircleAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: CircleAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: CircleAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: CircleAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Class, value.into());
+		self.set_attr(CircleAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Class, value.into());
+		self.set_attr(CircleAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
-	pub fn with_cx<T>(mut self, value: T) -> Self
+	pub fn with_cx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Cx, value.into());
+		self.set_attr(CircleAttrs::Cx, value);
 		self
 	}
 
 	/// Set the `cx` attribute.
-	pub fn set_cx<T>(&mut self, value: T)
+	pub fn set_cx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Cx, value.into());
+		self.set_attr(CircleAttrs::Cx, value);
 	}
 
 	/// Get the `cx` attribute.
-	pub fn cx(&self) -> Option<&str> {
+	pub fn cx(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
-	pub fn with_cy<T>(mut self, value: T) -> Self
+	pub fn with_cy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Cy, value.into());
+		self.set_attr(CircleAttrs::Cy, value);
 		self
 	}
 
 	/// Set the `cy` attribute.
-	pub fn set_cy<T>(&mut self, value: T)
+	pub fn set_cy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Cy, value.into());
+		self.set_attr(CircleAttrs::Cy, value);
 	}
 
 	/// Get the `cy` attribute.
-	pub fn cy(&self) -> Option<&str> {
+	pub fn cy(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(CircleAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(CircleAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `r` attribute.
-	pub fn with_r<T>(mut self, value: T) -> Self
+	pub fn with_r<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::R, value.into());
+		self.set_attr(CircleAttrs::R, value);
 		self
 	}
 
 	/// Set the `r` attribute.
-	pub fn set_r<T>(&mut self, value: T)
+	pub fn set_r<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::R, value.into());
+		self.set_attr(CircleAttrs::R, value);
 	}
 
 	/// Get the `r` attribute.
-	pub fn r(&self) -> Option<&str> {
+	pub fn r(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::R)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Style, value.into());
+		self.set_attr(CircleAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Style, value.into());
+		self.set_attr(CircleAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Transform, value.into());
+		self.set_attr(CircleAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CircleAttrs::Transform, value.into());
+		self.set_attr(CircleAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Circle {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::from(attr))
 	}
 }
@@ -2707,11 +2881,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Circle {
 impl TagWithConditionalProcessingAttributes for Circle {}
 
 impl common_attrs::CoreAttributesSetter for Circle {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::from(attr))
 	}
 }
@@ -2719,11 +2896,14 @@ impl common_attrs::CoreAttributesSetter for Circle {
 impl TagWithCoreAttributes for Circle {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Circle {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::from(attr))
 	}
 }
@@ -2731,11 +2911,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Circle {
 impl TagWithGraphicalEventAttributes for Circle {}
 
 impl common_attrs::PresentationAttributesSetter for Circle {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CircleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(CircleAttrs::from(attr))
 	}
 }
@@ -2743,15 +2926,17 @@ impl common_attrs::PresentationAttributesSetter for Circle {
 impl TagWithPresentationAttributes for Circle {}
 
 impl Tag for Circle {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("circle");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ClipPathAttrs {
 	Class,
@@ -2810,7 +2995,7 @@ impl Debug for ClipPathAttrs {
 }
 
 mod clip_path_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -2823,7 +3008,7 @@ mod clip_path_private {
 #[doc = "\n\n [`<clipPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath"]
 #[derive(Debug)]
 pub struct ClipPath {
-	attrs: IndexMap<ClipPathAttrs, String>,
+	attrs: IndexMap<ClipPathAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn clip_path_private::Content>>,
 }
 
@@ -2857,132 +3042,138 @@ impl ClipPath {
 		self
 	}
 
-	fn set_attr(&mut self, attr: ClipPathAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ClipPathAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ClipPathAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ClipPathAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Class, value.into());
+		self.set_attr(ClipPathAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Class, value.into());
+		self.set_attr(ClipPathAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::Class)
 	}
 
 	/// Set the `clipPathUnits` attribute.
-	pub fn with_clip_path_units<T>(mut self, value: T) -> Self
+	pub fn with_clip_path_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::ClipPathUnits, value.into());
+		self.set_attr(ClipPathAttrs::ClipPathUnits, value);
 		self
 	}
 
 	/// Set the `clipPathUnits` attribute.
-	pub fn set_clip_path_units<T>(&mut self, value: T)
+	pub fn set_clip_path_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::ClipPathUnits, value.into());
+		self.set_attr(ClipPathAttrs::ClipPathUnits, value);
 	}
 
 	/// Get the `clipPathUnits` attribute.
-	pub fn clip_path_units(&self) -> Option<&str> {
+	pub fn clip_path_units(&self) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::ClipPathUnits)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ClipPathAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ClipPathAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Style, value.into());
+		self.set_attr(ClipPathAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Style, value.into());
+		self.set_attr(ClipPathAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Transform, value.into());
+		self.set_attr(ClipPathAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ClipPathAttrs::Transform, value.into());
+		self.set_attr(ClipPathAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for ClipPath {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
@@ -2990,11 +3181,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for ClipPath {
 impl TagWithConditionalProcessingAttributes for ClipPath {}
 
 impl common_attrs::CoreAttributesSetter for ClipPath {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
@@ -3002,11 +3196,14 @@ impl common_attrs::CoreAttributesSetter for ClipPath {
 impl TagWithCoreAttributes for ClipPath {}
 
 impl common_attrs::PresentationAttributesSetter for ClipPath {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ClipPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(ClipPathAttrs::from(attr))
 	}
 }
@@ -3014,9 +3211,10 @@ impl common_attrs::PresentationAttributesSetter for ClipPath {
 impl TagWithPresentationAttributes for ClipPath {}
 
 impl Tag for ClipPath {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("clipPath");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -3026,6 +3224,7 @@ impl Tag for ClipPath {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ColorProfileAttrs {
 	Local,
@@ -3078,7 +3277,7 @@ impl Debug for ColorProfileAttrs {
 #[doc = "\n\n [`<color-profile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/color-profile"]
 #[derive(Debug)]
 pub struct ColorProfile {
-	attrs: IndexMap<ColorProfileAttrs, String>,
+	attrs: IndexMap<ColorProfileAttrs, Box<dyn Value>>,
 }
 
 impl Default for ColorProfile {
@@ -3095,110 +3294,116 @@ impl ColorProfile {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ColorProfileAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ColorProfileAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ColorProfileAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ColorProfileAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `local` attribute.
-	pub fn with_local<T>(mut self, value: T) -> Self
+	pub fn with_local<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::Local, value.into());
+		self.set_attr(ColorProfileAttrs::Local, value);
 		self
 	}
 
 	/// Set the `local` attribute.
-	pub fn set_local<T>(&mut self, value: T)
+	pub fn set_local<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::Local, value.into());
+		self.set_attr(ColorProfileAttrs::Local, value);
 	}
 
 	/// Get the `local` attribute.
-	pub fn local(&self) -> Option<&str> {
+	pub fn local(&self) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::Local)
 	}
 
 	/// Set the `name` attribute.
-	pub fn with_name<T>(mut self, value: T) -> Self
+	pub fn with_name<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::Name, value.into());
+		self.set_attr(ColorProfileAttrs::Name, value);
 		self
 	}
 
 	/// Set the `name` attribute.
-	pub fn set_name<T>(&mut self, value: T)
+	pub fn set_name<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::Name, value.into());
+		self.set_attr(ColorProfileAttrs::Name, value);
 	}
 
 	/// Get the `name` attribute.
-	pub fn name(&self) -> Option<&str> {
+	pub fn name(&self) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::Name)
 	}
 
 	/// Set the `rendering-intent` attribute.
-	pub fn with_rendering_intent<T>(mut self, value: T) -> Self
+	pub fn with_rendering_intent<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::RenderingIntent, value.into());
+		self.set_attr(ColorProfileAttrs::RenderingIntent, value);
 		self
 	}
 
 	/// Set the `rendering-intent` attribute.
-	pub fn set_rendering_intent<T>(&mut self, value: T)
+	pub fn set_rendering_intent<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::RenderingIntent, value.into());
+		self.set_attr(ColorProfileAttrs::RenderingIntent, value);
 	}
 
 	/// Get the `rendering-intent` attribute.
-	pub fn rendering_intent(&self) -> Option<&str> {
+	pub fn rendering_intent(&self) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::RenderingIntent)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::XlinkHref, value.into());
+		self.set_attr(ColorProfileAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ColorProfileAttrs::XlinkHref, value.into());
+		self.set_attr(ColorProfileAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for ColorProfile {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ColorProfileAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::from(attr))
 	}
 }
@@ -3206,11 +3411,14 @@ impl common_attrs::CoreAttributesSetter for ColorProfile {
 impl TagWithCoreAttributes for ColorProfile {}
 
 impl common_attrs::XLinkAttributesSetter for ColorProfile {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ColorProfileAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(ColorProfileAttrs::from(attr))
 	}
 }
@@ -3218,15 +3426,17 @@ impl common_attrs::XLinkAttributesSetter for ColorProfile {
 impl TagWithXLinkAttributes for ColorProfile {}
 
 impl Tag for ColorProfile {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("color-profile");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum CursorAttrs {
 	ExternalResourcesRequired,
@@ -3287,7 +3497,7 @@ impl Debug for CursorAttrs {
 #[doc = "\n\n [`<cursor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/cursor"]
 #[derive(Debug)]
 pub struct Cursor {
-	attrs: IndexMap<CursorAttrs, String>,
+	attrs: IndexMap<CursorAttrs, Box<dyn Value>>,
 }
 
 impl Default for Cursor {
@@ -3304,110 +3514,116 @@ impl Cursor {
 		}
 	}
 
-	fn set_attr(&mut self, attr: CursorAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: CursorAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: CursorAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: CursorAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(CursorAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(CursorAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::X, value.into());
+		self.set_attr(CursorAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::X, value.into());
+		self.set_attr(CursorAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::XlinkHref, value.into());
+		self.set_attr(CursorAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::XlinkHref, value.into());
+		self.set_attr(CursorAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::Y, value.into());
+		self.set_attr(CursorAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(CursorAttrs::Y, value.into());
+		self.set_attr(CursorAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Cursor {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::from(attr))
 	}
 }
@@ -3415,11 +3631,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Cursor {
 impl TagWithConditionalProcessingAttributes for Cursor {}
 
 impl common_attrs::CoreAttributesSetter for Cursor {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::from(attr))
 	}
 }
@@ -3427,11 +3646,14 @@ impl common_attrs::CoreAttributesSetter for Cursor {
 impl TagWithCoreAttributes for Cursor {}
 
 impl common_attrs::XLinkAttributesSetter for Cursor {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(CursorAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(CursorAttrs::from(attr))
 	}
 }
@@ -3439,15 +3661,17 @@ impl common_attrs::XLinkAttributesSetter for Cursor {
 impl TagWithXLinkAttributes for Cursor {}
 
 impl Tag for Cursor {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("cursor");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum DefsAttrs {
 	Class,
@@ -3512,7 +3736,7 @@ impl Debug for DefsAttrs {
 }
 
 mod defs_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -3541,7 +3765,7 @@ mod defs_private {
 #[doc = "\n\n [`<defs>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs"]
 #[derive(Debug)]
 pub struct Defs {
-	attrs: IndexMap<DefsAttrs, String>,
+	attrs: IndexMap<DefsAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn defs_private::Content>>,
 }
 
@@ -3575,110 +3799,116 @@ impl Defs {
 		self
 	}
 
-	fn set_attr(&mut self, attr: DefsAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: DefsAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: DefsAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: DefsAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Class, value.into());
+		self.set_attr(DefsAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Class, value.into());
+		self.set_attr(DefsAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(DefsAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(DefsAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Style, value.into());
+		self.set_attr(DefsAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Style, value.into());
+		self.set_attr(DefsAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Transform, value.into());
+		self.set_attr(DefsAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DefsAttrs::Transform, value.into());
+		self.set_attr(DefsAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Defs {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::from(attr))
 	}
 }
@@ -3686,11 +3916,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Defs {
 impl TagWithConditionalProcessingAttributes for Defs {}
 
 impl common_attrs::CoreAttributesSetter for Defs {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::from(attr))
 	}
 }
@@ -3698,11 +3931,14 @@ impl common_attrs::CoreAttributesSetter for Defs {
 impl TagWithCoreAttributes for Defs {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Defs {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::from(attr))
 	}
 }
@@ -3710,11 +3946,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Defs {
 impl TagWithGraphicalEventAttributes for Defs {}
 
 impl common_attrs::PresentationAttributesSetter for Defs {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DefsAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(DefsAttrs::from(attr))
 	}
 }
@@ -3722,9 +3961,10 @@ impl common_attrs::PresentationAttributesSetter for Defs {
 impl TagWithPresentationAttributes for Defs {}
 
 impl Tag for Defs {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("defs");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -3734,6 +3974,7 @@ impl Tag for Defs {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum DescAttrs {
 	Class,
@@ -3774,7 +4015,7 @@ impl Debug for DescAttrs {
 #[doc = "\n\n [`<desc>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/desc"]
 #[derive(Debug)]
 pub struct Desc {
-	attrs: IndexMap<DescAttrs, String>,
+	attrs: IndexMap<DescAttrs, Box<dyn Value>>,
 }
 
 impl Default for Desc {
@@ -3791,66 +4032,72 @@ impl Desc {
 		}
 	}
 
-	fn set_attr(&mut self, attr: DescAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: DescAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: DescAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: DescAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DescAttrs::Class, value.into());
+		self.set_attr(DescAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DescAttrs::Class, value.into());
+		self.set_attr(DescAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(DescAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DescAttrs::Style, value.into());
+		self.set_attr(DescAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DescAttrs::Style, value.into());
+		self.set_attr(DescAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(DescAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Desc {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DescAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(DescAttrs::from(attr))
 	}
 }
@@ -3858,15 +4105,17 @@ impl common_attrs::CoreAttributesSetter for Desc {
 impl TagWithCoreAttributes for Desc {}
 
 impl Tag for Desc {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("desc");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum DiscardAttrs {
 	Begin,
@@ -3911,7 +4160,7 @@ impl Debug for DiscardAttrs {
 }
 
 mod discard_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -3923,7 +4172,7 @@ mod discard_private {
 #[doc = "\n\n [`<discard>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/discard"]
 #[derive(Debug)]
 pub struct Discard {
-	attrs: IndexMap<DiscardAttrs, String>,
+	attrs: IndexMap<DiscardAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn discard_private::Content>>,
 }
 
@@ -3957,66 +4206,72 @@ impl Discard {
 		self
 	}
 
-	fn set_attr(&mut self, attr: DiscardAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: DiscardAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: DiscardAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: DiscardAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `begin` attribute.
-	pub fn with_begin<T>(mut self, value: T) -> Self
+	pub fn with_begin<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DiscardAttrs::Begin, value.into());
+		self.set_attr(DiscardAttrs::Begin, value);
 		self
 	}
 
 	/// Set the `begin` attribute.
-	pub fn set_begin<T>(&mut self, value: T)
+	pub fn set_begin<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DiscardAttrs::Begin, value.into());
+		self.set_attr(DiscardAttrs::Begin, value);
 	}
 
 	/// Get the `begin` attribute.
-	pub fn begin(&self) -> Option<&str> {
+	pub fn begin(&self) -> Option<&dyn Value> {
 		self.get_attr(DiscardAttrs::Begin)
 	}
 
 	/// Set the `href` attribute.
-	pub fn with_href<T>(mut self, value: T) -> Self
+	pub fn with_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DiscardAttrs::Href, value.into());
+		self.set_attr(DiscardAttrs::Href, value);
 		self
 	}
 
 	/// Set the `href` attribute.
-	pub fn set_href<T>(&mut self, value: T)
+	pub fn set_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(DiscardAttrs::Href, value.into());
+		self.set_attr(DiscardAttrs::Href, value);
 	}
 
 	/// Get the `href` attribute.
-	pub fn href(&self) -> Option<&str> {
+	pub fn href(&self) -> Option<&dyn Value> {
 		self.get_attr(DiscardAttrs::Href)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Discard {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DiscardAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(DiscardAttrs::from(attr))
 	}
 }
@@ -4024,11 +4279,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Discard {
 impl TagWithConditionalProcessingAttributes for Discard {}
 
 impl common_attrs::CoreAttributesSetter for Discard {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(DiscardAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(DiscardAttrs::from(attr))
 	}
 }
@@ -4036,9 +4294,10 @@ impl common_attrs::CoreAttributesSetter for Discard {
 impl TagWithCoreAttributes for Discard {}
 
 impl Tag for Discard {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("discard");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4048,6 +4307,7 @@ impl Tag for Discard {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum EllipseAttrs {
 	Class,
@@ -4124,7 +4384,7 @@ impl Debug for EllipseAttrs {
 #[doc = "\n\n [`<ellipse>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse"]
 #[derive(Debug)]
 pub struct Ellipse {
-	attrs: IndexMap<EllipseAttrs, String>,
+	attrs: IndexMap<EllipseAttrs, Box<dyn Value>>,
 }
 
 impl Default for Ellipse {
@@ -4141,198 +4401,204 @@ impl Ellipse {
 		}
 	}
 
-	fn set_attr(&mut self, attr: EllipseAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: EllipseAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: EllipseAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: EllipseAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Class, value.into());
+		self.set_attr(EllipseAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Class, value.into());
+		self.set_attr(EllipseAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
-	pub fn with_cx<T>(mut self, value: T) -> Self
+	pub fn with_cx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Cx, value.into());
+		self.set_attr(EllipseAttrs::Cx, value);
 		self
 	}
 
 	/// Set the `cx` attribute.
-	pub fn set_cx<T>(&mut self, value: T)
+	pub fn set_cx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Cx, value.into());
+		self.set_attr(EllipseAttrs::Cx, value);
 	}
 
 	/// Get the `cx` attribute.
-	pub fn cx(&self) -> Option<&str> {
+	pub fn cx(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
-	pub fn with_cy<T>(mut self, value: T) -> Self
+	pub fn with_cy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Cy, value.into());
+		self.set_attr(EllipseAttrs::Cy, value);
 		self
 	}
 
 	/// Set the `cy` attribute.
-	pub fn set_cy<T>(&mut self, value: T)
+	pub fn set_cy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Cy, value.into());
+		self.set_attr(EllipseAttrs::Cy, value);
 	}
 
 	/// Get the `cy` attribute.
-	pub fn cy(&self) -> Option<&str> {
+	pub fn cy(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(EllipseAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(EllipseAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `rx` attribute.
-	pub fn with_rx<T>(mut self, value: T) -> Self
+	pub fn with_rx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Rx, value.into());
+		self.set_attr(EllipseAttrs::Rx, value);
 		self
 	}
 
 	/// Set the `rx` attribute.
-	pub fn set_rx<T>(&mut self, value: T)
+	pub fn set_rx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Rx, value.into());
+		self.set_attr(EllipseAttrs::Rx, value);
 	}
 
 	/// Get the `rx` attribute.
-	pub fn rx(&self) -> Option<&str> {
+	pub fn rx(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Rx)
 	}
 
 	/// Set the `ry` attribute.
-	pub fn with_ry<T>(mut self, value: T) -> Self
+	pub fn with_ry<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Ry, value.into());
+		self.set_attr(EllipseAttrs::Ry, value);
 		self
 	}
 
 	/// Set the `ry` attribute.
-	pub fn set_ry<T>(&mut self, value: T)
+	pub fn set_ry<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Ry, value.into());
+		self.set_attr(EllipseAttrs::Ry, value);
 	}
 
 	/// Get the `ry` attribute.
-	pub fn ry(&self) -> Option<&str> {
+	pub fn ry(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Ry)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Style, value.into());
+		self.set_attr(EllipseAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Style, value.into());
+		self.set_attr(EllipseAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Transform, value.into());
+		self.set_attr(EllipseAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(EllipseAttrs::Transform, value.into());
+		self.set_attr(EllipseAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Ellipse {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
@@ -4340,11 +4606,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Ellipse {
 impl TagWithConditionalProcessingAttributes for Ellipse {}
 
 impl common_attrs::CoreAttributesSetter for Ellipse {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
@@ -4352,11 +4621,14 @@ impl common_attrs::CoreAttributesSetter for Ellipse {
 impl TagWithCoreAttributes for Ellipse {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Ellipse {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
@@ -4364,11 +4636,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Ellipse {
 impl TagWithGraphicalEventAttributes for Ellipse {}
 
 impl common_attrs::PresentationAttributesSetter for Ellipse {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(EllipseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(EllipseAttrs::from(attr))
 	}
 }
@@ -4376,15 +4651,17 @@ impl common_attrs::PresentationAttributesSetter for Ellipse {
 impl TagWithPresentationAttributes for Ellipse {}
 
 impl Tag for Ellipse {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("ellipse");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeBlendAttrs {
 	Class,
@@ -4443,7 +4720,7 @@ impl Debug for FeBlendAttrs {
 }
 
 mod fe_blend_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -4456,7 +4733,7 @@ mod fe_blend_private {
 #[doc = "\n\n [`<feBlend>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feBlend"]
 #[derive(Debug)]
 pub struct FeBlend {
-	attrs: IndexMap<FeBlendAttrs, String>,
+	attrs: IndexMap<FeBlendAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_blend_private::Content>>,
 }
 
@@ -4490,132 +4767,138 @@ impl FeBlend {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeBlendAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeBlendAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeBlendAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeBlendAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Class, value.into());
+		self.set_attr(FeBlendAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Class, value.into());
+		self.set_attr(FeBlendAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::In, value.into());
+		self.set_attr(FeBlendAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::In, value.into());
+		self.set_attr(FeBlendAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
-	pub fn with_in2<T>(mut self, value: T) -> Self
+	pub fn with_in2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::In2, value.into());
+		self.set_attr(FeBlendAttrs::In2, value);
 		self
 	}
 
 	/// Set the `in2` attribute.
-	pub fn set_in2<T>(&mut self, value: T)
+	pub fn set_in2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::In2, value.into());
+		self.set_attr(FeBlendAttrs::In2, value);
 	}
 
 	/// Get the `in2` attribute.
-	pub fn in2(&self) -> Option<&str> {
+	pub fn in2(&self) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::In2)
 	}
 
 	/// Set the `mode` attribute.
-	pub fn with_mode<T>(mut self, value: T) -> Self
+	pub fn with_mode<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Mode, value.into());
+		self.set_attr(FeBlendAttrs::Mode, value);
 		self
 	}
 
 	/// Set the `mode` attribute.
-	pub fn set_mode<T>(&mut self, value: T)
+	pub fn set_mode<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Mode, value.into());
+		self.set_attr(FeBlendAttrs::Mode, value);
 	}
 
 	/// Get the `mode` attribute.
-	pub fn mode(&self) -> Option<&str> {
+	pub fn mode(&self) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::Mode)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Style, value.into());
+		self.set_attr(FeBlendAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeBlendAttrs::Style, value.into());
+		self.set_attr(FeBlendAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeBlend {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
@@ -4623,11 +4906,14 @@ impl common_attrs::CoreAttributesSetter for FeBlend {
 impl TagWithCoreAttributes for FeBlend {}
 
 impl common_attrs::FilterAttributesSetter for FeBlend {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
@@ -4635,11 +4921,14 @@ impl common_attrs::FilterAttributesSetter for FeBlend {
 impl TagWithFilterAttributes for FeBlend {}
 
 impl common_attrs::PresentationAttributesSetter for FeBlend {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeBlendAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeBlendAttrs::from(attr))
 	}
 }
@@ -4647,9 +4936,10 @@ impl common_attrs::PresentationAttributesSetter for FeBlend {
 impl TagWithPresentationAttributes for FeBlend {}
 
 impl Tag for FeBlend {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feBlend");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4659,6 +4949,7 @@ impl Tag for FeBlend {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeColorMatrixAttrs {
 	Class,
@@ -4717,7 +5008,7 @@ impl Debug for FeColorMatrixAttrs {
 }
 
 mod fe_color_matrix_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -4730,7 +5021,7 @@ mod fe_color_matrix_private {
 #[doc = "\n\n [`<feColorMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feColorMatrix"]
 #[derive(Debug)]
 pub struct FeColorMatrix {
-	attrs: IndexMap<FeColorMatrixAttrs, String>,
+	attrs: IndexMap<FeColorMatrixAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_color_matrix_private::Content>>,
 }
 
@@ -4764,132 +5055,138 @@ impl FeColorMatrix {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeColorMatrixAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeColorMatrixAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeColorMatrixAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeColorMatrixAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Class, value.into());
+		self.set_attr(FeColorMatrixAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Class, value.into());
+		self.set_attr(FeColorMatrixAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::In, value.into());
+		self.set_attr(FeColorMatrixAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::In, value.into());
+		self.set_attr(FeColorMatrixAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::In)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Style, value.into());
+		self.set_attr(FeColorMatrixAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Style, value.into());
+		self.set_attr(FeColorMatrixAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::Style)
 	}
 
 	/// Set the `type` attribute.
-	pub fn with_ty<T>(mut self, value: T) -> Self
+	pub fn with_ty<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Type, value.into());
+		self.set_attr(FeColorMatrixAttrs::Type, value);
 		self
 	}
 
 	/// Set the `type` attribute.
-	pub fn set_ty<T>(&mut self, value: T)
+	pub fn set_ty<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Type, value.into());
+		self.set_attr(FeColorMatrixAttrs::Type, value);
 	}
 
 	/// Get the `type` attribute.
-	pub fn ty(&self) -> Option<&str> {
+	pub fn ty(&self) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::Type)
 	}
 
 	/// Set the `values` attribute.
-	pub fn with_values<T>(mut self, value: T) -> Self
+	pub fn with_values<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Values, value.into());
+		self.set_attr(FeColorMatrixAttrs::Values, value);
 		self
 	}
 
 	/// Set the `values` attribute.
-	pub fn set_values<T>(&mut self, value: T)
+	pub fn set_values<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeColorMatrixAttrs::Values, value.into());
+		self.set_attr(FeColorMatrixAttrs::Values, value);
 	}
 
 	/// Get the `values` attribute.
-	pub fn values(&self) -> Option<&str> {
+	pub fn values(&self) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::Values)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeColorMatrix {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
@@ -4897,11 +5194,14 @@ impl common_attrs::CoreAttributesSetter for FeColorMatrix {
 impl TagWithCoreAttributes for FeColorMatrix {}
 
 impl common_attrs::FilterAttributesSetter for FeColorMatrix {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
@@ -4909,11 +5209,14 @@ impl common_attrs::FilterAttributesSetter for FeColorMatrix {
 impl TagWithFilterAttributes for FeColorMatrix {}
 
 impl common_attrs::PresentationAttributesSetter for FeColorMatrix {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeColorMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeColorMatrixAttrs::from(attr))
 	}
 }
@@ -4921,9 +5224,10 @@ impl common_attrs::PresentationAttributesSetter for FeColorMatrix {
 impl TagWithPresentationAttributes for FeColorMatrix {}
 
 impl Tag for FeColorMatrix {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feColorMatrix");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4933,6 +5237,7 @@ impl Tag for FeColorMatrix {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeComponentTransferAttrs {
 	Class,
@@ -4987,7 +5292,7 @@ impl Debug for FeComponentTransferAttrs {
 }
 
 mod fe_component_transfer_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -5002,7 +5307,7 @@ mod fe_component_transfer_private {
 #[doc = "\n\n [`<feComponentTransfer>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComponentTransfer"]
 #[derive(Debug)]
 pub struct FeComponentTransfer {
-	attrs: IndexMap<FeComponentTransferAttrs, String>,
+	attrs: IndexMap<FeComponentTransferAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_component_transfer_private::Content>>,
 }
 
@@ -5036,88 +5341,94 @@ impl FeComponentTransfer {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeComponentTransferAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeComponentTransferAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeComponentTransferAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeComponentTransferAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::Class, value.into());
+		self.set_attr(FeComponentTransferAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::Class, value.into());
+		self.set_attr(FeComponentTransferAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::In, value.into());
+		self.set_attr(FeComponentTransferAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::In, value.into());
+		self.set_attr(FeComponentTransferAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::In)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::Style, value.into());
+		self.set_attr(FeComponentTransferAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeComponentTransferAttrs::Style, value.into());
+		self.set_attr(FeComponentTransferAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeComponentTransfer {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
@@ -5125,11 +5436,14 @@ impl common_attrs::CoreAttributesSetter for FeComponentTransfer {
 impl TagWithCoreAttributes for FeComponentTransfer {}
 
 impl common_attrs::FilterAttributesSetter for FeComponentTransfer {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
@@ -5137,11 +5451,14 @@ impl common_attrs::FilterAttributesSetter for FeComponentTransfer {
 impl TagWithFilterAttributes for FeComponentTransfer {}
 
 impl common_attrs::PresentationAttributesSetter for FeComponentTransfer {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeComponentTransferAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeComponentTransferAttrs::from(attr))
 	}
 }
@@ -5149,9 +5466,10 @@ impl common_attrs::PresentationAttributesSetter for FeComponentTransfer {
 impl TagWithPresentationAttributes for FeComponentTransfer {}
 
 impl Tag for FeComponentTransfer {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feComponentTransfer");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5161,6 +5479,7 @@ impl Tag for FeComponentTransfer {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeCompositeAttrs {
 	Class,
@@ -5227,7 +5546,7 @@ impl Debug for FeCompositeAttrs {
 }
 
 mod fe_composite_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -5240,7 +5559,7 @@ mod fe_composite_private {
 #[doc = "\n\n [`<feComposite>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feComposite"]
 #[derive(Debug)]
 pub struct FeComposite {
-	attrs: IndexMap<FeCompositeAttrs, String>,
+	attrs: IndexMap<FeCompositeAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_composite_private::Content>>,
 }
 
@@ -5274,220 +5593,226 @@ impl FeComposite {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeCompositeAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeCompositeAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeCompositeAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeCompositeAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Class, value.into());
+		self.set_attr(FeCompositeAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Class, value.into());
+		self.set_attr(FeCompositeAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::In, value.into());
+		self.set_attr(FeCompositeAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::In, value.into());
+		self.set_attr(FeCompositeAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
-	pub fn with_in2<T>(mut self, value: T) -> Self
+	pub fn with_in2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::In2, value.into());
+		self.set_attr(FeCompositeAttrs::In2, value);
 		self
 	}
 
 	/// Set the `in2` attribute.
-	pub fn set_in2<T>(&mut self, value: T)
+	pub fn set_in2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::In2, value.into());
+		self.set_attr(FeCompositeAttrs::In2, value);
 	}
 
 	/// Get the `in2` attribute.
-	pub fn in2(&self) -> Option<&str> {
+	pub fn in2(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::In2)
 	}
 
 	/// Set the `k1` attribute.
-	pub fn with_k1<T>(mut self, value: T) -> Self
+	pub fn with_k1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K1, value.into());
+		self.set_attr(FeCompositeAttrs::K1, value);
 		self
 	}
 
 	/// Set the `k1` attribute.
-	pub fn set_k1<T>(&mut self, value: T)
+	pub fn set_k1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K1, value.into());
+		self.set_attr(FeCompositeAttrs::K1, value);
 	}
 
 	/// Get the `k1` attribute.
-	pub fn k1(&self) -> Option<&str> {
+	pub fn k1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::K1)
 	}
 
 	/// Set the `k2` attribute.
-	pub fn with_k2<T>(mut self, value: T) -> Self
+	pub fn with_k2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K2, value.into());
+		self.set_attr(FeCompositeAttrs::K2, value);
 		self
 	}
 
 	/// Set the `k2` attribute.
-	pub fn set_k2<T>(&mut self, value: T)
+	pub fn set_k2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K2, value.into());
+		self.set_attr(FeCompositeAttrs::K2, value);
 	}
 
 	/// Get the `k2` attribute.
-	pub fn k2(&self) -> Option<&str> {
+	pub fn k2(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::K2)
 	}
 
 	/// Set the `k3` attribute.
-	pub fn with_k3<T>(mut self, value: T) -> Self
+	pub fn with_k3<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K3, value.into());
+		self.set_attr(FeCompositeAttrs::K3, value);
 		self
 	}
 
 	/// Set the `k3` attribute.
-	pub fn set_k3<T>(&mut self, value: T)
+	pub fn set_k3<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K3, value.into());
+		self.set_attr(FeCompositeAttrs::K3, value);
 	}
 
 	/// Get the `k3` attribute.
-	pub fn k3(&self) -> Option<&str> {
+	pub fn k3(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::K3)
 	}
 
 	/// Set the `k4` attribute.
-	pub fn with_k4<T>(mut self, value: T) -> Self
+	pub fn with_k4<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K4, value.into());
+		self.set_attr(FeCompositeAttrs::K4, value);
 		self
 	}
 
 	/// Set the `k4` attribute.
-	pub fn set_k4<T>(&mut self, value: T)
+	pub fn set_k4<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::K4, value.into());
+		self.set_attr(FeCompositeAttrs::K4, value);
 	}
 
 	/// Get the `k4` attribute.
-	pub fn k4(&self) -> Option<&str> {
+	pub fn k4(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::K4)
 	}
 
 	/// Set the `operator` attribute.
-	pub fn with_operator<T>(mut self, value: T) -> Self
+	pub fn with_operator<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Operator, value.into());
+		self.set_attr(FeCompositeAttrs::Operator, value);
 		self
 	}
 
 	/// Set the `operator` attribute.
-	pub fn set_operator<T>(&mut self, value: T)
+	pub fn set_operator<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Operator, value.into());
+		self.set_attr(FeCompositeAttrs::Operator, value);
 	}
 
 	/// Get the `operator` attribute.
-	pub fn operator(&self) -> Option<&str> {
+	pub fn operator(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::Operator)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Style, value.into());
+		self.set_attr(FeCompositeAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeCompositeAttrs::Style, value.into());
+		self.set_attr(FeCompositeAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeComposite {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
@@ -5495,11 +5820,14 @@ impl common_attrs::CoreAttributesSetter for FeComposite {
 impl TagWithCoreAttributes for FeComposite {}
 
 impl common_attrs::FilterAttributesSetter for FeComposite {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
@@ -5507,11 +5835,14 @@ impl common_attrs::FilterAttributesSetter for FeComposite {
 impl TagWithFilterAttributes for FeComposite {}
 
 impl common_attrs::PresentationAttributesSetter for FeComposite {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeCompositeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeCompositeAttrs::from(attr))
 	}
 }
@@ -5519,9 +5850,10 @@ impl common_attrs::PresentationAttributesSetter for FeComposite {
 impl TagWithPresentationAttributes for FeComposite {}
 
 impl Tag for FeComposite {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feComposite");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5531,6 +5863,7 @@ impl Tag for FeComposite {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeConvolveMatrixAttrs {
 	Bias,
@@ -5603,7 +5936,7 @@ impl Debug for FeConvolveMatrixAttrs {
 }
 
 mod fe_convolve_matrix_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -5616,7 +5949,7 @@ mod fe_convolve_matrix_private {
 #[doc = "\n\n [`<feConvolveMatrix>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feConvolveMatrix"]
 #[derive(Debug)]
 pub struct FeConvolveMatrix {
-	attrs: IndexMap<FeConvolveMatrixAttrs, String>,
+	attrs: IndexMap<FeConvolveMatrixAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_convolve_matrix_private::Content>>,
 }
 
@@ -5650,286 +5983,292 @@ impl FeConvolveMatrix {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeConvolveMatrixAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeConvolveMatrixAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeConvolveMatrixAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeConvolveMatrixAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `bias` attribute.
-	pub fn with_bias<T>(mut self, value: T) -> Self
+	pub fn with_bias<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Bias, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Bias, value);
 		self
 	}
 
 	/// Set the `bias` attribute.
-	pub fn set_bias<T>(&mut self, value: T)
+	pub fn set_bias<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Bias, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Bias, value);
 	}
 
 	/// Get the `bias` attribute.
-	pub fn bias(&self) -> Option<&str> {
+	pub fn bias(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::Bias)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Class, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Class, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::Class)
 	}
 
 	/// Set the `divisor` attribute.
-	pub fn with_divisor<T>(mut self, value: T) -> Self
+	pub fn with_divisor<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Divisor, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Divisor, value);
 		self
 	}
 
 	/// Set the `divisor` attribute.
-	pub fn set_divisor<T>(&mut self, value: T)
+	pub fn set_divisor<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Divisor, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Divisor, value);
 	}
 
 	/// Get the `divisor` attribute.
-	pub fn divisor(&self) -> Option<&str> {
+	pub fn divisor(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::Divisor)
 	}
 
 	/// Set the `edgeMode` attribute.
-	pub fn with_edge_mode<T>(mut self, value: T) -> Self
+	pub fn with_edge_mode<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::EdgeMode, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::EdgeMode, value);
 		self
 	}
 
 	/// Set the `edgeMode` attribute.
-	pub fn set_edge_mode<T>(&mut self, value: T)
+	pub fn set_edge_mode<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::EdgeMode, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::EdgeMode, value);
 	}
 
 	/// Get the `edgeMode` attribute.
-	pub fn edge_mode(&self) -> Option<&str> {
+	pub fn edge_mode(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::EdgeMode)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::In, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::In, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::In)
 	}
 
 	/// Set the `kernelMatrix` attribute.
-	pub fn with_kernel_matrix<T>(mut self, value: T) -> Self
+	pub fn with_kernel_matrix<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::KernelMatrix, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::KernelMatrix, value);
 		self
 	}
 
 	/// Set the `kernelMatrix` attribute.
-	pub fn set_kernel_matrix<T>(&mut self, value: T)
+	pub fn set_kernel_matrix<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::KernelMatrix, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::KernelMatrix, value);
 	}
 
 	/// Get the `kernelMatrix` attribute.
-	pub fn kernel_matrix(&self) -> Option<&str> {
+	pub fn kernel_matrix(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::KernelMatrix)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn with_kernel_unit_length<T>(mut self, value: T) -> Self
+	pub fn with_kernel_unit_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::KernelUnitLength, value);
 		self
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn set_kernel_unit_length<T>(&mut self, value: T)
+	pub fn set_kernel_unit_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::KernelUnitLength, value);
 	}
 
 	/// Get the `kernelUnitLength` attribute.
-	pub fn kernel_unit_length(&self) -> Option<&str> {
+	pub fn kernel_unit_length(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::KernelUnitLength)
 	}
 
 	/// Set the `order` attribute.
-	pub fn with_order<T>(mut self, value: T) -> Self
+	pub fn with_order<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Order, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Order, value);
 		self
 	}
 
 	/// Set the `order` attribute.
-	pub fn set_order<T>(&mut self, value: T)
+	pub fn set_order<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Order, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Order, value);
 	}
 
 	/// Get the `order` attribute.
-	pub fn order(&self) -> Option<&str> {
+	pub fn order(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::Order)
 	}
 
 	/// Set the `preserveAlpha` attribute.
-	pub fn with_preserve_alpha<T>(mut self, value: T) -> Self
+	pub fn with_preserve_alpha<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::PreserveAlpha, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::PreserveAlpha, value);
 		self
 	}
 
 	/// Set the `preserveAlpha` attribute.
-	pub fn set_preserve_alpha<T>(&mut self, value: T)
+	pub fn set_preserve_alpha<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::PreserveAlpha, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::PreserveAlpha, value);
 	}
 
 	/// Get the `preserveAlpha` attribute.
-	pub fn preserve_alpha(&self) -> Option<&str> {
+	pub fn preserve_alpha(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::PreserveAlpha)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Style, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::Style, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::Style)
 	}
 
 	/// Set the `targetX` attribute.
-	pub fn with_target_x<T>(mut self, value: T) -> Self
+	pub fn with_target_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::TargetX, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::TargetX, value);
 		self
 	}
 
 	/// Set the `targetX` attribute.
-	pub fn set_target_x<T>(&mut self, value: T)
+	pub fn set_target_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::TargetX, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::TargetX, value);
 	}
 
 	/// Get the `targetX` attribute.
-	pub fn target_x(&self) -> Option<&str> {
+	pub fn target_x(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::TargetX)
 	}
 
 	/// Set the `targetY` attribute.
-	pub fn with_target_y<T>(mut self, value: T) -> Self
+	pub fn with_target_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::TargetY, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::TargetY, value);
 		self
 	}
 
 	/// Set the `targetY` attribute.
-	pub fn set_target_y<T>(&mut self, value: T)
+	pub fn set_target_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeConvolveMatrixAttrs::TargetY, value.into());
+		self.set_attr(FeConvolveMatrixAttrs::TargetY, value);
 	}
 
 	/// Get the `targetY` attribute.
-	pub fn target_y(&self) -> Option<&str> {
+	pub fn target_y(&self) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::TargetY)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeConvolveMatrix {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
@@ -5937,11 +6276,14 @@ impl common_attrs::CoreAttributesSetter for FeConvolveMatrix {
 impl TagWithCoreAttributes for FeConvolveMatrix {}
 
 impl common_attrs::FilterAttributesSetter for FeConvolveMatrix {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
@@ -5949,11 +6291,14 @@ impl common_attrs::FilterAttributesSetter for FeConvolveMatrix {
 impl TagWithFilterAttributes for FeConvolveMatrix {}
 
 impl common_attrs::PresentationAttributesSetter for FeConvolveMatrix {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeConvolveMatrixAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeConvolveMatrixAttrs::from(attr))
 	}
 }
@@ -5961,9 +6306,10 @@ impl common_attrs::PresentationAttributesSetter for FeConvolveMatrix {
 impl TagWithPresentationAttributes for FeConvolveMatrix {}
 
 impl Tag for FeConvolveMatrix {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feConvolveMatrix");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5973,6 +6319,7 @@ impl Tag for FeConvolveMatrix {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeDiffuseLightingAttrs {
 	Class,
@@ -6037,7 +6384,7 @@ impl Debug for FeDiffuseLightingAttrs {
 #[doc = "\n\n [`<feDiffuseLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDiffuseLighting"]
 #[derive(Debug)]
 pub struct FeDiffuseLighting {
-	attrs: IndexMap<FeDiffuseLightingAttrs, String>,
+	attrs: IndexMap<FeDiffuseLightingAttrs, Box<dyn Value>>,
 }
 
 impl Default for FeDiffuseLighting {
@@ -6054,154 +6401,160 @@ impl FeDiffuseLighting {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FeDiffuseLightingAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeDiffuseLightingAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeDiffuseLightingAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeDiffuseLightingAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::Class, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::Class, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::Class)
 	}
 
 	/// Set the `diffuseConstant` attribute.
-	pub fn with_diffuse_constant<T>(mut self, value: T) -> Self
+	pub fn with_diffuse_constant<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::DiffuseConstant, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::DiffuseConstant, value);
 		self
 	}
 
 	/// Set the `diffuseConstant` attribute.
-	pub fn set_diffuse_constant<T>(&mut self, value: T)
+	pub fn set_diffuse_constant<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::DiffuseConstant, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::DiffuseConstant, value);
 	}
 
 	/// Get the `diffuseConstant` attribute.
-	pub fn diffuse_constant(&self) -> Option<&str> {
+	pub fn diffuse_constant(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::DiffuseConstant)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::In, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::In, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::In)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn with_kernel_unit_length<T>(mut self, value: T) -> Self
+	pub fn with_kernel_unit_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::KernelUnitLength, value);
 		self
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn set_kernel_unit_length<T>(&mut self, value: T)
+	pub fn set_kernel_unit_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::KernelUnitLength, value);
 	}
 
 	/// Get the `kernelUnitLength` attribute.
-	pub fn kernel_unit_length(&self) -> Option<&str> {
+	pub fn kernel_unit_length(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::KernelUnitLength)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::Style, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::Style, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::Style)
 	}
 
 	/// Set the `surfaceScale` attribute.
-	pub fn with_surface_scale<T>(mut self, value: T) -> Self
+	pub fn with_surface_scale<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::SurfaceScale, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::SurfaceScale, value);
 		self
 	}
 
 	/// Set the `surfaceScale` attribute.
-	pub fn set_surface_scale<T>(&mut self, value: T)
+	pub fn set_surface_scale<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDiffuseLightingAttrs::SurfaceScale, value.into());
+		self.set_attr(FeDiffuseLightingAttrs::SurfaceScale, value);
 	}
 
 	/// Get the `surfaceScale` attribute.
-	pub fn surface_scale(&self) -> Option<&str> {
+	pub fn surface_scale(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::SurfaceScale)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeDiffuseLighting {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
@@ -6209,11 +6562,14 @@ impl common_attrs::CoreAttributesSetter for FeDiffuseLighting {
 impl TagWithCoreAttributes for FeDiffuseLighting {}
 
 impl common_attrs::FilterAttributesSetter for FeDiffuseLighting {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
@@ -6221,11 +6577,14 @@ impl common_attrs::FilterAttributesSetter for FeDiffuseLighting {
 impl TagWithFilterAttributes for FeDiffuseLighting {}
 
 impl common_attrs::PresentationAttributesSetter for FeDiffuseLighting {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDiffuseLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDiffuseLightingAttrs::from(attr))
 	}
 }
@@ -6233,15 +6592,17 @@ impl common_attrs::PresentationAttributesSetter for FeDiffuseLighting {
 impl TagWithPresentationAttributes for FeDiffuseLighting {}
 
 impl Tag for FeDiffuseLighting {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDiffuseLighting");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeDisplacementMapAttrs {
 	Class,
@@ -6304,7 +6665,7 @@ impl Debug for FeDisplacementMapAttrs {
 }
 
 mod fe_displacement_map_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -6317,7 +6678,7 @@ mod fe_displacement_map_private {
 #[doc = "\n\n [`<feDisplacementMap>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDisplacementMap"]
 #[derive(Debug)]
 pub struct FeDisplacementMap {
-	attrs: IndexMap<FeDisplacementMapAttrs, String>,
+	attrs: IndexMap<FeDisplacementMapAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_displacement_map_private::Content>>,
 }
 
@@ -6351,176 +6712,182 @@ impl FeDisplacementMap {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeDisplacementMapAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeDisplacementMapAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeDisplacementMapAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeDisplacementMapAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Class, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Class, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::In, value.into());
+		self.set_attr(FeDisplacementMapAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::In, value.into());
+		self.set_attr(FeDisplacementMapAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::In)
 	}
 
 	/// Set the `in2` attribute.
-	pub fn with_in2<T>(mut self, value: T) -> Self
+	pub fn with_in2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::In2, value.into());
+		self.set_attr(FeDisplacementMapAttrs::In2, value);
 		self
 	}
 
 	/// Set the `in2` attribute.
-	pub fn set_in2<T>(&mut self, value: T)
+	pub fn set_in2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::In2, value.into());
+		self.set_attr(FeDisplacementMapAttrs::In2, value);
 	}
 
 	/// Get the `in2` attribute.
-	pub fn in2(&self) -> Option<&str> {
+	pub fn in2(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::In2)
 	}
 
 	/// Set the `scale` attribute.
-	pub fn with_scale<T>(mut self, value: T) -> Self
+	pub fn with_scale<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Scale, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Scale, value);
 		self
 	}
 
 	/// Set the `scale` attribute.
-	pub fn set_scale<T>(&mut self, value: T)
+	pub fn set_scale<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Scale, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Scale, value);
 	}
 
 	/// Get the `scale` attribute.
-	pub fn scale(&self) -> Option<&str> {
+	pub fn scale(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::Scale)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Style, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::Style, value.into());
+		self.set_attr(FeDisplacementMapAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::Style)
 	}
 
 	/// Set the `xChannelSelector` attribute.
-	pub fn with_x_channel_selector<T>(mut self, value: T) -> Self
+	pub fn with_x_channel_selector<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::XChannelSelector, value.into());
+		self.set_attr(FeDisplacementMapAttrs::XChannelSelector, value);
 		self
 	}
 
 	/// Set the `xChannelSelector` attribute.
-	pub fn set_x_channel_selector<T>(&mut self, value: T)
+	pub fn set_x_channel_selector<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::XChannelSelector, value.into());
+		self.set_attr(FeDisplacementMapAttrs::XChannelSelector, value);
 	}
 
 	/// Get the `xChannelSelector` attribute.
-	pub fn x_channel_selector(&self) -> Option<&str> {
+	pub fn x_channel_selector(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::XChannelSelector)
 	}
 
 	/// Set the `yChannelSelector` attribute.
-	pub fn with_y_channel_selector<T>(mut self, value: T) -> Self
+	pub fn with_y_channel_selector<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::YChannelSelector, value.into());
+		self.set_attr(FeDisplacementMapAttrs::YChannelSelector, value);
 		self
 	}
 
 	/// Set the `yChannelSelector` attribute.
-	pub fn set_y_channel_selector<T>(&mut self, value: T)
+	pub fn set_y_channel_selector<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDisplacementMapAttrs::YChannelSelector, value.into());
+		self.set_attr(FeDisplacementMapAttrs::YChannelSelector, value);
 	}
 
 	/// Get the `yChannelSelector` attribute.
-	pub fn y_channel_selector(&self) -> Option<&str> {
+	pub fn y_channel_selector(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::YChannelSelector)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeDisplacementMap {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
@@ -6528,11 +6895,14 @@ impl common_attrs::CoreAttributesSetter for FeDisplacementMap {
 impl TagWithCoreAttributes for FeDisplacementMap {}
 
 impl common_attrs::FilterAttributesSetter for FeDisplacementMap {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
@@ -6540,11 +6910,14 @@ impl common_attrs::FilterAttributesSetter for FeDisplacementMap {
 impl TagWithFilterAttributes for FeDisplacementMap {}
 
 impl common_attrs::PresentationAttributesSetter for FeDisplacementMap {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDisplacementMapAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDisplacementMapAttrs::from(attr))
 	}
 }
@@ -6552,9 +6925,10 @@ impl common_attrs::PresentationAttributesSetter for FeDisplacementMap {
 impl TagWithPresentationAttributes for FeDisplacementMap {}
 
 impl Tag for FeDisplacementMap {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDisplacementMap");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -6564,6 +6938,7 @@ impl Tag for FeDisplacementMap {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeDistantLightAttrs {
 	Azimuth,
@@ -6600,7 +6975,7 @@ impl Debug for FeDistantLightAttrs {
 }
 
 mod fe_distant_light_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -6613,7 +6988,7 @@ mod fe_distant_light_private {
 #[doc = "\n\n [`<feDistantLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDistantLight"]
 #[derive(Debug)]
 pub struct FeDistantLight {
-	attrs: IndexMap<FeDistantLightAttrs, String>,
+	attrs: IndexMap<FeDistantLightAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_distant_light_private::Content>>,
 }
 
@@ -6647,66 +7022,72 @@ impl FeDistantLight {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeDistantLightAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeDistantLightAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeDistantLightAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeDistantLightAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `azimuth` attribute.
-	pub fn with_azimuth<T>(mut self, value: T) -> Self
+	pub fn with_azimuth<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDistantLightAttrs::Azimuth, value.into());
+		self.set_attr(FeDistantLightAttrs::Azimuth, value);
 		self
 	}
 
 	/// Set the `azimuth` attribute.
-	pub fn set_azimuth<T>(&mut self, value: T)
+	pub fn set_azimuth<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDistantLightAttrs::Azimuth, value.into());
+		self.set_attr(FeDistantLightAttrs::Azimuth, value);
 	}
 
 	/// Get the `azimuth` attribute.
-	pub fn azimuth(&self) -> Option<&str> {
+	pub fn azimuth(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDistantLightAttrs::Azimuth)
 	}
 
 	/// Set the `elevation` attribute.
-	pub fn with_elevation<T>(mut self, value: T) -> Self
+	pub fn with_elevation<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDistantLightAttrs::Elevation, value.into());
+		self.set_attr(FeDistantLightAttrs::Elevation, value);
 		self
 	}
 
 	/// Set the `elevation` attribute.
-	pub fn set_elevation<T>(&mut self, value: T)
+	pub fn set_elevation<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDistantLightAttrs::Elevation, value.into());
+		self.set_attr(FeDistantLightAttrs::Elevation, value);
 	}
 
 	/// Get the `elevation` attribute.
-	pub fn elevation(&self) -> Option<&str> {
+	pub fn elevation(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDistantLightAttrs::Elevation)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeDistantLight {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDistantLightAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDistantLightAttrs::from(attr))
 	}
 }
@@ -6714,9 +7095,10 @@ impl common_attrs::CoreAttributesSetter for FeDistantLight {
 impl TagWithCoreAttributes for FeDistantLight {}
 
 impl Tag for FeDistantLight {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDistantLight");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -6726,6 +7108,7 @@ impl Tag for FeDistantLight {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeDropShadowAttrs {
 	Class,
@@ -6786,7 +7169,7 @@ impl Debug for FeDropShadowAttrs {
 }
 
 mod fe_drop_shadow_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -6800,7 +7183,7 @@ mod fe_drop_shadow_private {
 #[doc = "\n\n [`<feDropShadow>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feDropShadow"]
 #[derive(Debug)]
 pub struct FeDropShadow {
-	attrs: IndexMap<FeDropShadowAttrs, String>,
+	attrs: IndexMap<FeDropShadowAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_drop_shadow_private::Content>>,
 }
 
@@ -6834,154 +7217,160 @@ impl FeDropShadow {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeDropShadowAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeDropShadowAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeDropShadowAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeDropShadowAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Class, value.into());
+		self.set_attr(FeDropShadowAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Class, value.into());
+		self.set_attr(FeDropShadowAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Dx, value.into());
+		self.set_attr(FeDropShadowAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Dx, value.into());
+		self.set_attr(FeDropShadowAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Dy, value.into());
+		self.set_attr(FeDropShadowAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Dy, value.into());
+		self.set_attr(FeDropShadowAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::Dy)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::In, value.into());
+		self.set_attr(FeDropShadowAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::In, value.into());
+		self.set_attr(FeDropShadowAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::In)
 	}
 
 	/// Set the `stdDeviation` attribute.
-	pub fn with_std_deviation<T>(mut self, value: T) -> Self
+	pub fn with_std_deviation<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::StdDeviation, value.into());
+		self.set_attr(FeDropShadowAttrs::StdDeviation, value);
 		self
 	}
 
 	/// Set the `stdDeviation` attribute.
-	pub fn set_std_deviation<T>(&mut self, value: T)
+	pub fn set_std_deviation<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::StdDeviation, value.into());
+		self.set_attr(FeDropShadowAttrs::StdDeviation, value);
 	}
 
 	/// Get the `stdDeviation` attribute.
-	pub fn std_deviation(&self) -> Option<&str> {
+	pub fn std_deviation(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::StdDeviation)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Style, value.into());
+		self.set_attr(FeDropShadowAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeDropShadowAttrs::Style, value.into());
+		self.set_attr(FeDropShadowAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeDropShadow {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
@@ -6989,11 +7378,14 @@ impl common_attrs::CoreAttributesSetter for FeDropShadow {
 impl TagWithCoreAttributes for FeDropShadow {}
 
 impl common_attrs::FilterAttributesSetter for FeDropShadow {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
@@ -7001,11 +7393,14 @@ impl common_attrs::FilterAttributesSetter for FeDropShadow {
 impl TagWithFilterAttributes for FeDropShadow {}
 
 impl common_attrs::PresentationAttributesSetter for FeDropShadow {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeDropShadowAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeDropShadowAttrs::from(attr))
 	}
 }
@@ -7013,9 +7408,10 @@ impl common_attrs::PresentationAttributesSetter for FeDropShadow {
 impl TagWithPresentationAttributes for FeDropShadow {}
 
 impl Tag for FeDropShadow {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDropShadow");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -7025,6 +7421,7 @@ impl Tag for FeDropShadow {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFloodAttrs {
 	Class,
@@ -7081,7 +7478,7 @@ impl Debug for FeFloodAttrs {
 }
 
 mod fe_flood_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7095,7 +7492,7 @@ mod fe_flood_private {
 #[doc = "\n\n [`<feFlood>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFlood"]
 #[derive(Debug)]
 pub struct FeFlood {
-	attrs: IndexMap<FeFloodAttrs, String>,
+	attrs: IndexMap<FeFloodAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_flood_private::Content>>,
 }
 
@@ -7129,110 +7526,116 @@ impl FeFlood {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeFloodAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeFloodAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeFloodAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeFloodAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::Class, value.into());
+		self.set_attr(FeFloodAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::Class, value.into());
+		self.set_attr(FeFloodAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::Class)
 	}
 
 	/// Set the `flood-color` attribute.
-	pub fn with_flood_color<T>(mut self, value: T) -> Self
+	pub fn with_flood_color<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::FloodColor, value.into());
+		self.set_attr(FeFloodAttrs::FloodColor, value);
 		self
 	}
 
 	/// Set the `flood-color` attribute.
-	pub fn set_flood_color<T>(&mut self, value: T)
+	pub fn set_flood_color<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::FloodColor, value.into());
+		self.set_attr(FeFloodAttrs::FloodColor, value);
 	}
 
 	/// Get the `flood-color` attribute.
-	pub fn flood_color(&self) -> Option<&str> {
+	pub fn flood_color(&self) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::FloodColor)
 	}
 
 	/// Set the `flood-opacity` attribute.
-	pub fn with_flood_opacity<T>(mut self, value: T) -> Self
+	pub fn with_flood_opacity<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::FloodOpacity, value.into());
+		self.set_attr(FeFloodAttrs::FloodOpacity, value);
 		self
 	}
 
 	/// Set the `flood-opacity` attribute.
-	pub fn set_flood_opacity<T>(&mut self, value: T)
+	pub fn set_flood_opacity<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::FloodOpacity, value.into());
+		self.set_attr(FeFloodAttrs::FloodOpacity, value);
 	}
 
 	/// Get the `flood-opacity` attribute.
-	pub fn flood_opacity(&self) -> Option<&str> {
+	pub fn flood_opacity(&self) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::FloodOpacity)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::Style, value.into());
+		self.set_attr(FeFloodAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeFloodAttrs::Style, value.into());
+		self.set_attr(FeFloodAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFlood {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
@@ -7240,11 +7643,14 @@ impl common_attrs::CoreAttributesSetter for FeFlood {
 impl TagWithCoreAttributes for FeFlood {}
 
 impl common_attrs::FilterAttributesSetter for FeFlood {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
@@ -7252,11 +7658,14 @@ impl common_attrs::FilterAttributesSetter for FeFlood {
 impl TagWithFilterAttributes for FeFlood {}
 
 impl common_attrs::PresentationAttributesSetter for FeFlood {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFloodAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFloodAttrs::from(attr))
 	}
 }
@@ -7264,9 +7673,10 @@ impl common_attrs::PresentationAttributesSetter for FeFlood {
 impl TagWithPresentationAttributes for FeFlood {}
 
 impl Tag for FeFlood {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFlood");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -7276,6 +7686,7 @@ impl Tag for FeFlood {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFuncAAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -7316,7 +7727,7 @@ impl Debug for FeFuncAAttrs {
 }
 
 mod fe_func_a_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7329,7 +7740,7 @@ mod fe_func_a_private {
 #[doc = "\n\n [`<feFuncA>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncA"]
 #[derive(Debug)]
 pub struct FeFuncA {
-	attrs: IndexMap<FeFuncAAttrs, String>,
+	attrs: IndexMap<FeFuncAAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_func_a_private::Content>>,
 }
 
@@ -7363,22 +7774,28 @@ impl FeFuncA {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeFuncAAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeFuncAAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeFuncAAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeFuncAAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncA {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncAAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncAAttrs::from(attr))
 	}
 }
@@ -7386,11 +7803,14 @@ impl common_attrs::CoreAttributesSetter for FeFuncA {
 impl TagWithCoreAttributes for FeFuncA {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncA {
-	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::TransferFunctionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncAAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncAAttrs::from(attr))
 	}
 }
@@ -7398,7 +7818,7 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncA {
 impl TagWithTransferFunctionAttributes for FeFuncA {}
 
 impl Tag for FeFuncA {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFuncA");
 		for tag in &self.content {
 			tag.write_to(w, pretty);
@@ -7407,6 +7827,7 @@ impl Tag for FeFuncA {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFuncBAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -7447,7 +7868,7 @@ impl Debug for FeFuncBAttrs {
 }
 
 mod fe_func_b_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7460,7 +7881,7 @@ mod fe_func_b_private {
 #[doc = "\n\n [`<feFuncB>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncB"]
 #[derive(Debug)]
 pub struct FeFuncB {
-	attrs: IndexMap<FeFuncBAttrs, String>,
+	attrs: IndexMap<FeFuncBAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_func_b_private::Content>>,
 }
 
@@ -7494,22 +7915,28 @@ impl FeFuncB {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeFuncBAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeFuncBAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeFuncBAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeFuncBAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncB {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncBAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncBAttrs::from(attr))
 	}
 }
@@ -7517,11 +7944,14 @@ impl common_attrs::CoreAttributesSetter for FeFuncB {
 impl TagWithCoreAttributes for FeFuncB {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncB {
-	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::TransferFunctionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncBAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncBAttrs::from(attr))
 	}
 }
@@ -7529,7 +7959,7 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncB {
 impl TagWithTransferFunctionAttributes for FeFuncB {}
 
 impl Tag for FeFuncB {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFuncB");
 		for tag in &self.content {
 			tag.write_to(w, pretty);
@@ -7538,6 +7968,7 @@ impl Tag for FeFuncB {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFuncGAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -7578,7 +8009,7 @@ impl Debug for FeFuncGAttrs {
 }
 
 mod fe_func_g_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7591,7 +8022,7 @@ mod fe_func_g_private {
 #[doc = "\n\n [`<feFuncG>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncG"]
 #[derive(Debug)]
 pub struct FeFuncG {
-	attrs: IndexMap<FeFuncGAttrs, String>,
+	attrs: IndexMap<FeFuncGAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_func_g_private::Content>>,
 }
 
@@ -7625,22 +8056,28 @@ impl FeFuncG {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeFuncGAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeFuncGAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeFuncGAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeFuncGAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncG {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncGAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncGAttrs::from(attr))
 	}
 }
@@ -7648,11 +8085,14 @@ impl common_attrs::CoreAttributesSetter for FeFuncG {
 impl TagWithCoreAttributes for FeFuncG {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncG {
-	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::TransferFunctionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncGAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncGAttrs::from(attr))
 	}
 }
@@ -7660,7 +8100,7 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncG {
 impl TagWithTransferFunctionAttributes for FeFuncG {}
 
 impl Tag for FeFuncG {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFuncG");
 		for tag in &self.content {
 			tag.write_to(w, pretty);
@@ -7669,6 +8109,7 @@ impl Tag for FeFuncG {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeFuncRAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -7709,7 +8150,7 @@ impl Debug for FeFuncRAttrs {
 }
 
 mod fe_func_r_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7722,7 +8163,7 @@ mod fe_func_r_private {
 #[doc = "\n\n [`<feFuncR>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feFuncR"]
 #[derive(Debug)]
 pub struct FeFuncR {
-	attrs: IndexMap<FeFuncRAttrs, String>,
+	attrs: IndexMap<FeFuncRAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_func_r_private::Content>>,
 }
 
@@ -7756,22 +8197,28 @@ impl FeFuncR {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeFuncRAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeFuncRAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeFuncRAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeFuncRAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeFuncR {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncRAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncRAttrs::from(attr))
 	}
 }
@@ -7779,11 +8226,14 @@ impl common_attrs::CoreAttributesSetter for FeFuncR {
 impl TagWithCoreAttributes for FeFuncR {}
 
 impl common_attrs::TransferFunctionAttributesSetter for FeFuncR {
-	fn set_attr(&mut self, attr: common_attrs::TransferFunctionAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::TransferFunctionAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeFuncRAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::TransferFunctionAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeFuncRAttrs::from(attr))
 	}
 }
@@ -7791,7 +8241,7 @@ impl common_attrs::TransferFunctionAttributesSetter for FeFuncR {
 impl TagWithTransferFunctionAttributes for FeFuncR {}
 
 impl Tag for FeFuncR {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFuncR");
 		for tag in &self.content {
 			tag.write_to(w, pretty);
@@ -7800,6 +8250,7 @@ impl Tag for FeFuncR {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeGaussianBlurAttrs {
 	Class,
@@ -7856,7 +8307,7 @@ impl Debug for FeGaussianBlurAttrs {
 }
 
 mod fe_gaussian_blur_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -7869,7 +8320,7 @@ mod fe_gaussian_blur_private {
 #[doc = "\n\n [`<feGaussianBlur>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feGaussianBlur"]
 #[derive(Debug)]
 pub struct FeGaussianBlur {
-	attrs: IndexMap<FeGaussianBlurAttrs, String>,
+	attrs: IndexMap<FeGaussianBlurAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_gaussian_blur_private::Content>>,
 }
 
@@ -7903,110 +8354,116 @@ impl FeGaussianBlur {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeGaussianBlurAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeGaussianBlurAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeGaussianBlurAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeGaussianBlurAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::Class, value.into());
+		self.set_attr(FeGaussianBlurAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::Class, value.into());
+		self.set_attr(FeGaussianBlurAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::In, value.into());
+		self.set_attr(FeGaussianBlurAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::In, value.into());
+		self.set_attr(FeGaussianBlurAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::In)
 	}
 
 	/// Set the `stdDeviation` attribute.
-	pub fn with_std_deviation<T>(mut self, value: T) -> Self
+	pub fn with_std_deviation<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::StdDeviation, value.into());
+		self.set_attr(FeGaussianBlurAttrs::StdDeviation, value);
 		self
 	}
 
 	/// Set the `stdDeviation` attribute.
-	pub fn set_std_deviation<T>(&mut self, value: T)
+	pub fn set_std_deviation<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::StdDeviation, value.into());
+		self.set_attr(FeGaussianBlurAttrs::StdDeviation, value);
 	}
 
 	/// Get the `stdDeviation` attribute.
-	pub fn std_deviation(&self) -> Option<&str> {
+	pub fn std_deviation(&self) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::StdDeviation)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::Style, value.into());
+		self.set_attr(FeGaussianBlurAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeGaussianBlurAttrs::Style, value.into());
+		self.set_attr(FeGaussianBlurAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeGaussianBlur {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
@@ -8014,11 +8471,14 @@ impl common_attrs::CoreAttributesSetter for FeGaussianBlur {
 impl TagWithCoreAttributes for FeGaussianBlur {}
 
 impl common_attrs::FilterAttributesSetter for FeGaussianBlur {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
@@ -8026,11 +8486,14 @@ impl common_attrs::FilterAttributesSetter for FeGaussianBlur {
 impl TagWithFilterAttributes for FeGaussianBlur {}
 
 impl common_attrs::PresentationAttributesSetter for FeGaussianBlur {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeGaussianBlurAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeGaussianBlurAttrs::from(attr))
 	}
 }
@@ -8038,9 +8501,10 @@ impl common_attrs::PresentationAttributesSetter for FeGaussianBlur {
 impl TagWithPresentationAttributes for FeGaussianBlur {}
 
 impl Tag for FeGaussianBlur {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feGaussianBlur");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8050,6 +8514,7 @@ impl Tag for FeGaussianBlur {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeImageAttrs {
 	Class,
@@ -8116,7 +8581,7 @@ impl Debug for FeImageAttrs {
 }
 
 mod fe_image_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -8130,7 +8595,7 @@ mod fe_image_private {
 #[doc = "\n\n [`<feImage>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feImage"]
 #[derive(Debug)]
 pub struct FeImage {
-	attrs: IndexMap<FeImageAttrs, String>,
+	attrs: IndexMap<FeImageAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_image_private::Content>>,
 }
 
@@ -8164,132 +8629,138 @@ impl FeImage {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeImageAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeImageAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeImageAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeImageAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::Class, value.into());
+		self.set_attr(FeImageAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::Class, value.into());
+		self.set_attr(FeImageAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FeImageAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FeImageAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(FeImageAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(FeImageAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::Style, value.into());
+		self.set_attr(FeImageAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::Style, value.into());
+		self.set_attr(FeImageAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::XlinkHref, value.into());
+		self.set_attr(FeImageAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeImageAttrs::XlinkHref, value.into());
+		self.set_attr(FeImageAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeImage {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
@@ -8297,11 +8768,14 @@ impl common_attrs::CoreAttributesSetter for FeImage {
 impl TagWithCoreAttributes for FeImage {}
 
 impl common_attrs::FilterAttributesSetter for FeImage {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
@@ -8309,11 +8783,14 @@ impl common_attrs::FilterAttributesSetter for FeImage {
 impl TagWithFilterAttributes for FeImage {}
 
 impl common_attrs::PresentationAttributesSetter for FeImage {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
@@ -8321,11 +8798,14 @@ impl common_attrs::PresentationAttributesSetter for FeImage {
 impl TagWithPresentationAttributes for FeImage {}
 
 impl common_attrs::XLinkAttributesSetter for FeImage {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeImageAttrs::from(attr))
 	}
 }
@@ -8333,9 +8813,10 @@ impl common_attrs::XLinkAttributesSetter for FeImage {
 impl TagWithXLinkAttributes for FeImage {}
 
 impl Tag for FeImage {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feImage");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8345,6 +8826,7 @@ impl Tag for FeImage {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeMergeAttrs {
 	Class,
@@ -8397,7 +8879,7 @@ impl Debug for FeMergeAttrs {
 }
 
 mod fe_merge_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -8409,7 +8891,7 @@ mod fe_merge_private {
 #[doc = "\n\n [`<feMerge>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMerge"]
 #[derive(Debug)]
 pub struct FeMerge {
-	attrs: IndexMap<FeMergeAttrs, String>,
+	attrs: IndexMap<FeMergeAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_merge_private::Content>>,
 }
 
@@ -8443,66 +8925,72 @@ impl FeMerge {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeMergeAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeMergeAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeMergeAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeMergeAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeAttrs::Class, value.into());
+		self.set_attr(FeMergeAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeAttrs::Class, value.into());
+		self.set_attr(FeMergeAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMergeAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeAttrs::Style, value.into());
+		self.set_attr(FeMergeAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeAttrs::Style, value.into());
+		self.set_attr(FeMergeAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMergeAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeMerge {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
@@ -8510,11 +8998,14 @@ impl common_attrs::CoreAttributesSetter for FeMerge {
 impl TagWithCoreAttributes for FeMerge {}
 
 impl common_attrs::FilterAttributesSetter for FeMerge {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
@@ -8522,11 +9013,14 @@ impl common_attrs::FilterAttributesSetter for FeMerge {
 impl TagWithFilterAttributes for FeMerge {}
 
 impl common_attrs::PresentationAttributesSetter for FeMerge {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMergeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMergeAttrs::from(attr))
 	}
 }
@@ -8534,9 +9028,10 @@ impl common_attrs::PresentationAttributesSetter for FeMerge {
 impl TagWithPresentationAttributes for FeMerge {}
 
 impl Tag for FeMerge {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMerge");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8546,6 +9041,7 @@ impl Tag for FeMerge {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeMergeNodeAttrs {
 	In,
@@ -8580,7 +9076,7 @@ impl Debug for FeMergeNodeAttrs {
 }
 
 mod fe_merge_node_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -8593,7 +9089,7 @@ mod fe_merge_node_private {
 #[doc = "\n\n [`<feMergeNode>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMergeNode"]
 #[derive(Debug)]
 pub struct FeMergeNode {
-	attrs: IndexMap<FeMergeNodeAttrs, String>,
+	attrs: IndexMap<FeMergeNodeAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_merge_node_private::Content>>,
 }
 
@@ -8627,44 +9123,50 @@ impl FeMergeNode {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeMergeNodeAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeMergeNodeAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeMergeNodeAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeMergeNodeAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeNodeAttrs::In, value.into());
+		self.set_attr(FeMergeNodeAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMergeNodeAttrs::In, value.into());
+		self.set_attr(FeMergeNodeAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMergeNodeAttrs::In)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeMergeNode {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMergeNodeAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMergeNodeAttrs::from(attr))
 	}
 }
@@ -8672,9 +9174,10 @@ impl common_attrs::CoreAttributesSetter for FeMergeNode {
 impl TagWithCoreAttributes for FeMergeNode {}
 
 impl Tag for FeMergeNode {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMergeNode");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8684,6 +9187,7 @@ impl Tag for FeMergeNode {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeMorphologyAttrs {
 	Class,
@@ -8742,7 +9246,7 @@ impl Debug for FeMorphologyAttrs {
 }
 
 mod fe_morphology_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -8755,7 +9259,7 @@ mod fe_morphology_private {
 #[doc = "\n\n [`<feMorphology>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feMorphology"]
 #[derive(Debug)]
 pub struct FeMorphology {
-	attrs: IndexMap<FeMorphologyAttrs, String>,
+	attrs: IndexMap<FeMorphologyAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_morphology_private::Content>>,
 }
 
@@ -8789,132 +9293,138 @@ impl FeMorphology {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeMorphologyAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeMorphologyAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeMorphologyAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeMorphologyAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Class, value.into());
+		self.set_attr(FeMorphologyAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Class, value.into());
+		self.set_attr(FeMorphologyAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::In, value.into());
+		self.set_attr(FeMorphologyAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::In, value.into());
+		self.set_attr(FeMorphologyAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::In)
 	}
 
 	/// Set the `operator` attribute.
-	pub fn with_operator<T>(mut self, value: T) -> Self
+	pub fn with_operator<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Operator, value.into());
+		self.set_attr(FeMorphologyAttrs::Operator, value);
 		self
 	}
 
 	/// Set the `operator` attribute.
-	pub fn set_operator<T>(&mut self, value: T)
+	pub fn set_operator<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Operator, value.into());
+		self.set_attr(FeMorphologyAttrs::Operator, value);
 	}
 
 	/// Get the `operator` attribute.
-	pub fn operator(&self) -> Option<&str> {
+	pub fn operator(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::Operator)
 	}
 
 	/// Set the `radius` attribute.
-	pub fn with_radius<T>(mut self, value: T) -> Self
+	pub fn with_radius<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Radius, value.into());
+		self.set_attr(FeMorphologyAttrs::Radius, value);
 		self
 	}
 
 	/// Set the `radius` attribute.
-	pub fn set_radius<T>(&mut self, value: T)
+	pub fn set_radius<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Radius, value.into());
+		self.set_attr(FeMorphologyAttrs::Radius, value);
 	}
 
 	/// Get the `radius` attribute.
-	pub fn radius(&self) -> Option<&str> {
+	pub fn radius(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::Radius)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Style, value.into());
+		self.set_attr(FeMorphologyAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeMorphologyAttrs::Style, value.into());
+		self.set_attr(FeMorphologyAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeMorphology {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
@@ -8922,11 +9432,14 @@ impl common_attrs::CoreAttributesSetter for FeMorphology {
 impl TagWithCoreAttributes for FeMorphology {}
 
 impl common_attrs::FilterAttributesSetter for FeMorphology {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
@@ -8934,11 +9447,14 @@ impl common_attrs::FilterAttributesSetter for FeMorphology {
 impl TagWithFilterAttributes for FeMorphology {}
 
 impl common_attrs::PresentationAttributesSetter for FeMorphology {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeMorphologyAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeMorphologyAttrs::from(attr))
 	}
 }
@@ -8946,9 +9462,10 @@ impl common_attrs::PresentationAttributesSetter for FeMorphology {
 impl TagWithPresentationAttributes for FeMorphology {}
 
 impl Tag for FeMorphology {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMorphology");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8958,6 +9475,7 @@ impl Tag for FeMorphology {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeOffsetAttrs {
 	Class,
@@ -9016,7 +9534,7 @@ impl Debug for FeOffsetAttrs {
 }
 
 mod fe_offset_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -9029,7 +9547,7 @@ mod fe_offset_private {
 #[doc = "\n\n [`<feOffset>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feOffset"]
 #[derive(Debug)]
 pub struct FeOffset {
-	attrs: IndexMap<FeOffsetAttrs, String>,
+	attrs: IndexMap<FeOffsetAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_offset_private::Content>>,
 }
 
@@ -9063,132 +9581,138 @@ impl FeOffset {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeOffsetAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeOffsetAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeOffsetAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeOffsetAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Class, value.into());
+		self.set_attr(FeOffsetAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Class, value.into());
+		self.set_attr(FeOffsetAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Dx, value.into());
+		self.set_attr(FeOffsetAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Dx, value.into());
+		self.set_attr(FeOffsetAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Dy, value.into());
+		self.set_attr(FeOffsetAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Dy, value.into());
+		self.set_attr(FeOffsetAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::Dy)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::In, value.into());
+		self.set_attr(FeOffsetAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::In, value.into());
+		self.set_attr(FeOffsetAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::In)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Style, value.into());
+		self.set_attr(FeOffsetAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeOffsetAttrs::Style, value.into());
+		self.set_attr(FeOffsetAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeOffset {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
@@ -9196,11 +9720,14 @@ impl common_attrs::CoreAttributesSetter for FeOffset {
 impl TagWithCoreAttributes for FeOffset {}
 
 impl common_attrs::FilterAttributesSetter for FeOffset {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
@@ -9208,11 +9735,14 @@ impl common_attrs::FilterAttributesSetter for FeOffset {
 impl TagWithFilterAttributes for FeOffset {}
 
 impl common_attrs::PresentationAttributesSetter for FeOffset {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeOffsetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeOffsetAttrs::from(attr))
 	}
 }
@@ -9220,9 +9750,10 @@ impl common_attrs::PresentationAttributesSetter for FeOffset {
 impl TagWithPresentationAttributes for FeOffset {}
 
 impl Tag for FeOffset {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feOffset");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9232,6 +9763,7 @@ impl Tag for FeOffset {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FePointLightAttrs {
 	X,
@@ -9270,7 +9802,7 @@ impl Debug for FePointLightAttrs {
 }
 
 mod fe_point_light_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -9283,7 +9815,7 @@ mod fe_point_light_private {
 #[doc = "\n\n [`<fePointLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/fePointLight"]
 #[derive(Debug)]
 pub struct FePointLight {
-	attrs: IndexMap<FePointLightAttrs, String>,
+	attrs: IndexMap<FePointLightAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_point_light_private::Content>>,
 }
 
@@ -9317,88 +9849,94 @@ impl FePointLight {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FePointLightAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FePointLightAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FePointLightAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FePointLightAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::X, value.into());
+		self.set_attr(FePointLightAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::X, value.into());
+		self.set_attr(FePointLightAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(FePointLightAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::Y, value.into());
+		self.set_attr(FePointLightAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::Y, value.into());
+		self.set_attr(FePointLightAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(FePointLightAttrs::Y)
 	}
 
 	/// Set the `z` attribute.
-	pub fn with_z<T>(mut self, value: T) -> Self
+	pub fn with_z<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::Z, value.into());
+		self.set_attr(FePointLightAttrs::Z, value);
 		self
 	}
 
 	/// Set the `z` attribute.
-	pub fn set_z<T>(&mut self, value: T)
+	pub fn set_z<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FePointLightAttrs::Z, value.into());
+		self.set_attr(FePointLightAttrs::Z, value);
 	}
 
 	/// Get the `z` attribute.
-	pub fn z(&self) -> Option<&str> {
+	pub fn z(&self) -> Option<&dyn Value> {
 		self.get_attr(FePointLightAttrs::Z)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FePointLight {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FePointLightAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FePointLightAttrs::from(attr))
 	}
 }
@@ -9406,9 +9944,10 @@ impl common_attrs::CoreAttributesSetter for FePointLight {
 impl TagWithCoreAttributes for FePointLight {}
 
 impl Tag for FePointLight {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("fePointLight");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9418,6 +9957,7 @@ impl Tag for FePointLight {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeSpecularLightingAttrs {
 	Class,
@@ -9484,7 +10024,7 @@ impl Debug for FeSpecularLightingAttrs {
 #[doc = "\n\n [`<feSpecularLighting>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpecularLighting"]
 #[derive(Debug)]
 pub struct FeSpecularLighting {
-	attrs: IndexMap<FeSpecularLightingAttrs, String>,
+	attrs: IndexMap<FeSpecularLightingAttrs, Box<dyn Value>>,
 }
 
 impl Default for FeSpecularLighting {
@@ -9501,176 +10041,182 @@ impl FeSpecularLighting {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FeSpecularLightingAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeSpecularLightingAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeSpecularLightingAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeSpecularLightingAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::Class, value.into());
+		self.set_attr(FeSpecularLightingAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::Class, value.into());
+		self.set_attr(FeSpecularLightingAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::In, value.into());
+		self.set_attr(FeSpecularLightingAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::In, value.into());
+		self.set_attr(FeSpecularLightingAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::In)
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn with_kernel_unit_length<T>(mut self, value: T) -> Self
+	pub fn with_kernel_unit_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeSpecularLightingAttrs::KernelUnitLength, value);
 		self
 	}
 
 	/// Set the `kernelUnitLength` attribute.
-	pub fn set_kernel_unit_length<T>(&mut self, value: T)
+	pub fn set_kernel_unit_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::KernelUnitLength, value.into());
+		self.set_attr(FeSpecularLightingAttrs::KernelUnitLength, value);
 	}
 
 	/// Get the `kernelUnitLength` attribute.
-	pub fn kernel_unit_length(&self) -> Option<&str> {
+	pub fn kernel_unit_length(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::KernelUnitLength)
 	}
 
 	/// Set the `specularConstant` attribute.
-	pub fn with_specular_constant<T>(mut self, value: T) -> Self
+	pub fn with_specular_constant<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SpecularConstant, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SpecularConstant, value);
 		self
 	}
 
 	/// Set the `specularConstant` attribute.
-	pub fn set_specular_constant<T>(&mut self, value: T)
+	pub fn set_specular_constant<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SpecularConstant, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SpecularConstant, value);
 	}
 
 	/// Get the `specularConstant` attribute.
-	pub fn specular_constant(&self) -> Option<&str> {
+	pub fn specular_constant(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::SpecularConstant)
 	}
 
 	/// Set the `specularExponent` attribute.
-	pub fn with_specular_exponent<T>(mut self, value: T) -> Self
+	pub fn with_specular_exponent<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SpecularExponent, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SpecularExponent, value);
 		self
 	}
 
 	/// Set the `specularExponent` attribute.
-	pub fn set_specular_exponent<T>(&mut self, value: T)
+	pub fn set_specular_exponent<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SpecularExponent, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SpecularExponent, value);
 	}
 
 	/// Get the `specularExponent` attribute.
-	pub fn specular_exponent(&self) -> Option<&str> {
+	pub fn specular_exponent(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::SpecularExponent)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::Style, value.into());
+		self.set_attr(FeSpecularLightingAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::Style, value.into());
+		self.set_attr(FeSpecularLightingAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::Style)
 	}
 
 	/// Set the `surfaceScale` attribute.
-	pub fn with_surface_scale<T>(mut self, value: T) -> Self
+	pub fn with_surface_scale<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SurfaceScale, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SurfaceScale, value);
 		self
 	}
 
 	/// Set the `surfaceScale` attribute.
-	pub fn set_surface_scale<T>(&mut self, value: T)
+	pub fn set_surface_scale<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpecularLightingAttrs::SurfaceScale, value.into());
+		self.set_attr(FeSpecularLightingAttrs::SurfaceScale, value);
 	}
 
 	/// Get the `surfaceScale` attribute.
-	pub fn surface_scale(&self) -> Option<&str> {
+	pub fn surface_scale(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::SurfaceScale)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeSpecularLighting {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
@@ -9678,11 +10224,14 @@ impl common_attrs::CoreAttributesSetter for FeSpecularLighting {
 impl TagWithCoreAttributes for FeSpecularLighting {}
 
 impl common_attrs::FilterAttributesSetter for FeSpecularLighting {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
@@ -9690,11 +10239,14 @@ impl common_attrs::FilterAttributesSetter for FeSpecularLighting {
 impl TagWithFilterAttributes for FeSpecularLighting {}
 
 impl common_attrs::PresentationAttributesSetter for FeSpecularLighting {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeSpecularLightingAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeSpecularLightingAttrs::from(attr))
 	}
 }
@@ -9702,15 +10254,17 @@ impl common_attrs::PresentationAttributesSetter for FeSpecularLighting {
 impl TagWithPresentationAttributes for FeSpecularLighting {}
 
 impl Tag for FeSpecularLighting {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feSpecularLighting");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeSpotLightAttrs {
 	LimitingConeAngle,
@@ -9759,7 +10313,7 @@ impl Debug for FeSpotLightAttrs {
 }
 
 mod fe_spot_light_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -9772,7 +10326,7 @@ mod fe_spot_light_private {
 #[doc = "\n\n [`<feSpotLight>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feSpotLight"]
 #[derive(Debug)]
 pub struct FeSpotLight {
-	attrs: IndexMap<FeSpotLightAttrs, String>,
+	attrs: IndexMap<FeSpotLightAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_spot_light_private::Content>>,
 }
 
@@ -9806,198 +10360,204 @@ impl FeSpotLight {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeSpotLightAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeSpotLightAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeSpotLightAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeSpotLightAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `limitingConeAngle` attribute.
-	pub fn with_limiting_cone_angle<T>(mut self, value: T) -> Self
+	pub fn with_limiting_cone_angle<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::LimitingConeAngle, value.into());
+		self.set_attr(FeSpotLightAttrs::LimitingConeAngle, value);
 		self
 	}
 
 	/// Set the `limitingConeAngle` attribute.
-	pub fn set_limiting_cone_angle<T>(&mut self, value: T)
+	pub fn set_limiting_cone_angle<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::LimitingConeAngle, value.into());
+		self.set_attr(FeSpotLightAttrs::LimitingConeAngle, value);
 	}
 
 	/// Get the `limitingConeAngle` attribute.
-	pub fn limiting_cone_angle(&self) -> Option<&str> {
+	pub fn limiting_cone_angle(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::LimitingConeAngle)
 	}
 
 	/// Set the `pointsAtX` attribute.
-	pub fn with_points_at_x<T>(mut self, value: T) -> Self
+	pub fn with_points_at_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtX, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtX, value);
 		self
 	}
 
 	/// Set the `pointsAtX` attribute.
-	pub fn set_points_at_x<T>(&mut self, value: T)
+	pub fn set_points_at_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtX, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtX, value);
 	}
 
 	/// Get the `pointsAtX` attribute.
-	pub fn points_at_x(&self) -> Option<&str> {
+	pub fn points_at_x(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::PointsAtX)
 	}
 
 	/// Set the `pointsAtY` attribute.
-	pub fn with_points_at_y<T>(mut self, value: T) -> Self
+	pub fn with_points_at_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtY, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtY, value);
 		self
 	}
 
 	/// Set the `pointsAtY` attribute.
-	pub fn set_points_at_y<T>(&mut self, value: T)
+	pub fn set_points_at_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtY, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtY, value);
 	}
 
 	/// Get the `pointsAtY` attribute.
-	pub fn points_at_y(&self) -> Option<&str> {
+	pub fn points_at_y(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::PointsAtY)
 	}
 
 	/// Set the `pointsAtZ` attribute.
-	pub fn with_points_at_z<T>(mut self, value: T) -> Self
+	pub fn with_points_at_z<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtZ, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtZ, value);
 		self
 	}
 
 	/// Set the `pointsAtZ` attribute.
-	pub fn set_points_at_z<T>(&mut self, value: T)
+	pub fn set_points_at_z<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::PointsAtZ, value.into());
+		self.set_attr(FeSpotLightAttrs::PointsAtZ, value);
 	}
 
 	/// Get the `pointsAtZ` attribute.
-	pub fn points_at_z(&self) -> Option<&str> {
+	pub fn points_at_z(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::PointsAtZ)
 	}
 
 	/// Set the `specularExponent` attribute.
-	pub fn with_specular_exponent<T>(mut self, value: T) -> Self
+	pub fn with_specular_exponent<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::SpecularExponent, value.into());
+		self.set_attr(FeSpotLightAttrs::SpecularExponent, value);
 		self
 	}
 
 	/// Set the `specularExponent` attribute.
-	pub fn set_specular_exponent<T>(&mut self, value: T)
+	pub fn set_specular_exponent<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::SpecularExponent, value.into());
+		self.set_attr(FeSpotLightAttrs::SpecularExponent, value);
 	}
 
 	/// Get the `specularExponent` attribute.
-	pub fn specular_exponent(&self) -> Option<&str> {
+	pub fn specular_exponent(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::SpecularExponent)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::X, value.into());
+		self.set_attr(FeSpotLightAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::X, value.into());
+		self.set_attr(FeSpotLightAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::Y, value.into());
+		self.set_attr(FeSpotLightAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::Y, value.into());
+		self.set_attr(FeSpotLightAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::Y)
 	}
 
 	/// Set the `z` attribute.
-	pub fn with_z<T>(mut self, value: T) -> Self
+	pub fn with_z<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::Z, value.into());
+		self.set_attr(FeSpotLightAttrs::Z, value);
 		self
 	}
 
 	/// Set the `z` attribute.
-	pub fn set_z<T>(&mut self, value: T)
+	pub fn set_z<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeSpotLightAttrs::Z, value.into());
+		self.set_attr(FeSpotLightAttrs::Z, value);
 	}
 
 	/// Get the `z` attribute.
-	pub fn z(&self) -> Option<&str> {
+	pub fn z(&self) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::Z)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeSpotLight {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeSpotLightAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeSpotLightAttrs::from(attr))
 	}
 }
@@ -10005,9 +10565,10 @@ impl common_attrs::CoreAttributesSetter for FeSpotLight {
 impl TagWithCoreAttributes for FeSpotLight {}
 
 impl Tag for FeSpotLight {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feSpotLight");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10017,6 +10578,7 @@ impl Tag for FeSpotLight {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeTileAttrs {
 	Class,
@@ -10071,7 +10633,7 @@ impl Debug for FeTileAttrs {
 }
 
 mod fe_tile_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -10084,7 +10646,7 @@ mod fe_tile_private {
 #[doc = "\n\n [`<feTile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTile"]
 #[derive(Debug)]
 pub struct FeTile {
-	attrs: IndexMap<FeTileAttrs, String>,
+	attrs: IndexMap<FeTileAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_tile_private::Content>>,
 }
 
@@ -10118,88 +10680,94 @@ impl FeTile {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeTileAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeTileAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeTileAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeTileAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::Class, value.into());
+		self.set_attr(FeTileAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::Class, value.into());
+		self.set_attr(FeTileAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::Class)
 	}
 
 	/// Set the `in` attribute.
-	pub fn with_in1<T>(mut self, value: T) -> Self
+	pub fn with_in1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::In, value.into());
+		self.set_attr(FeTileAttrs::In, value);
 		self
 	}
 
 	/// Set the `in` attribute.
-	pub fn set_in1<T>(&mut self, value: T)
+	pub fn set_in1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::In, value.into());
+		self.set_attr(FeTileAttrs::In, value);
 	}
 
 	/// Get the `in` attribute.
-	pub fn in1(&self) -> Option<&str> {
+	pub fn in1(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::In)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::Style, value.into());
+		self.set_attr(FeTileAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTileAttrs::Style, value.into());
+		self.set_attr(FeTileAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeTile {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
@@ -10207,11 +10775,14 @@ impl common_attrs::CoreAttributesSetter for FeTile {
 impl TagWithCoreAttributes for FeTile {}
 
 impl common_attrs::FilterAttributesSetter for FeTile {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
@@ -10219,11 +10790,14 @@ impl common_attrs::FilterAttributesSetter for FeTile {
 impl TagWithFilterAttributes for FeTile {}
 
 impl common_attrs::PresentationAttributesSetter for FeTile {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTileAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTileAttrs::from(attr))
 	}
 }
@@ -10231,9 +10805,10 @@ impl common_attrs::PresentationAttributesSetter for FeTile {
 impl TagWithPresentationAttributes for FeTile {}
 
 impl Tag for FeTile {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feTile");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10243,6 +10818,7 @@ impl Tag for FeTile {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FeTurbulenceAttrs {
 	BaseFrequency,
@@ -10305,7 +10881,7 @@ impl Debug for FeTurbulenceAttrs {
 }
 
 mod fe_turbulence_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -10318,7 +10894,7 @@ mod fe_turbulence_private {
 #[doc = "\n\n [`<feTurbulence>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/feTurbulence"]
 #[derive(Debug)]
 pub struct FeTurbulence {
-	attrs: IndexMap<FeTurbulenceAttrs, String>,
+	attrs: IndexMap<FeTurbulenceAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn fe_turbulence_private::Content>>,
 }
 
@@ -10352,176 +10928,182 @@ impl FeTurbulence {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FeTurbulenceAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FeTurbulenceAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FeTurbulenceAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FeTurbulenceAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `baseFrequency` attribute.
-	pub fn with_base_frequency<T>(mut self, value: T) -> Self
+	pub fn with_base_frequency<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::BaseFrequency, value.into());
+		self.set_attr(FeTurbulenceAttrs::BaseFrequency, value);
 		self
 	}
 
 	/// Set the `baseFrequency` attribute.
-	pub fn set_base_frequency<T>(&mut self, value: T)
+	pub fn set_base_frequency<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::BaseFrequency, value.into());
+		self.set_attr(FeTurbulenceAttrs::BaseFrequency, value);
 	}
 
 	/// Get the `baseFrequency` attribute.
-	pub fn base_frequency(&self) -> Option<&str> {
+	pub fn base_frequency(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::BaseFrequency)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Class, value.into());
+		self.set_attr(FeTurbulenceAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Class, value.into());
+		self.set_attr(FeTurbulenceAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::Class)
 	}
 
 	/// Set the `numOctaves` attribute.
-	pub fn with_num_octaves<T>(mut self, value: T) -> Self
+	pub fn with_num_octaves<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::NumOctaves, value.into());
+		self.set_attr(FeTurbulenceAttrs::NumOctaves, value);
 		self
 	}
 
 	/// Set the `numOctaves` attribute.
-	pub fn set_num_octaves<T>(&mut self, value: T)
+	pub fn set_num_octaves<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::NumOctaves, value.into());
+		self.set_attr(FeTurbulenceAttrs::NumOctaves, value);
 	}
 
 	/// Get the `numOctaves` attribute.
-	pub fn num_octaves(&self) -> Option<&str> {
+	pub fn num_octaves(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::NumOctaves)
 	}
 
 	/// Set the `seed` attribute.
-	pub fn with_seed<T>(mut self, value: T) -> Self
+	pub fn with_seed<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Seed, value.into());
+		self.set_attr(FeTurbulenceAttrs::Seed, value);
 		self
 	}
 
 	/// Set the `seed` attribute.
-	pub fn set_seed<T>(&mut self, value: T)
+	pub fn set_seed<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Seed, value.into());
+		self.set_attr(FeTurbulenceAttrs::Seed, value);
 	}
 
 	/// Get the `seed` attribute.
-	pub fn seed(&self) -> Option<&str> {
+	pub fn seed(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::Seed)
 	}
 
 	/// Set the `stitchTiles` attribute.
-	pub fn with_stitch_tiles<T>(mut self, value: T) -> Self
+	pub fn with_stitch_tiles<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::StitchTiles, value.into());
+		self.set_attr(FeTurbulenceAttrs::StitchTiles, value);
 		self
 	}
 
 	/// Set the `stitchTiles` attribute.
-	pub fn set_stitch_tiles<T>(&mut self, value: T)
+	pub fn set_stitch_tiles<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::StitchTiles, value.into());
+		self.set_attr(FeTurbulenceAttrs::StitchTiles, value);
 	}
 
 	/// Get the `stitchTiles` attribute.
-	pub fn stitch_tiles(&self) -> Option<&str> {
+	pub fn stitch_tiles(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::StitchTiles)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Style, value.into());
+		self.set_attr(FeTurbulenceAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Style, value.into());
+		self.set_attr(FeTurbulenceAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::Style)
 	}
 
 	/// Set the `type` attribute.
-	pub fn with_ty<T>(mut self, value: T) -> Self
+	pub fn with_ty<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Type, value.into());
+		self.set_attr(FeTurbulenceAttrs::Type, value);
 		self
 	}
 
 	/// Set the `type` attribute.
-	pub fn set_ty<T>(&mut self, value: T)
+	pub fn set_ty<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FeTurbulenceAttrs::Type, value.into());
+		self.set_attr(FeTurbulenceAttrs::Type, value);
 	}
 
 	/// Get the `type` attribute.
-	pub fn ty(&self) -> Option<&str> {
+	pub fn ty(&self) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::Type)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FeTurbulence {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
@@ -10529,11 +11111,14 @@ impl common_attrs::CoreAttributesSetter for FeTurbulence {
 impl TagWithCoreAttributes for FeTurbulence {}
 
 impl common_attrs::FilterAttributesSetter for FeTurbulence {
-	fn set_attr(&mut self, attr: common_attrs::FilterAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::FilterAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::FilterAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
@@ -10541,11 +11126,14 @@ impl common_attrs::FilterAttributesSetter for FeTurbulence {
 impl TagWithFilterAttributes for FeTurbulence {}
 
 impl common_attrs::PresentationAttributesSetter for FeTurbulence {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FeTurbulenceAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FeTurbulenceAttrs::from(attr))
 	}
 }
@@ -10553,9 +11141,10 @@ impl common_attrs::PresentationAttributesSetter for FeTurbulence {
 impl TagWithPresentationAttributes for FeTurbulence {}
 
 impl Tag for FeTurbulence {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feTurbulence");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10565,6 +11154,7 @@ impl Tag for FeTurbulence {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FilterAttrs {
 	Class,
@@ -10635,7 +11225,7 @@ impl Debug for FilterAttrs {
 }
 
 mod filter_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -10648,7 +11238,7 @@ mod filter_private {
 #[doc = "\n\n [`<filter>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter"]
 #[derive(Debug)]
 pub struct Filter {
-	attrs: IndexMap<FilterAttrs, String>,
+	attrs: IndexMap<FilterAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn filter_private::Content>>,
 }
 
@@ -10682,264 +11272,270 @@ impl Filter {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FilterAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FilterAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FilterAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FilterAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Class, value.into());
+		self.set_attr(FilterAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Class, value.into());
+		self.set_attr(FilterAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FilterAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FilterAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `filterRes` attribute.
-	pub fn with_filter_res<T>(mut self, value: T) -> Self
+	pub fn with_filter_res<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::FilterRes, value.into());
+		self.set_attr(FilterAttrs::FilterRes, value);
 		self
 	}
 
 	/// Set the `filterRes` attribute.
-	pub fn set_filter_res<T>(&mut self, value: T)
+	pub fn set_filter_res<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::FilterRes, value.into());
+		self.set_attr(FilterAttrs::FilterRes, value);
 	}
 
 	/// Get the `filterRes` attribute.
-	pub fn filter_res(&self) -> Option<&str> {
+	pub fn filter_res(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::FilterRes)
 	}
 
 	/// Set the `filterUnits` attribute.
-	pub fn with_filter_units<T>(mut self, value: T) -> Self
+	pub fn with_filter_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::FilterUnits, value.into());
+		self.set_attr(FilterAttrs::FilterUnits, value);
 		self
 	}
 
 	/// Set the `filterUnits` attribute.
-	pub fn set_filter_units<T>(&mut self, value: T)
+	pub fn set_filter_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::FilterUnits, value.into());
+		self.set_attr(FilterAttrs::FilterUnits, value);
 	}
 
 	/// Get the `filterUnits` attribute.
-	pub fn filter_units(&self) -> Option<&str> {
+	pub fn filter_units(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::FilterUnits)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Height, value.into());
+		self.set_attr(FilterAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Height, value.into());
+		self.set_attr(FilterAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::Height)
 	}
 
 	/// Set the `primitiveUnits` attribute.
-	pub fn with_primitive_units<T>(mut self, value: T) -> Self
+	pub fn with_primitive_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::PrimitiveUnits, value.into());
+		self.set_attr(FilterAttrs::PrimitiveUnits, value);
 		self
 	}
 
 	/// Set the `primitiveUnits` attribute.
-	pub fn set_primitive_units<T>(&mut self, value: T)
+	pub fn set_primitive_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::PrimitiveUnits, value.into());
+		self.set_attr(FilterAttrs::PrimitiveUnits, value);
 	}
 
 	/// Get the `primitiveUnits` attribute.
-	pub fn primitive_units(&self) -> Option<&str> {
+	pub fn primitive_units(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::PrimitiveUnits)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Style, value.into());
+		self.set_attr(FilterAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Style, value.into());
+		self.set_attr(FilterAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::Style)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Width, value.into());
+		self.set_attr(FilterAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Width, value.into());
+		self.set_attr(FilterAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::X, value.into());
+		self.set_attr(FilterAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::X, value.into());
+		self.set_attr(FilterAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::XlinkHref, value.into());
+		self.set_attr(FilterAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::XlinkHref, value.into());
+		self.set_attr(FilterAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Y, value.into());
+		self.set_attr(FilterAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FilterAttrs::Y, value.into());
+		self.set_attr(FilterAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::Y)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Filter {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::from(attr))
 	}
 }
@@ -10947,11 +11543,14 @@ impl common_attrs::CoreAttributesSetter for Filter {
 impl TagWithCoreAttributes for Filter {}
 
 impl common_attrs::PresentationAttributesSetter for Filter {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::from(attr))
 	}
 }
@@ -10959,11 +11558,14 @@ impl common_attrs::PresentationAttributesSetter for Filter {
 impl TagWithPresentationAttributes for Filter {}
 
 impl common_attrs::XLinkAttributesSetter for Filter {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FilterAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(FilterAttrs::from(attr))
 	}
 }
@@ -10971,9 +11573,10 @@ impl common_attrs::XLinkAttributesSetter for Filter {
 impl TagWithXLinkAttributes for Filter {}
 
 impl Tag for Filter {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("filter");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10983,6 +11586,7 @@ impl Tag for Filter {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontAttrs {
 	Class,
@@ -11041,7 +11645,7 @@ impl Debug for FontAttrs {
 }
 
 mod font_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -11057,7 +11661,7 @@ mod font_private {
 #[doc = "\n\n [`<font>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font"]
 #[derive(Debug)]
 pub struct Font {
-	attrs: IndexMap<FontAttrs, String>,
+	attrs: IndexMap<FontAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn font_private::Content>>,
 }
 
@@ -11091,220 +11695,226 @@ impl Font {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FontAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::Class, value.into());
+		self.set_attr(FontAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::Class, value.into());
+		self.set_attr(FontAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FontAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(FontAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizAdvX, value.into());
+		self.set_attr(FontAttrs::HorizAdvX, value);
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_adv_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizAdvX, value.into());
+		self.set_attr(FontAttrs::HorizAdvX, value);
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_adv_x(&self) -> Option<&str> {
+	pub fn horiz_adv_x(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::HorizAdvX)
 	}
 
 	/// Set the `horiz-origin-x` attribute.
-	pub fn with_horiz_origin_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_origin_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizOriginX, value.into());
+		self.set_attr(FontAttrs::HorizOriginX, value);
 		self
 	}
 
 	/// Set the `horiz-origin-x` attribute.
-	pub fn set_horiz_origin_x<T>(&mut self, value: T)
+	pub fn set_horiz_origin_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizOriginX, value.into());
+		self.set_attr(FontAttrs::HorizOriginX, value);
 	}
 
 	/// Get the `horiz-origin-x` attribute.
-	pub fn horiz_origin_x(&self) -> Option<&str> {
+	pub fn horiz_origin_x(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::HorizOriginX)
 	}
 
 	/// Set the `horiz-origin-y` attribute.
-	pub fn with_horiz_origin_y<T>(mut self, value: T) -> Self
+	pub fn with_horiz_origin_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizOriginY, value.into());
+		self.set_attr(FontAttrs::HorizOriginY, value);
 		self
 	}
 
 	/// Set the `horiz-origin-y` attribute.
-	pub fn set_horiz_origin_y<T>(&mut self, value: T)
+	pub fn set_horiz_origin_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::HorizOriginY, value.into());
+		self.set_attr(FontAttrs::HorizOriginY, value);
 	}
 
 	/// Get the `horiz-origin-y` attribute.
-	pub fn horiz_origin_y(&self) -> Option<&str> {
+	pub fn horiz_origin_y(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::HorizOriginY)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::Style, value.into());
+		self.set_attr(FontAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::Style, value.into());
+		self.set_attr(FontAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::Style)
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertAdvY, value.into());
+		self.set_attr(FontAttrs::VertAdvY, value);
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_adv_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertAdvY, value.into());
+		self.set_attr(FontAttrs::VertAdvY, value);
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_adv_y(&self) -> Option<&str> {
+	pub fn vert_adv_y(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertOriginX, value.into());
+		self.set_attr(FontAttrs::VertOriginX, value);
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_origin_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertOriginX, value.into());
+		self.set_attr(FontAttrs::VertOriginX, value);
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_origin_x(&self) -> Option<&str> {
+	pub fn vert_origin_x(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertOriginY, value.into());
+		self.set_attr(FontAttrs::VertOriginY, value);
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_origin_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontAttrs::VertOriginY, value.into());
+		self.set_attr(FontAttrs::VertOriginY, value);
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_origin_y(&self) -> Option<&str> {
+	pub fn vert_origin_y(&self) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::VertOriginY)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Font {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::from(attr))
 	}
 }
@@ -11312,11 +11922,14 @@ impl common_attrs::CoreAttributesSetter for Font {
 impl TagWithCoreAttributes for Font {}
 
 impl common_attrs::PresentationAttributesSetter for Font {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontAttrs::from(attr))
 	}
 }
@@ -11324,9 +11937,10 @@ impl common_attrs::PresentationAttributesSetter for Font {
 impl TagWithPresentationAttributes for Font {}
 
 impl Tag for Font {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -11336,6 +11950,7 @@ impl Tag for Font {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceAttrs {
 	AccentHeight,
@@ -11438,7 +12053,7 @@ impl Debug for FontFaceAttrs {
 #[doc = "\n\n [`<font-face>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face"]
 #[derive(Debug)]
 pub struct FontFace {
-	attrs: IndexMap<FontFaceAttrs, String>,
+	attrs: IndexMap<FontFaceAttrs, Box<dyn Value>>,
 }
 
 impl Default for FontFace {
@@ -11455,748 +12070,754 @@ impl FontFace {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontFaceAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontFaceAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontFaceAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontFaceAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `accent-height` attribute.
-	pub fn with_accent_height<T>(mut self, value: T) -> Self
+	pub fn with_accent_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::AccentHeight, value.into());
+		self.set_attr(FontFaceAttrs::AccentHeight, value);
 		self
 	}
 
 	/// Set the `accent-height` attribute.
-	pub fn set_accent_height<T>(&mut self, value: T)
+	pub fn set_accent_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::AccentHeight, value.into());
+		self.set_attr(FontFaceAttrs::AccentHeight, value);
 	}
 
 	/// Get the `accent-height` attribute.
-	pub fn accent_height(&self) -> Option<&str> {
+	pub fn accent_height(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::AccentHeight)
 	}
 
 	/// Set the `alphabetic` attribute.
-	pub fn with_alphabetic<T>(mut self, value: T) -> Self
+	pub fn with_alphabetic<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Alphabetic, value.into());
+		self.set_attr(FontFaceAttrs::Alphabetic, value);
 		self
 	}
 
 	/// Set the `alphabetic` attribute.
-	pub fn set_alphabetic<T>(&mut self, value: T)
+	pub fn set_alphabetic<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Alphabetic, value.into());
+		self.set_attr(FontFaceAttrs::Alphabetic, value);
 	}
 
 	/// Get the `alphabetic` attribute.
-	pub fn alphabetic(&self) -> Option<&str> {
+	pub fn alphabetic(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Alphabetic)
 	}
 
 	/// Set the `ascent` attribute.
-	pub fn with_ascent<T>(mut self, value: T) -> Self
+	pub fn with_ascent<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Ascent, value.into());
+		self.set_attr(FontFaceAttrs::Ascent, value);
 		self
 	}
 
 	/// Set the `ascent` attribute.
-	pub fn set_ascent<T>(&mut self, value: T)
+	pub fn set_ascent<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Ascent, value.into());
+		self.set_attr(FontFaceAttrs::Ascent, value);
 	}
 
 	/// Get the `ascent` attribute.
-	pub fn ascent(&self) -> Option<&str> {
+	pub fn ascent(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Ascent)
 	}
 
 	/// Set the `bbox` attribute.
-	pub fn with_bbox<T>(mut self, value: T) -> Self
+	pub fn with_bbox<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Bbox, value.into());
+		self.set_attr(FontFaceAttrs::Bbox, value);
 		self
 	}
 
 	/// Set the `bbox` attribute.
-	pub fn set_bbox<T>(&mut self, value: T)
+	pub fn set_bbox<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Bbox, value.into());
+		self.set_attr(FontFaceAttrs::Bbox, value);
 	}
 
 	/// Get the `bbox` attribute.
-	pub fn bbox(&self) -> Option<&str> {
+	pub fn bbox(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Bbox)
 	}
 
 	/// Set the `cap-height` attribute.
-	pub fn with_cap_height<T>(mut self, value: T) -> Self
+	pub fn with_cap_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::CapHeight, value.into());
+		self.set_attr(FontFaceAttrs::CapHeight, value);
 		self
 	}
 
 	/// Set the `cap-height` attribute.
-	pub fn set_cap_height<T>(&mut self, value: T)
+	pub fn set_cap_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::CapHeight, value.into());
+		self.set_attr(FontFaceAttrs::CapHeight, value);
 	}
 
 	/// Get the `cap-height` attribute.
-	pub fn cap_height(&self) -> Option<&str> {
+	pub fn cap_height(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::CapHeight)
 	}
 
 	/// Set the `descent` attribute.
-	pub fn with_descent<T>(mut self, value: T) -> Self
+	pub fn with_descent<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Descent, value.into());
+		self.set_attr(FontFaceAttrs::Descent, value);
 		self
 	}
 
 	/// Set the `descent` attribute.
-	pub fn set_descent<T>(&mut self, value: T)
+	pub fn set_descent<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Descent, value.into());
+		self.set_attr(FontFaceAttrs::Descent, value);
 	}
 
 	/// Get the `descent` attribute.
-	pub fn descent(&self) -> Option<&str> {
+	pub fn descent(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Descent)
 	}
 
 	/// Set the `font-family` attribute.
-	pub fn with_font_family<T>(mut self, value: T) -> Self
+	pub fn with_font_family<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontFamily, value.into());
+		self.set_attr(FontFaceAttrs::FontFamily, value);
 		self
 	}
 
 	/// Set the `font-family` attribute.
-	pub fn set_font_family<T>(&mut self, value: T)
+	pub fn set_font_family<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontFamily, value.into());
+		self.set_attr(FontFaceAttrs::FontFamily, value);
 	}
 
 	/// Get the `font-family` attribute.
-	pub fn font_family(&self) -> Option<&str> {
+	pub fn font_family(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontFamily)
 	}
 
 	/// Set the `font-size` attribute.
-	pub fn with_font_size<T>(mut self, value: T) -> Self
+	pub fn with_font_size<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontSize, value.into());
+		self.set_attr(FontFaceAttrs::FontSize, value);
 		self
 	}
 
 	/// Set the `font-size` attribute.
-	pub fn set_font_size<T>(&mut self, value: T)
+	pub fn set_font_size<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontSize, value.into());
+		self.set_attr(FontFaceAttrs::FontSize, value);
 	}
 
 	/// Get the `font-size` attribute.
-	pub fn font_size(&self) -> Option<&str> {
+	pub fn font_size(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontSize)
 	}
 
 	/// Set the `font-stretch` attribute.
-	pub fn with_font_stretch<T>(mut self, value: T) -> Self
+	pub fn with_font_stretch<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontStretch, value.into());
+		self.set_attr(FontFaceAttrs::FontStretch, value);
 		self
 	}
 
 	/// Set the `font-stretch` attribute.
-	pub fn set_font_stretch<T>(&mut self, value: T)
+	pub fn set_font_stretch<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontStretch, value.into());
+		self.set_attr(FontFaceAttrs::FontStretch, value);
 	}
 
 	/// Get the `font-stretch` attribute.
-	pub fn font_stretch(&self) -> Option<&str> {
+	pub fn font_stretch(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontStretch)
 	}
 
 	/// Set the `font-style` attribute.
-	pub fn with_font_style<T>(mut self, value: T) -> Self
+	pub fn with_font_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontStyle, value.into());
+		self.set_attr(FontFaceAttrs::FontStyle, value);
 		self
 	}
 
 	/// Set the `font-style` attribute.
-	pub fn set_font_style<T>(&mut self, value: T)
+	pub fn set_font_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontStyle, value.into());
+		self.set_attr(FontFaceAttrs::FontStyle, value);
 	}
 
 	/// Get the `font-style` attribute.
-	pub fn font_style(&self) -> Option<&str> {
+	pub fn font_style(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontStyle)
 	}
 
 	/// Set the `font-variant` attribute.
-	pub fn with_font_variant<T>(mut self, value: T) -> Self
+	pub fn with_font_variant<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontVariant, value.into());
+		self.set_attr(FontFaceAttrs::FontVariant, value);
 		self
 	}
 
 	/// Set the `font-variant` attribute.
-	pub fn set_font_variant<T>(&mut self, value: T)
+	pub fn set_font_variant<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontVariant, value.into());
+		self.set_attr(FontFaceAttrs::FontVariant, value);
 	}
 
 	/// Get the `font-variant` attribute.
-	pub fn font_variant(&self) -> Option<&str> {
+	pub fn font_variant(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontVariant)
 	}
 
 	/// Set the `font-weight` attribute.
-	pub fn with_font_weight<T>(mut self, value: T) -> Self
+	pub fn with_font_weight<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontWeight, value.into());
+		self.set_attr(FontFaceAttrs::FontWeight, value);
 		self
 	}
 
 	/// Set the `font-weight` attribute.
-	pub fn set_font_weight<T>(&mut self, value: T)
+	pub fn set_font_weight<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::FontWeight, value.into());
+		self.set_attr(FontFaceAttrs::FontWeight, value);
 	}
 
 	/// Get the `font-weight` attribute.
-	pub fn font_weight(&self) -> Option<&str> {
+	pub fn font_weight(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::FontWeight)
 	}
 
 	/// Set the `hanging` attribute.
-	pub fn with_hanging<T>(mut self, value: T) -> Self
+	pub fn with_hanging<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Hanging, value.into());
+		self.set_attr(FontFaceAttrs::Hanging, value);
 		self
 	}
 
 	/// Set the `hanging` attribute.
-	pub fn set_hanging<T>(&mut self, value: T)
+	pub fn set_hanging<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Hanging, value.into());
+		self.set_attr(FontFaceAttrs::Hanging, value);
 	}
 
 	/// Get the `hanging` attribute.
-	pub fn hanging(&self) -> Option<&str> {
+	pub fn hanging(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Hanging)
 	}
 
 	/// Set the `ideographic` attribute.
-	pub fn with_ideographic<T>(mut self, value: T) -> Self
+	pub fn with_ideographic<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Ideographic, value.into());
+		self.set_attr(FontFaceAttrs::Ideographic, value);
 		self
 	}
 
 	/// Set the `ideographic` attribute.
-	pub fn set_ideographic<T>(&mut self, value: T)
+	pub fn set_ideographic<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Ideographic, value.into());
+		self.set_attr(FontFaceAttrs::Ideographic, value);
 	}
 
 	/// Get the `ideographic` attribute.
-	pub fn ideographic(&self) -> Option<&str> {
+	pub fn ideographic(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Ideographic)
 	}
 
 	/// Set the `mathematical` attribute.
-	pub fn with_mathematical<T>(mut self, value: T) -> Self
+	pub fn with_mathematical<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Mathematical, value.into());
+		self.set_attr(FontFaceAttrs::Mathematical, value);
 		self
 	}
 
 	/// Set the `mathematical` attribute.
-	pub fn set_mathematical<T>(&mut self, value: T)
+	pub fn set_mathematical<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Mathematical, value.into());
+		self.set_attr(FontFaceAttrs::Mathematical, value);
 	}
 
 	/// Get the `mathematical` attribute.
-	pub fn mathematical(&self) -> Option<&str> {
+	pub fn mathematical(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Mathematical)
 	}
 
 	/// Set the `overline-position` attribute.
-	pub fn with_overline_position<T>(mut self, value: T) -> Self
+	pub fn with_overline_position<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::OverlinePosition, value.into());
+		self.set_attr(FontFaceAttrs::OverlinePosition, value);
 		self
 	}
 
 	/// Set the `overline-position` attribute.
-	pub fn set_overline_position<T>(&mut self, value: T)
+	pub fn set_overline_position<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::OverlinePosition, value.into());
+		self.set_attr(FontFaceAttrs::OverlinePosition, value);
 	}
 
 	/// Get the `overline-position` attribute.
-	pub fn overline_position(&self) -> Option<&str> {
+	pub fn overline_position(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::OverlinePosition)
 	}
 
 	/// Set the `overline-thickness` attribute.
-	pub fn with_overline_thickness<T>(mut self, value: T) -> Self
+	pub fn with_overline_thickness<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::OverlineThickness, value.into());
+		self.set_attr(FontFaceAttrs::OverlineThickness, value);
 		self
 	}
 
 	/// Set the `overline-thickness` attribute.
-	pub fn set_overline_thickness<T>(&mut self, value: T)
+	pub fn set_overline_thickness<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::OverlineThickness, value.into());
+		self.set_attr(FontFaceAttrs::OverlineThickness, value);
 	}
 
 	/// Get the `overline-thickness` attribute.
-	pub fn overline_thickness(&self) -> Option<&str> {
+	pub fn overline_thickness(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::OverlineThickness)
 	}
 
 	/// Set the `panose-1` attribute.
-	pub fn with_panose_1<T>(mut self, value: T) -> Self
+	pub fn with_panose_1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Panose1, value.into());
+		self.set_attr(FontFaceAttrs::Panose1, value);
 		self
 	}
 
 	/// Set the `panose-1` attribute.
-	pub fn set_panose_1<T>(&mut self, value: T)
+	pub fn set_panose_1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Panose1, value.into());
+		self.set_attr(FontFaceAttrs::Panose1, value);
 	}
 
 	/// Get the `panose-1` attribute.
-	pub fn panose_1(&self) -> Option<&str> {
+	pub fn panose_1(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Panose1)
 	}
 
 	/// Set the `slope` attribute.
-	pub fn with_slope<T>(mut self, value: T) -> Self
+	pub fn with_slope<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Slope, value.into());
+		self.set_attr(FontFaceAttrs::Slope, value);
 		self
 	}
 
 	/// Set the `slope` attribute.
-	pub fn set_slope<T>(&mut self, value: T)
+	pub fn set_slope<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Slope, value.into());
+		self.set_attr(FontFaceAttrs::Slope, value);
 	}
 
 	/// Get the `slope` attribute.
-	pub fn slope(&self) -> Option<&str> {
+	pub fn slope(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Slope)
 	}
 
 	/// Set the `stemh` attribute.
-	pub fn with_stemh<T>(mut self, value: T) -> Self
+	pub fn with_stemh<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Stemh, value.into());
+		self.set_attr(FontFaceAttrs::Stemh, value);
 		self
 	}
 
 	/// Set the `stemh` attribute.
-	pub fn set_stemh<T>(&mut self, value: T)
+	pub fn set_stemh<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Stemh, value.into());
+		self.set_attr(FontFaceAttrs::Stemh, value);
 	}
 
 	/// Get the `stemh` attribute.
-	pub fn stemh(&self) -> Option<&str> {
+	pub fn stemh(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Stemh)
 	}
 
 	/// Set the `stemv` attribute.
-	pub fn with_stemv<T>(mut self, value: T) -> Self
+	pub fn with_stemv<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Stemv, value.into());
+		self.set_attr(FontFaceAttrs::Stemv, value);
 		self
 	}
 
 	/// Set the `stemv` attribute.
-	pub fn set_stemv<T>(&mut self, value: T)
+	pub fn set_stemv<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Stemv, value.into());
+		self.set_attr(FontFaceAttrs::Stemv, value);
 	}
 
 	/// Get the `stemv` attribute.
-	pub fn stemv(&self) -> Option<&str> {
+	pub fn stemv(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Stemv)
 	}
 
 	/// Set the `strikethrough-position` attribute.
-	pub fn with_strikethrough_position<T>(mut self, value: T) -> Self
+	pub fn with_strikethrough_position<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::StrikethroughPosition, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughPosition, value);
 		self
 	}
 
 	/// Set the `strikethrough-position` attribute.
-	pub fn set_strikethrough_position<T>(&mut self, value: T)
+	pub fn set_strikethrough_position<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::StrikethroughPosition, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughPosition, value);
 	}
 
 	/// Get the `strikethrough-position` attribute.
-	pub fn strikethrough_position(&self) -> Option<&str> {
+	pub fn strikethrough_position(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::StrikethroughPosition)
 	}
 
 	/// Set the `strikethrough-thickness` attribute.
-	pub fn with_strikethrough_thickness<T>(mut self, value: T) -> Self
+	pub fn with_strikethrough_thickness<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::StrikethroughThickness, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughThickness, value);
 		self
 	}
 
 	/// Set the `strikethrough-thickness` attribute.
-	pub fn set_strikethrough_thickness<T>(&mut self, value: T)
+	pub fn set_strikethrough_thickness<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::StrikethroughThickness, value.into());
+		self.set_attr(FontFaceAttrs::StrikethroughThickness, value);
 	}
 
 	/// Get the `strikethrough-thickness` attribute.
-	pub fn strikethrough_thickness(&self) -> Option<&str> {
+	pub fn strikethrough_thickness(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::StrikethroughThickness)
 	}
 
 	/// Set the `underline-position` attribute.
-	pub fn with_underline_position<T>(mut self, value: T) -> Self
+	pub fn with_underline_position<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnderlinePosition, value.into());
+		self.set_attr(FontFaceAttrs::UnderlinePosition, value);
 		self
 	}
 
 	/// Set the `underline-position` attribute.
-	pub fn set_underline_position<T>(&mut self, value: T)
+	pub fn set_underline_position<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnderlinePosition, value.into());
+		self.set_attr(FontFaceAttrs::UnderlinePosition, value);
 	}
 
 	/// Get the `underline-position` attribute.
-	pub fn underline_position(&self) -> Option<&str> {
+	pub fn underline_position(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::UnderlinePosition)
 	}
 
 	/// Set the `underline-thickness` attribute.
-	pub fn with_underline_thickness<T>(mut self, value: T) -> Self
+	pub fn with_underline_thickness<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnderlineThickness, value.into());
+		self.set_attr(FontFaceAttrs::UnderlineThickness, value);
 		self
 	}
 
 	/// Set the `underline-thickness` attribute.
-	pub fn set_underline_thickness<T>(&mut self, value: T)
+	pub fn set_underline_thickness<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnderlineThickness, value.into());
+		self.set_attr(FontFaceAttrs::UnderlineThickness, value);
 	}
 
 	/// Get the `underline-thickness` attribute.
-	pub fn underline_thickness(&self) -> Option<&str> {
+	pub fn underline_thickness(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::UnderlineThickness)
 	}
 
 	/// Set the `unicode-range` attribute.
-	pub fn with_unicode_range<T>(mut self, value: T) -> Self
+	pub fn with_unicode_range<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnicodeRange, value.into());
+		self.set_attr(FontFaceAttrs::UnicodeRange, value);
 		self
 	}
 
 	/// Set the `unicode-range` attribute.
-	pub fn set_unicode_range<T>(&mut self, value: T)
+	pub fn set_unicode_range<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnicodeRange, value.into());
+		self.set_attr(FontFaceAttrs::UnicodeRange, value);
 	}
 
 	/// Get the `unicode-range` attribute.
-	pub fn unicode_range(&self) -> Option<&str> {
+	pub fn unicode_range(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::UnicodeRange)
 	}
 
 	/// Set the `units-per-em` attribute.
-	pub fn with_units_per_em<T>(mut self, value: T) -> Self
+	pub fn with_units_per_em<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnitsPerEm, value.into());
+		self.set_attr(FontFaceAttrs::UnitsPerEm, value);
 		self
 	}
 
 	/// Set the `units-per-em` attribute.
-	pub fn set_units_per_em<T>(&mut self, value: T)
+	pub fn set_units_per_em<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::UnitsPerEm, value.into());
+		self.set_attr(FontFaceAttrs::UnitsPerEm, value);
 	}
 
 	/// Get the `units-per-em` attribute.
-	pub fn units_per_em(&self) -> Option<&str> {
+	pub fn units_per_em(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::UnitsPerEm)
 	}
 
 	/// Set the `v-alphabetic` attribute.
-	pub fn with_v_alphabetic<T>(mut self, value: T) -> Self
+	pub fn with_v_alphabetic<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VAlphabetic, value.into());
+		self.set_attr(FontFaceAttrs::VAlphabetic, value);
 		self
 	}
 
 	/// Set the `v-alphabetic` attribute.
-	pub fn set_v_alphabetic<T>(&mut self, value: T)
+	pub fn set_v_alphabetic<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VAlphabetic, value.into());
+		self.set_attr(FontFaceAttrs::VAlphabetic, value);
 	}
 
 	/// Get the `v-alphabetic` attribute.
-	pub fn v_alphabetic(&self) -> Option<&str> {
+	pub fn v_alphabetic(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::VAlphabetic)
 	}
 
 	/// Set the `v-hanging` attribute.
-	pub fn with_v_hanging<T>(mut self, value: T) -> Self
+	pub fn with_v_hanging<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VHanging, value.into());
+		self.set_attr(FontFaceAttrs::VHanging, value);
 		self
 	}
 
 	/// Set the `v-hanging` attribute.
-	pub fn set_v_hanging<T>(&mut self, value: T)
+	pub fn set_v_hanging<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VHanging, value.into());
+		self.set_attr(FontFaceAttrs::VHanging, value);
 	}
 
 	/// Get the `v-hanging` attribute.
-	pub fn v_hanging(&self) -> Option<&str> {
+	pub fn v_hanging(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::VHanging)
 	}
 
 	/// Set the `v-ideographic` attribute.
-	pub fn with_v_ideographic<T>(mut self, value: T) -> Self
+	pub fn with_v_ideographic<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VIdeographic, value.into());
+		self.set_attr(FontFaceAttrs::VIdeographic, value);
 		self
 	}
 
 	/// Set the `v-ideographic` attribute.
-	pub fn set_v_ideographic<T>(&mut self, value: T)
+	pub fn set_v_ideographic<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VIdeographic, value.into());
+		self.set_attr(FontFaceAttrs::VIdeographic, value);
 	}
 
 	/// Get the `v-ideographic` attribute.
-	pub fn v_ideographic(&self) -> Option<&str> {
+	pub fn v_ideographic(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::VIdeographic)
 	}
 
 	/// Set the `v-mathematical` attribute.
-	pub fn with_v_mathematical<T>(mut self, value: T) -> Self
+	pub fn with_v_mathematical<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VMathematical, value.into());
+		self.set_attr(FontFaceAttrs::VMathematical, value);
 		self
 	}
 
 	/// Set the `v-mathematical` attribute.
-	pub fn set_v_mathematical<T>(&mut self, value: T)
+	pub fn set_v_mathematical<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::VMathematical, value.into());
+		self.set_attr(FontFaceAttrs::VMathematical, value);
 	}
 
 	/// Get the `v-mathematical` attribute.
-	pub fn v_mathematical(&self) -> Option<&str> {
+	pub fn v_mathematical(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::VMathematical)
 	}
 
 	/// Set the `widths` attribute.
-	pub fn with_widths<T>(mut self, value: T) -> Self
+	pub fn with_widths<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Widths, value.into());
+		self.set_attr(FontFaceAttrs::Widths, value);
 		self
 	}
 
 	/// Set the `widths` attribute.
-	pub fn set_widths<T>(&mut self, value: T)
+	pub fn set_widths<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::Widths, value.into());
+		self.set_attr(FontFaceAttrs::Widths, value);
 	}
 
 	/// Get the `widths` attribute.
-	pub fn widths(&self) -> Option<&str> {
+	pub fn widths(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::Widths)
 	}
 
 	/// Set the `x-height` attribute.
-	pub fn with_x_height<T>(mut self, value: T) -> Self
+	pub fn with_x_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::XHeight, value.into());
+		self.set_attr(FontFaceAttrs::XHeight, value);
 		self
 	}
 
 	/// Set the `x-height` attribute.
-	pub fn set_x_height<T>(&mut self, value: T)
+	pub fn set_x_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceAttrs::XHeight, value.into());
+		self.set_attr(FontFaceAttrs::XHeight, value);
 	}
 
 	/// Get the `x-height` attribute.
-	pub fn x_height(&self) -> Option<&str> {
+	pub fn x_height(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::XHeight)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFace {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceAttrs::from(attr))
 	}
 }
@@ -12204,15 +12825,17 @@ impl common_attrs::CoreAttributesSetter for FontFace {
 impl TagWithCoreAttributes for FontFace {}
 
 impl Tag for FontFace {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceFormatAttrs {
 	String,
@@ -12251,7 +12874,7 @@ impl Debug for FontFaceFormatAttrs {
 #[doc = "\n\n [`<font-face-format>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-format"]
 #[derive(Debug)]
 pub struct FontFaceFormat {
-	attrs: IndexMap<FontFaceFormatAttrs, String>,
+	attrs: IndexMap<FontFaceFormatAttrs, Box<dyn Value>>,
 }
 
 impl Default for FontFaceFormat {
@@ -12268,44 +12891,50 @@ impl FontFaceFormat {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontFaceFormatAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontFaceFormatAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontFaceFormatAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontFaceFormatAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `string` attribute.
-	pub fn with_string<T>(mut self, value: T) -> Self
+	pub fn with_string<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceFormatAttrs::String, value.into());
+		self.set_attr(FontFaceFormatAttrs::String, value);
 		self
 	}
 
 	/// Set the `string` attribute.
-	pub fn set_string<T>(&mut self, value: T)
+	pub fn set_string<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceFormatAttrs::String, value.into());
+		self.set_attr(FontFaceFormatAttrs::String, value);
 	}
 
 	/// Get the `string` attribute.
-	pub fn string(&self) -> Option<&str> {
+	pub fn string(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceFormatAttrs::String)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFaceFormat {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceFormatAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceFormatAttrs::from(attr))
 	}
 }
@@ -12313,15 +12942,17 @@ impl common_attrs::CoreAttributesSetter for FontFaceFormat {
 impl TagWithCoreAttributes for FontFaceFormat {}
 
 impl Tag for FontFaceFormat {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-format");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceNameAttrs {
 	Name,
@@ -12360,7 +12991,7 @@ impl Debug for FontFaceNameAttrs {
 #[doc = "\n\n [`<font-face-name>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-name"]
 #[derive(Debug)]
 pub struct FontFaceName {
-	attrs: IndexMap<FontFaceNameAttrs, String>,
+	attrs: IndexMap<FontFaceNameAttrs, Box<dyn Value>>,
 }
 
 impl Default for FontFaceName {
@@ -12377,44 +13008,50 @@ impl FontFaceName {
 		}
 	}
 
-	fn set_attr(&mut self, attr: FontFaceNameAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontFaceNameAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontFaceNameAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontFaceNameAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `name` attribute.
-	pub fn with_name<T>(mut self, value: T) -> Self
+	pub fn with_name<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceNameAttrs::Name, value.into());
+		self.set_attr(FontFaceNameAttrs::Name, value);
 		self
 	}
 
 	/// Set the `name` attribute.
-	pub fn set_name<T>(&mut self, value: T)
+	pub fn set_name<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceNameAttrs::Name, value.into());
+		self.set_attr(FontFaceNameAttrs::Name, value);
 	}
 
 	/// Get the `name` attribute.
-	pub fn name(&self) -> Option<&str> {
+	pub fn name(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceNameAttrs::Name)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFaceName {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceNameAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceNameAttrs::from(attr))
 	}
 }
@@ -12422,15 +13059,17 @@ impl common_attrs::CoreAttributesSetter for FontFaceName {
 impl TagWithCoreAttributes for FontFaceName {}
 
 impl Tag for FontFaceName {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-name");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceSrcAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -12463,7 +13102,7 @@ impl Debug for FontFaceSrcAttrs {
 }
 
 mod font_face_src_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -12476,7 +13115,7 @@ mod font_face_src_private {
 #[doc = "\n\n [`<font-face-src>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-src"]
 #[derive(Debug)]
 pub struct FontFaceSrc {
-	attrs: IndexMap<FontFaceSrcAttrs, String>,
+	attrs: IndexMap<FontFaceSrcAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn font_face_src_private::Content>>,
 }
 
@@ -12510,22 +13149,28 @@ impl FontFaceSrc {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FontFaceSrcAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontFaceSrcAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontFaceSrcAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontFaceSrcAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFaceSrc {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceSrcAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceSrcAttrs::from(attr))
 	}
 }
@@ -12533,7 +13178,7 @@ impl common_attrs::CoreAttributesSetter for FontFaceSrc {
 impl TagWithCoreAttributes for FontFaceSrc {}
 
 impl Tag for FontFaceSrc {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-src");
 		for tag in &self.content {
 			tag.write_to(w, pretty);
@@ -12542,6 +13187,7 @@ impl Tag for FontFaceSrc {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum FontFaceUriAttrs {
 	XlinkHref,
@@ -12584,7 +13230,7 @@ impl Debug for FontFaceUriAttrs {
 }
 
 mod font_face_uri_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -12596,7 +13242,7 @@ mod font_face_uri_private {
 #[doc = "\n\n [`<font-face-uri>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font-face-uri"]
 #[derive(Debug)]
 pub struct FontFaceUri {
-	attrs: IndexMap<FontFaceUriAttrs, String>,
+	attrs: IndexMap<FontFaceUriAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn font_face_uri_private::Content>>,
 }
 
@@ -12630,44 +13276,50 @@ impl FontFaceUri {
 		self
 	}
 
-	fn set_attr(&mut self, attr: FontFaceUriAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: FontFaceUriAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: FontFaceUriAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: FontFaceUriAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceUriAttrs::XlinkHref, value.into());
+		self.set_attr(FontFaceUriAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(FontFaceUriAttrs::XlinkHref, value.into());
+		self.set_attr(FontFaceUriAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(FontFaceUriAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for FontFaceUri {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceUriAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceUriAttrs::from(attr))
 	}
 }
@@ -12675,11 +13327,14 @@ impl common_attrs::CoreAttributesSetter for FontFaceUri {
 impl TagWithCoreAttributes for FontFaceUri {}
 
 impl common_attrs::XLinkAttributesSetter for FontFaceUri {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(FontFaceUriAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(FontFaceUriAttrs::from(attr))
 	}
 }
@@ -12687,9 +13342,10 @@ impl common_attrs::XLinkAttributesSetter for FontFaceUri {
 impl TagWithXLinkAttributes for FontFaceUri {}
 
 impl Tag for FontFaceUri {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-uri");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -12699,6 +13355,7 @@ impl Tag for FontFaceUri {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ForeignObjectAttrs {
 	Class,
@@ -12775,7 +13432,7 @@ impl Debug for ForeignObjectAttrs {
 #[doc = "\n\n [`<foreignObject>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject"]
 #[derive(Debug)]
 pub struct ForeignObject {
-	attrs: IndexMap<ForeignObjectAttrs, String>,
+	attrs: IndexMap<ForeignObjectAttrs, Box<dyn Value>>,
 }
 
 impl Default for ForeignObject {
@@ -12792,198 +13449,204 @@ impl ForeignObject {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ForeignObjectAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ForeignObjectAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ForeignObjectAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ForeignObjectAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Class, value.into());
+		self.set_attr(ForeignObjectAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Class, value.into());
+		self.set_attr(ForeignObjectAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ForeignObjectAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ForeignObjectAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Height, value.into());
+		self.set_attr(ForeignObjectAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Height, value.into());
+		self.set_attr(ForeignObjectAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Height)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Style, value.into());
+		self.set_attr(ForeignObjectAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Style, value.into());
+		self.set_attr(ForeignObjectAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Transform, value.into());
+		self.set_attr(ForeignObjectAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Transform, value.into());
+		self.set_attr(ForeignObjectAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Width, value.into());
+		self.set_attr(ForeignObjectAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Width, value.into());
+		self.set_attr(ForeignObjectAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::X, value.into());
+		self.set_attr(ForeignObjectAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::X, value.into());
+		self.set_attr(ForeignObjectAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Y, value.into());
+		self.set_attr(ForeignObjectAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ForeignObjectAttrs::Y, value.into());
+		self.set_attr(ForeignObjectAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for ForeignObject {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
@@ -12991,11 +13654,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for ForeignObject {
 impl TagWithConditionalProcessingAttributes for ForeignObject {}
 
 impl common_attrs::CoreAttributesSetter for ForeignObject {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
@@ -13003,11 +13669,14 @@ impl common_attrs::CoreAttributesSetter for ForeignObject {
 impl TagWithCoreAttributes for ForeignObject {}
 
 impl common_attrs::GraphicalEventAttributesSetter for ForeignObject {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
@@ -13015,11 +13684,14 @@ impl common_attrs::GraphicalEventAttributesSetter for ForeignObject {
 impl TagWithGraphicalEventAttributes for ForeignObject {}
 
 impl common_attrs::PresentationAttributesSetter for ForeignObject {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ForeignObjectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(ForeignObjectAttrs::from(attr))
 	}
 }
@@ -13027,15 +13699,17 @@ impl common_attrs::PresentationAttributesSetter for ForeignObject {
 impl TagWithPresentationAttributes for ForeignObject {}
 
 impl Tag for ForeignObject {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("foreignObject");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum GroupAttrs {
 	Class,
@@ -13100,7 +13774,7 @@ impl Debug for GroupAttrs {
 }
 
 mod g_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -13129,7 +13803,7 @@ mod g_private {
 #[doc = "\n\n [`<g>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g"]
 #[derive(Debug)]
 pub struct Group {
-	attrs: IndexMap<GroupAttrs, String>,
+	attrs: IndexMap<GroupAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn g_private::Content>>,
 }
 
@@ -13163,110 +13837,116 @@ impl Group {
 		self
 	}
 
-	fn set_attr(&mut self, attr: GroupAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: GroupAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: GroupAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: GroupAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Class, value.into());
+		self.set_attr(GroupAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Class, value.into());
+		self.set_attr(GroupAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(GroupAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(GroupAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Style, value.into());
+		self.set_attr(GroupAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Style, value.into());
+		self.set_attr(GroupAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Transform, value.into());
+		self.set_attr(GroupAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GroupAttrs::Transform, value.into());
+		self.set_attr(GroupAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Group {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::from(attr))
 	}
 }
@@ -13274,11 +13954,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Group {
 impl TagWithConditionalProcessingAttributes for Group {}
 
 impl common_attrs::CoreAttributesSetter for Group {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::from(attr))
 	}
 }
@@ -13286,11 +13969,14 @@ impl common_attrs::CoreAttributesSetter for Group {
 impl TagWithCoreAttributes for Group {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Group {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::from(attr))
 	}
 }
@@ -13298,11 +13984,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Group {
 impl TagWithGraphicalEventAttributes for Group {}
 
 impl common_attrs::PresentationAttributesSetter for Group {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GroupAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(GroupAttrs::from(attr))
 	}
 }
@@ -13310,9 +13999,10 @@ impl common_attrs::PresentationAttributesSetter for Group {
 impl TagWithPresentationAttributes for Group {}
 
 impl Tag for Group {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("g");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -13322,6 +14012,7 @@ impl Tag for Group {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum GlyphAttrs {
 	ArabicForm,
@@ -13386,7 +14077,7 @@ impl Debug for GlyphAttrs {
 }
 
 mod glyph_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -13415,7 +14106,7 @@ mod glyph_private {
 #[doc = "\n\n [`<glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyph"]
 #[derive(Debug)]
 pub struct Glyph {
-	attrs: IndexMap<GlyphAttrs, String>,
+	attrs: IndexMap<GlyphAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn glyph_private::Content>>,
 }
 
@@ -13449,286 +14140,292 @@ impl Glyph {
 		self
 	}
 
-	fn set_attr(&mut self, attr: GlyphAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: GlyphAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: GlyphAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: GlyphAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `arabic-form` attribute.
-	pub fn with_arabic_form<T>(mut self, value: T) -> Self
+	pub fn with_arabic_form<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::ArabicForm, value.into());
+		self.set_attr(GlyphAttrs::ArabicForm, value);
 		self
 	}
 
 	/// Set the `arabic-form` attribute.
-	pub fn set_arabic_form<T>(&mut self, value: T)
+	pub fn set_arabic_form<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::ArabicForm, value.into());
+		self.set_attr(GlyphAttrs::ArabicForm, value);
 	}
 
 	/// Get the `arabic-form` attribute.
-	pub fn arabic_form(&self) -> Option<&str> {
+	pub fn arabic_form(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::ArabicForm)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Class, value.into());
+		self.set_attr(GlyphAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Class, value.into());
+		self.set_attr(GlyphAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
-	pub fn with_d<T>(mut self, value: T) -> Self
+	pub fn with_d<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::D, value.into());
+		self.set_attr(GlyphAttrs::D, value);
 		self
 	}
 
 	/// Set the `d` attribute.
-	pub fn set_d<T>(&mut self, value: T)
+	pub fn set_d<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::D, value.into());
+		self.set_attr(GlyphAttrs::D, value);
 	}
 
 	/// Get the `d` attribute.
-	pub fn d(&self) -> Option<&str> {
+	pub fn d(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::D)
 	}
 
 	/// Set the `glyph-name` attribute.
-	pub fn with_glyph_name<T>(mut self, value: T) -> Self
+	pub fn with_glyph_name<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::GlyphName, value.into());
+		self.set_attr(GlyphAttrs::GlyphName, value);
 		self
 	}
 
 	/// Set the `glyph-name` attribute.
-	pub fn set_glyph_name<T>(&mut self, value: T)
+	pub fn set_glyph_name<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::GlyphName, value.into());
+		self.set_attr(GlyphAttrs::GlyphName, value);
 	}
 
 	/// Get the `glyph-name` attribute.
-	pub fn glyph_name(&self) -> Option<&str> {
+	pub fn glyph_name(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::GlyphName)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::HorizAdvX, value.into());
+		self.set_attr(GlyphAttrs::HorizAdvX, value);
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_adv_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::HorizAdvX, value.into());
+		self.set_attr(GlyphAttrs::HorizAdvX, value);
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_adv_x(&self) -> Option<&str> {
+	pub fn horiz_adv_x(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::HorizAdvX)
 	}
 
 	/// Set the `lang` attribute.
-	pub fn with_lang<T>(mut self, value: T) -> Self
+	pub fn with_lang<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Lang, value.into());
+		self.set_attr(GlyphAttrs::Lang, value);
 		self
 	}
 
 	/// Set the `lang` attribute.
-	pub fn set_lang<T>(&mut self, value: T)
+	pub fn set_lang<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Lang, value.into());
+		self.set_attr(GlyphAttrs::Lang, value);
 	}
 
 	/// Get the `lang` attribute.
-	pub fn lang(&self) -> Option<&str> {
+	pub fn lang(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::Lang)
 	}
 
 	/// Set the `orientation` attribute.
-	pub fn with_orientation<T>(mut self, value: T) -> Self
+	pub fn with_orientation<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Orientation, value.into());
+		self.set_attr(GlyphAttrs::Orientation, value);
 		self
 	}
 
 	/// Set the `orientation` attribute.
-	pub fn set_orientation<T>(&mut self, value: T)
+	pub fn set_orientation<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Orientation, value.into());
+		self.set_attr(GlyphAttrs::Orientation, value);
 	}
 
 	/// Get the `orientation` attribute.
-	pub fn orientation(&self) -> Option<&str> {
+	pub fn orientation(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::Orientation)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Style, value.into());
+		self.set_attr(GlyphAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Style, value.into());
+		self.set_attr(GlyphAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::Style)
 	}
 
 	/// Set the `unicode` attribute.
-	pub fn with_unicode<T>(mut self, value: T) -> Self
+	pub fn with_unicode<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Unicode, value.into());
+		self.set_attr(GlyphAttrs::Unicode, value);
 		self
 	}
 
 	/// Set the `unicode` attribute.
-	pub fn set_unicode<T>(&mut self, value: T)
+	pub fn set_unicode<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::Unicode, value.into());
+		self.set_attr(GlyphAttrs::Unicode, value);
 	}
 
 	/// Get the `unicode` attribute.
-	pub fn unicode(&self) -> Option<&str> {
+	pub fn unicode(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::Unicode)
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertAdvY, value.into());
+		self.set_attr(GlyphAttrs::VertAdvY, value);
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_adv_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertAdvY, value.into());
+		self.set_attr(GlyphAttrs::VertAdvY, value);
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_adv_y(&self) -> Option<&str> {
+	pub fn vert_adv_y(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertOriginX, value.into());
+		self.set_attr(GlyphAttrs::VertOriginX, value);
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_origin_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertOriginX, value.into());
+		self.set_attr(GlyphAttrs::VertOriginX, value);
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_origin_x(&self) -> Option<&str> {
+	pub fn vert_origin_x(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertOriginY, value.into());
+		self.set_attr(GlyphAttrs::VertOriginY, value);
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_origin_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphAttrs::VertOriginY, value.into());
+		self.set_attr(GlyphAttrs::VertOriginY, value);
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_origin_y(&self) -> Option<&str> {
+	pub fn vert_origin_y(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::VertOriginY)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Glyph {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::from(attr))
 	}
 }
@@ -13736,11 +14433,14 @@ impl common_attrs::CoreAttributesSetter for Glyph {
 impl TagWithCoreAttributes for Glyph {}
 
 impl common_attrs::PresentationAttributesSetter for Glyph {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(GlyphAttrs::from(attr))
 	}
 }
@@ -13748,9 +14448,10 @@ impl common_attrs::PresentationAttributesSetter for Glyph {
 impl TagWithPresentationAttributes for Glyph {}
 
 impl Tag for Glyph {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("glyph");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -13760,6 +14461,7 @@ impl Tag for Glyph {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum GlyphRefAttrs {
 	Class,
@@ -13830,7 +14532,7 @@ impl Debug for GlyphRefAttrs {
 #[doc = "\n\n [`<glyphRef>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyphRef"]
 #[derive(Debug)]
 pub struct GlyphRef {
-	attrs: IndexMap<GlyphRefAttrs, String>,
+	attrs: IndexMap<GlyphRefAttrs, Box<dyn Value>>,
 }
 
 impl Default for GlyphRef {
@@ -13847,220 +14549,226 @@ impl GlyphRef {
 		}
 	}
 
-	fn set_attr(&mut self, attr: GlyphRefAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: GlyphRefAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: GlyphRefAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: GlyphRefAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Class, value.into());
+		self.set_attr(GlyphRefAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Class, value.into());
+		self.set_attr(GlyphRefAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Dx, value.into());
+		self.set_attr(GlyphRefAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Dx, value.into());
+		self.set_attr(GlyphRefAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Dy, value.into());
+		self.set_attr(GlyphRefAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Dy, value.into());
+		self.set_attr(GlyphRefAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Dy)
 	}
 
 	/// Set the `format` attribute.
-	pub fn with_format<T>(mut self, value: T) -> Self
+	pub fn with_format<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Format, value.into());
+		self.set_attr(GlyphRefAttrs::Format, value);
 		self
 	}
 
 	/// Set the `format` attribute.
-	pub fn set_format<T>(&mut self, value: T)
+	pub fn set_format<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Format, value.into());
+		self.set_attr(GlyphRefAttrs::Format, value);
 	}
 
 	/// Get the `format` attribute.
-	pub fn format(&self) -> Option<&str> {
+	pub fn format(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Format)
 	}
 
 	/// Set the `glyphRef` attribute.
-	pub fn with_glyph_ref<T>(mut self, value: T) -> Self
+	pub fn with_glyph_ref<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::GlyphRef, value.into());
+		self.set_attr(GlyphRefAttrs::GlyphRef, value);
 		self
 	}
 
 	/// Set the `glyphRef` attribute.
-	pub fn set_glyph_ref<T>(&mut self, value: T)
+	pub fn set_glyph_ref<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::GlyphRef, value.into());
+		self.set_attr(GlyphRefAttrs::GlyphRef, value);
 	}
 
 	/// Get the `glyphRef` attribute.
-	pub fn glyph_ref(&self) -> Option<&str> {
+	pub fn glyph_ref(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::GlyphRef)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Style, value.into());
+		self.set_attr(GlyphRefAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Style, value.into());
+		self.set_attr(GlyphRefAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Style)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::X, value.into());
+		self.set_attr(GlyphRefAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::X, value.into());
+		self.set_attr(GlyphRefAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::XlinkHref, value.into());
+		self.set_attr(GlyphRefAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::XlinkHref, value.into());
+		self.set_attr(GlyphRefAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Y, value.into());
+		self.set_attr(GlyphRefAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(GlyphRefAttrs::Y, value.into());
+		self.set_attr(GlyphRefAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::Y)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for GlyphRef {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
@@ -14068,11 +14776,14 @@ impl common_attrs::CoreAttributesSetter for GlyphRef {
 impl TagWithCoreAttributes for GlyphRef {}
 
 impl common_attrs::PresentationAttributesSetter for GlyphRef {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
@@ -14080,11 +14791,14 @@ impl common_attrs::PresentationAttributesSetter for GlyphRef {
 impl TagWithPresentationAttributes for GlyphRef {}
 
 impl common_attrs::XLinkAttributesSetter for GlyphRef {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(GlyphRefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(GlyphRefAttrs::from(attr))
 	}
 }
@@ -14092,15 +14806,17 @@ impl common_attrs::XLinkAttributesSetter for GlyphRef {
 impl TagWithXLinkAttributes for GlyphRef {}
 
 impl Tag for GlyphRef {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("glyphRef");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum HatchAttrs {
 	HatchContentUnits,
@@ -14173,7 +14889,7 @@ impl Debug for HatchAttrs {
 }
 
 mod hatch_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -14187,7 +14903,7 @@ mod hatch_private {
 #[doc = "\n\n [`<hatch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatch"]
 #[derive(Debug)]
 pub struct Hatch {
-	attrs: IndexMap<HatchAttrs, String>,
+	attrs: IndexMap<HatchAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn hatch_private::Content>>,
 }
 
@@ -14221,198 +14937,204 @@ impl Hatch {
 		self
 	}
 
-	fn set_attr(&mut self, attr: HatchAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: HatchAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: HatchAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: HatchAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `hatchContentUnits` attribute.
-	pub fn with_hatch_content_units<T>(mut self, value: T) -> Self
+	pub fn with_hatch_content_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::HatchContentUnits, value.into());
+		self.set_attr(HatchAttrs::HatchContentUnits, value);
 		self
 	}
 
 	/// Set the `hatchContentUnits` attribute.
-	pub fn set_hatch_content_units<T>(&mut self, value: T)
+	pub fn set_hatch_content_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::HatchContentUnits, value.into());
+		self.set_attr(HatchAttrs::HatchContentUnits, value);
 	}
 
 	/// Get the `hatchContentUnits` attribute.
-	pub fn hatch_content_units(&self) -> Option<&str> {
+	pub fn hatch_content_units(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::HatchContentUnits)
 	}
 
 	/// Set the `hatchUnits` attribute.
-	pub fn with_hatch_units<T>(mut self, value: T) -> Self
+	pub fn with_hatch_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::HatchUnits, value.into());
+		self.set_attr(HatchAttrs::HatchUnits, value);
 		self
 	}
 
 	/// Set the `hatchUnits` attribute.
-	pub fn set_hatch_units<T>(&mut self, value: T)
+	pub fn set_hatch_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::HatchUnits, value.into());
+		self.set_attr(HatchAttrs::HatchUnits, value);
 	}
 
 	/// Get the `hatchUnits` attribute.
-	pub fn hatch_units(&self) -> Option<&str> {
+	pub fn hatch_units(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::HatchUnits)
 	}
 
 	/// Set the `href` attribute.
-	pub fn with_href<T>(mut self, value: T) -> Self
+	pub fn with_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Href, value.into());
+		self.set_attr(HatchAttrs::Href, value);
 		self
 	}
 
 	/// Set the `href` attribute.
-	pub fn set_href<T>(&mut self, value: T)
+	pub fn set_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Href, value.into());
+		self.set_attr(HatchAttrs::Href, value);
 	}
 
 	/// Get the `href` attribute.
-	pub fn href(&self) -> Option<&str> {
+	pub fn href(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::Href)
 	}
 
 	/// Set the `pitch` attribute.
-	pub fn with_pitch<T>(mut self, value: T) -> Self
+	pub fn with_pitch<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Pitch, value.into());
+		self.set_attr(HatchAttrs::Pitch, value);
 		self
 	}
 
 	/// Set the `pitch` attribute.
-	pub fn set_pitch<T>(&mut self, value: T)
+	pub fn set_pitch<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Pitch, value.into());
+		self.set_attr(HatchAttrs::Pitch, value);
 	}
 
 	/// Get the `pitch` attribute.
-	pub fn pitch(&self) -> Option<&str> {
+	pub fn pitch(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::Pitch)
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn with_rotate<T>(mut self, value: T) -> Self
+	pub fn with_rotate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Rotate, value.into());
+		self.set_attr(HatchAttrs::Rotate, value);
 		self
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn set_rotate<T>(&mut self, value: T)
+	pub fn set_rotate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Rotate, value.into());
+		self.set_attr(HatchAttrs::Rotate, value);
 	}
 
 	/// Get the `rotate` attribute.
-	pub fn rotate(&self) -> Option<&str> {
+	pub fn rotate(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::Rotate)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Transform, value.into());
+		self.set_attr(HatchAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Transform, value.into());
+		self.set_attr(HatchAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::Transform)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::X, value.into());
+		self.set_attr(HatchAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::X, value.into());
+		self.set_attr(HatchAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Y, value.into());
+		self.set_attr(HatchAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchAttrs::Y, value.into());
+		self.set_attr(HatchAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::Y)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Hatch {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::from(attr))
 	}
 }
@@ -14420,11 +15142,14 @@ impl common_attrs::CoreAttributesSetter for Hatch {
 impl TagWithCoreAttributes for Hatch {}
 
 impl common_attrs::GlobalEventAttributesSetter for Hatch {
-	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::from(attr))
 	}
 }
@@ -14432,11 +15157,14 @@ impl common_attrs::GlobalEventAttributesSetter for Hatch {
 impl TagWithGlobalEventAttributes for Hatch {}
 
 impl common_attrs::PresentationAttributesSetter for Hatch {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::from(attr))
 	}
 }
@@ -14444,11 +15172,14 @@ impl common_attrs::PresentationAttributesSetter for Hatch {
 impl TagWithPresentationAttributes for Hatch {}
 
 impl common_attrs::StyleAttributesSetter for Hatch {
-	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::StyleAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchAttrs::from(attr))
 	}
 }
@@ -14456,9 +15187,10 @@ impl common_attrs::StyleAttributesSetter for Hatch {
 impl TagWithStyleAttributes for Hatch {}
 
 impl Tag for Hatch {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hatch");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -14468,6 +15200,7 @@ impl Tag for Hatch {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum HatchpathAttrs {
 	D,
@@ -14528,7 +15261,7 @@ impl Debug for HatchpathAttrs {
 }
 
 mod hatchpath_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -14541,7 +15274,7 @@ mod hatchpath_private {
 #[doc = "\n\n [`<hatchpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatchpath"]
 #[derive(Debug)]
 pub struct Hatchpath {
-	attrs: IndexMap<HatchpathAttrs, String>,
+	attrs: IndexMap<HatchpathAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn hatchpath_private::Content>>,
 }
 
@@ -14575,66 +15308,72 @@ impl Hatchpath {
 		self
 	}
 
-	fn set_attr(&mut self, attr: HatchpathAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: HatchpathAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: HatchpathAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: HatchpathAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `d` attribute.
-	pub fn with_d<T>(mut self, value: T) -> Self
+	pub fn with_d<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchpathAttrs::D, value.into());
+		self.set_attr(HatchpathAttrs::D, value);
 		self
 	}
 
 	/// Set the `d` attribute.
-	pub fn set_d<T>(&mut self, value: T)
+	pub fn set_d<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchpathAttrs::D, value.into());
+		self.set_attr(HatchpathAttrs::D, value);
 	}
 
 	/// Get the `d` attribute.
-	pub fn d(&self) -> Option<&str> {
+	pub fn d(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::D)
 	}
 
 	/// Set the `offset` attribute.
-	pub fn with_offset<T>(mut self, value: T) -> Self
+	pub fn with_offset<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchpathAttrs::Offset, value.into());
+		self.set_attr(HatchpathAttrs::Offset, value);
 		self
 	}
 
 	/// Set the `offset` attribute.
-	pub fn set_offset<T>(&mut self, value: T)
+	pub fn set_offset<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HatchpathAttrs::Offset, value.into());
+		self.set_attr(HatchpathAttrs::Offset, value);
 	}
 
 	/// Get the `offset` attribute.
-	pub fn offset(&self) -> Option<&str> {
+	pub fn offset(&self) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::Offset)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Hatchpath {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
@@ -14642,11 +15381,14 @@ impl common_attrs::CoreAttributesSetter for Hatchpath {
 impl TagWithCoreAttributes for Hatchpath {}
 
 impl common_attrs::GlobalEventAttributesSetter for Hatchpath {
-	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
@@ -14654,11 +15396,14 @@ impl common_attrs::GlobalEventAttributesSetter for Hatchpath {
 impl TagWithGlobalEventAttributes for Hatchpath {}
 
 impl common_attrs::PresentationAttributesSetter for Hatchpath {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
@@ -14666,11 +15411,14 @@ impl common_attrs::PresentationAttributesSetter for Hatchpath {
 impl TagWithPresentationAttributes for Hatchpath {}
 
 impl common_attrs::StyleAttributesSetter for Hatchpath {
-	fn set_attr(&mut self, attr: common_attrs::StyleAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::StyleAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HatchpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::StyleAttributes) -> Option<&dyn Value> {
 		self.get_attr(HatchpathAttrs::from(attr))
 	}
 }
@@ -14678,9 +15426,10 @@ impl common_attrs::StyleAttributesSetter for Hatchpath {
 impl TagWithStyleAttributes for Hatchpath {}
 
 impl Tag for Hatchpath {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hatchpath");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -14690,6 +15439,7 @@ impl Tag for Hatchpath {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum HkernAttrs {
 	G1,
@@ -14736,7 +15486,7 @@ impl Debug for HkernAttrs {
 #[doc = "\n\n [`<hkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hkern"]
 #[derive(Debug)]
 pub struct Hkern {
-	attrs: IndexMap<HkernAttrs, String>,
+	attrs: IndexMap<HkernAttrs, Box<dyn Value>>,
 }
 
 impl Default for Hkern {
@@ -14753,132 +15503,138 @@ impl Hkern {
 		}
 	}
 
-	fn set_attr(&mut self, attr: HkernAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: HkernAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: HkernAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: HkernAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `g1` attribute.
-	pub fn with_g1<T>(mut self, value: T) -> Self
+	pub fn with_g1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::G1, value.into());
+		self.set_attr(HkernAttrs::G1, value);
 		self
 	}
 
 	/// Set the `g1` attribute.
-	pub fn set_g1<T>(&mut self, value: T)
+	pub fn set_g1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::G1, value.into());
+		self.set_attr(HkernAttrs::G1, value);
 	}
 
 	/// Get the `g1` attribute.
-	pub fn g1(&self) -> Option<&str> {
+	pub fn g1(&self) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::G1)
 	}
 
 	/// Set the `g2` attribute.
-	pub fn with_g2<T>(mut self, value: T) -> Self
+	pub fn with_g2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::G2, value.into());
+		self.set_attr(HkernAttrs::G2, value);
 		self
 	}
 
 	/// Set the `g2` attribute.
-	pub fn set_g2<T>(&mut self, value: T)
+	pub fn set_g2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::G2, value.into());
+		self.set_attr(HkernAttrs::G2, value);
 	}
 
 	/// Get the `g2` attribute.
-	pub fn g2(&self) -> Option<&str> {
+	pub fn g2(&self) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::G2)
 	}
 
 	/// Set the `k` attribute.
-	pub fn with_k<T>(mut self, value: T) -> Self
+	pub fn with_k<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::K, value.into());
+		self.set_attr(HkernAttrs::K, value);
 		self
 	}
 
 	/// Set the `k` attribute.
-	pub fn set_k<T>(&mut self, value: T)
+	pub fn set_k<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::K, value.into());
+		self.set_attr(HkernAttrs::K, value);
 	}
 
 	/// Get the `k` attribute.
-	pub fn k(&self) -> Option<&str> {
+	pub fn k(&self) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::K)
 	}
 
 	/// Set the `u1` attribute.
-	pub fn with_u1<T>(mut self, value: T) -> Self
+	pub fn with_u1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::U1, value.into());
+		self.set_attr(HkernAttrs::U1, value);
 		self
 	}
 
 	/// Set the `u1` attribute.
-	pub fn set_u1<T>(&mut self, value: T)
+	pub fn set_u1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::U1, value.into());
+		self.set_attr(HkernAttrs::U1, value);
 	}
 
 	/// Get the `u1` attribute.
-	pub fn u1(&self) -> Option<&str> {
+	pub fn u1(&self) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::U1)
 	}
 
 	/// Set the `u2` attribute.
-	pub fn with_u2<T>(mut self, value: T) -> Self
+	pub fn with_u2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::U2, value.into());
+		self.set_attr(HkernAttrs::U2, value);
 		self
 	}
 
 	/// Set the `u2` attribute.
-	pub fn set_u2<T>(&mut self, value: T)
+	pub fn set_u2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(HkernAttrs::U2, value.into());
+		self.set_attr(HkernAttrs::U2, value);
 	}
 
 	/// Get the `u2` attribute.
-	pub fn u2(&self) -> Option<&str> {
+	pub fn u2(&self) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::U2)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Hkern {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(HkernAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(HkernAttrs::from(attr))
 	}
 }
@@ -14886,15 +15642,17 @@ impl common_attrs::CoreAttributesSetter for Hkern {
 impl TagWithCoreAttributes for Hkern {}
 
 impl Tag for Hkern {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hkern");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ImageAttrs {
 	Class,
@@ -14983,7 +15741,7 @@ impl Debug for ImageAttrs {
 #[doc = "\n\n [`<image>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image"]
 #[derive(Debug)]
 pub struct Image {
-	attrs: IndexMap<ImageAttrs, String>,
+	attrs: IndexMap<ImageAttrs, Box<dyn Value>>,
 }
 
 impl Default for Image {
@@ -15000,242 +15758,248 @@ impl Image {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ImageAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ImageAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ImageAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ImageAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Class, value.into());
+		self.set_attr(ImageAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Class, value.into());
+		self.set_attr(ImageAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ImageAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ImageAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Height, value.into());
+		self.set_attr(ImageAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Height, value.into());
+		self.set_attr(ImageAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Height)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(ImageAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(ImageAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Style, value.into());
+		self.set_attr(ImageAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Style, value.into());
+		self.set_attr(ImageAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Transform, value.into());
+		self.set_attr(ImageAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Transform, value.into());
+		self.set_attr(ImageAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Width, value.into());
+		self.set_attr(ImageAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Width, value.into());
+		self.set_attr(ImageAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::X, value.into());
+		self.set_attr(ImageAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::X, value.into());
+		self.set_attr(ImageAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::XlinkHref, value.into());
+		self.set_attr(ImageAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::XlinkHref, value.into());
+		self.set_attr(ImageAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Y, value.into());
+		self.set_attr(ImageAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ImageAttrs::Y, value.into());
+		self.set_attr(ImageAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Image {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::from(attr))
 	}
 }
@@ -15243,11 +16007,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Image {
 impl TagWithConditionalProcessingAttributes for Image {}
 
 impl common_attrs::CoreAttributesSetter for Image {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::from(attr))
 	}
 }
@@ -15255,11 +16022,14 @@ impl common_attrs::CoreAttributesSetter for Image {
 impl TagWithCoreAttributes for Image {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Image {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::from(attr))
 	}
 }
@@ -15267,11 +16037,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Image {
 impl TagWithGraphicalEventAttributes for Image {}
 
 impl common_attrs::PresentationAttributesSetter for Image {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::from(attr))
 	}
 }
@@ -15279,11 +16052,14 @@ impl common_attrs::PresentationAttributesSetter for Image {
 impl TagWithPresentationAttributes for Image {}
 
 impl common_attrs::XLinkAttributesSetter for Image {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ImageAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(ImageAttrs::from(attr))
 	}
 }
@@ -15291,15 +16067,17 @@ impl common_attrs::XLinkAttributesSetter for Image {
 impl TagWithXLinkAttributes for Image {}
 
 impl Tag for Image {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("image");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum LineAttrs {
 	Class,
@@ -15376,7 +16154,7 @@ impl Debug for LineAttrs {
 #[doc = "\n\n [`<line>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line"]
 #[derive(Debug)]
 pub struct Line {
-	attrs: IndexMap<LineAttrs, String>,
+	attrs: IndexMap<LineAttrs, Box<dyn Value>>,
 }
 
 impl Default for Line {
@@ -15393,198 +16171,204 @@ impl Line {
 		}
 	}
 
-	fn set_attr(&mut self, attr: LineAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: LineAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: LineAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: LineAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Class, value.into());
+		self.set_attr(LineAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Class, value.into());
+		self.set_attr(LineAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(LineAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(LineAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Style, value.into());
+		self.set_attr(LineAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Style, value.into());
+		self.set_attr(LineAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Transform, value.into());
+		self.set_attr(LineAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Transform, value.into());
+		self.set_attr(LineAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::Transform)
 	}
 
 	/// Set the `x1` attribute.
-	pub fn with_x1<T>(mut self, value: T) -> Self
+	pub fn with_x1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::X1, value.into());
+		self.set_attr(LineAttrs::X1, value);
 		self
 	}
 
 	/// Set the `x1` attribute.
-	pub fn set_x1<T>(&mut self, value: T)
+	pub fn set_x1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::X1, value.into());
+		self.set_attr(LineAttrs::X1, value);
 	}
 
 	/// Get the `x1` attribute.
-	pub fn x1(&self) -> Option<&str> {
+	pub fn x1(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::X1)
 	}
 
 	/// Set the `x2` attribute.
-	pub fn with_x2<T>(mut self, value: T) -> Self
+	pub fn with_x2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::X2, value.into());
+		self.set_attr(LineAttrs::X2, value);
 		self
 	}
 
 	/// Set the `x2` attribute.
-	pub fn set_x2<T>(&mut self, value: T)
+	pub fn set_x2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::X2, value.into());
+		self.set_attr(LineAttrs::X2, value);
 	}
 
 	/// Get the `x2` attribute.
-	pub fn x2(&self) -> Option<&str> {
+	pub fn x2(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::X2)
 	}
 
 	/// Set the `y1` attribute.
-	pub fn with_y1<T>(mut self, value: T) -> Self
+	pub fn with_y1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Y1, value.into());
+		self.set_attr(LineAttrs::Y1, value);
 		self
 	}
 
 	/// Set the `y1` attribute.
-	pub fn set_y1<T>(&mut self, value: T)
+	pub fn set_y1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Y1, value.into());
+		self.set_attr(LineAttrs::Y1, value);
 	}
 
 	/// Get the `y1` attribute.
-	pub fn y1(&self) -> Option<&str> {
+	pub fn y1(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::Y1)
 	}
 
 	/// Set the `y2` attribute.
-	pub fn with_y2<T>(mut self, value: T) -> Self
+	pub fn with_y2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Y2, value.into());
+		self.set_attr(LineAttrs::Y2, value);
 		self
 	}
 
 	/// Set the `y2` attribute.
-	pub fn set_y2<T>(&mut self, value: T)
+	pub fn set_y2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LineAttrs::Y2, value.into());
+		self.set_attr(LineAttrs::Y2, value);
 	}
 
 	/// Get the `y2` attribute.
-	pub fn y2(&self) -> Option<&str> {
+	pub fn y2(&self) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::Y2)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Line {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::from(attr))
 	}
 }
@@ -15592,11 +16376,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Line {
 impl TagWithConditionalProcessingAttributes for Line {}
 
 impl common_attrs::CoreAttributesSetter for Line {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::from(attr))
 	}
 }
@@ -15604,11 +16391,14 @@ impl common_attrs::CoreAttributesSetter for Line {
 impl TagWithCoreAttributes for Line {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Line {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::from(attr))
 	}
 }
@@ -15616,11 +16406,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Line {
 impl TagWithGraphicalEventAttributes for Line {}
 
 impl common_attrs::PresentationAttributesSetter for Line {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(LineAttrs::from(attr))
 	}
 }
@@ -15628,15 +16421,17 @@ impl common_attrs::PresentationAttributesSetter for Line {
 impl TagWithPresentationAttributes for Line {}
 
 impl Tag for Line {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("line");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum LinearGradientAttrs {
 	Class,
@@ -15707,7 +16502,7 @@ impl Debug for LinearGradientAttrs {
 }
 
 mod linear_gradient_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -15722,7 +16517,7 @@ mod linear_gradient_private {
 #[doc = "\n\n [`<linearGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient"]
 #[derive(Debug)]
 pub struct LinearGradient {
-	attrs: IndexMap<LinearGradientAttrs, String>,
+	attrs: IndexMap<LinearGradientAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn linear_gradient_private::Content>>,
 }
 
@@ -15756,264 +16551,270 @@ impl LinearGradient {
 		self
 	}
 
-	fn set_attr(&mut self, attr: LinearGradientAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: LinearGradientAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: LinearGradientAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: LinearGradientAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Class, value.into());
+		self.set_attr(LinearGradientAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Class, value.into());
+		self.set_attr(LinearGradientAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(LinearGradientAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(LinearGradientAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `gradientTransform` attribute.
-	pub fn with_gradient_transform<T>(mut self, value: T) -> Self
+	pub fn with_gradient_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::GradientTransform, value.into());
+		self.set_attr(LinearGradientAttrs::GradientTransform, value);
 		self
 	}
 
 	/// Set the `gradientTransform` attribute.
-	pub fn set_gradient_transform<T>(&mut self, value: T)
+	pub fn set_gradient_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::GradientTransform, value.into());
+		self.set_attr(LinearGradientAttrs::GradientTransform, value);
 	}
 
 	/// Get the `gradientTransform` attribute.
-	pub fn gradient_transform(&self) -> Option<&str> {
+	pub fn gradient_transform(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::GradientTransform)
 	}
 
 	/// Set the `gradientUnits` attribute.
-	pub fn with_gradient_units<T>(mut self, value: T) -> Self
+	pub fn with_gradient_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::GradientUnits, value.into());
+		self.set_attr(LinearGradientAttrs::GradientUnits, value);
 		self
 	}
 
 	/// Set the `gradientUnits` attribute.
-	pub fn set_gradient_units<T>(&mut self, value: T)
+	pub fn set_gradient_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::GradientUnits, value.into());
+		self.set_attr(LinearGradientAttrs::GradientUnits, value);
 	}
 
 	/// Get the `gradientUnits` attribute.
-	pub fn gradient_units(&self) -> Option<&str> {
+	pub fn gradient_units(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::GradientUnits)
 	}
 
 	/// Set the `spreadMethod` attribute.
-	pub fn with_spread_method<T>(mut self, value: T) -> Self
+	pub fn with_spread_method<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::SpreadMethod, value.into());
+		self.set_attr(LinearGradientAttrs::SpreadMethod, value);
 		self
 	}
 
 	/// Set the `spreadMethod` attribute.
-	pub fn set_spread_method<T>(&mut self, value: T)
+	pub fn set_spread_method<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::SpreadMethod, value.into());
+		self.set_attr(LinearGradientAttrs::SpreadMethod, value);
 	}
 
 	/// Get the `spreadMethod` attribute.
-	pub fn spread_method(&self) -> Option<&str> {
+	pub fn spread_method(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::SpreadMethod)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Style, value.into());
+		self.set_attr(LinearGradientAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Style, value.into());
+		self.set_attr(LinearGradientAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::Style)
 	}
 
 	/// Set the `x1` attribute.
-	pub fn with_x1<T>(mut self, value: T) -> Self
+	pub fn with_x1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::X1, value.into());
+		self.set_attr(LinearGradientAttrs::X1, value);
 		self
 	}
 
 	/// Set the `x1` attribute.
-	pub fn set_x1<T>(&mut self, value: T)
+	pub fn set_x1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::X1, value.into());
+		self.set_attr(LinearGradientAttrs::X1, value);
 	}
 
 	/// Get the `x1` attribute.
-	pub fn x1(&self) -> Option<&str> {
+	pub fn x1(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::X1)
 	}
 
 	/// Set the `x2` attribute.
-	pub fn with_x2<T>(mut self, value: T) -> Self
+	pub fn with_x2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::X2, value.into());
+		self.set_attr(LinearGradientAttrs::X2, value);
 		self
 	}
 
 	/// Set the `x2` attribute.
-	pub fn set_x2<T>(&mut self, value: T)
+	pub fn set_x2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::X2, value.into());
+		self.set_attr(LinearGradientAttrs::X2, value);
 	}
 
 	/// Get the `x2` attribute.
-	pub fn x2(&self) -> Option<&str> {
+	pub fn x2(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::X2)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::XlinkHref, value.into());
+		self.set_attr(LinearGradientAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::XlinkHref, value.into());
+		self.set_attr(LinearGradientAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::XlinkHref)
 	}
 
 	/// Set the `y1` attribute.
-	pub fn with_y1<T>(mut self, value: T) -> Self
+	pub fn with_y1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Y1, value.into());
+		self.set_attr(LinearGradientAttrs::Y1, value);
 		self
 	}
 
 	/// Set the `y1` attribute.
-	pub fn set_y1<T>(&mut self, value: T)
+	pub fn set_y1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Y1, value.into());
+		self.set_attr(LinearGradientAttrs::Y1, value);
 	}
 
 	/// Get the `y1` attribute.
-	pub fn y1(&self) -> Option<&str> {
+	pub fn y1(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::Y1)
 	}
 
 	/// Set the `y2` attribute.
-	pub fn with_y2<T>(mut self, value: T) -> Self
+	pub fn with_y2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Y2, value.into());
+		self.set_attr(LinearGradientAttrs::Y2, value);
 		self
 	}
 
 	/// Set the `y2` attribute.
-	pub fn set_y2<T>(&mut self, value: T)
+	pub fn set_y2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(LinearGradientAttrs::Y2, value.into());
+		self.set_attr(LinearGradientAttrs::Y2, value);
 	}
 
 	/// Get the `y2` attribute.
-	pub fn y2(&self) -> Option<&str> {
+	pub fn y2(&self) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::Y2)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for LinearGradient {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
@@ -16021,11 +16822,14 @@ impl common_attrs::CoreAttributesSetter for LinearGradient {
 impl TagWithCoreAttributes for LinearGradient {}
 
 impl common_attrs::PresentationAttributesSetter for LinearGradient {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
@@ -16033,11 +16837,14 @@ impl common_attrs::PresentationAttributesSetter for LinearGradient {
 impl TagWithPresentationAttributes for LinearGradient {}
 
 impl common_attrs::XLinkAttributesSetter for LinearGradient {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(LinearGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(LinearGradientAttrs::from(attr))
 	}
 }
@@ -16045,9 +16852,10 @@ impl common_attrs::XLinkAttributesSetter for LinearGradient {
 impl TagWithXLinkAttributes for LinearGradient {}
 
 impl Tag for LinearGradient {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("linearGradient");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -16057,6 +16865,7 @@ impl Tag for LinearGradient {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum MarkerAttrs {
 	Class,
@@ -16121,7 +16930,7 @@ impl Debug for MarkerAttrs {
 }
 
 mod marker_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -16150,7 +16959,7 @@ mod marker_private {
 #[doc = "\n\n [`<marker>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"]
 #[derive(Debug)]
 pub struct Marker {
-	attrs: IndexMap<MarkerAttrs, String>,
+	attrs: IndexMap<MarkerAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn marker_private::Content>>,
 }
 
@@ -16184,286 +16993,292 @@ impl Marker {
 		self
 	}
 
-	fn set_attr(&mut self, attr: MarkerAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: MarkerAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: MarkerAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: MarkerAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Class, value.into());
+		self.set_attr(MarkerAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Class, value.into());
+		self.set_attr(MarkerAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MarkerAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MarkerAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `markerHeight` attribute.
-	pub fn with_marker_height<T>(mut self, value: T) -> Self
+	pub fn with_marker_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerHeight, value.into());
+		self.set_attr(MarkerAttrs::MarkerHeight, value);
 		self
 	}
 
 	/// Set the `markerHeight` attribute.
-	pub fn set_marker_height<T>(&mut self, value: T)
+	pub fn set_marker_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerHeight, value.into());
+		self.set_attr(MarkerAttrs::MarkerHeight, value);
 	}
 
 	/// Get the `markerHeight` attribute.
-	pub fn marker_height(&self) -> Option<&str> {
+	pub fn marker_height(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::MarkerHeight)
 	}
 
 	/// Set the `markerUnits` attribute.
-	pub fn with_marker_units<T>(mut self, value: T) -> Self
+	pub fn with_marker_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerUnits, value.into());
+		self.set_attr(MarkerAttrs::MarkerUnits, value);
 		self
 	}
 
 	/// Set the `markerUnits` attribute.
-	pub fn set_marker_units<T>(&mut self, value: T)
+	pub fn set_marker_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerUnits, value.into());
+		self.set_attr(MarkerAttrs::MarkerUnits, value);
 	}
 
 	/// Get the `markerUnits` attribute.
-	pub fn marker_units(&self) -> Option<&str> {
+	pub fn marker_units(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::MarkerUnits)
 	}
 
 	/// Set the `markerWidth` attribute.
-	pub fn with_marker_width<T>(mut self, value: T) -> Self
+	pub fn with_marker_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerWidth, value.into());
+		self.set_attr(MarkerAttrs::MarkerWidth, value);
 		self
 	}
 
 	/// Set the `markerWidth` attribute.
-	pub fn set_marker_width<T>(&mut self, value: T)
+	pub fn set_marker_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::MarkerWidth, value.into());
+		self.set_attr(MarkerAttrs::MarkerWidth, value);
 	}
 
 	/// Get the `markerWidth` attribute.
-	pub fn marker_width(&self) -> Option<&str> {
+	pub fn marker_width(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::MarkerWidth)
 	}
 
 	/// Set the `orient` attribute.
-	pub fn with_orient<T>(mut self, value: T) -> Self
+	pub fn with_orient<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Orient, value.into());
+		self.set_attr(MarkerAttrs::Orient, value);
 		self
 	}
 
 	/// Set the `orient` attribute.
-	pub fn set_orient<T>(&mut self, value: T)
+	pub fn set_orient<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Orient, value.into());
+		self.set_attr(MarkerAttrs::Orient, value);
 	}
 
 	/// Get the `orient` attribute.
-	pub fn orient(&self) -> Option<&str> {
+	pub fn orient(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::Orient)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(MarkerAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(MarkerAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `refX` attribute.
-	pub fn with_ref_x<T>(mut self, value: T) -> Self
+	pub fn with_ref_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::RefX, value.into());
+		self.set_attr(MarkerAttrs::RefX, value);
 		self
 	}
 
 	/// Set the `refX` attribute.
-	pub fn set_ref_x<T>(&mut self, value: T)
+	pub fn set_ref_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::RefX, value.into());
+		self.set_attr(MarkerAttrs::RefX, value);
 	}
 
 	/// Get the `refX` attribute.
-	pub fn ref_x(&self) -> Option<&str> {
+	pub fn ref_x(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::RefX)
 	}
 
 	/// Set the `refY` attribute.
-	pub fn with_ref_y<T>(mut self, value: T) -> Self
+	pub fn with_ref_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::RefY, value.into());
+		self.set_attr(MarkerAttrs::RefY, value);
 		self
 	}
 
 	/// Set the `refY` attribute.
-	pub fn set_ref_y<T>(&mut self, value: T)
+	pub fn set_ref_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::RefY, value.into());
+		self.set_attr(MarkerAttrs::RefY, value);
 	}
 
 	/// Get the `refY` attribute.
-	pub fn ref_y(&self) -> Option<&str> {
+	pub fn ref_y(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::RefY)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Style, value.into());
+		self.set_attr(MarkerAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Style, value.into());
+		self.set_attr(MarkerAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Transform, value.into());
+		self.set_attr(MarkerAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::Transform, value.into());
+		self.set_attr(MarkerAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::Transform)
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn with_view_box<T>(mut self, value: T) -> Self
+	pub fn with_view_box<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::ViewBox, value.into());
+		self.set_attr(MarkerAttrs::ViewBox, value);
 		self
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn set_view_box<T>(&mut self, value: T)
+	pub fn set_view_box<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MarkerAttrs::ViewBox, value.into());
+		self.set_attr(MarkerAttrs::ViewBox, value);
 	}
 
 	/// Get the `viewBox` attribute.
-	pub fn view_box(&self) -> Option<&str> {
+	pub fn view_box(&self) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::ViewBox)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Marker {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MarkerAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::from(attr))
 	}
 }
@@ -16471,11 +17286,14 @@ impl common_attrs::CoreAttributesSetter for Marker {
 impl TagWithCoreAttributes for Marker {}
 
 impl common_attrs::PresentationAttributesSetter for Marker {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MarkerAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(MarkerAttrs::from(attr))
 	}
 }
@@ -16483,9 +17301,10 @@ impl common_attrs::PresentationAttributesSetter for Marker {
 impl TagWithPresentationAttributes for Marker {}
 
 impl Tag for Marker {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("marker");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -16495,6 +17314,7 @@ impl Tag for Marker {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum MaskAttrs {
 	Class,
@@ -16561,7 +17381,7 @@ impl Debug for MaskAttrs {
 }
 
 mod mask_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -16590,7 +17410,7 @@ mod mask_private {
 #[doc = "\n\n [`<mask>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask"]
 #[derive(Debug)]
 pub struct Mask {
-	attrs: IndexMap<MaskAttrs, String>,
+	attrs: IndexMap<MaskAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn mask_private::Content>>,
 }
 
@@ -16624,220 +17444,226 @@ impl Mask {
 		self
 	}
 
-	fn set_attr(&mut self, attr: MaskAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: MaskAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: MaskAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: MaskAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Class, value.into());
+		self.set_attr(MaskAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Class, value.into());
+		self.set_attr(MaskAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MaskAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MaskAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Height, value.into());
+		self.set_attr(MaskAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Height, value.into());
+		self.set_attr(MaskAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::Height)
 	}
 
 	/// Set the `maskContentUnits` attribute.
-	pub fn with_mask_content_units<T>(mut self, value: T) -> Self
+	pub fn with_mask_content_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::MaskContentUnits, value.into());
+		self.set_attr(MaskAttrs::MaskContentUnits, value);
 		self
 	}
 
 	/// Set the `maskContentUnits` attribute.
-	pub fn set_mask_content_units<T>(&mut self, value: T)
+	pub fn set_mask_content_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::MaskContentUnits, value.into());
+		self.set_attr(MaskAttrs::MaskContentUnits, value);
 	}
 
 	/// Get the `maskContentUnits` attribute.
-	pub fn mask_content_units(&self) -> Option<&str> {
+	pub fn mask_content_units(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::MaskContentUnits)
 	}
 
 	/// Set the `maskUnits` attribute.
-	pub fn with_mask_units<T>(mut self, value: T) -> Self
+	pub fn with_mask_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::MaskUnits, value.into());
+		self.set_attr(MaskAttrs::MaskUnits, value);
 		self
 	}
 
 	/// Set the `maskUnits` attribute.
-	pub fn set_mask_units<T>(&mut self, value: T)
+	pub fn set_mask_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::MaskUnits, value.into());
+		self.set_attr(MaskAttrs::MaskUnits, value);
 	}
 
 	/// Get the `maskUnits` attribute.
-	pub fn mask_units(&self) -> Option<&str> {
+	pub fn mask_units(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::MaskUnits)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Style, value.into());
+		self.set_attr(MaskAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Style, value.into());
+		self.set_attr(MaskAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::Style)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Width, value.into());
+		self.set_attr(MaskAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Width, value.into());
+		self.set_attr(MaskAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::X, value.into());
+		self.set_attr(MaskAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::X, value.into());
+		self.set_attr(MaskAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Y, value.into());
+		self.set_attr(MaskAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MaskAttrs::Y, value.into());
+		self.set_attr(MaskAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Mask {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::from(attr))
 	}
 }
@@ -16845,11 +17671,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Mask {
 impl TagWithConditionalProcessingAttributes for Mask {}
 
 impl common_attrs::CoreAttributesSetter for Mask {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::from(attr))
 	}
 }
@@ -16857,11 +17686,14 @@ impl common_attrs::CoreAttributesSetter for Mask {
 impl TagWithCoreAttributes for Mask {}
 
 impl common_attrs::PresentationAttributesSetter for Mask {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MaskAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(MaskAttrs::from(attr))
 	}
 }
@@ -16869,9 +17701,10 @@ impl common_attrs::PresentationAttributesSetter for Mask {
 impl TagWithPresentationAttributes for Mask {}
 
 impl Tag for Mask {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("mask");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -16881,6 +17714,7 @@ impl Tag for Mask {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum MetadataAttrs {
 	CoreAttributes(common_attrs::CoreAttributes),
@@ -16917,7 +17751,7 @@ impl Debug for MetadataAttrs {
 #[doc = "\n\n [`<metadata>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata"]
 #[derive(Debug)]
 pub struct Metadata {
-	attrs: IndexMap<MetadataAttrs, String>,
+	attrs: IndexMap<MetadataAttrs, Box<dyn Value>>,
 }
 
 impl Default for Metadata {
@@ -16934,22 +17768,28 @@ impl Metadata {
 		}
 	}
 
-	fn set_attr(&mut self, attr: MetadataAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: MetadataAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: MetadataAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: MetadataAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Metadata {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MetadataAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(MetadataAttrs::from(attr))
 	}
 }
@@ -16957,12 +17797,13 @@ impl common_attrs::CoreAttributesSetter for Metadata {
 impl TagWithCoreAttributes for Metadata {}
 
 impl Tag for Metadata {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("metadata");
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum MissingGlyphAttrs {
 	Class,
@@ -17017,7 +17858,7 @@ impl Debug for MissingGlyphAttrs {
 }
 
 mod missing_glyph_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -17046,7 +17887,7 @@ mod missing_glyph_private {
 #[doc = "\n\n [`<missing-glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/missing-glyph"]
 #[derive(Debug)]
 pub struct MissingGlyph {
-	attrs: IndexMap<MissingGlyphAttrs, String>,
+	attrs: IndexMap<MissingGlyphAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn missing_glyph_private::Content>>,
 }
 
@@ -17080,176 +17921,182 @@ impl MissingGlyph {
 		self
 	}
 
-	fn set_attr(&mut self, attr: MissingGlyphAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: MissingGlyphAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: MissingGlyphAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: MissingGlyphAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::Class, value.into());
+		self.set_attr(MissingGlyphAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::Class, value.into());
+		self.set_attr(MissingGlyphAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
-	pub fn with_d<T>(mut self, value: T) -> Self
+	pub fn with_d<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::D, value.into());
+		self.set_attr(MissingGlyphAttrs::D, value);
 		self
 	}
 
 	/// Set the `d` attribute.
-	pub fn set_d<T>(&mut self, value: T)
+	pub fn set_d<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::D, value.into());
+		self.set_attr(MissingGlyphAttrs::D, value);
 	}
 
 	/// Get the `d` attribute.
-	pub fn d(&self) -> Option<&str> {
+	pub fn d(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::D)
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn with_horiz_adv_x<T>(mut self, value: T) -> Self
+	pub fn with_horiz_adv_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::HorizAdvX, value.into());
+		self.set_attr(MissingGlyphAttrs::HorizAdvX, value);
 		self
 	}
 
 	/// Set the `horiz-adv-x` attribute.
-	pub fn set_horiz_adv_x<T>(&mut self, value: T)
+	pub fn set_horiz_adv_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::HorizAdvX, value.into());
+		self.set_attr(MissingGlyphAttrs::HorizAdvX, value);
 	}
 
 	/// Get the `horiz-adv-x` attribute.
-	pub fn horiz_adv_x(&self) -> Option<&str> {
+	pub fn horiz_adv_x(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::HorizAdvX)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::Style, value.into());
+		self.set_attr(MissingGlyphAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::Style, value.into());
+		self.set_attr(MissingGlyphAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::Style)
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn with_vert_adv_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_adv_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertAdvY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertAdvY, value);
 		self
 	}
 
 	/// Set the `vert-adv-y` attribute.
-	pub fn set_vert_adv_y<T>(&mut self, value: T)
+	pub fn set_vert_adv_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertAdvY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertAdvY, value);
 	}
 
 	/// Get the `vert-adv-y` attribute.
-	pub fn vert_adv_y(&self) -> Option<&str> {
+	pub fn vert_adv_y(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::VertAdvY)
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn with_vert_origin_x<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertOriginX, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginX, value);
 		self
 	}
 
 	/// Set the `vert-origin-x` attribute.
-	pub fn set_vert_origin_x<T>(&mut self, value: T)
+	pub fn set_vert_origin_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertOriginX, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginX, value);
 	}
 
 	/// Get the `vert-origin-x` attribute.
-	pub fn vert_origin_x(&self) -> Option<&str> {
+	pub fn vert_origin_x(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::VertOriginX)
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn with_vert_origin_y<T>(mut self, value: T) -> Self
+	pub fn with_vert_origin_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertOriginY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginY, value);
 		self
 	}
 
 	/// Set the `vert-origin-y` attribute.
-	pub fn set_vert_origin_y<T>(&mut self, value: T)
+	pub fn set_vert_origin_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MissingGlyphAttrs::VertOriginY, value.into());
+		self.set_attr(MissingGlyphAttrs::VertOriginY, value);
 	}
 
 	/// Get the `vert-origin-y` attribute.
-	pub fn vert_origin_y(&self) -> Option<&str> {
+	pub fn vert_origin_y(&self) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::VertOriginY)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for MissingGlyph {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MissingGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::from(attr))
 	}
 }
@@ -17257,11 +18104,14 @@ impl common_attrs::CoreAttributesSetter for MissingGlyph {
 impl TagWithCoreAttributes for MissingGlyph {}
 
 impl common_attrs::PresentationAttributesSetter for MissingGlyph {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MissingGlyphAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(MissingGlyphAttrs::from(attr))
 	}
 }
@@ -17269,9 +18119,10 @@ impl common_attrs::PresentationAttributesSetter for MissingGlyph {
 impl TagWithPresentationAttributes for MissingGlyph {}
 
 impl Tag for MissingGlyph {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("missing-glyph");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -17281,6 +18132,7 @@ impl Tag for MissingGlyph {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum MpathAttrs {
 	ExternalResourcesRequired,
@@ -17329,7 +18181,7 @@ impl Debug for MpathAttrs {
 #[doc = "\n\n [`<mpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath"]
 #[derive(Debug)]
 pub struct Mpath {
-	attrs: IndexMap<MpathAttrs, String>,
+	attrs: IndexMap<MpathAttrs, Box<dyn Value>>,
 }
 
 impl Default for Mpath {
@@ -17346,66 +18198,72 @@ impl Mpath {
 		}
 	}
 
-	fn set_attr(&mut self, attr: MpathAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: MpathAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: MpathAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: MpathAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MpathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MpathAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MpathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(MpathAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(MpathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MpathAttrs::XlinkHref, value.into());
+		self.set_attr(MpathAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(MpathAttrs::XlinkHref, value.into());
+		self.set_attr(MpathAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(MpathAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Mpath {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(MpathAttrs::from(attr))
 	}
 }
@@ -17413,11 +18271,14 @@ impl common_attrs::CoreAttributesSetter for Mpath {
 impl TagWithCoreAttributes for Mpath {}
 
 impl common_attrs::XLinkAttributesSetter for Mpath {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(MpathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(MpathAttrs::from(attr))
 	}
 }
@@ -17425,15 +18286,17 @@ impl common_attrs::XLinkAttributesSetter for Mpath {
 impl TagWithXLinkAttributes for Mpath {}
 
 impl Tag for Mpath {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("mpath");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum PathAttrs {
 	Class,
@@ -17506,7 +18369,7 @@ impl Debug for PathAttrs {
 #[doc = "\n\n [`<path>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path"]
 #[derive(Debug)]
 pub struct Path {
-	attrs: IndexMap<PathAttrs, String>,
+	attrs: IndexMap<PathAttrs, Box<dyn Value>>,
 }
 
 impl Default for Path {
@@ -17523,154 +18386,160 @@ impl Path {
 		}
 	}
 
-	fn set_attr(&mut self, attr: PathAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: PathAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: PathAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: PathAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Class, value.into());
+		self.set_attr(PathAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Class, value.into());
+		self.set_attr(PathAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::Class)
 	}
 
 	/// Set the `d` attribute.
-	pub fn with_d<T>(mut self, value: T) -> Self
+	pub fn with_d<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::D, value.into());
+		self.set_attr(PathAttrs::D, value);
 		self
 	}
 
 	/// Set the `d` attribute.
-	pub fn set_d<T>(&mut self, value: T)
+	pub fn set_d<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::D, value.into());
+		self.set_attr(PathAttrs::D, value);
 	}
 
 	/// Get the `d` attribute.
-	pub fn d(&self) -> Option<&str> {
+	pub fn d(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::D)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PathAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PathAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `pathLength` attribute.
-	pub fn with_path_length<T>(mut self, value: T) -> Self
+	pub fn with_path_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::PathLength, value.into());
+		self.set_attr(PathAttrs::PathLength, value);
 		self
 	}
 
 	/// Set the `pathLength` attribute.
-	pub fn set_path_length<T>(&mut self, value: T)
+	pub fn set_path_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::PathLength, value.into());
+		self.set_attr(PathAttrs::PathLength, value);
 	}
 
 	/// Get the `pathLength` attribute.
-	pub fn path_length(&self) -> Option<&str> {
+	pub fn path_length(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::PathLength)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Style, value.into());
+		self.set_attr(PathAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Style, value.into());
+		self.set_attr(PathAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Transform, value.into());
+		self.set_attr(PathAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PathAttrs::Transform, value.into());
+		self.set_attr(PathAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Path {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::from(attr))
 	}
 }
@@ -17678,11 +18547,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Path {
 impl TagWithConditionalProcessingAttributes for Path {}
 
 impl common_attrs::CoreAttributesSetter for Path {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::from(attr))
 	}
 }
@@ -17690,11 +18562,14 @@ impl common_attrs::CoreAttributesSetter for Path {
 impl TagWithCoreAttributes for Path {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Path {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::from(attr))
 	}
 }
@@ -17702,11 +18577,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Path {
 impl TagWithGraphicalEventAttributes for Path {}
 
 impl common_attrs::PresentationAttributesSetter for Path {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(PathAttrs::from(attr))
 	}
 }
@@ -17714,15 +18592,17 @@ impl common_attrs::PresentationAttributesSetter for Path {
 impl TagWithPresentationAttributes for Path {}
 
 impl Tag for Path {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("path");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum PatternAttrs {
 	Class,
@@ -17805,7 +18685,7 @@ impl Debug for PatternAttrs {
 }
 
 mod pattern_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -17834,7 +18714,7 @@ mod pattern_private {
 #[doc = "\n\n [`<pattern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/pattern"]
 #[derive(Debug)]
 pub struct Pattern {
-	attrs: IndexMap<PatternAttrs, String>,
+	attrs: IndexMap<PatternAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn pattern_private::Content>>,
 }
 
@@ -17868,308 +18748,314 @@ impl Pattern {
 		self
 	}
 
-	fn set_attr(&mut self, attr: PatternAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: PatternAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: PatternAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: PatternAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Class, value.into());
+		self.set_attr(PatternAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Class, value.into());
+		self.set_attr(PatternAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PatternAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PatternAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Height, value.into());
+		self.set_attr(PatternAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Height, value.into());
+		self.set_attr(PatternAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::Height)
 	}
 
 	/// Set the `patternContentUnits` attribute.
-	pub fn with_pattern_content_units<T>(mut self, value: T) -> Self
+	pub fn with_pattern_content_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternContentUnits, value.into());
+		self.set_attr(PatternAttrs::PatternContentUnits, value);
 		self
 	}
 
 	/// Set the `patternContentUnits` attribute.
-	pub fn set_pattern_content_units<T>(&mut self, value: T)
+	pub fn set_pattern_content_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternContentUnits, value.into());
+		self.set_attr(PatternAttrs::PatternContentUnits, value);
 	}
 
 	/// Get the `patternContentUnits` attribute.
-	pub fn pattern_content_units(&self) -> Option<&str> {
+	pub fn pattern_content_units(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::PatternContentUnits)
 	}
 
 	/// Set the `patternTransform` attribute.
-	pub fn with_pattern_transform<T>(mut self, value: T) -> Self
+	pub fn with_pattern_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternTransform, value.into());
+		self.set_attr(PatternAttrs::PatternTransform, value);
 		self
 	}
 
 	/// Set the `patternTransform` attribute.
-	pub fn set_pattern_transform<T>(&mut self, value: T)
+	pub fn set_pattern_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternTransform, value.into());
+		self.set_attr(PatternAttrs::PatternTransform, value);
 	}
 
 	/// Get the `patternTransform` attribute.
-	pub fn pattern_transform(&self) -> Option<&str> {
+	pub fn pattern_transform(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::PatternTransform)
 	}
 
 	/// Set the `patternUnits` attribute.
-	pub fn with_pattern_units<T>(mut self, value: T) -> Self
+	pub fn with_pattern_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternUnits, value.into());
+		self.set_attr(PatternAttrs::PatternUnits, value);
 		self
 	}
 
 	/// Set the `patternUnits` attribute.
-	pub fn set_pattern_units<T>(&mut self, value: T)
+	pub fn set_pattern_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PatternUnits, value.into());
+		self.set_attr(PatternAttrs::PatternUnits, value);
 	}
 
 	/// Get the `patternUnits` attribute.
-	pub fn pattern_units(&self) -> Option<&str> {
+	pub fn pattern_units(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::PatternUnits)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(PatternAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(PatternAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Style, value.into());
+		self.set_attr(PatternAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Style, value.into());
+		self.set_attr(PatternAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::Style)
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn with_view_box<T>(mut self, value: T) -> Self
+	pub fn with_view_box<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::ViewBox, value.into());
+		self.set_attr(PatternAttrs::ViewBox, value);
 		self
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn set_view_box<T>(&mut self, value: T)
+	pub fn set_view_box<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::ViewBox, value.into());
+		self.set_attr(PatternAttrs::ViewBox, value);
 	}
 
 	/// Get the `viewBox` attribute.
-	pub fn view_box(&self) -> Option<&str> {
+	pub fn view_box(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::ViewBox)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Width, value.into());
+		self.set_attr(PatternAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Width, value.into());
+		self.set_attr(PatternAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::X, value.into());
+		self.set_attr(PatternAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::X, value.into());
+		self.set_attr(PatternAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::XlinkHref, value.into());
+		self.set_attr(PatternAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::XlinkHref, value.into());
+		self.set_attr(PatternAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Y, value.into());
+		self.set_attr(PatternAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PatternAttrs::Y, value.into());
+		self.set_attr(PatternAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Pattern {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::from(attr))
 	}
 }
@@ -18177,11 +19063,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Pattern {
 impl TagWithConditionalProcessingAttributes for Pattern {}
 
 impl common_attrs::CoreAttributesSetter for Pattern {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::from(attr))
 	}
 }
@@ -18189,11 +19078,14 @@ impl common_attrs::CoreAttributesSetter for Pattern {
 impl TagWithCoreAttributes for Pattern {}
 
 impl common_attrs::PresentationAttributesSetter for Pattern {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::from(attr))
 	}
 }
@@ -18201,11 +19093,14 @@ impl common_attrs::PresentationAttributesSetter for Pattern {
 impl TagWithPresentationAttributes for Pattern {}
 
 impl common_attrs::XLinkAttributesSetter for Pattern {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PatternAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(PatternAttrs::from(attr))
 	}
 }
@@ -18213,9 +19108,10 @@ impl common_attrs::XLinkAttributesSetter for Pattern {
 impl TagWithXLinkAttributes for Pattern {}
 
 impl Tag for Pattern {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("pattern");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -18225,6 +19121,7 @@ impl Tag for Pattern {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum PolygonAttrs {
 	Class,
@@ -18295,7 +19192,7 @@ impl Debug for PolygonAttrs {
 #[doc = "\n\n [`<polygon>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon"]
 #[derive(Debug)]
 pub struct Polygon {
-	attrs: IndexMap<PolygonAttrs, String>,
+	attrs: IndexMap<PolygonAttrs, Box<dyn Value>>,
 }
 
 impl Default for Polygon {
@@ -18312,132 +19209,138 @@ impl Polygon {
 		}
 	}
 
-	fn set_attr(&mut self, attr: PolygonAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: PolygonAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: PolygonAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: PolygonAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Class, value.into());
+		self.set_attr(PolygonAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Class, value.into());
+		self.set_attr(PolygonAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PolygonAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PolygonAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `points` attribute.
-	pub fn with_points<T>(mut self, value: T) -> Self
+	pub fn with_points<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Points, value.into());
+		self.set_attr(PolygonAttrs::Points, value);
 		self
 	}
 
 	/// Set the `points` attribute.
-	pub fn set_points<T>(&mut self, value: T)
+	pub fn set_points<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Points, value.into());
+		self.set_attr(PolygonAttrs::Points, value);
 	}
 
 	/// Get the `points` attribute.
-	pub fn points(&self) -> Option<&str> {
+	pub fn points(&self) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::Points)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Style, value.into());
+		self.set_attr(PolygonAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Style, value.into());
+		self.set_attr(PolygonAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Transform, value.into());
+		self.set_attr(PolygonAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolygonAttrs::Transform, value.into());
+		self.set_attr(PolygonAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Polygon {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
@@ -18445,11 +19348,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Polygon {
 impl TagWithConditionalProcessingAttributes for Polygon {}
 
 impl common_attrs::CoreAttributesSetter for Polygon {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
@@ -18457,11 +19363,14 @@ impl common_attrs::CoreAttributesSetter for Polygon {
 impl TagWithCoreAttributes for Polygon {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Polygon {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
@@ -18469,11 +19378,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Polygon {
 impl TagWithGraphicalEventAttributes for Polygon {}
 
 impl common_attrs::PresentationAttributesSetter for Polygon {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolygonAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolygonAttrs::from(attr))
 	}
 }
@@ -18481,15 +19393,17 @@ impl common_attrs::PresentationAttributesSetter for Polygon {
 impl TagWithPresentationAttributes for Polygon {}
 
 impl Tag for Polygon {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("polygon");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum PolylineAttrs {
 	Class,
@@ -18560,7 +19474,7 @@ impl Debug for PolylineAttrs {
 #[doc = "\n\n [`<polyline>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline"]
 #[derive(Debug)]
 pub struct Polyline {
-	attrs: IndexMap<PolylineAttrs, String>,
+	attrs: IndexMap<PolylineAttrs, Box<dyn Value>>,
 }
 
 impl Default for Polyline {
@@ -18577,132 +19491,138 @@ impl Polyline {
 		}
 	}
 
-	fn set_attr(&mut self, attr: PolylineAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: PolylineAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: PolylineAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: PolylineAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Class, value.into());
+		self.set_attr(PolylineAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Class, value.into());
+		self.set_attr(PolylineAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PolylineAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(PolylineAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `points` attribute.
-	pub fn with_points<T>(mut self, value: T) -> Self
+	pub fn with_points<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Points, value.into());
+		self.set_attr(PolylineAttrs::Points, value);
 		self
 	}
 
 	/// Set the `points` attribute.
-	pub fn set_points<T>(&mut self, value: T)
+	pub fn set_points<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Points, value.into());
+		self.set_attr(PolylineAttrs::Points, value);
 	}
 
 	/// Get the `points` attribute.
-	pub fn points(&self) -> Option<&str> {
+	pub fn points(&self) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::Points)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Style, value.into());
+		self.set_attr(PolylineAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Style, value.into());
+		self.set_attr(PolylineAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Transform, value.into());
+		self.set_attr(PolylineAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(PolylineAttrs::Transform, value.into());
+		self.set_attr(PolylineAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Polyline {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
@@ -18710,11 +19630,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Polyline {
 impl TagWithConditionalProcessingAttributes for Polyline {}
 
 impl common_attrs::CoreAttributesSetter for Polyline {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
@@ -18722,11 +19645,14 @@ impl common_attrs::CoreAttributesSetter for Polyline {
 impl TagWithCoreAttributes for Polyline {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Polyline {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
@@ -18734,11 +19660,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Polyline {
 impl TagWithGraphicalEventAttributes for Polyline {}
 
 impl common_attrs::PresentationAttributesSetter for Polyline {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(PolylineAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(PolylineAttrs::from(attr))
 	}
 }
@@ -18746,15 +19675,17 @@ impl common_attrs::PresentationAttributesSetter for Polyline {
 impl TagWithPresentationAttributes for Polyline {}
 
 impl Tag for Polyline {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("polyline");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum RadialGradientAttrs {
 	Class,
@@ -18827,7 +19758,7 @@ impl Debug for RadialGradientAttrs {
 }
 
 mod radial_gradient_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -18842,7 +19773,7 @@ mod radial_gradient_private {
 #[doc = "\n\n [`<radialGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/radialGradient"]
 #[derive(Debug)]
 pub struct RadialGradient {
-	attrs: IndexMap<RadialGradientAttrs, String>,
+	attrs: IndexMap<RadialGradientAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn radial_gradient_private::Content>>,
 }
 
@@ -18876,286 +19807,292 @@ impl RadialGradient {
 		self
 	}
 
-	fn set_attr(&mut self, attr: RadialGradientAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: RadialGradientAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: RadialGradientAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: RadialGradientAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Class, value.into());
+		self.set_attr(RadialGradientAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Class, value.into());
+		self.set_attr(RadialGradientAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Class)
 	}
 
 	/// Set the `cx` attribute.
-	pub fn with_cx<T>(mut self, value: T) -> Self
+	pub fn with_cx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Cx, value.into());
+		self.set_attr(RadialGradientAttrs::Cx, value);
 		self
 	}
 
 	/// Set the `cx` attribute.
-	pub fn set_cx<T>(&mut self, value: T)
+	pub fn set_cx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Cx, value.into());
+		self.set_attr(RadialGradientAttrs::Cx, value);
 	}
 
 	/// Get the `cx` attribute.
-	pub fn cx(&self) -> Option<&str> {
+	pub fn cx(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Cx)
 	}
 
 	/// Set the `cy` attribute.
-	pub fn with_cy<T>(mut self, value: T) -> Self
+	pub fn with_cy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Cy, value.into());
+		self.set_attr(RadialGradientAttrs::Cy, value);
 		self
 	}
 
 	/// Set the `cy` attribute.
-	pub fn set_cy<T>(&mut self, value: T)
+	pub fn set_cy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Cy, value.into());
+		self.set_attr(RadialGradientAttrs::Cy, value);
 	}
 
 	/// Get the `cy` attribute.
-	pub fn cy(&self) -> Option<&str> {
+	pub fn cy(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Cy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(RadialGradientAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(RadialGradientAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `fx` attribute.
-	pub fn with_fx<T>(mut self, value: T) -> Self
+	pub fn with_fx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Fx, value.into());
+		self.set_attr(RadialGradientAttrs::Fx, value);
 		self
 	}
 
 	/// Set the `fx` attribute.
-	pub fn set_fx<T>(&mut self, value: T)
+	pub fn set_fx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Fx, value.into());
+		self.set_attr(RadialGradientAttrs::Fx, value);
 	}
 
 	/// Get the `fx` attribute.
-	pub fn fx(&self) -> Option<&str> {
+	pub fn fx(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Fx)
 	}
 
 	/// Set the `fy` attribute.
-	pub fn with_fy<T>(mut self, value: T) -> Self
+	pub fn with_fy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Fy, value.into());
+		self.set_attr(RadialGradientAttrs::Fy, value);
 		self
 	}
 
 	/// Set the `fy` attribute.
-	pub fn set_fy<T>(&mut self, value: T)
+	pub fn set_fy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Fy, value.into());
+		self.set_attr(RadialGradientAttrs::Fy, value);
 	}
 
 	/// Get the `fy` attribute.
-	pub fn fy(&self) -> Option<&str> {
+	pub fn fy(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Fy)
 	}
 
 	/// Set the `gradientTransform` attribute.
-	pub fn with_gradient_transform<T>(mut self, value: T) -> Self
+	pub fn with_gradient_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::GradientTransform, value.into());
+		self.set_attr(RadialGradientAttrs::GradientTransform, value);
 		self
 	}
 
 	/// Set the `gradientTransform` attribute.
-	pub fn set_gradient_transform<T>(&mut self, value: T)
+	pub fn set_gradient_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::GradientTransform, value.into());
+		self.set_attr(RadialGradientAttrs::GradientTransform, value);
 	}
 
 	/// Get the `gradientTransform` attribute.
-	pub fn gradient_transform(&self) -> Option<&str> {
+	pub fn gradient_transform(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::GradientTransform)
 	}
 
 	/// Set the `gradientUnits` attribute.
-	pub fn with_gradient_units<T>(mut self, value: T) -> Self
+	pub fn with_gradient_units<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::GradientUnits, value.into());
+		self.set_attr(RadialGradientAttrs::GradientUnits, value);
 		self
 	}
 
 	/// Set the `gradientUnits` attribute.
-	pub fn set_gradient_units<T>(&mut self, value: T)
+	pub fn set_gradient_units<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::GradientUnits, value.into());
+		self.set_attr(RadialGradientAttrs::GradientUnits, value);
 	}
 
 	/// Get the `gradientUnits` attribute.
-	pub fn gradient_units(&self) -> Option<&str> {
+	pub fn gradient_units(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::GradientUnits)
 	}
 
 	/// Set the `r` attribute.
-	pub fn with_r<T>(mut self, value: T) -> Self
+	pub fn with_r<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::R, value.into());
+		self.set_attr(RadialGradientAttrs::R, value);
 		self
 	}
 
 	/// Set the `r` attribute.
-	pub fn set_r<T>(&mut self, value: T)
+	pub fn set_r<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::R, value.into());
+		self.set_attr(RadialGradientAttrs::R, value);
 	}
 
 	/// Get the `r` attribute.
-	pub fn r(&self) -> Option<&str> {
+	pub fn r(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::R)
 	}
 
 	/// Set the `spreadMethod` attribute.
-	pub fn with_spread_method<T>(mut self, value: T) -> Self
+	pub fn with_spread_method<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::SpreadMethod, value.into());
+		self.set_attr(RadialGradientAttrs::SpreadMethod, value);
 		self
 	}
 
 	/// Set the `spreadMethod` attribute.
-	pub fn set_spread_method<T>(&mut self, value: T)
+	pub fn set_spread_method<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::SpreadMethod, value.into());
+		self.set_attr(RadialGradientAttrs::SpreadMethod, value);
 	}
 
 	/// Get the `spreadMethod` attribute.
-	pub fn spread_method(&self) -> Option<&str> {
+	pub fn spread_method(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::SpreadMethod)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Style, value.into());
+		self.set_attr(RadialGradientAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::Style, value.into());
+		self.set_attr(RadialGradientAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::XlinkHref, value.into());
+		self.set_attr(RadialGradientAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RadialGradientAttrs::XlinkHref, value.into());
+		self.set_attr(RadialGradientAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for RadialGradient {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
@@ -19163,11 +20100,14 @@ impl common_attrs::CoreAttributesSetter for RadialGradient {
 impl TagWithCoreAttributes for RadialGradient {}
 
 impl common_attrs::PresentationAttributesSetter for RadialGradient {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
@@ -19175,11 +20115,14 @@ impl common_attrs::PresentationAttributesSetter for RadialGradient {
 impl TagWithPresentationAttributes for RadialGradient {}
 
 impl common_attrs::XLinkAttributesSetter for RadialGradient {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RadialGradientAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(RadialGradientAttrs::from(attr))
 	}
 }
@@ -19187,9 +20130,10 @@ impl common_attrs::XLinkAttributesSetter for RadialGradient {
 impl TagWithXLinkAttributes for RadialGradient {}
 
 impl Tag for RadialGradient {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("radialGradient");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -19199,6 +20143,7 @@ impl Tag for RadialGradient {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum RectAttrs {
 	Class,
@@ -19279,7 +20224,7 @@ impl Debug for RectAttrs {
 #[doc = "\n\n [`<rect>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect"]
 #[derive(Debug)]
 pub struct Rect {
-	attrs: IndexMap<RectAttrs, String>,
+	attrs: IndexMap<RectAttrs, Box<dyn Value>>,
 }
 
 impl Default for Rect {
@@ -19296,242 +20241,248 @@ impl Rect {
 		}
 	}
 
-	fn set_attr(&mut self, attr: RectAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: RectAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: RectAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: RectAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Class, value.into());
+		self.set_attr(RectAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Class, value.into());
+		self.set_attr(RectAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(RectAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(RectAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Height, value.into());
+		self.set_attr(RectAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Height, value.into());
+		self.set_attr(RectAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Height)
 	}
 
 	/// Set the `rx` attribute.
-	pub fn with_rx<T>(mut self, value: T) -> Self
+	pub fn with_rx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Rx, value.into());
+		self.set_attr(RectAttrs::Rx, value);
 		self
 	}
 
 	/// Set the `rx` attribute.
-	pub fn set_rx<T>(&mut self, value: T)
+	pub fn set_rx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Rx, value.into());
+		self.set_attr(RectAttrs::Rx, value);
 	}
 
 	/// Get the `rx` attribute.
-	pub fn rx(&self) -> Option<&str> {
+	pub fn rx(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Rx)
 	}
 
 	/// Set the `ry` attribute.
-	pub fn with_ry<T>(mut self, value: T) -> Self
+	pub fn with_ry<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Ry, value.into());
+		self.set_attr(RectAttrs::Ry, value);
 		self
 	}
 
 	/// Set the `ry` attribute.
-	pub fn set_ry<T>(&mut self, value: T)
+	pub fn set_ry<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Ry, value.into());
+		self.set_attr(RectAttrs::Ry, value);
 	}
 
 	/// Get the `ry` attribute.
-	pub fn ry(&self) -> Option<&str> {
+	pub fn ry(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Ry)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Style, value.into());
+		self.set_attr(RectAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Style, value.into());
+		self.set_attr(RectAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Transform, value.into());
+		self.set_attr(RectAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Transform, value.into());
+		self.set_attr(RectAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Width, value.into());
+		self.set_attr(RectAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Width, value.into());
+		self.set_attr(RectAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::X, value.into());
+		self.set_attr(RectAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::X, value.into());
+		self.set_attr(RectAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Y, value.into());
+		self.set_attr(RectAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(RectAttrs::Y, value.into());
+		self.set_attr(RectAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Rect {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::from(attr))
 	}
 }
@@ -19539,11 +20490,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Rect {
 impl TagWithConditionalProcessingAttributes for Rect {}
 
 impl common_attrs::CoreAttributesSetter for Rect {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::from(attr))
 	}
 }
@@ -19551,11 +20505,14 @@ impl common_attrs::CoreAttributesSetter for Rect {
 impl TagWithCoreAttributes for Rect {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Rect {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::from(attr))
 	}
 }
@@ -19563,11 +20520,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Rect {
 impl TagWithGraphicalEventAttributes for Rect {}
 
 impl common_attrs::PresentationAttributesSetter for Rect {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(RectAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(RectAttrs::from(attr))
 	}
 }
@@ -19575,15 +20535,17 @@ impl common_attrs::PresentationAttributesSetter for Rect {
 impl TagWithPresentationAttributes for Rect {}
 
 impl Tag for Rect {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("rect");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ScriptAttrs {
 	ExternalResourcesRequired,
@@ -19634,7 +20596,7 @@ impl Debug for ScriptAttrs {
 #[doc = "\n\n [`<script>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script"]
 #[derive(Debug)]
 pub struct Script {
-	attrs: IndexMap<ScriptAttrs, String>,
+	attrs: IndexMap<ScriptAttrs, Box<dyn Value>>,
 }
 
 impl Default for Script {
@@ -19651,88 +20613,94 @@ impl Script {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ScriptAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ScriptAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ScriptAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ScriptAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ScriptAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ScriptAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(ScriptAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `type` attribute.
-	pub fn with_ty<T>(mut self, value: T) -> Self
+	pub fn with_ty<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::Type, value.into());
+		self.set_attr(ScriptAttrs::Type, value);
 		self
 	}
 
 	/// Set the `type` attribute.
-	pub fn set_ty<T>(&mut self, value: T)
+	pub fn set_ty<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::Type, value.into());
+		self.set_attr(ScriptAttrs::Type, value);
 	}
 
 	/// Get the `type` attribute.
-	pub fn ty(&self) -> Option<&str> {
+	pub fn ty(&self) -> Option<&dyn Value> {
 		self.get_attr(ScriptAttrs::Type)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::XlinkHref, value.into());
+		self.set_attr(ScriptAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ScriptAttrs::XlinkHref, value.into());
+		self.set_attr(ScriptAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(ScriptAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Script {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ScriptAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ScriptAttrs::from(attr))
 	}
 }
@@ -19740,11 +20708,14 @@ impl common_attrs::CoreAttributesSetter for Script {
 impl TagWithCoreAttributes for Script {}
 
 impl common_attrs::XLinkAttributesSetter for Script {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ScriptAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(ScriptAttrs::from(attr))
 	}
 }
@@ -19752,15 +20723,17 @@ impl common_attrs::XLinkAttributesSetter for Script {
 impl TagWithXLinkAttributes for Script {}
 
 impl Tag for Script {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("script");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum SetAttrs {
 	ExternalResourcesRequired,
@@ -19841,7 +20814,7 @@ impl Debug for SetAttrs {
 #[doc = "\n\n [`<set>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set"]
 #[derive(Debug)]
 pub struct Set {
-	attrs: IndexMap<SetAttrs, String>,
+	attrs: IndexMap<SetAttrs, Box<dyn Value>>,
 }
 
 impl Default for Set {
@@ -19858,66 +20831,72 @@ impl Set {
 		}
 	}
 
-	fn set_attr(&mut self, attr: SetAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: SetAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: SetAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: SetAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SetAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SetAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SetAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SetAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `to` attribute.
-	pub fn with_to<T>(mut self, value: T) -> Self
+	pub fn with_to<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SetAttrs::To, value.into());
+		self.set_attr(SetAttrs::To, value);
 		self
 	}
 
 	/// Set the `to` attribute.
-	pub fn set_to<T>(&mut self, value: T)
+	pub fn set_to<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SetAttrs::To, value.into());
+		self.set_attr(SetAttrs::To, value);
 	}
 
 	/// Get the `to` attribute.
-	pub fn to(&self) -> Option<&str> {
+	pub fn to(&self) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::To)
 	}
 }
 
 impl common_attrs::AnimationAttributeTargetAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationAttributeTargetAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationAttributeTargetAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19925,11 +20904,14 @@ impl common_attrs::AnimationAttributeTargetAttributesSetter for Set {
 impl TagWithAnimationAttributeTargetAttributes for Set {}
 
 impl common_attrs::AnimationEventAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::AnimationEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19937,11 +20919,14 @@ impl common_attrs::AnimationEventAttributesSetter for Set {
 impl TagWithAnimationEventAttributes for Set {}
 
 impl common_attrs::AnimationTimingAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::AnimationTimingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::AnimationTimingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::AnimationTimingAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19949,11 +20934,14 @@ impl common_attrs::AnimationTimingAttributesSetter for Set {
 impl TagWithAnimationTimingAttributes for Set {}
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19961,11 +20949,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Set {
 impl TagWithConditionalProcessingAttributes for Set {}
 
 impl common_attrs::CoreAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19973,11 +20964,14 @@ impl common_attrs::CoreAttributesSetter for Set {
 impl TagWithCoreAttributes for Set {}
 
 impl common_attrs::XLinkAttributesSetter for Set {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SetAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(SetAttrs::from(attr))
 	}
 }
@@ -19985,15 +20979,17 @@ impl common_attrs::XLinkAttributesSetter for Set {
 impl TagWithXLinkAttributes for Set {}
 
 impl Tag for Set {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("set");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum StopAttrs {
 	Class,
@@ -20044,7 +21040,7 @@ impl Debug for StopAttrs {
 }
 
 mod stop_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -20058,7 +21054,7 @@ mod stop_private {
 #[doc = "\n\n [`<stop>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/stop"]
 #[derive(Debug)]
 pub struct Stop {
-	attrs: IndexMap<StopAttrs, String>,
+	attrs: IndexMap<StopAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn stop_private::Content>>,
 }
 
@@ -20092,132 +21088,138 @@ impl Stop {
 		self
 	}
 
-	fn set_attr(&mut self, attr: StopAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: StopAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: StopAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: StopAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Class, value.into());
+		self.set_attr(StopAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Class, value.into());
+		self.set_attr(StopAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::Class)
 	}
 
 	/// Set the `offset` attribute.
-	pub fn with_offset<T>(mut self, value: T) -> Self
+	pub fn with_offset<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Offset, value.into());
+		self.set_attr(StopAttrs::Offset, value);
 		self
 	}
 
 	/// Set the `offset` attribute.
-	pub fn set_offset<T>(&mut self, value: T)
+	pub fn set_offset<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Offset, value.into());
+		self.set_attr(StopAttrs::Offset, value);
 	}
 
 	/// Get the `offset` attribute.
-	pub fn offset(&self) -> Option<&str> {
+	pub fn offset(&self) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::Offset)
 	}
 
 	/// Set the `stop-color` attribute.
-	pub fn with_stop_color<T>(mut self, value: T) -> Self
+	pub fn with_stop_color<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::StopColor, value.into());
+		self.set_attr(StopAttrs::StopColor, value);
 		self
 	}
 
 	/// Set the `stop-color` attribute.
-	pub fn set_stop_color<T>(&mut self, value: T)
+	pub fn set_stop_color<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::StopColor, value.into());
+		self.set_attr(StopAttrs::StopColor, value);
 	}
 
 	/// Get the `stop-color` attribute.
-	pub fn stop_color(&self) -> Option<&str> {
+	pub fn stop_color(&self) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::StopColor)
 	}
 
 	/// Set the `stop-opacity` attribute.
-	pub fn with_stop_opacity<T>(mut self, value: T) -> Self
+	pub fn with_stop_opacity<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::StopOpacity, value.into());
+		self.set_attr(StopAttrs::StopOpacity, value);
 		self
 	}
 
 	/// Set the `stop-opacity` attribute.
-	pub fn set_stop_opacity<T>(&mut self, value: T)
+	pub fn set_stop_opacity<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::StopOpacity, value.into());
+		self.set_attr(StopAttrs::StopOpacity, value);
 	}
 
 	/// Get the `stop-opacity` attribute.
-	pub fn stop_opacity(&self) -> Option<&str> {
+	pub fn stop_opacity(&self) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::StopOpacity)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Style, value.into());
+		self.set_attr(StopAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StopAttrs::Style, value.into());
+		self.set_attr(StopAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Stop {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(StopAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::from(attr))
 	}
 }
@@ -20225,11 +21227,14 @@ impl common_attrs::CoreAttributesSetter for Stop {
 impl TagWithCoreAttributes for Stop {}
 
 impl common_attrs::PresentationAttributesSetter for Stop {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(StopAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(StopAttrs::from(attr))
 	}
 }
@@ -20237,9 +21242,10 @@ impl common_attrs::PresentationAttributesSetter for Stop {
 impl TagWithPresentationAttributes for Stop {}
 
 impl Tag for Stop {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("stop");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -20249,6 +21255,7 @@ impl Tag for Stop {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum StyleAttrs {
 	Media,
@@ -20291,7 +21298,7 @@ impl Debug for StyleAttrs {
 #[doc = "\n\n [`<style>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style"]
 #[derive(Debug)]
 pub struct Style {
-	attrs: IndexMap<StyleAttrs, String>,
+	attrs: IndexMap<StyleAttrs, Box<dyn Value>>,
 }
 
 impl Default for Style {
@@ -20308,88 +21315,94 @@ impl Style {
 		}
 	}
 
-	fn set_attr(&mut self, attr: StyleAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: StyleAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: StyleAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: StyleAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `media` attribute.
-	pub fn with_media<T>(mut self, value: T) -> Self
+	pub fn with_media<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Media, value.into());
+		self.set_attr(StyleAttrs::Media, value);
 		self
 	}
 
 	/// Set the `media` attribute.
-	pub fn set_media<T>(&mut self, value: T)
+	pub fn set_media<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Media, value.into());
+		self.set_attr(StyleAttrs::Media, value);
 	}
 
 	/// Get the `media` attribute.
-	pub fn media(&self) -> Option<&str> {
+	pub fn media(&self) -> Option<&dyn Value> {
 		self.get_attr(StyleAttrs::Media)
 	}
 
 	/// Set the `title` attribute.
-	pub fn with_title<T>(mut self, value: T) -> Self
+	pub fn with_title<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Title, value.into());
+		self.set_attr(StyleAttrs::Title, value);
 		self
 	}
 
 	/// Set the `title` attribute.
-	pub fn set_title<T>(&mut self, value: T)
+	pub fn set_title<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Title, value.into());
+		self.set_attr(StyleAttrs::Title, value);
 	}
 
 	/// Get the `title` attribute.
-	pub fn title(&self) -> Option<&str> {
+	pub fn title(&self) -> Option<&dyn Value> {
 		self.get_attr(StyleAttrs::Title)
 	}
 
 	/// Set the `type` attribute.
-	pub fn with_ty<T>(mut self, value: T) -> Self
+	pub fn with_ty<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Type, value.into());
+		self.set_attr(StyleAttrs::Type, value);
 		self
 	}
 
 	/// Set the `type` attribute.
-	pub fn set_ty<T>(&mut self, value: T)
+	pub fn set_ty<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(StyleAttrs::Type, value.into());
+		self.set_attr(StyleAttrs::Type, value);
 	}
 
 	/// Get the `type` attribute.
-	pub fn ty(&self) -> Option<&str> {
+	pub fn ty(&self) -> Option<&dyn Value> {
 		self.get_attr(StyleAttrs::Type)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Style {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(StyleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(StyleAttrs::from(attr))
 	}
 }
@@ -20397,15 +21410,17 @@ impl common_attrs::CoreAttributesSetter for Style {
 impl TagWithCoreAttributes for Style {}
 
 impl Tag for Style {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("style");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 pub(crate) enum SvgAttrs {
 	BaseProfile,
@@ -20512,7 +21527,7 @@ impl Debug for SvgAttrs {
 }
 
 mod svg_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -20541,7 +21556,7 @@ mod svg_private {
 #[doc = "\n\n [`<svg>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"]
 #[derive(Debug)]
 pub struct Svg {
-	attrs: IndexMap<SvgAttrs, String>,
+	attrs: IndexMap<SvgAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn svg_private::Content>>,
 }
 
@@ -20575,308 +21590,314 @@ impl Svg {
 		self
 	}
 
-	pub(crate) fn set_attr(&mut self, attr: SvgAttrs, value: String) {
+	pub(crate) fn set_attr<V>(&mut self, attr: SvgAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: SvgAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: SvgAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `baseProfile` attribute.
-	pub fn with_base_profile<T>(mut self, value: T) -> Self
+	pub fn with_base_profile<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::BaseProfile, value.into());
+		self.set_attr(SvgAttrs::BaseProfile, value);
 		self
 	}
 
 	/// Set the `baseProfile` attribute.
-	pub fn set_base_profile<T>(&mut self, value: T)
+	pub fn set_base_profile<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::BaseProfile, value.into());
+		self.set_attr(SvgAttrs::BaseProfile, value);
 	}
 
 	/// Get the `baseProfile` attribute.
-	pub fn base_profile(&self) -> Option<&str> {
+	pub fn base_profile(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::BaseProfile)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Class, value.into());
+		self.set_attr(SvgAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Class, value.into());
+		self.set_attr(SvgAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Class)
 	}
 
 	/// Set the `contentScriptType` attribute.
-	pub fn with_content_script_type<T>(mut self, value: T) -> Self
+	pub fn with_content_script_type<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ContentScriptType, value.into());
+		self.set_attr(SvgAttrs::ContentScriptType, value);
 		self
 	}
 
 	/// Set the `contentScriptType` attribute.
-	pub fn set_content_script_type<T>(&mut self, value: T)
+	pub fn set_content_script_type<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ContentScriptType, value.into());
+		self.set_attr(SvgAttrs::ContentScriptType, value);
 	}
 
 	/// Get the `contentScriptType` attribute.
-	pub fn content_script_type(&self) -> Option<&str> {
+	pub fn content_script_type(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::ContentScriptType)
 	}
 
 	/// Set the `contentStyleType` attribute.
-	pub fn with_content_style_type<T>(mut self, value: T) -> Self
+	pub fn with_content_style_type<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ContentStyleType, value.into());
+		self.set_attr(SvgAttrs::ContentStyleType, value);
 		self
 	}
 
 	/// Set the `contentStyleType` attribute.
-	pub fn set_content_style_type<T>(&mut self, value: T)
+	pub fn set_content_style_type<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ContentStyleType, value.into());
+		self.set_attr(SvgAttrs::ContentStyleType, value);
 	}
 
 	/// Get the `contentStyleType` attribute.
-	pub fn content_style_type(&self) -> Option<&str> {
+	pub fn content_style_type(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::ContentStyleType)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SvgAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SvgAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Height, value.into());
+		self.set_attr(SvgAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Height, value.into());
+		self.set_attr(SvgAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Height)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(SvgAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(SvgAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Style, value.into());
+		self.set_attr(SvgAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Style, value.into());
+		self.set_attr(SvgAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Style)
 	}
 
 	/// Set the `version` attribute.
-	pub fn with_version<T>(mut self, value: T) -> Self
+	pub fn with_version<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Version, value.into());
+		self.set_attr(SvgAttrs::Version, value);
 		self
 	}
 
 	/// Set the `version` attribute.
-	pub fn set_version<T>(&mut self, value: T)
+	pub fn set_version<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Version, value.into());
+		self.set_attr(SvgAttrs::Version, value);
 	}
 
 	/// Get the `version` attribute.
-	pub fn version(&self) -> Option<&str> {
+	pub fn version(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Version)
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn with_view_box<T>(mut self, value: T) -> Self
+	pub fn with_view_box<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ViewBox, value.into());
+		self.set_attr(SvgAttrs::ViewBox, value);
 		self
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn set_view_box<T>(&mut self, value: T)
+	pub fn set_view_box<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::ViewBox, value.into());
+		self.set_attr(SvgAttrs::ViewBox, value);
 	}
 
 	/// Get the `viewBox` attribute.
-	pub fn view_box(&self) -> Option<&str> {
+	pub fn view_box(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::ViewBox)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Width, value.into());
+		self.set_attr(SvgAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Width, value.into());
+		self.set_attr(SvgAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::X, value.into());
+		self.set_attr(SvgAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::X, value.into());
+		self.set_attr(SvgAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Y, value.into());
+		self.set_attr(SvgAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SvgAttrs::Y, value.into());
+		self.set_attr(SvgAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20884,11 +21905,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Svg {
 impl TagWithConditionalProcessingAttributes for Svg {}
 
 impl common_attrs::CoreAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20896,11 +21920,14 @@ impl common_attrs::CoreAttributesSetter for Svg {
 impl TagWithCoreAttributes for Svg {}
 
 impl common_attrs::DocumentEventAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::DocumentEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::DocumentEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::DocumentEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::DocumentEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20908,11 +21935,14 @@ impl common_attrs::DocumentEventAttributesSetter for Svg {
 impl TagWithDocumentEventAttributes for Svg {}
 
 impl common_attrs::GlobalEventAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::GlobalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GlobalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GlobalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20920,11 +21950,14 @@ impl common_attrs::GlobalEventAttributesSetter for Svg {
 impl TagWithGlobalEventAttributes for Svg {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20932,11 +21965,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Svg {
 impl TagWithGraphicalEventAttributes for Svg {}
 
 impl common_attrs::PresentationAttributesSetter for Svg {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SvgAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(SvgAttrs::from(attr))
 	}
 }
@@ -20944,9 +21980,10 @@ impl common_attrs::PresentationAttributesSetter for Svg {
 impl TagWithPresentationAttributes for Svg {}
 
 impl Tag for Svg {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("svg");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -20956,6 +21993,7 @@ impl Tag for Svg {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum SwitchAttrs {
 	AllowReorder,
@@ -21022,7 +22060,7 @@ impl Debug for SwitchAttrs {
 }
 
 mod switch_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -21041,7 +22079,7 @@ mod switch_private {
 #[doc = "\n\n [`<switch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/switch"]
 #[derive(Debug)]
 pub struct Switch {
-	attrs: IndexMap<SwitchAttrs, String>,
+	attrs: IndexMap<SwitchAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn switch_private::Content>>,
 }
 
@@ -21075,132 +22113,138 @@ impl Switch {
 		self
 	}
 
-	fn set_attr(&mut self, attr: SwitchAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: SwitchAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: SwitchAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: SwitchAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `allowReorder` attribute.
-	pub fn with_allow_reorder<T>(mut self, value: T) -> Self
+	pub fn with_allow_reorder<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::AllowReorder, value.into());
+		self.set_attr(SwitchAttrs::AllowReorder, value);
 		self
 	}
 
 	/// Set the `allowReorder` attribute.
-	pub fn set_allow_reorder<T>(&mut self, value: T)
+	pub fn set_allow_reorder<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::AllowReorder, value.into());
+		self.set_attr(SwitchAttrs::AllowReorder, value);
 	}
 
 	/// Get the `allowReorder` attribute.
-	pub fn allow_reorder(&self) -> Option<&str> {
+	pub fn allow_reorder(&self) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::AllowReorder)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Class, value.into());
+		self.set_attr(SwitchAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Class, value.into());
+		self.set_attr(SwitchAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SwitchAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SwitchAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Style, value.into());
+		self.set_attr(SwitchAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Style, value.into());
+		self.set_attr(SwitchAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Transform, value.into());
+		self.set_attr(SwitchAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SwitchAttrs::Transform, value.into());
+		self.set_attr(SwitchAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::Transform)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Switch {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
@@ -21208,11 +22252,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Switch {
 impl TagWithConditionalProcessingAttributes for Switch {}
 
 impl common_attrs::CoreAttributesSetter for Switch {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
@@ -21220,11 +22267,14 @@ impl common_attrs::CoreAttributesSetter for Switch {
 impl TagWithCoreAttributes for Switch {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Switch {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
@@ -21232,11 +22282,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Switch {
 impl TagWithGraphicalEventAttributes for Switch {}
 
 impl common_attrs::PresentationAttributesSetter for Switch {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SwitchAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(SwitchAttrs::from(attr))
 	}
 }
@@ -21244,9 +22297,10 @@ impl common_attrs::PresentationAttributesSetter for Switch {
 impl TagWithPresentationAttributes for Switch {}
 
 impl Tag for Switch {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("switch");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -21256,6 +22310,7 @@ impl Tag for Switch {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum SymbolAttrs {
 	Class,
@@ -21314,7 +22369,7 @@ impl Debug for SymbolAttrs {
 }
 
 mod symbol_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -21343,7 +22398,7 @@ mod symbol_private {
 #[doc = "\n\n [`<symbol>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol"]
 #[derive(Debug)]
 pub struct Symbol {
-	attrs: IndexMap<SymbolAttrs, String>,
+	attrs: IndexMap<SymbolAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn symbol_private::Content>>,
 }
 
@@ -21377,132 +22432,138 @@ impl Symbol {
 		self
 	}
 
-	fn set_attr(&mut self, attr: SymbolAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: SymbolAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: SymbolAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: SymbolAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::Class, value.into());
+		self.set_attr(SymbolAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::Class, value.into());
+		self.set_attr(SymbolAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SymbolAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(SymbolAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(SymbolAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(SymbolAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::Style, value.into());
+		self.set_attr(SymbolAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::Style, value.into());
+		self.set_attr(SymbolAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::Style)
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn with_view_box<T>(mut self, value: T) -> Self
+	pub fn with_view_box<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::ViewBox, value.into());
+		self.set_attr(SymbolAttrs::ViewBox, value);
 		self
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn set_view_box<T>(&mut self, value: T)
+	pub fn set_view_box<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(SymbolAttrs::ViewBox, value.into());
+		self.set_attr(SymbolAttrs::ViewBox, value);
 	}
 
 	/// Get the `viewBox` attribute.
-	pub fn view_box(&self) -> Option<&str> {
+	pub fn view_box(&self) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::ViewBox)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Symbol {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
@@ -21510,11 +22571,14 @@ impl common_attrs::CoreAttributesSetter for Symbol {
 impl TagWithCoreAttributes for Symbol {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Symbol {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
@@ -21522,11 +22586,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Symbol {
 impl TagWithGraphicalEventAttributes for Symbol {}
 
 impl common_attrs::PresentationAttributesSetter for Symbol {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(SymbolAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(SymbolAttrs::from(attr))
 	}
 }
@@ -21534,9 +22601,10 @@ impl common_attrs::PresentationAttributesSetter for Symbol {
 impl TagWithPresentationAttributes for Symbol {}
 
 impl Tag for Symbol {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("symbol");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -21546,6 +22614,7 @@ impl Tag for Symbol {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum TextAttrs {
 	Class,
@@ -21626,7 +22695,7 @@ impl Debug for TextAttrs {
 }
 
 mod text_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -21640,7 +22709,7 @@ mod text_private {
 #[doc = "\n\n [`<text>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text"]
 #[derive(Debug)]
 pub struct Text {
-	attrs: IndexMap<TextAttrs, String>,
+	attrs: IndexMap<TextAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn text_private::Content>>,
 }
 
@@ -21674,286 +22743,292 @@ impl Text {
 		self
 	}
 
-	fn set_attr(&mut self, attr: TextAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: TextAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: TextAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: TextAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Class, value.into());
+		self.set_attr(TextAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Class, value.into());
+		self.set_attr(TextAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Dx, value.into());
+		self.set_attr(TextAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Dx, value.into());
+		self.set_attr(TextAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Dy, value.into());
+		self.set_attr(TextAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Dy, value.into());
+		self.set_attr(TextAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TextAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TextAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `lengthAdjust` attribute.
-	pub fn with_length_adjust<T>(mut self, value: T) -> Self
+	pub fn with_length_adjust<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::LengthAdjust, value.into());
+		self.set_attr(TextAttrs::LengthAdjust, value);
 		self
 	}
 
 	/// Set the `lengthAdjust` attribute.
-	pub fn set_length_adjust<T>(&mut self, value: T)
+	pub fn set_length_adjust<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::LengthAdjust, value.into());
+		self.set_attr(TextAttrs::LengthAdjust, value);
 	}
 
 	/// Get the `lengthAdjust` attribute.
-	pub fn length_adjust(&self) -> Option<&str> {
+	pub fn length_adjust(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::LengthAdjust)
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn with_rotate<T>(mut self, value: T) -> Self
+	pub fn with_rotate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Rotate, value.into());
+		self.set_attr(TextAttrs::Rotate, value);
 		self
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn set_rotate<T>(&mut self, value: T)
+	pub fn set_rotate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Rotate, value.into());
+		self.set_attr(TextAttrs::Rotate, value);
 	}
 
 	/// Get the `rotate` attribute.
-	pub fn rotate(&self) -> Option<&str> {
+	pub fn rotate(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Style, value.into());
+		self.set_attr(TextAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Style, value.into());
+		self.set_attr(TextAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Style)
 	}
 
 	/// Set the `text-anchor` attribute.
-	pub fn with_text_anchor<T>(mut self, value: T) -> Self
+	pub fn with_text_anchor<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::TextAnchor, value.into());
+		self.set_attr(TextAttrs::TextAnchor, value);
 		self
 	}
 
 	/// Set the `text-anchor` attribute.
-	pub fn set_text_anchor<T>(&mut self, value: T)
+	pub fn set_text_anchor<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::TextAnchor, value.into());
+		self.set_attr(TextAttrs::TextAnchor, value);
 	}
 
 	/// Get the `text-anchor` attribute.
-	pub fn text_anchor(&self) -> Option<&str> {
+	pub fn text_anchor(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::TextAnchor)
 	}
 
 	/// Set the `textLength` attribute.
-	pub fn with_text_length<T>(mut self, value: T) -> Self
+	pub fn with_text_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::TextLength, value.into());
+		self.set_attr(TextAttrs::TextLength, value);
 		self
 	}
 
 	/// Set the `textLength` attribute.
-	pub fn set_text_length<T>(&mut self, value: T)
+	pub fn set_text_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::TextLength, value.into());
+		self.set_attr(TextAttrs::TextLength, value);
 	}
 
 	/// Get the `textLength` attribute.
-	pub fn text_length(&self) -> Option<&str> {
+	pub fn text_length(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::TextLength)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Transform, value.into());
+		self.set_attr(TextAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Transform, value.into());
+		self.set_attr(TextAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Transform)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::X, value.into());
+		self.set_attr(TextAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::X, value.into());
+		self.set_attr(TextAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Y, value.into());
+		self.set_attr(TextAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextAttrs::Y, value.into());
+		self.set_attr(TextAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Text {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::from(attr))
 	}
 }
@@ -21961,11 +23036,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Text {
 impl TagWithConditionalProcessingAttributes for Text {}
 
 impl common_attrs::CoreAttributesSetter for Text {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::from(attr))
 	}
 }
@@ -21973,11 +23051,14 @@ impl common_attrs::CoreAttributesSetter for Text {
 impl TagWithCoreAttributes for Text {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Text {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::from(attr))
 	}
 }
@@ -21985,11 +23066,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Text {
 impl TagWithGraphicalEventAttributes for Text {}
 
 impl common_attrs::PresentationAttributesSetter for Text {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextAttrs::from(attr))
 	}
 }
@@ -21997,10 +23081,11 @@ impl common_attrs::PresentationAttributesSetter for Text {
 impl TagWithPresentationAttributes for Text {}
 
 impl Tag for Text {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("text");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -22011,6 +23096,7 @@ impl Tag for Text {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum TextPathAttrs {
 	Class,
@@ -22089,7 +23175,7 @@ impl Debug for TextPathAttrs {
 }
 
 mod text_path_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -22107,7 +23193,7 @@ mod text_path_private {
 #[doc = "\n\n [`<textPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/textPath"]
 #[derive(Debug)]
 pub struct TextPath {
-	attrs: IndexMap<TextPathAttrs, String>,
+	attrs: IndexMap<TextPathAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn text_path_private::Content>>,
 }
 
@@ -22141,176 +23227,182 @@ impl TextPath {
 		self
 	}
 
-	fn set_attr(&mut self, attr: TextPathAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: TextPathAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: TextPathAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: TextPathAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Class, value.into());
+		self.set_attr(TextPathAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Class, value.into());
+		self.set_attr(TextPathAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TextPathAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TextPathAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `method` attribute.
-	pub fn with_method<T>(mut self, value: T) -> Self
+	pub fn with_method<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Method, value.into());
+		self.set_attr(TextPathAttrs::Method, value);
 		self
 	}
 
 	/// Set the `method` attribute.
-	pub fn set_method<T>(&mut self, value: T)
+	pub fn set_method<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Method, value.into());
+		self.set_attr(TextPathAttrs::Method, value);
 	}
 
 	/// Get the `method` attribute.
-	pub fn method(&self) -> Option<&str> {
+	pub fn method(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::Method)
 	}
 
 	/// Set the `spacing` attribute.
-	pub fn with_spacing<T>(mut self, value: T) -> Self
+	pub fn with_spacing<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Spacing, value.into());
+		self.set_attr(TextPathAttrs::Spacing, value);
 		self
 	}
 
 	/// Set the `spacing` attribute.
-	pub fn set_spacing<T>(&mut self, value: T)
+	pub fn set_spacing<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Spacing, value.into());
+		self.set_attr(TextPathAttrs::Spacing, value);
 	}
 
 	/// Get the `spacing` attribute.
-	pub fn spacing(&self) -> Option<&str> {
+	pub fn spacing(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::Spacing)
 	}
 
 	/// Set the `startOffset` attribute.
-	pub fn with_start_offset<T>(mut self, value: T) -> Self
+	pub fn with_start_offset<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::StartOffset, value.into());
+		self.set_attr(TextPathAttrs::StartOffset, value);
 		self
 	}
 
 	/// Set the `startOffset` attribute.
-	pub fn set_start_offset<T>(&mut self, value: T)
+	pub fn set_start_offset<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::StartOffset, value.into());
+		self.set_attr(TextPathAttrs::StartOffset, value);
 	}
 
 	/// Get the `startOffset` attribute.
-	pub fn start_offset(&self) -> Option<&str> {
+	pub fn start_offset(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::StartOffset)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Style, value.into());
+		self.set_attr(TextPathAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::Style, value.into());
+		self.set_attr(TextPathAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::XlinkHref, value.into());
+		self.set_attr(TextPathAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TextPathAttrs::XlinkHref, value.into());
+		self.set_attr(TextPathAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for TextPath {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
@@ -22318,11 +23410,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for TextPath {
 impl TagWithConditionalProcessingAttributes for TextPath {}
 
 impl common_attrs::CoreAttributesSetter for TextPath {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
@@ -22330,11 +23425,14 @@ impl common_attrs::CoreAttributesSetter for TextPath {
 impl TagWithCoreAttributes for TextPath {}
 
 impl common_attrs::GraphicalEventAttributesSetter for TextPath {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
@@ -22342,11 +23440,14 @@ impl common_attrs::GraphicalEventAttributesSetter for TextPath {
 impl TagWithGraphicalEventAttributes for TextPath {}
 
 impl common_attrs::PresentationAttributesSetter for TextPath {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
@@ -22354,11 +23455,14 @@ impl common_attrs::PresentationAttributesSetter for TextPath {
 impl TagWithPresentationAttributes for TextPath {}
 
 impl common_attrs::XLinkAttributesSetter for TextPath {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TextPathAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(TextPathAttrs::from(attr))
 	}
 }
@@ -22366,9 +23470,10 @@ impl common_attrs::XLinkAttributesSetter for TextPath {
 impl TagWithXLinkAttributes for TextPath {}
 
 impl Tag for TextPath {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("textPath");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -22378,6 +23483,7 @@ impl Tag for TextPath {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum TitleAttrs {
 	Class,
@@ -22418,7 +23524,7 @@ impl Debug for TitleAttrs {
 #[doc = "\n\n [`<title>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title"]
 #[derive(Debug)]
 pub struct Title {
-	attrs: IndexMap<TitleAttrs, String>,
+	attrs: IndexMap<TitleAttrs, Box<dyn Value>>,
 }
 
 impl Default for Title {
@@ -22435,66 +23541,72 @@ impl Title {
 		}
 	}
 
-	fn set_attr(&mut self, attr: TitleAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: TitleAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: TitleAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: TitleAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TitleAttrs::Class, value.into());
+		self.set_attr(TitleAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TitleAttrs::Class, value.into());
+		self.set_attr(TitleAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(TitleAttrs::Class)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TitleAttrs::Style, value.into());
+		self.set_attr(TitleAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TitleAttrs::Style, value.into());
+		self.set_attr(TitleAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(TitleAttrs::Style)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Title {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TitleAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(TitleAttrs::from(attr))
 	}
 }
@@ -22502,15 +23614,17 @@ impl common_attrs::CoreAttributesSetter for Title {
 impl TagWithCoreAttributes for Title {}
 
 impl Tag for Title {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("title");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum TrefAttrs {
 	Class,
@@ -22583,7 +23697,7 @@ impl Debug for TrefAttrs {
 }
 
 mod tref_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -22597,7 +23711,7 @@ mod tref_private {
 #[doc = "\n\n [`<tref>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tref"]
 #[derive(Debug)]
 pub struct Tref {
-	attrs: IndexMap<TrefAttrs, String>,
+	attrs: IndexMap<TrefAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn tref_private::Content>>,
 }
 
@@ -22631,110 +23745,116 @@ impl Tref {
 		self
 	}
 
-	fn set_attr(&mut self, attr: TrefAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: TrefAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: TrefAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: TrefAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::Class, value.into());
+		self.set_attr(TrefAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::Class, value.into());
+		self.set_attr(TrefAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TrefAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TrefAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::Style, value.into());
+		self.set_attr(TrefAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::Style, value.into());
+		self.set_attr(TrefAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::Style)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::XlinkHref, value.into());
+		self.set_attr(TrefAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TrefAttrs::XlinkHref, value.into());
+		self.set_attr(TrefAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::XlinkHref)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Tref {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::from(attr))
 	}
 }
@@ -22742,11 +23862,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Tref {
 impl TagWithConditionalProcessingAttributes for Tref {}
 
 impl common_attrs::CoreAttributesSetter for Tref {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::from(attr))
 	}
 }
@@ -22754,11 +23877,14 @@ impl common_attrs::CoreAttributesSetter for Tref {
 impl TagWithCoreAttributes for Tref {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Tref {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::from(attr))
 	}
 }
@@ -22766,11 +23892,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Tref {
 impl TagWithGraphicalEventAttributes for Tref {}
 
 impl common_attrs::PresentationAttributesSetter for Tref {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::from(attr))
 	}
 }
@@ -22778,11 +23907,14 @@ impl common_attrs::PresentationAttributesSetter for Tref {
 impl TagWithPresentationAttributes for Tref {}
 
 impl common_attrs::XLinkAttributesSetter for Tref {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TrefAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(TrefAttrs::from(attr))
 	}
 }
@@ -22790,9 +23922,10 @@ impl common_attrs::XLinkAttributesSetter for Tref {
 impl TagWithXLinkAttributes for Tref {}
 
 impl Tag for Tref {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("tref");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -22802,6 +23935,7 @@ impl Tag for Tref {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum TSpanAttrs {
 	Class,
@@ -22878,7 +24012,7 @@ impl Debug for TSpanAttrs {
 }
 
 mod tspan_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -22898,7 +24032,7 @@ mod tspan_private {
 #[doc = "\n\n [`<tspan>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tspan"]
 #[derive(Debug)]
 pub struct TSpan {
-	attrs: IndexMap<TSpanAttrs, String>,
+	attrs: IndexMap<TSpanAttrs, Box<dyn Value>>,
 	content: Vec<Box<dyn tspan_private::Content>>,
 }
 
@@ -22932,242 +24066,248 @@ impl TSpan {
 		self
 	}
 
-	fn set_attr(&mut self, attr: TSpanAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: TSpanAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: TSpanAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: TSpanAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Class, value.into());
+		self.set_attr(TSpanAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Class, value.into());
+		self.set_attr(TSpanAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Class)
 	}
 
 	/// Set the `dx` attribute.
-	pub fn with_dx<T>(mut self, value: T) -> Self
+	pub fn with_dx<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Dx, value.into());
+		self.set_attr(TSpanAttrs::Dx, value);
 		self
 	}
 
 	/// Set the `dx` attribute.
-	pub fn set_dx<T>(&mut self, value: T)
+	pub fn set_dx<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Dx, value.into());
+		self.set_attr(TSpanAttrs::Dx, value);
 	}
 
 	/// Get the `dx` attribute.
-	pub fn dx(&self) -> Option<&str> {
+	pub fn dx(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Dx)
 	}
 
 	/// Set the `dy` attribute.
-	pub fn with_dy<T>(mut self, value: T) -> Self
+	pub fn with_dy<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Dy, value.into());
+		self.set_attr(TSpanAttrs::Dy, value);
 		self
 	}
 
 	/// Set the `dy` attribute.
-	pub fn set_dy<T>(&mut self, value: T)
+	pub fn set_dy<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Dy, value.into());
+		self.set_attr(TSpanAttrs::Dy, value);
 	}
 
 	/// Get the `dy` attribute.
-	pub fn dy(&self) -> Option<&str> {
+	pub fn dy(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Dy)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(TSpanAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `lengthAdjust` attribute.
-	pub fn with_length_adjust<T>(mut self, value: T) -> Self
+	pub fn with_length_adjust<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::LengthAdjust, value.into());
+		self.set_attr(TSpanAttrs::LengthAdjust, value);
 		self
 	}
 
 	/// Set the `lengthAdjust` attribute.
-	pub fn set_length_adjust<T>(&mut self, value: T)
+	pub fn set_length_adjust<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::LengthAdjust, value.into());
+		self.set_attr(TSpanAttrs::LengthAdjust, value);
 	}
 
 	/// Get the `lengthAdjust` attribute.
-	pub fn length_adjust(&self) -> Option<&str> {
+	pub fn length_adjust(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::LengthAdjust)
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn with_rotate<T>(mut self, value: T) -> Self
+	pub fn with_rotate<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Rotate, value.into());
+		self.set_attr(TSpanAttrs::Rotate, value);
 		self
 	}
 
 	/// Set the `rotate` attribute.
-	pub fn set_rotate<T>(&mut self, value: T)
+	pub fn set_rotate<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Rotate, value.into());
+		self.set_attr(TSpanAttrs::Rotate, value);
 	}
 
 	/// Get the `rotate` attribute.
-	pub fn rotate(&self) -> Option<&str> {
+	pub fn rotate(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Rotate)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Style, value.into());
+		self.set_attr(TSpanAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Style, value.into());
+		self.set_attr(TSpanAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Style)
 	}
 
 	/// Set the `textLength` attribute.
-	pub fn with_text_length<T>(mut self, value: T) -> Self
+	pub fn with_text_length<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::TextLength, value.into());
+		self.set_attr(TSpanAttrs::TextLength, value);
 		self
 	}
 
 	/// Set the `textLength` attribute.
-	pub fn set_text_length<T>(&mut self, value: T)
+	pub fn set_text_length<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::TextLength, value.into());
+		self.set_attr(TSpanAttrs::TextLength, value);
 	}
 
 	/// Get the `textLength` attribute.
-	pub fn text_length(&self) -> Option<&str> {
+	pub fn text_length(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::TextLength)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::X, value.into());
+		self.set_attr(TSpanAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::X, value.into());
+		self.set_attr(TSpanAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::X)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Y, value.into());
+		self.set_attr(TSpanAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(TSpanAttrs::Y, value.into());
+		self.set_attr(TSpanAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for TSpan {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
@@ -23175,11 +24315,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for TSpan {
 impl TagWithConditionalProcessingAttributes for TSpan {}
 
 impl common_attrs::CoreAttributesSetter for TSpan {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
@@ -23187,11 +24330,14 @@ impl common_attrs::CoreAttributesSetter for TSpan {
 impl TagWithCoreAttributes for TSpan {}
 
 impl common_attrs::GraphicalEventAttributesSetter for TSpan {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
@@ -23199,11 +24345,14 @@ impl common_attrs::GraphicalEventAttributesSetter for TSpan {
 impl TagWithGraphicalEventAttributes for TSpan {}
 
 impl common_attrs::PresentationAttributesSetter for TSpan {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(TSpanAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(TSpanAttrs::from(attr))
 	}
 }
@@ -23211,10 +24360,11 @@ impl common_attrs::PresentationAttributesSetter for TSpan {
 impl TagWithPresentationAttributes for TSpan {}
 
 impl Tag for TSpan {
-	fn write_to(&self, w: &mut XmlWriter,pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("tspan");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -23224,6 +24374,7 @@ impl Tag for TSpan {
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum UseAttrs {
 	Class,
@@ -23310,7 +24461,7 @@ impl Debug for UseAttrs {
 #[doc = "\n\n [`<use>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use"]
 #[derive(Debug)]
 pub struct Use {
-	attrs: IndexMap<UseAttrs, String>,
+	attrs: IndexMap<UseAttrs, Box<dyn Value>>,
 }
 
 impl Default for Use {
@@ -23327,220 +24478,226 @@ impl Use {
 		}
 	}
 
-	fn set_attr(&mut self, attr: UseAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: UseAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: UseAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: UseAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `class` attribute.
-	pub fn with_class<T>(mut self, value: T) -> Self
+	pub fn with_class<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Class, value.into());
+		self.set_attr(UseAttrs::Class, value);
 		self
 	}
 
 	/// Set the `class` attribute.
-	pub fn set_class<T>(&mut self, value: T)
+	pub fn set_class<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Class, value.into());
+		self.set_attr(UseAttrs::Class, value);
 	}
 
 	/// Get the `class` attribute.
-	pub fn class(&self) -> Option<&str> {
+	pub fn class(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Class)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(UseAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(UseAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `height` attribute.
-	pub fn with_height<T>(mut self, value: T) -> Self
+	pub fn with_height<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Height, value.into());
+		self.set_attr(UseAttrs::Height, value);
 		self
 	}
 
 	/// Set the `height` attribute.
-	pub fn set_height<T>(&mut self, value: T)
+	pub fn set_height<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Height, value.into());
+		self.set_attr(UseAttrs::Height, value);
 	}
 
 	/// Get the `height` attribute.
-	pub fn height(&self) -> Option<&str> {
+	pub fn height(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Height)
 	}
 
 	/// Set the `style` attribute.
-	pub fn with_style<T>(mut self, value: T) -> Self
+	pub fn with_style<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Style, value.into());
+		self.set_attr(UseAttrs::Style, value);
 		self
 	}
 
 	/// Set the `style` attribute.
-	pub fn set_style<T>(&mut self, value: T)
+	pub fn set_style<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Style, value.into());
+		self.set_attr(UseAttrs::Style, value);
 	}
 
 	/// Get the `style` attribute.
-	pub fn style(&self) -> Option<&str> {
+	pub fn style(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Style)
 	}
 
 	/// Set the `transform` attribute.
-	pub fn with_transform<T>(mut self, value: T) -> Self
+	pub fn with_transform<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Transform, value.into());
+		self.set_attr(UseAttrs::Transform, value);
 		self
 	}
 
 	/// Set the `transform` attribute.
-	pub fn set_transform<T>(&mut self, value: T)
+	pub fn set_transform<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Transform, value.into());
+		self.set_attr(UseAttrs::Transform, value);
 	}
 
 	/// Get the `transform` attribute.
-	pub fn transform(&self) -> Option<&str> {
+	pub fn transform(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Transform)
 	}
 
 	/// Set the `width` attribute.
-	pub fn with_width<T>(mut self, value: T) -> Self
+	pub fn with_width<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Width, value.into());
+		self.set_attr(UseAttrs::Width, value);
 		self
 	}
 
 	/// Set the `width` attribute.
-	pub fn set_width<T>(&mut self, value: T)
+	pub fn set_width<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Width, value.into());
+		self.set_attr(UseAttrs::Width, value);
 	}
 
 	/// Get the `width` attribute.
-	pub fn width(&self) -> Option<&str> {
+	pub fn width(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Width)
 	}
 
 	/// Set the `x` attribute.
-	pub fn with_x<T>(mut self, value: T) -> Self
+	pub fn with_x<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::X, value.into());
+		self.set_attr(UseAttrs::X, value);
 		self
 	}
 
 	/// Set the `x` attribute.
-	pub fn set_x<T>(&mut self, value: T)
+	pub fn set_x<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::X, value.into());
+		self.set_attr(UseAttrs::X, value);
 	}
 
 	/// Get the `x` attribute.
-	pub fn x(&self) -> Option<&str> {
+	pub fn x(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::X)
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn with_xlink_href<T>(mut self, value: T) -> Self
+	pub fn with_xlink_href<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::XlinkHref, value.into());
+		self.set_attr(UseAttrs::XlinkHref, value);
 		self
 	}
 
 	/// Set the `xlink:href` attribute.
-	pub fn set_xlink_href<T>(&mut self, value: T)
+	pub fn set_xlink_href<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::XlinkHref, value.into());
+		self.set_attr(UseAttrs::XlinkHref, value);
 	}
 
 	/// Get the `xlink:href` attribute.
-	pub fn xlink_href(&self) -> Option<&str> {
+	pub fn xlink_href(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::XlinkHref)
 	}
 
 	/// Set the `y` attribute.
-	pub fn with_y<T>(mut self, value: T) -> Self
+	pub fn with_y<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Y, value.into());
+		self.set_attr(UseAttrs::Y, value);
 		self
 	}
 
 	/// Set the `y` attribute.
-	pub fn set_y<T>(&mut self, value: T)
+	pub fn set_y<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(UseAttrs::Y, value.into());
+		self.set_attr(UseAttrs::Y, value);
 	}
 
 	/// Get the `y` attribute.
-	pub fn y(&self) -> Option<&str> {
+	pub fn y(&self) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::Y)
 	}
 }
 
 impl common_attrs::ConditionalProcessingAttributesSetter for Use {
-	fn set_attr(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::ConditionalProcessingAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(UseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::ConditionalProcessingAttributes) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::from(attr))
 	}
 }
@@ -23548,11 +24705,14 @@ impl common_attrs::ConditionalProcessingAttributesSetter for Use {
 impl TagWithConditionalProcessingAttributes for Use {}
 
 impl common_attrs::CoreAttributesSetter for Use {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(UseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::from(attr))
 	}
 }
@@ -23560,11 +24720,14 @@ impl common_attrs::CoreAttributesSetter for Use {
 impl TagWithCoreAttributes for Use {}
 
 impl common_attrs::GraphicalEventAttributesSetter for Use {
-	fn set_attr(&mut self, attr: common_attrs::GraphicalEventAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::GraphicalEventAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(UseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::GraphicalEventAttributes) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::from(attr))
 	}
 }
@@ -23572,11 +24735,14 @@ impl common_attrs::GraphicalEventAttributesSetter for Use {
 impl TagWithGraphicalEventAttributes for Use {}
 
 impl common_attrs::PresentationAttributesSetter for Use {
-	fn set_attr(&mut self, attr: common_attrs::PresentationAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::PresentationAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(UseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::PresentationAttributes) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::from(attr))
 	}
 }
@@ -23584,11 +24750,14 @@ impl common_attrs::PresentationAttributesSetter for Use {
 impl TagWithPresentationAttributes for Use {}
 
 impl common_attrs::XLinkAttributesSetter for Use {
-	fn set_attr(&mut self, attr: common_attrs::XLinkAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::XLinkAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(UseAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::XLinkAttributes) -> Option<&dyn Value> {
 		self.get_attr(UseAttrs::from(attr))
 	}
 }
@@ -23596,15 +24765,17 @@ impl common_attrs::XLinkAttributesSetter for Use {
 impl TagWithXLinkAttributes for Use {}
 
 impl Tag for Use {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("use");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum ViewAttrs {
 	ExternalResourcesRequired,
@@ -23651,7 +24822,7 @@ impl Debug for ViewAttrs {
 #[doc = "\n\n [`<view>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/view"]
 #[derive(Debug)]
 pub struct View {
-	attrs: IndexMap<ViewAttrs, String>,
+	attrs: IndexMap<ViewAttrs, Box<dyn Value>>,
 }
 
 impl Default for View {
@@ -23668,132 +24839,138 @@ impl View {
 		}
 	}
 
-	fn set_attr(&mut self, attr: ViewAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: ViewAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: ViewAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: ViewAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn with_external_resources_required<T>(mut self, value: T) -> Self
+	pub fn with_external_resources_required<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ViewAttrs::ExternalResourcesRequired, value);
 		self
 	}
 
 	/// Set the `externalResourcesRequired` attribute.
-	pub fn set_external_resources_required<T>(&mut self, value: T)
+	pub fn set_external_resources_required<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ExternalResourcesRequired, value.into());
+		self.set_attr(ViewAttrs::ExternalResourcesRequired, value);
 	}
 
 	/// Get the `externalResourcesRequired` attribute.
-	pub fn external_resources_required(&self) -> Option<&str> {
+	pub fn external_resources_required(&self) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::ExternalResourcesRequired)
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn with_preserve_aspect_ratio<T>(mut self, value: T) -> Self
+	pub fn with_preserve_aspect_ratio<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(ViewAttrs::PreserveAspectRatio, value);
 		self
 	}
 
 	/// Set the `preserveAspectRatio` attribute.
-	pub fn set_preserve_aspect_ratio<T>(&mut self, value: T)
+	pub fn set_preserve_aspect_ratio<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::PreserveAspectRatio, value.into());
+		self.set_attr(ViewAttrs::PreserveAspectRatio, value);
 	}
 
 	/// Get the `preserveAspectRatio` attribute.
-	pub fn preserve_aspect_ratio(&self) -> Option<&str> {
+	pub fn preserve_aspect_ratio(&self) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::PreserveAspectRatio)
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn with_view_box<T>(mut self, value: T) -> Self
+	pub fn with_view_box<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ViewBox, value.into());
+		self.set_attr(ViewAttrs::ViewBox, value);
 		self
 	}
 
 	/// Set the `viewBox` attribute.
-	pub fn set_view_box<T>(&mut self, value: T)
+	pub fn set_view_box<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ViewBox, value.into());
+		self.set_attr(ViewAttrs::ViewBox, value);
 	}
 
 	/// Get the `viewBox` attribute.
-	pub fn view_box(&self) -> Option<&str> {
+	pub fn view_box(&self) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::ViewBox)
 	}
 
 	/// Set the `viewTarget` attribute.
-	pub fn with_view_target<T>(mut self, value: T) -> Self
+	pub fn with_view_target<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ViewTarget, value.into());
+		self.set_attr(ViewAttrs::ViewTarget, value);
 		self
 	}
 
 	/// Set the `viewTarget` attribute.
-	pub fn set_view_target<T>(&mut self, value: T)
+	pub fn set_view_target<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ViewTarget, value.into());
+		self.set_attr(ViewAttrs::ViewTarget, value);
 	}
 
 	/// Get the `viewTarget` attribute.
-	pub fn view_target(&self) -> Option<&str> {
+	pub fn view_target(&self) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::ViewTarget)
 	}
 
 	/// Set the `zoomAndPan` attribute.
-	pub fn with_zoom_and_pan<T>(mut self, value: T) -> Self
+	pub fn with_zoom_and_pan<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ZoomAndPan, value.into());
+		self.set_attr(ViewAttrs::ZoomAndPan, value);
 		self
 	}
 
 	/// Set the `zoomAndPan` attribute.
-	pub fn set_zoom_and_pan<T>(&mut self, value: T)
+	pub fn set_zoom_and_pan<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(ViewAttrs::ZoomAndPan, value.into());
+		self.set_attr(ViewAttrs::ZoomAndPan, value);
 	}
 
 	/// Get the `zoomAndPan` attribute.
-	pub fn zoom_and_pan(&self) -> Option<&str> {
+	pub fn zoom_and_pan(&self) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::ZoomAndPan)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for View {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(ViewAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(ViewAttrs::from(attr))
 	}
 }
@@ -23801,15 +24978,17 @@ impl common_attrs::CoreAttributesSetter for View {
 impl TagWithCoreAttributes for View {}
 
 impl Tag for View {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("view");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
 	}
 }
 
+#[allow(clippy::enum_variant_names)]
 #[derive(Clone, Copy, Eq, Hash, PartialEq)]
 enum VkernAttrs {
 	G1,
@@ -23856,7 +25035,7 @@ impl Debug for VkernAttrs {
 #[doc = "\n\n [`<vkern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/vkern"]
 #[derive(Debug)]
 pub struct Vkern {
-	attrs: IndexMap<VkernAttrs, String>,
+	attrs: IndexMap<VkernAttrs, Box<dyn Value>>,
 }
 
 impl Default for Vkern {
@@ -23873,132 +25052,138 @@ impl Vkern {
 		}
 	}
 
-	fn set_attr(&mut self, attr: VkernAttrs, value: String) {
+	fn set_attr<V>(&mut self, attr: VkernAttrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: VkernAttrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: VkernAttrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	/// Set the `g1` attribute.
-	pub fn with_g1<T>(mut self, value: T) -> Self
+	pub fn with_g1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::G1, value.into());
+		self.set_attr(VkernAttrs::G1, value);
 		self
 	}
 
 	/// Set the `g1` attribute.
-	pub fn set_g1<T>(&mut self, value: T)
+	pub fn set_g1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::G1, value.into());
+		self.set_attr(VkernAttrs::G1, value);
 	}
 
 	/// Get the `g1` attribute.
-	pub fn g1(&self) -> Option<&str> {
+	pub fn g1(&self) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::G1)
 	}
 
 	/// Set the `g2` attribute.
-	pub fn with_g2<T>(mut self, value: T) -> Self
+	pub fn with_g2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::G2, value.into());
+		self.set_attr(VkernAttrs::G2, value);
 		self
 	}
 
 	/// Set the `g2` attribute.
-	pub fn set_g2<T>(&mut self, value: T)
+	pub fn set_g2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::G2, value.into());
+		self.set_attr(VkernAttrs::G2, value);
 	}
 
 	/// Get the `g2` attribute.
-	pub fn g2(&self) -> Option<&str> {
+	pub fn g2(&self) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::G2)
 	}
 
 	/// Set the `k` attribute.
-	pub fn with_k<T>(mut self, value: T) -> Self
+	pub fn with_k<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::K, value.into());
+		self.set_attr(VkernAttrs::K, value);
 		self
 	}
 
 	/// Set the `k` attribute.
-	pub fn set_k<T>(&mut self, value: T)
+	pub fn set_k<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::K, value.into());
+		self.set_attr(VkernAttrs::K, value);
 	}
 
 	/// Get the `k` attribute.
-	pub fn k(&self) -> Option<&str> {
+	pub fn k(&self) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::K)
 	}
 
 	/// Set the `u1` attribute.
-	pub fn with_u1<T>(mut self, value: T) -> Self
+	pub fn with_u1<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::U1, value.into());
+		self.set_attr(VkernAttrs::U1, value);
 		self
 	}
 
 	/// Set the `u1` attribute.
-	pub fn set_u1<T>(&mut self, value: T)
+	pub fn set_u1<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::U1, value.into());
+		self.set_attr(VkernAttrs::U1, value);
 	}
 
 	/// Get the `u1` attribute.
-	pub fn u1(&self) -> Option<&str> {
+	pub fn u1(&self) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::U1)
 	}
 
 	/// Set the `u2` attribute.
-	pub fn with_u2<T>(mut self, value: T) -> Self
+	pub fn with_u2<V>(mut self, value: V) -> Self
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::U2, value.into());
+		self.set_attr(VkernAttrs::U2, value);
 		self
 	}
 
 	/// Set the `u2` attribute.
-	pub fn set_u2<T>(&mut self, value: T)
+	pub fn set_u2<V>(&mut self, value: V)
 	where
-		T: Into<String>
+		V: Value + 'static
 	{
-		self.set_attr(VkernAttrs::U2, value.into());
+		self.set_attr(VkernAttrs::U2, value);
 	}
 
 	/// Get the `u2` attribute.
-	pub fn u2(&self) -> Option<&str> {
+	pub fn u2(&self) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::U2)
 	}
 }
 
 impl common_attrs::CoreAttributesSetter for Vkern {
-	fn set_attr(&mut self, attr: common_attrs::CoreAttributes, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::CoreAttributes, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr(VkernAttrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::CoreAttributes) -> Option<&dyn Value> {
 		self.get_attr(VkernAttrs::from(attr))
 	}
 }
@@ -24006,9 +25191,10 @@ impl common_attrs::CoreAttributesSetter for Vkern {
 impl TagWithCoreAttributes for Vkern {}
 
 impl Tag for Vkern {
-	fn write_to(&self, w: &mut XmlWriter,_pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("vkern");
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();

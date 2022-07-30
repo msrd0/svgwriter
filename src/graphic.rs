@@ -1,4 +1,4 @@
-use crate::{tags::Svg, Tag as _};
+use crate::{tag::Tag as _, tags::Svg};
 use std::ops::{Deref, DerefMut};
 use xmlwriter::{Indent, Options as XmlOptions, XmlWriter};
 
@@ -14,7 +14,7 @@ impl Default for Graphic {
 impl Graphic {
 	pub fn new() -> Self {
 		let mut svg = Svg::new();
-		svg.set_attr("xmlns".into(), "http://www.w3.org/2000/svg".into());
+		svg.set_attr("xmlns".into(), "http://www.w3.org/2000/svg");
 		Self(svg)
 	}
 
@@ -24,6 +24,7 @@ impl Graphic {
 		writer.end_document()
 	}
 
+	#[allow(clippy::inherent_to_string)]
 	pub fn to_string(&self) -> String {
 		let opts = XmlOptions {
 			use_single_quote: true,
@@ -75,8 +76,8 @@ mod tests {
 		svg.set_view_box("0 0 200 50");
 		svg.push(
 			Text::new()
-				.with_x("100")
-				.with_y("25")
+				.with_x(100)
+				.with_y(25)
 				.with_text_anchor("middle")
 				.with_dominant_baseline("middle")
 				.append("Hello World!")

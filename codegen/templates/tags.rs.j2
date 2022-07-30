@@ -1,7 +1,7 @@
 {%- import "_macros.rs.j2" as macros -%}
 // @generated
 
-use crate::Tag;
+use crate::{tag::Tag, value::Value};
 use indexmap::IndexMap;
 use std::fmt::{self, Debug, Display, Formatter};
 use xmlwriter::XmlWriter;
@@ -26,7 +26,7 @@ pub use common_attrs::prelude::*;
 {%- if !elem.content.elements.is_empty() %}
 
 mod {{name|snake_case}}_private {
-	use crate::Tag;
+	use crate::tag::Tag;
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
@@ -47,7 +47,7 @@ mod {{name|snake_case}}_private {
 #[derive(Debug)]
 pub struct {{name|camel_case}} {
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
-	attrs: IndexMap<{{name|camel_case}}Attrs, String>,
+	attrs: IndexMap<{{name|camel_case}}Attrs, Box<dyn Value>>,
 	{%- endif %}
 	{%- if !elem.content.elements.is_empty() %}
 	content: Vec<Box<dyn {{name|snake_case}}_private::Content>>,
@@ -94,13 +94,16 @@ impl {{name|camel_case}} {
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
 	{% if name == "svg" %}pub(crate) {% endif -%}
-	fn set_attr(&mut self, attr: {{name|camel_case}}Attrs, value: String) {
+	fn set_attr<V>(&mut self, attr: {{name|camel_case}}Attrs, value: V)
+	where
+		V: Value + 'static
+	{
 		self.attrs.shift_remove(&attr);
-		self.attrs.insert(attr, value);
+		self.attrs.insert(attr, Box::new(value));
 	}
 
-	fn get_attr(&self, attr: {{name|camel_case}}Attrs) -> Option<&str> {
-		self.attrs.get(&attr).map(String::as_str)
+	fn get_attr(&self, attr: {{name|camel_case}}Attrs) -> Option<&dyn Value> {
+		self.attrs.get(&attr).map(Box::as_ref)
 	}
 
 	{%- call macros::attrs_get_set("pub", "{}Attrs"|format(name|camel_case), elem.attributes) %}
@@ -111,11 +114,14 @@ impl {{name|camel_case}} {
 {%- for cat in elem.attribute_categories %}
 
 impl common_attrs::{{cat|camel_case}}Setter for {{name|camel_case}} {
-	fn set_attr(&mut self, attr: common_attrs::{{cat|camel_case}}, value: String) {
+	fn set_attr<V>(&mut self, attr: common_attrs::{{cat|camel_case}}, value: V)
+	where
+		V: Value + 'static
+	{
 		self.set_attr({{name|camel_case}}Attrs::from(attr), value);
 	}
 
-	fn get_attr(&self, attr: common_attrs::{{cat|camel_case}}) -> Option<&str> {
+	fn get_attr(&self, attr: common_attrs::{{cat|camel_case}}) -> Option<&dyn Value> {
 		self.get_attr({{name|camel_case}}Attrs::from(attr))
 	}
 }
@@ -125,8 +131,7 @@ impl TagWith{{cat|camel_case}} for {{name|camel_case}} {}
 {%- endfor %}
 
 impl Tag for {{name|camel_case}} {
-	fn write_to(&self, w: &mut XmlWriter,
-			{%- if elem.content.elements.is_empty() %}_{% endif %}pretty: bool) {
+	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("{{name}}");
 		{% if name == "text" || name == "tspan" -%}
 		w.set_preserve_whitespaces(true);
@@ -134,6 +139,7 @@ impl Tag for {{name|camel_case}} {
 		
 		{% if !elem.attributes.is_empty() -%}
 		for (attr, value) in &self.attrs {
+			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		{% endif -%}
