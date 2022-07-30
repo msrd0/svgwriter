@@ -256,7 +256,7 @@ mod tpl {
 
 	mod filters {
 		use askama::Result;
-		use heck::{ToShoutySnakeCase, ToSnakeCase, ToUpperCamelCase};
+		use heck::{ToSnakeCase, ToUpperCamelCase};
 
 		pub fn camel_case(ident: &str) -> Result<String> {
 			Ok(match ident {
@@ -272,10 +272,6 @@ mod tpl {
 				"type" => "ty".to_owned(),
 				ident => ident.to_snake_case()
 			})
-		}
-
-		pub fn upper_case(ident: &str) -> Result<String> {
-			Ok(ident.to_shouty_snake_case())
 		}
 	}
 
