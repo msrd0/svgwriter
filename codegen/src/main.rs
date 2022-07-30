@@ -309,6 +309,17 @@ fn main() {
 	let mut data: Data = serde_json::from_reader(file).expect("Cannot read SVGData.json");
 	let attr_categories = attributes_by_category();
 
+	let mut elem_categories: HashMap<String, Vec<String>> = HashMap::new();
+	for (name, elem) in &data.elements {
+		for cat in &elem.categories {
+			let cat = format!("{cat}s");
+			if let Some(v) = elem_categories.get_mut(&cat) {
+				v.push(name.to_owned());
+			} else {
+				elem_categories.insert(cat, vec![name.to_owned()]);
+			}
+		}
+	}
 	for (name, elem) in data.elements.iter_mut() {
 		println!("<{name}>: {:?}", elem.content.elements);
 		let mut attributes = BTreeSet::new();
@@ -327,8 +338,14 @@ fn main() {
 		for elem in &elem.content.elements {
 			if elem.starts_with("&lt;") && elem.ends_with("&gt;") {
 				elements.insert(elem[4 .. elem.len() - 4].to_owned());
+			} else if let Some(elems) = elem_categories.get(elem.as_str()) {
+				elements.extend(elems.iter().cloned());
+			} else {
+				eprintln!(
+					"ERROR: Missing category {elem}, I only know {:?}",
+					elem_categories.keys().collect::<Vec<_>>()
+				)
 			}
-			// TODO else ...
 		}
 		elem.content.elements = elements;
 	}

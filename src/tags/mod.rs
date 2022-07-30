@@ -95,21 +95,46 @@ mod a_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -119,21 +144,46 @@ mod a_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<a>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a"]
@@ -1189,15 +1239,29 @@ impl Debug for AnimateAttrs {
 	}
 }
 
+mod animate_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<animate>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animate.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<animate>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate"]
 #[derive(Debug)]
 pub struct Animate {
 	attrs: IndexMap<AnimateAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn animate_private::Content>>,
 }
 
 impl Default for Animate {
@@ -1211,7 +1275,23 @@ impl Animate {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: animate_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: animate_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: AnimateAttrs, value: V)
@@ -1508,6 +1588,9 @@ impl Tag for Animate {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -1608,15 +1691,29 @@ impl Debug for AnimateColorAttrs {
 	}
 }
 
+mod animate_color_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<animateColor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateColor.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<animateColor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateColor"]
 #[derive(Debug)]
 pub struct AnimateColor {
 	attrs: IndexMap<AnimateColorAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn animate_color_private::Content>>,
 }
 
 impl Default for AnimateColor {
@@ -1630,7 +1727,23 @@ impl AnimateColor {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: animate_color_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: animate_color_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: AnimateColorAttrs, value: V)
@@ -1861,6 +1974,9 @@ impl Tag for AnimateColor {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -1962,14 +2078,20 @@ mod animate_motion_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Mpath {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<animateMotion>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateMotion.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
-	"- [`<mpath>`](Mpath)\n"
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<animateMotion>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateMotion"]
 #[derive(Debug)]
@@ -2370,15 +2492,29 @@ impl Debug for AnimateTransformAttrs {
 	}
 }
 
+mod animate_transform_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<animateTransform>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("animateTransform.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<animateTransform>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animateTransform"]
 #[derive(Debug)]
 pub struct AnimateTransform {
 	attrs: IndexMap<AnimateTransformAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn animate_transform_private::Content>>,
 }
 
 impl Default for AnimateTransform {
@@ -2392,7 +2528,23 @@ impl AnimateTransform {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: animate_transform_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: animate_transform_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: AnimateTransformAttrs, value: V)
@@ -2645,6 +2797,9 @@ impl Tag for AnimateTransform {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -2719,15 +2874,41 @@ impl Debug for CircleAttrs {
 	}
 }
 
+mod circle_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<circle>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("circle.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<circle>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle"]
 #[derive(Debug)]
 pub struct Circle {
 	attrs: IndexMap<CircleAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn circle_private::Content>>,
 }
 
 impl Default for Circle {
@@ -2741,7 +2922,23 @@ impl Circle {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: circle_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: circle_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: CircleAttrs, value: V)
@@ -2978,6 +3175,9 @@ impl Tag for Circle {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -3045,7 +3245,24 @@ mod clip_path_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
+	impl Content for super::Line {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::Rect {}
+	impl Content for super::Set {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
 	impl Content for super::Use {}
 }
 
@@ -3053,7 +3270,24 @@ mod clip_path_private {
 #[doc = include_str!("clipPath.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<rect>`](Rect)\n",
+	"- [`<set>`](Set)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
 	"- [`<use>`](Use)\n"
 )]
 #[doc = "\n\n [`<clipPath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/clipPath"]
@@ -3323,15 +3557,29 @@ impl Debug for ColorProfileAttrs {
 	}
 }
 
+mod color_profile_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<color-profile>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("color-profile.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<color-profile>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/color-profile"]
 #[derive(Debug)]
 pub struct ColorProfile {
 	attrs: IndexMap<ColorProfileAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn color_profile_private::Content>>,
 }
 
 impl Default for ColorProfile {
@@ -3345,7 +3593,23 @@ impl ColorProfile {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: color_profile_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: color_profile_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: ColorProfileAttrs, value: V)
@@ -3486,6 +3750,9 @@ impl Tag for ColorProfile {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -3546,15 +3813,29 @@ impl Debug for CursorAttrs {
 	}
 }
 
+mod cursor_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<cursor>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("cursor.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<cursor>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/cursor"]
 #[derive(Debug)]
 pub struct Cursor {
 	attrs: IndexMap<CursorAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn cursor_private::Content>>,
 }
 
 impl Default for Cursor {
@@ -3568,7 +3849,23 @@ impl Cursor {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: cursor_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: cursor_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: CursorAttrs, value: V)
@@ -3724,6 +4021,9 @@ impl Tag for Cursor {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -3799,21 +4099,46 @@ mod defs_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -3823,21 +4148,46 @@ mod defs_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<defs>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs"]
@@ -4245,14 +4595,20 @@ mod discard_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Script {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<discard>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("discard.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
-	"- [`<script>`](Script)\n"
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<script>`](Script)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<discard>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/discard"]
 #[derive(Debug)]
@@ -4464,15 +4820,41 @@ impl Debug for EllipseAttrs {
 	}
 }
 
+mod ellipse_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<ellipse>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("ellipse.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<ellipse>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse"]
 #[derive(Debug)]
 pub struct Ellipse {
 	attrs: IndexMap<EllipseAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn ellipse_private::Content>>,
 }
 
 impl Default for Ellipse {
@@ -4486,7 +4868,23 @@ impl Ellipse {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: ellipse_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: ellipse_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: EllipseAttrs, value: V)
@@ -4744,6 +5142,9 @@ impl Tag for Ellipse {
 		for (attr, value) in &self.attrs {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -11443,7 +11844,27 @@ mod filter_private {
 
 	pub trait Content: Tag + Debug {}
 	impl Content for super::Animate {}
+	impl Content for super::Desc {}
+	impl Content for super::FeBlend {}
+	impl Content for super::FeColorMatrix {}
+	impl Content for super::FeComponentTransfer {}
+	impl Content for super::FeComposite {}
+	impl Content for super::FeConvolveMatrix {}
+	impl Content for super::FeDiffuseLighting {}
+	impl Content for super::FeDisplacementMap {}
+	impl Content for super::FeDropShadow {}
+	impl Content for super::FeFlood {}
+	impl Content for super::FeGaussianBlur {}
+	impl Content for super::FeImage {}
+	impl Content for super::FeMerge {}
+	impl Content for super::FeMorphology {}
+	impl Content for super::FeOffset {}
+	impl Content for super::FeSpecularLighting {}
+	impl Content for super::FeTile {}
+	impl Content for super::FeTurbulence {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<filter>`] svg tag.\n\n# Content\n"]
@@ -11451,7 +11872,27 @@ mod filter_private {
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<animate>`](Animate)\n",
-	"- [`<set>`](Set)\n"
+	"- [`<desc>`](Desc)\n",
+	"- [`<feBlend>`](FeBlend)\n",
+	"- [`<feColorMatrix>`](FeColorMatrix)\n",
+	"- [`<feComponentTransfer>`](FeComponentTransfer)\n",
+	"- [`<feComposite>`](FeComposite)\n",
+	"- [`<feConvolveMatrix>`](FeConvolveMatrix)\n",
+	"- [`<feDiffuseLighting>`](FeDiffuseLighting)\n",
+	"- [`<feDisplacementMap>`](FeDisplacementMap)\n",
+	"- [`<feDropShadow>`](FeDropShadow)\n",
+	"- [`<feFlood>`](FeFlood)\n",
+	"- [`<feGaussianBlur>`](FeGaussianBlur)\n",
+	"- [`<feImage>`](FeImage)\n",
+	"- [`<feMerge>`](FeMerge)\n",
+	"- [`<feMorphology>`](FeMorphology)\n",
+	"- [`<feOffset>`](FeOffset)\n",
+	"- [`<feSpecularLighting>`](FeSpecularLighting)\n",
+	"- [`<feTile>`](FeTile)\n",
+	"- [`<feTurbulence>`](FeTurbulence)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<filter>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter"]
 #[derive(Debug)]
@@ -11867,10 +12308,13 @@ mod font_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
 	impl Content for super::FontFace {}
 	impl Content for super::Glyph {}
 	impl Content for super::Hkern {}
+	impl Content for super::Metadata {}
 	impl Content for super::MissingGlyph {}
+	impl Content for super::Title {}
 	impl Content for super::Vkern {}
 }
 
@@ -11878,10 +12322,13 @@ mod font_private {
 #[doc = include_str!("font.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<glyph>`](Glyph)\n",
 	"- [`<hkern>`](Hkern)\n",
+	"- [`<metadata>`](Metadata)\n",
 	"- [`<missing-glyph>`](MissingGlyph)\n",
+	"- [`<title>`](Title)\n",
 	"- [`<vkern>`](Vkern)\n"
 )]
 #[doc = "\n\n [`<font>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/font"]
@@ -14027,21 +14474,46 @@ mod g_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -14051,21 +14523,46 @@ mod g_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<g>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/g"]
@@ -14351,21 +14848,46 @@ mod glyph_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -14375,21 +14897,46 @@ mod glyph_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/glyph"]
@@ -15185,18 +15732,36 @@ mod hatch_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
 	impl Content for super::Hatchpath {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
 	impl Content for super::Style {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<hatch>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatch.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
 	"- [`<hatchpath>`](Hatchpath)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
 	"- [`<script>`](Script)\n",
-	"- [`<style>`](Style)\n"
+	"- [`<set>`](Set)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<hatch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatch"]
 #[derive(Debug)]
@@ -15563,16 +16128,34 @@ mod hatchpath_private {
 	use std::fmt::Debug;
 
 	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
 	impl Content for super::Style {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<hatchpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("hatchpath.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
 	"- [`<script>`](Script)\n",
-	"- [`<style>`](Style)\n"
+	"- [`<set>`](Set)\n",
+	"- [`<style>`](Style)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<hatchpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/hatchpath"]
 #[derive(Debug)]
@@ -16042,15 +16625,41 @@ impl Debug for ImageAttrs {
 	}
 }
 
+mod image_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<image>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("image.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<image>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/image"]
 #[derive(Debug)]
 pub struct Image {
 	attrs: IndexMap<ImageAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn image_private::Content>>,
 }
 
 impl Default for Image {
@@ -16064,7 +16673,23 @@ impl Image {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: image_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: image_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: ImageAttrs, value: V)
@@ -16382,6 +17007,9 @@ impl Tag for Image {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -16458,15 +17086,41 @@ impl Debug for LineAttrs {
 	}
 }
 
+mod line_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<line>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("line.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<line>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line"]
 #[derive(Debug)]
 pub struct Line {
 	attrs: IndexMap<LineAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn line_private::Content>>,
 }
 
 impl Default for Line {
@@ -16480,7 +17134,23 @@ impl Line {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: line_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: line_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: LineAttrs, value: V)
@@ -16739,6 +17409,9 @@ impl Tag for Line {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -16820,8 +17493,11 @@ mod linear_gradient_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::Animate {}
 	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
 	impl Content for super::Stop {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<linearGradient>`] svg tag.\n\n# Content\n"]
@@ -16830,8 +17506,11 @@ mod linear_gradient_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<animate>`](Animate)\n",
 	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
 	"- [`<set>`](Set)\n",
-	"- [`<stop>`](Stop)\n"
+	"- [`<stop>`](Stop)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<linearGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/linearGradient"]
 #[derive(Debug)]
@@ -17255,21 +17934,46 @@ mod marker_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -17279,21 +17983,46 @@ mod marker_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<marker>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker"]
@@ -17727,21 +18456,46 @@ mod mask_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -17751,21 +18505,46 @@ mod mask_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<mask>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask"]
@@ -18228,21 +19007,46 @@ mod missing_glyph_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -18252,21 +19056,46 @@ mod missing_glyph_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<missing-glyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/missing-glyph"]
@@ -18561,15 +19390,29 @@ impl Debug for MpathAttrs {
 	}
 }
 
+mod mpath_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<mpath>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("mpath.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<mpath>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mpath"]
 #[derive(Debug)]
 pub struct Mpath {
 	attrs: IndexMap<MpathAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn mpath_private::Content>>,
 }
 
 impl Default for Mpath {
@@ -18583,7 +19426,23 @@ impl Mpath {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: mpath_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: mpath_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: MpathAttrs, value: V)
@@ -18680,6 +19539,9 @@ impl Tag for Mpath {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -18752,15 +19614,41 @@ impl Debug for PathAttrs {
 	}
 }
 
+mod path_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<path>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("path.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<path>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path"]
 #[derive(Debug)]
 pub struct Path {
 	attrs: IndexMap<PathAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn path_private::Content>>,
 }
 
 impl Default for Path {
@@ -18774,7 +19662,23 @@ impl Path {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: path_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: path_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: PathAttrs, value: V)
@@ -18989,6 +19893,9 @@ impl Tag for Path {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -19082,21 +19989,46 @@ mod pattern_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -19106,21 +20038,46 @@ mod pattern_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<pattern>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/pattern"]
@@ -19599,15 +20556,41 @@ impl Debug for PolygonAttrs {
 	}
 }
 
+mod polygon_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<polygon>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polygon.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<polygon>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon"]
 #[derive(Debug)]
 pub struct Polygon {
 	attrs: IndexMap<PolygonAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn polygon_private::Content>>,
 }
 
 impl Default for Polygon {
@@ -19621,7 +20604,23 @@ impl Polygon {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: polygon_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: polygon_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: PolygonAttrs, value: V)
@@ -19814,6 +20813,9 @@ impl Tag for Polygon {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -19884,15 +20886,41 @@ impl Debug for PolylineAttrs {
 	}
 }
 
+mod polyline_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<polyline>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("polyline.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<polyline>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline"]
 #[derive(Debug)]
 pub struct Polyline {
 	attrs: IndexMap<PolylineAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn polyline_private::Content>>,
 }
 
 impl Default for Polyline {
@@ -19906,7 +20934,23 @@ impl Polyline {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: polyline_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: polyline_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: PolylineAttrs, value: V)
@@ -20099,6 +21143,9 @@ impl Tag for Polyline {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -20182,8 +21229,11 @@ mod radial_gradient_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::Animate {}
 	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
 	impl Content for super::Stop {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<radialGradient>`] svg tag.\n\n# Content\n"]
@@ -20192,8 +21242,11 @@ mod radial_gradient_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<animate>`](Animate)\n",
 	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
 	"- [`<set>`](Set)\n",
-	"- [`<stop>`](Stop)\n"
+	"- [`<stop>`](Stop)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<radialGradient>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/radialGradient"]
 #[derive(Debug)]
@@ -20644,15 +21697,41 @@ impl Debug for RectAttrs {
 	}
 }
 
+mod rect_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<rect>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("rect.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<rect>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/rect"]
 #[derive(Debug)]
 pub struct Rect {
 	attrs: IndexMap<RectAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn rect_private::Content>>,
 }
 
 impl Default for Rect {
@@ -20666,7 +21745,23 @@ impl Rect {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: rect_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: rect_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: RectAttrs, value: V)
@@ -20969,6 +22064,9 @@ impl Tag for Rect {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -21240,15 +22338,29 @@ impl Debug for SetAttrs {
 	}
 }
 
+mod set_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<set>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("set.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<set>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/set"]
 #[derive(Debug)]
 pub struct Set {
 	attrs: IndexMap<SetAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn set_private::Content>>,
 }
 
 impl Default for Set {
@@ -21262,7 +22374,23 @@ impl Set {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: set_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: set_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: SetAttrs, value: V)
@@ -21418,6 +22546,9 @@ impl Tag for Set {
 		for (attr, value) in &self.attrs {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
@@ -21976,21 +23107,46 @@ mod svg_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -22000,21 +23156,46 @@ mod svg_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<svg>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"]
@@ -22529,12 +23710,29 @@ mod switch_private {
 
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::ForeignObject {}
 	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::Rect {}
+	impl Content for super::Set {}
 	impl Content for super::Svg {}
 	impl Content for super::Switch {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
 	impl Content for super::Use {}
 }
 
@@ -22543,12 +23741,29 @@ mod switch_private {
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
 	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<rect>`](Rect)\n",
+	"- [`<set>`](Set)\n",
 	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
 	"- [`<use>`](Use)\n"
 )]
 #[doc = "\n\n [`<switch>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/switch"]
@@ -22850,21 +24065,46 @@ mod symbol_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
 	impl Content for super::AltGlyphDef {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateColor {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Circle {}
 	impl Content for super::ClipPath {}
 	impl Content for super::ColorProfile {}
 	impl Content for super::Cursor {}
+	impl Content for super::Defs {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Ellipse {}
 	impl Content for super::Filter {}
 	impl Content for super::Font {}
 	impl Content for super::FontFace {}
 	impl Content for super::ForeignObject {}
+	impl Content for super::Group {}
 	impl Content for super::Image {}
+	impl Content for super::Line {}
+	impl Content for super::LinearGradient {}
 	impl Content for super::Marker {}
 	impl Content for super::Mask {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Path {}
 	impl Content for super::Pattern {}
+	impl Content for super::Polygon {}
+	impl Content for super::Polyline {}
+	impl Content for super::RadialGradient {}
+	impl Content for super::Rect {}
 	impl Content for super::Script {}
+	impl Content for super::Set {}
+	impl Content for super::Stop {}
 	impl Content for super::Style {}
+	impl Content for super::Svg {}
 	impl Content for super::Switch {}
+	impl Content for super::Symbol {}
 	impl Content for super::Text {}
+	impl Content for super::Title {}
+	impl Content for super::Use {}
 	impl Content for super::View {}
 }
 
@@ -22874,21 +24114,46 @@ mod symbol_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<a>`](A)\n",
 	"- [`<altGlyphDef>`](AltGlyphDef)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<circle>`](Circle)\n",
 	"- [`<clipPath>`](ClipPath)\n",
 	"- [`<color-profile>`](ColorProfile)\n",
 	"- [`<cursor>`](Cursor)\n",
+	"- [`<defs>`](Defs)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<ellipse>`](Ellipse)\n",
 	"- [`<filter>`](Filter)\n",
 	"- [`<font>`](Font)\n",
 	"- [`<font-face>`](FontFace)\n",
 	"- [`<foreignObject>`](ForeignObject)\n",
+	"- [`<g>`](Group)\n",
 	"- [`<image>`](Image)\n",
+	"- [`<line>`](Line)\n",
+	"- [`<linearGradient>`](LinearGradient)\n",
 	"- [`<marker>`](Marker)\n",
 	"- [`<mask>`](Mask)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<path>`](Path)\n",
 	"- [`<pattern>`](Pattern)\n",
+	"- [`<polygon>`](Polygon)\n",
+	"- [`<polyline>`](Polyline)\n",
+	"- [`<radialGradient>`](RadialGradient)\n",
+	"- [`<rect>`](Rect)\n",
 	"- [`<script>`](Script)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<stop>`](Stop)\n",
 	"- [`<style>`](Style)\n",
+	"- [`<svg>`](Svg)\n",
 	"- [`<switch>`](Switch)\n",
+	"- [`<symbol>`](Symbol)\n",
 	"- [`<text>`](Text)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<use>`](Use)\n",
 	"- [`<view>`](View)\n"
 )]
 #[doc = "\n\n [`<symbol>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/symbol"]
@@ -23196,6 +24461,19 @@ mod text_private {
 
 	pub trait Content: Tag + Debug {}
 	impl Content for super::A {}
+	impl Content for super::AltGlyph {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::TextPath {}
+	impl Content for super::Title {}
+	impl Content for super::Tref {}
+	impl Content for super::TSpan {}
 	impl Content for String {}
 	impl Content for &'static str {}
 }
@@ -23204,7 +24482,20 @@ mod text_private {
 #[doc = include_str!("text.md")]
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
-	"- [`<a>`](A)\n"
+	"- [`<a>`](A)\n",
+	"- [`<altGlyph>`](AltGlyph)\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<textPath>`](TextPath)\n",
+	"- [`<title>`](Title)\n",
+	"- [`<tref>`](Tref)\n",
+	"- [`<tspan>`](TSpan)\n"
 )]
 #[doc = "\n\n [`<text>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text"]
 #[derive(Debug)]
@@ -23683,7 +24974,10 @@ mod text_path_private {
 	impl Content for super::AltGlyph {}
 	impl Content for super::Animate {}
 	impl Content for super::AnimateColor {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
+	impl Content for super::Title {}
 	impl Content for super::Tref {}
 	impl Content for super::TSpan {}
 }
@@ -23696,7 +24990,10 @@ mod text_path_private {
 	"- [`<altGlyph>`](AltGlyph)\n",
 	"- [`<animate>`](Animate)\n",
 	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
 	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n",
 	"- [`<tref>`](Tref)\n",
 	"- [`<tspan>`](TSpan)\n"
 )]
@@ -24216,7 +25513,10 @@ mod tref_private {
 	pub trait Content: Tag + Debug {}
 	impl Content for super::Animate {}
 	impl Content for super::AnimateColor {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
+	impl Content for super::Title {}
 }
 
 #[doc = "The [`<tref>`] svg tag.\n\n# Content\n"]
@@ -24225,7 +25525,10 @@ mod tref_private {
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
 	"- [`<animate>`](Animate)\n",
 	"- [`<animateColor>`](AnimateColor)\n",
-	"- [`<set>`](Set)\n"
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<tref>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/tref"]
 #[derive(Debug)]
@@ -24539,7 +25842,10 @@ mod tspan_private {
 	impl Content for super::AltGlyph {}
 	impl Content for super::Animate {}
 	impl Content for super::AnimateColor {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
 	impl Content for super::Set {}
+	impl Content for super::Title {}
 	impl Content for super::Tref {}
 	impl Content for super::TSpan {}
 	impl Content for String {}
@@ -24554,7 +25860,10 @@ mod tspan_private {
 	"- [`<altGlyph>`](AltGlyph)\n",
 	"- [`<animate>`](Animate)\n",
 	"- [`<animateColor>`](AnimateColor)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
 	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n",
 	"- [`<tref>`](Tref)\n",
 	"- [`<tspan>`](TSpan)\n"
 )]
@@ -24985,15 +26294,41 @@ impl Debug for UseAttrs {
 	}
 }
 
+mod use_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Animate {}
+	impl Content for super::AnimateMotion {}
+	impl Content for super::AnimateTransform {}
+	impl Content for super::Desc {}
+	impl Content for super::Discard {}
+	impl Content for super::Metadata {}
+	impl Content for super::Mpath {}
+	impl Content for super::Set {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<use>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("use.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<animate>`](Animate)\n",
+	"- [`<animateMotion>`](AnimateMotion)\n",
+	"- [`<animateTransform>`](AnimateTransform)\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<discard>`](Discard)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<mpath>`](Mpath)\n",
+	"- [`<set>`](Set)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<use>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/use"]
 #[derive(Debug)]
 pub struct Use {
 	attrs: IndexMap<UseAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn use_private::Content>>,
 }
 
 impl Default for Use {
@@ -25007,7 +26342,23 @@ impl Use {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: use_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: use_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: UseAttrs, value: V)
@@ -25303,6 +26654,9 @@ impl Tag for Use {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
+		}
 		w.end_element();
 	}
 }
@@ -25349,15 +26703,29 @@ impl Debug for ViewAttrs {
 	}
 }
 
+mod view_private {
+	use crate::tag::Tag;
+	use std::fmt::Debug;
+
+	pub trait Content: Tag + Debug {}
+	impl Content for super::Desc {}
+	impl Content for super::Metadata {}
+	impl Content for super::Title {}
+}
+
 #[doc = "The [`<view>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("view.md")]
 #[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
+	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n",
+	"- [`<desc>`](Desc)\n",
+	"- [`<metadata>`](Metadata)\n",
+	"- [`<title>`](Title)\n"
 )]
 #[doc = "\n\n [`<view>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/view"]
 #[derive(Debug)]
 pub struct View {
 	attrs: IndexMap<ViewAttrs, Box<dyn Value>>,
+	content: Vec<Box<dyn view_private::Content>>,
 }
 
 impl Default for View {
@@ -25371,7 +26739,23 @@ impl View {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: Vec::new(),
 		}
+	}
+
+	pub fn push<T>(&mut self, content: T)
+	where
+		T: view_private::Content + 'static
+	{
+		self.content.push(Box::new(content));
+	}
+
+	pub fn append<T>(mut self, content: T) -> Self
+	where
+		T: view_private::Content + 'static
+	{
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: ViewAttrs, value: V)
@@ -25518,6 +26902,9 @@ impl Tag for View {
 		for (attr, value) in &self.attrs {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
+		}
+		for tag in &self.content {
+			tag.write_to(w, pretty);
 		}
 		w.end_element();
 	}
