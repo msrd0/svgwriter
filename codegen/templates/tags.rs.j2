@@ -3,7 +3,7 @@
 
 use crate::{tag::Tag, value::Value};
 use indexmap::IndexMap;
-use std::fmt::{self, Debug, Display, Formatter};
+use std::fmt::{self, Debug, Display, Formatter, Write as _};
 use xmlwriter::XmlWriter;
 
 mod common_attrs;
@@ -43,12 +43,14 @@ mod {{name|snake_case}}_private {
 
 #[doc = "The [`<{{name}}>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("{{name}}.md")]
+{%- if !elem.content.is_cdata() %}
 #[doc = concat!(
 	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
 	{%- for content in elem.content.elements %},
 	"- [`<{{content}}>`]({{content|camel_case}})\n"
 	{%- endfor %}
 )]
+{%- endif %}
 #[doc = "\n\n [`<{{name}}>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/{{name}}"]
 #[derive(Debug)]
 pub struct {{name|camel_case}} {
@@ -57,6 +59,8 @@ pub struct {{name|camel_case}} {
 	{%- endif %}
 	{%- if !elem.content.elements.is_empty() %}
 	content: Vec<Box<dyn {{name|snake_case}}_private::Content>>,
+	{%- else if elem.content.is_cdata() %}
+	content: String,
 	{%- endif %}
 }
 
@@ -75,6 +79,8 @@ impl {{name|camel_case}} {
 			{%- endif %}
 			{%- if !elem.content.elements.is_empty() %}
 			content: Vec::new(),
+			{%- else if elem.content.is_cdata() %}
+			content: String::new()
 			{%- endif %}
 		}
 	}
@@ -96,7 +102,19 @@ impl {{name|camel_case}} {
 		self
 	}
 
+	{%- else if elem.content.is_cdata() %}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
+	}
+
 	{%- endif %}
+
 	{%- if !elem.attributes.is_empty() || !elem.attribute_categories.is_empty() %}
 
 	{% if name == "svg" %}pub(crate) {% endif -%}
@@ -154,6 +172,8 @@ impl Tag for {{name|camel_case}} {
 		for tag in &self.content {
 			tag.write_to(w, pretty);
 		}
+		{% else if elem.content.is_cdata() -%}
+		w.write_cdata_text(&self.content);
 		{% endif -%}
 
 		w.end_element();

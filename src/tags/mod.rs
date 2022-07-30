@@ -2,7 +2,7 @@
 
 use crate::{tag::Tag, value::Value};
 use indexmap::IndexMap;
-use std::fmt::{self, Debug, Display, Formatter};
+use std::fmt::{self, Debug, Display, Formatter, Write as _};
 use xmlwriter::XmlWriter;
 
 mod common_attrs;
@@ -620,13 +620,11 @@ impl Debug for AltGlyphAttrs {
 
 #[doc = "The [`<altGlyph>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("altGlyph.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<altGlyph>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/altGlyph"]
 #[derive(Debug)]
 pub struct AltGlyph {
 	attrs: IndexMap<AltGlyphAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for AltGlyph {
@@ -640,7 +638,17 @@ impl AltGlyph {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: AltGlyphAttrs, value: V)
@@ -995,6 +1003,7 @@ impl Tag for AltGlyph {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -4532,13 +4541,11 @@ impl Debug for DescAttrs {
 
 #[doc = "The [`<desc>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("desc.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<desc>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/desc"]
 #[derive(Debug)]
 pub struct Desc {
 	attrs: IndexMap<DescAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for Desc {
@@ -4552,7 +4559,17 @@ impl Desc {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: DescAttrs, value: V)
@@ -4634,6 +4651,7 @@ impl Tag for Desc {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -14243,13 +14261,11 @@ impl Debug for ForeignObjectAttrs {
 
 #[doc = "The [`<foreignObject>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("foreignObject.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<foreignObject>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/foreignObject"]
 #[derive(Debug)]
 pub struct ForeignObject {
 	attrs: IndexMap<ForeignObjectAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for ForeignObject {
@@ -14263,7 +14279,17 @@ impl ForeignObject {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: ForeignObjectAttrs, value: V)
@@ -14537,6 +14563,7 @@ impl Tag for ForeignObject {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -19095,13 +19122,11 @@ impl Debug for MetadataAttrs {
 
 #[doc = "The [`<metadata>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("metadata.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<metadata>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/metadata"]
 #[derive(Debug)]
 pub struct Metadata {
 	attrs: IndexMap<MetadataAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for Metadata {
@@ -19115,7 +19140,17 @@ impl Metadata {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: MetadataAttrs, value: V)
@@ -19149,6 +19184,7 @@ impl TagWithCoreAttributes for Metadata {}
 impl Tag for Metadata {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("metadata");
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -22418,13 +22454,11 @@ impl Debug for ScriptAttrs {
 
 #[doc = "The [`<script>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("script.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<script>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/script"]
 #[derive(Debug)]
 pub struct Script {
 	attrs: IndexMap<ScriptAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for Script {
@@ -22438,7 +22472,17 @@ impl Script {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: ScriptAttrs, value: V)
@@ -22557,6 +22601,7 @@ impl Tag for Script {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -23165,13 +23210,11 @@ impl Debug for StyleAttrs {
 
 #[doc = "The [`<style>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("style.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<style>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style"]
 #[derive(Debug)]
 pub struct Style {
 	attrs: IndexMap<StyleAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for Style {
@@ -23185,7 +23228,17 @@ impl Style {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: StyleAttrs, value: V)
@@ -23289,6 +23342,7 @@ impl Tag for Style {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }
@@ -25719,13 +25773,11 @@ impl Debug for TitleAttrs {
 
 #[doc = "The [`<title>`] svg tag.\n\n# Content\n"]
 #[doc = include_str!("title.md")]
-#[doc = concat!(
-	"\n## Elements\n\nThese elements are allowed to appear within this tag:\n"
-)]
 #[doc = "\n\n [`<title>`]: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title"]
 #[derive(Debug)]
 pub struct Title {
 	attrs: IndexMap<TitleAttrs, Box<dyn Value>>,
+	content: String,
 }
 
 impl Default for Title {
@@ -25739,7 +25791,17 @@ impl Title {
 	pub fn new() -> Self {
 		Self {
 			attrs: IndexMap::new(),
+			content: String::new()
 		}
+	}
+
+	pub fn push<T: Display>(&mut self, content: T) {
+		write!(self.content, "{content}").unwrap();
+	}
+
+	pub fn append<T: Display>(mut self, content: T) -> Self {
+		self.push(content);
+		self
 	}
 
 	fn set_attr<V>(&mut self, attr: TitleAttrs, value: V)
@@ -25821,6 +25883,7 @@ impl Tag for Title {
 			let value = value.to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
+		w.write_cdata_text(&self.content);
 		w.end_element();
 	}
 }

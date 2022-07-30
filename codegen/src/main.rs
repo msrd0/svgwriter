@@ -233,6 +233,12 @@ struct Content {
 	elements: BTreeSet<String>
 }
 
+impl Content {
+	fn is_cdata(&self) -> bool {
+		self.description == "anyElementsOrCharacterData" && self.elements.is_empty()
+	}
+}
+
 #[derive(Deserialize)]
 #[serde(untagged)]
 enum Description {
@@ -245,6 +251,15 @@ impl Description {
 		match self {
 			Self::String(descr) => descr,
 			Self::Langs(langs) => &langs["en-US"]
+		}
+	}
+}
+
+impl PartialEq<&str> for Description {
+	fn eq(&self, other: &&str) -> bool {
+		match self {
+			Self::String(s) => s == other,
+			_ => false
 		}
 	}
 }
