@@ -3,8 +3,8 @@ max_width = 90
 newline_style = "Unix"
 unstable_features = true
 
-# skip generated files
-ignore = ["src/tags/*.rs"]
+# skip generated files and submodules
+ignore = ["src/tags/*.rs", "src/xmlwriter/src/*.rs"]
 
 # always use tabs.
 hard_tabs = true

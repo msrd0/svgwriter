@@ -1,0 +1,3 @@
+[submodule "src/xmlwriter"]
+	path = src/xmlwriter
+	url = https://github.com/msrd0/xmlwriter

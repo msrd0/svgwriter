@@ -1,6 +1,9 @@
-use crate::{tag::Tag as _, tags::Svg};
+use crate::{
+	tag::Tag as _,
+	tags::Svg,
+	xmlwriter::{Indent, Options as XmlOptions, XmlWriter}
+};
 use std::ops::{Deref, DerefMut};
-use xmlwriter::{Indent, Options as XmlOptions, XmlWriter};
 
 /// An SVG graphic.
 pub struct Graphic(Svg);

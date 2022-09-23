@@ -11,4 +11,3 @@ edition = "2021"
 
 [dependencies]
 indexmap = "1.9"
-xmlwriter = { git = "https://github.com/msrd0/xmlwriter", branch = "write-cdata-text" }

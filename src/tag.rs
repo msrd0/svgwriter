@@ -1,5 +1,5 @@
+use crate::xmlwriter::XmlWriter;
 use std::borrow::Cow;
-use xmlwriter::XmlWriter;
 
 pub trait Tag {
 	fn write_to(&self, w: &mut XmlWriter, pretty: bool);

@@ -1,5 +1,14 @@
+#![allow(
+	clippy::tabs_in_doc_comments,
+	invalid_doc_attributes,
+	unused_attributes
+)]
 #![warn(rust_2018_idioms)]
-#![forbid(elided_lifetimes_in_paths, unsafe_code)]
+#![forbid(unsafe_code)]
+
+// TODO use xmlwriter crate if it ever creates a new release
+#[path = "xmlwriter/src/lib.rs"]
+mod xmlwriter;
 
 mod graphic;
 mod tag;

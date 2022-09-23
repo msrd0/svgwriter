@@ -1,9 +1,8 @@
 // @generated
 
-use crate::{tag::Tag, value::Value};
+use crate::{tag::Tag, value::Value, xmlwriter::XmlWriter};
 use indexmap::IndexMap;
 use std::fmt::{self, Debug, Display, Formatter, Write as _};
-use xmlwriter::XmlWriter;
 
 mod common_attrs;
 pub use common_attrs::prelude::*;
