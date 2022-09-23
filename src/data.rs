@@ -142,8 +142,8 @@ commands! {
 	smooth_quad_to(x: Number, y: Number) = 'T';
 	smooth_quad_by(dx: Number, dy: Number) = 't';
 
-	arc_to(rx: Number, ry: Number, angle: bool, large: bool, sweep: bool, x: Number, y: Number) = 'A';
-	arc_by(rx: Number, ry: Number, angle: bool, large: bool, sweep: bool, dx: Number, dy: Number) = 'a';
+	arc_to(rx: Number, ry: Number, angle: Number, large: bool, sweep: bool, x: Number, y: Number) = 'A';
+	arc_by(rx: Number, ry: Number, angle: Number, large: bool, sweep: bool, dx: Number, dy: Number) = 'a';
 
 	close() = 'z';
 }
