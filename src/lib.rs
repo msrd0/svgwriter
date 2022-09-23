@@ -10,10 +10,12 @@
 #[path = "xmlwriter/src/lib.rs"]
 mod xmlwriter;
 
+mod data;
 mod graphic;
 mod tag;
 pub mod tags;
 mod value;
 
+pub use data::Data;
 pub use graphic::Graphic;
 pub use value::Value;
