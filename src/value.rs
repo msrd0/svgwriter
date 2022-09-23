@@ -10,19 +10,19 @@ use std::{
 /// This trait implements an SVG attribute value.
 pub trait Value: Debug {
 	/// Convert this value to a string.
-	fn to_string(&self, pretty: bool) -> String;
+	fn value_to_string(&self, pretty: bool) -> String;
 }
 
 impl<V: Value + ?Sized> Value for &V {
-	fn to_string(&self, pretty: bool) -> String {
-		V::to_string(self, pretty)
+	fn value_to_string(&self, pretty: bool) -> String {
+		V::value_to_string(self, pretty)
 	}
 }
 
 macro_rules! impl_str_to_owned {
 	($($ty:ty),*) => {
 		$(impl Value for $ty {
-			fn to_string(&self, _pretty: bool) -> String {
+			fn value_to_string(&self, _pretty: bool) -> String {
 				let s: &str = self.as_ref();
 				s.to_owned()
 			}
@@ -35,7 +35,7 @@ impl_str_to_owned!(String, str, Cow<'_, str>);
 macro_rules! impl_display {
 	($($ty:ty),*) => {
 		$(impl Value for $ty {
-			fn to_string(&self, _pretty: bool) -> String {
+			fn value_to_string(&self, _pretty: bool) -> String {
 				format!("{self}")
 			}
 		})*
@@ -52,7 +52,7 @@ impl_display! {
 macro_rules! impl_float {
 	($($ty:ty),*) => {
 		$(impl Value for $ty {
-			fn to_string(&self, _pretty: bool) -> String {
+			fn value_to_string(&self, _pretty: bool) -> String {
 				let mut d = self % 1e-6;
 				if d >= 5e-7 {
 					d -= 1e-6;

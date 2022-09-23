@@ -513,7 +513,7 @@ impl Tag for A {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("a");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -999,7 +999,7 @@ impl Tag for AltGlyph {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("altGlyph");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -1639,7 +1639,7 @@ impl Tag for Animate {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animate");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -2025,7 +2025,7 @@ impl Tag for AnimateColor {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateColor");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -2438,7 +2438,7 @@ impl Tag for AnimateMotion {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateMotion");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -2848,7 +2848,7 @@ impl Tag for AnimateTransform {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("animateTransform");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -3249,7 +3249,7 @@ impl Tag for Circle {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("circle");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -3576,7 +3576,7 @@ impl Tag for ClipPath {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("clipPath");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -3824,7 +3824,7 @@ impl Tag for ColorProfile {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("color-profile");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4095,7 +4095,7 @@ impl Tag for Cursor {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("cursor");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4492,7 +4492,7 @@ impl Tag for Defs {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("defs");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -4647,7 +4647,7 @@ impl Tag for Desc {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("desc");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -4847,7 +4847,7 @@ impl Tag for Discard {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("discard");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5272,7 +5272,7 @@ impl Tag for Ellipse {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("ellipse");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5565,7 +5565,7 @@ impl Tag for FeBlend {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feBlend");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -5858,7 +5858,7 @@ impl Tag for FeColorMatrix {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feColorMatrix");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -6107,7 +6107,7 @@ impl Tag for FeComponentTransfer {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feComponentTransfer");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -6496,7 +6496,7 @@ impl Tag for FeComposite {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feComposite");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -6957,7 +6957,7 @@ impl Tag for FeConvolveMatrix {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feConvolveMatrix");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -7246,7 +7246,7 @@ impl Tag for FeDiffuseLighting {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDiffuseLighting");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -7584,7 +7584,7 @@ impl Tag for FeDisplacementMap {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDisplacementMap");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -7759,7 +7759,7 @@ impl Tag for FeDistantLight {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDistantLight");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8078,7 +8078,7 @@ impl Tag for FeDropShadow {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feDropShadow");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -8349,7 +8349,7 @@ impl Tag for FeFlood {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feFlood");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9202,7 +9202,7 @@ impl Tag for FeGaussianBlur {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feGaussianBlur");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9520,7 +9520,7 @@ impl Tag for FeImage {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feImage");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9739,7 +9739,7 @@ impl Tag for FeMerge {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMerge");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -9890,7 +9890,7 @@ impl Tag for FeMergeNode {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMergeNode");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10183,7 +10183,7 @@ impl Tag for FeMorphology {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feMorphology");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10476,7 +10476,7 @@ impl Tag for FeOffset {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feOffset");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10675,7 +10675,7 @@ impl Tag for FePointLight {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("fePointLight");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -10988,7 +10988,7 @@ impl Tag for FeSpecularLighting {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feSpecularLighting");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -11304,7 +11304,7 @@ impl Tag for FeSpotLight {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feSpotLight");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -11549,7 +11549,7 @@ impl Tag for FeTile {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feTile");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -11890,7 +11890,7 @@ impl Tag for FeTurbulence {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("feTurbulence");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -12367,7 +12367,7 @@ impl Tag for Filter {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("filter");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -12745,7 +12745,7 @@ impl Tag for Font {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -13636,7 +13636,7 @@ impl Tag for FontFace {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -13756,7 +13756,7 @@ impl Tag for FontFaceFormat {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-format");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -13876,7 +13876,7 @@ impl Tag for FontFaceName {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-name");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -14168,7 +14168,7 @@ impl Tag for FontFaceUri {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("font-face-uri");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -14559,7 +14559,7 @@ impl Tag for ForeignObject {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("foreignObject");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -14954,7 +14954,7 @@ impl Tag for Group {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("g");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -15474,7 +15474,7 @@ impl Tag for Glyph {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("glyph");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -15835,7 +15835,7 @@ impl Tag for GlyphRef {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("glyphRef");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -16240,7 +16240,7 @@ impl Tag for Hatch {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hatch");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -16502,7 +16502,7 @@ impl Tag for Hatchpath {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hatchpath");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -16721,7 +16721,7 @@ impl Tag for Hkern {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("hkern");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();
@@ -17214,7 +17214,7 @@ impl Tag for Image {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("image");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -17639,7 +17639,7 @@ impl Tag for Line {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("line");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -18086,7 +18086,7 @@ impl Tag for LinearGradient {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("linearGradient");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -18606,7 +18606,7 @@ impl Tag for Marker {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("marker");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -19077,7 +19077,7 @@ impl Tag for Mask {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("mask");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -19578,7 +19578,7 @@ impl Tag for MissingGlyph {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("missing-glyph");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -19778,7 +19778,7 @@ impl Tag for Mpath {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("mpath");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -20155,7 +20155,7 @@ impl Tag for Path {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("path");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -20745,7 +20745,7 @@ impl Tag for Pattern {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("pattern");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -21098,7 +21098,7 @@ impl Tag for Polygon {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("polygon");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -21451,7 +21451,7 @@ impl Tag for Polyline {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("polyline");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -21922,7 +21922,7 @@ impl Tag for RadialGradient {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("radialGradient");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -22395,7 +22395,7 @@ impl Tag for Rect {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("rect");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -22597,7 +22597,7 @@ impl Tag for Script {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("script");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -22887,7 +22887,7 @@ impl Tag for Set {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("set");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -23159,7 +23159,7 @@ impl Tag for Stop {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("stop");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -23338,7 +23338,7 @@ impl Tag for Style {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("style");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -23980,7 +23980,7 @@ impl Tag for Svg {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("svg");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -24365,7 +24365,7 @@ impl Tag for Switch {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("switch");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -24763,7 +24763,7 @@ impl Tag for Symbol {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("symbol");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -25297,7 +25297,7 @@ impl Tag for Text {
 		w.start_element("text");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -25724,7 +25724,7 @@ impl Tag for TextPath {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("textPath");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -25879,7 +25879,7 @@ impl Tag for Title {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("title");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.write_cdata_text(&self.content);
@@ -26223,7 +26223,7 @@ impl Tag for Tref {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("tref");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -26701,7 +26701,7 @@ impl Tag for TSpan {
 		w.start_element("tspan");
 		w.set_preserve_whitespaces(true);
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -27173,7 +27173,7 @@ impl Tag for Use {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("use");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -27422,7 +27422,7 @@ impl Tag for View {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("view");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		for tag in &self.content {
@@ -27641,7 +27641,7 @@ impl Tag for Vkern {
 	fn write_to(&self, w: &mut XmlWriter, #[allow(unused_variables)] pretty: bool) {
 		w.start_element("vkern");
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		w.end_element();

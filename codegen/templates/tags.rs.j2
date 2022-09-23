@@ -162,7 +162,7 @@ impl Tag for {{name|camel_case}} {
 		
 		{% if !elem.attributes.is_empty() -%}
 		for (attr, value) in &self.attrs {
-			let value = value.to_string(pretty);
+			let value = value.value_to_string(pretty);
 			w.write_attribute(attr.as_str(), &value);
 		}
 		{% endif -%}
