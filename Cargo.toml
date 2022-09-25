@@ -5,8 +5,14 @@ members = [".", "codegen"]
 
 [package]
 name = "svgwriter"
-version = "0.0.0"
-publish = false
+version = "0.1.0"
+license-file = "LICENSE.md"
+include = ["/LICENSE.md", "/README.md", "src/*.rs", "src/tags/*.rs", "src/tags/*.md", "src/xmlwriter/LICENSE", "src/xmlwriter/src/lib.rs"]
+
+description = "Typed SVG Writer"
+repository = "https://github.com/msrd0/svgwriter"
+keywords = ["svg"]
+
 edition = "2021"
 
 [dependencies]

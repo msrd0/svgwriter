@@ -6,6 +6,8 @@
 #![warn(rust_2018_idioms)]
 #![forbid(unsafe_code)]
 
+//! Typed SVG Writer.
+
 // TODO use xmlwriter crate if it ever creates a new release
 #[path = "xmlwriter/src/lib.rs"]
 mod xmlwriter;

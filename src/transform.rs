@@ -73,7 +73,7 @@ pub(crate) struct DisplayTransform<'a>(&'a [TransformFunction], bool);
 
 impl Display for DisplayTransform<'_> {
 	fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-		for (i, tf) in self.0.into_iter().enumerate() {
+		for (i, tf) in self.0.iter().enumerate() {
 			if self.1 && i > 0 {
 				write!(f, " ")?;
 			}
