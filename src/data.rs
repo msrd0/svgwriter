@@ -2,7 +2,11 @@ use crate::Value;
 use paste::paste;
 use std::{
 	borrow::Cow,
-	fmt::{self, Display, Formatter}
+	fmt::{self, Display, Formatter},
+	num::{
+		NonZeroI16, NonZeroI32, NonZeroI64, NonZeroI8, NonZeroU16, NonZeroU32,
+		NonZeroU64, NonZeroU8
+	}
 };
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -23,10 +27,11 @@ impl Number {
 }
 
 macro_rules! number_from {
-	($($ty:ty),+ => $variant:ident) => {
+	($($ty:ident$(($into:ty))?),+ => $variant:ident) => {
 		$(
 			impl From<$ty> for Number {
 				fn from(this: $ty) -> Self {
+					$(let this: $into = this.into();)?
 					Self::$variant(this.into())
 				}
 			}
@@ -35,7 +40,9 @@ macro_rules! number_from {
 }
 
 number_from!(i8, i16, i32, i64 => Int);
+number_from!(NonZeroI8(i8), NonZeroI16(i16), NonZeroI32(i32), NonZeroI64 => Int);
 number_from!(u8, u16, u32, u64 => UInt);
+number_from!(NonZeroU8(u8), NonZeroU16(u16), NonZeroU32(u32), NonZeroU64 => UInt);
 number_from!(f32, f64 => Float);
 
 impl Value for Number {
