@@ -16,8 +16,8 @@ macro_rules! transform {
 			impl Transform {
 				$(
 					pub fn [<$ident:lower>]<$([<$arg:upper>]),+>(
-						&mut self, $($arg: [<$arg:upper>]),+
-					) -> &mut Self
+						mut self, $($arg: [<$arg:upper>]),+
+					) -> Self
 					where
 						$([<$arg:upper>]: Into<Number>),+
 					{
