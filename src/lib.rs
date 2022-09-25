@@ -14,8 +14,10 @@ mod data;
 mod graphic;
 mod tag;
 pub mod tags;
+mod transform;
 mod value;
 
 pub use data::Data;
 pub use graphic::Graphic;
+pub use transform::Transform;
 pub use value::Value;
