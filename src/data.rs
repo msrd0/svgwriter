@@ -98,7 +98,7 @@ macro_rules! commands {
 							write!(f, "{}", $command)?;
 							let mut first = true;
 							$(
-								if first {
+								if !first {
 									write!(f, ",")?;
 								}
 								write!(f, "{}", Payload::format($arg, &mut buf))?;
